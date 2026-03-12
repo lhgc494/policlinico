@@ -1,0 +1,146 @@
+[
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 1,
+    "fields": {
+        "nombre": "Extracciones de uñas",
+        "precio": "35.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 2,
+    "fields": {
+        "nombre": "Lavado de oído",
+        "precio": "30.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 3,
+    "fields": {
+        "nombre": "Cambio de sonda",
+        "precio": "30.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 4,
+    "fields": {
+        "nombre": "Suturas",
+        "precio": "0.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 5,
+    "fields": {
+        "nombre": "Curaciones",
+        "precio": "10.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 6,
+    "fields": {
+        "nombre": "Nebulizaciones",
+        "precio": "25.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 7,
+    "fields": {
+        "nombre": "Sueros vitaminados",
+        "precio": "0.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 8,
+    "fields": {
+        "nombre": "Colocación de inyectables IM",
+        "precio": "0.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 9,
+    "fields": {
+        "nombre": "Colocación de inyectables Subcutáneo",
+        "precio": "0.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 10,
+    "fields": {
+        "nombre": "Colocación de inyectables Endovenoso",
+        "precio": "0.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 11,
+    "fields": {
+        "nombre": "Colocación de vías",
+        "precio": "30.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 12,
+    "fields": {
+        "nombre": "Toma de presión arterial y saturación",
+        "precio": "2.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 13,
+    "fields": {
+        "nombre": "Retiro de implante",
+        "precio": "80.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 14,
+    "fields": {
+        "nombre": "Retiro de sonda",
+        "precio": "30.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 15,
+    "fields": {
+        "nombre": "Lavado de ojo",
+        "precio": "30.00",
+        "activo": true
+    }
+},
+{
+    "model": "consultas.topicocatalogo",
+    "pk": 16,
+    "fields": {
+        "nombre": "Lavado nasal",
+        "precio": "30.00",
+        "activo": true
+    }
+}
+]

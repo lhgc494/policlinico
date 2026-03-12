@@ -1,0 +1,168 @@
+{% load static %}
+
+<!-- Audio para notificaciones -->
+<audio id="notificacion-sonido" preload="auto" style="display: none;">
+    <source src="{% static 'sounds/sonido.mp3' %}" type="audio/mpeg">
+</audio>
+
+<script>
+// ========================================
+// VARIABLES GLOBALES (CON PERSISTENCIA)
+// ========================================
+window.ultimaCantidad = parseInt(sessionStorage.getItem('ultimaCantidad')) || 0;
+window.sonidoHabilitado = window.sonidoHabilitado || false;
+window.audioPermitido = window.audioPermitido || false;
+
+console.log(`🔔 Sistema iniciado - Última cantidad: ${window.ultimaCantidad}`);
+
+// ========================================
+// HABILITAR SONIDO (SOLO UNA VEZ, CON UN CLIC ESPECÍFICO)
+// ========================================
+function habilitarSonido() {
+    if (!window.audioPermitido) {
+        const audio = document.getElementById('notificacion-sonido');
+        if (audio) {
+            audio.play()
+                .then(() => {
+                    window.audioPermitido = true;
+                    window.sonidoHabilitado = true;
+                    console.log('✅ Sonido habilitado permanentemente');
+                    localStorage.setItem('audioPermitido', 'true');
+                })
+                .catch(e => console.log('Error:', e));
+        }
+    }
+}
+
+// Verificar si ya había sido habilitado antes
+if (localStorage.getItem('audioPermitido') === 'true') {
+    window.audioPermitido = true;
+    window.sonidoHabilitado = true;
+    console.log('🔊 Sonido ya estaba habilitado');
+}
+
+// ========================================
+// REPRODUCIR SONIDO
+// ========================================
+function reproducirSonido() {
+    const audio = document.getElementById('notificacion-sonido');
+    if (audio && window.audioPermitido) {
+        audio.play()
+            .then(() => console.log('✅ Sonido reproducido'))
+            .catch(e => console.log('Error reproduciendo sonido:', e));
+    }
+}
+
+// ========================================
+// MOSTRAR NOTIFICACIONES
+// ========================================
+function mostrarNotificacion(notificacion) {
+    if (typeof bootstrap !== 'undefined') {
+        let toastContainer = document.getElementById('toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'toast-container';
+            toastContainer.style.position = 'fixed';
+            toastContainer.style.top = '20px';
+            toastContainer.style.right = '20px';
+            toastContainer.style.zIndex = '9999';
+            document.body.appendChild(toastContainer);
+        }
+        
+        const toastHtml = `
+            <div class="toast align-items-center text-white bg-primary border-0 mb-2" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <strong>${notificacion.titulo}</strong><br>
+                        ${notificacion.mensaje}
+                        <small class="d-block">${notificacion.fecha}</small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        `;
+        
+        toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+        const toastEl = toastContainer.querySelector('.toast:last-child');
+        const toast = new bootstrap.Toast(toastEl, { delay: 5000 });
+        toast.show();
+    }
+}
+
+// ========================================
+// ACTUALIZAR BADGE
+// ========================================
+function actualizarBadge(cantidad) {
+    let badge = document.getElementById('notificacion-badge');
+    
+    if (!badge) {
+        const navbar = document.querySelector('.navbar-nav');
+        if (navbar) {
+            const badgeHtml = `
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="#" onclick="habilitarSonido(); return false;">
+                        <i class="bi bi-bell"></i>
+                        <span id="notificacion-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="display: none;">
+                            0
+                        </span>
+                    </a>
+                </li>
+            `;
+            navbar.insertAdjacentHTML('beforeend', badgeHtml);
+            badge = document.getElementById('notificacion-badge');
+        }
+    }
+    
+    if (badge) {
+        if (cantidad > 0) {
+            badge.textContent = cantidad > 9 ? '9+' : cantidad;
+            badge.style.display = 'inline';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+}
+
+// ========================================
+// VERIFICAR NOTIFICACIONES
+// ========================================
+function verificarNotificaciones() {
+    fetch('/notificaciones/api/recientes/')
+        .then(response => response.json())
+        .then(data => {
+            console.log('📬 Notificaciones:', data);
+            
+            // Solo suena si la cantidad AUMENTÓ
+            if (data.cantidad > window.ultimaCantidad && data.cantidad > 0) {
+                console.log(`🔊 NUEVA NOTIFICACIÓN! ${window.ultimaCantidad} → ${data.cantidad}`);
+                if (window.sonidoHabilitado) {
+                    reproducirSonido();
+                }
+                if (data.notificaciones.length > 0) {
+                    mostrarNotificacion(data.notificaciones[0]);
+                }
+            }
+            
+            // Guardar nuevo valor
+            window.ultimaCantidad = data.cantidad;
+            sessionStorage.setItem('ultimaCantidad', data.cantidad);
+            actualizarBadge(data.cantidad);
+            
+            document.dispatchEvent(new CustomEvent('notificaciones-actualizadas', { 
+                detail: { cantidad: data.cantidad } 
+            }));
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// ========================================
+// INICIALIZACIÓN
+// ========================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔔 Sistema de notificaciones iniciado');
+    
+    // Verificar notificaciones cada 15 segundos
+    verificarNotificaciones();
+    setInterval(verificarNotificaciones, 15000);
+});
+</script>

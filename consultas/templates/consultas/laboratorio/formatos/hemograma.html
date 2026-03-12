@@ -1,0 +1,289 @@
+{% extends 'consultas/laboratorio/formatos/base_formato.html' %}
+
+{% block title %}Hemograma - {{ orden.examen_especifico }}{% endblock %}
+
+{% if modo_impresion %}
+    <!-- ===== VERSIÓN ULTRA COMPACTA PARA IMPRESIÓN ===== -->
+    <div style="font-family: Arial, sans-serif; font-size: 10pt; line-height: 1.2;">
+        
+        <!-- ENCABEZADO: 1 SOLA LÍNEA -->
+        <div style="display: flex; justify-content: space-between; background-color: #003366; color: white; padding: 4px 8px; margin-bottom: 6px;">
+            <span style="font-weight: bold;">HEMOGRAMA #{{ orden.id }}</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <!-- DATOS PACIENTE: 1 SOLA LÍNEA -->
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; background-color: #f0f0f0; padding: 4px 8px; margin-bottom: 8px; font-size: 9pt;">
+            <span><strong>Pac:</strong> {{ orden.get_paciente_nombre|truncatechars:30 }}</span>
+            <span><strong>DNI:</strong> {{ orden.get_paciente_dni }}</span>
+            <span><strong>Téc:</strong> {{ orden.tecnico_asignado.get_short_name|default:orden.tecnico_asignado.username }}</span>
+        </div>
+        
+        <!-- TABLA DE RESULTADOS: COMPACTA -->
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 6px;">
+            <thead>
+                <tr style="background-color: #006633; color: white;">
+                    <th style="padding: 3px 5px; text-align: left;">Parámetro</th>
+                    <th style="padding: 3px 5px; text-align: left;">Valor</th>
+                    <th style="padding: 3px 5px; text-align: left;">Ref</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Hemoglobina</td><td>{{ resultados.hemoglobina|default:"-" }} g/dL</td><td>H:13.5-17.5/M:12-15.5</td></tr>
+                <tr><td>Hematocrito</td><td>{{ resultados.hematocrito|default:"-" }} %</td><td>H:40-50/M:36-46</td></tr>
+                <tr><td>Glóbulos Rojos</td><td>{{ resultados.globulos_rojos|default:"-" }} 10⁶/µL</td><td>4.2-5.9</td></tr>
+                <tr><td>Leucocitos</td><td>{{ resultados.leucocitos|default:"-" }} /mm³</td><td>4,000-11,000</td></tr>
+                <tr><td>Neutrófilos</td><td>{{ resultados.neutrofilos|default:"-" }} %</td><td>40-70%</td></tr>
+                <tr><td>Linfocitos</td><td>{{ resultados.linfocitos|default:"-" }} %</td><td>20-40%</td></tr>
+                <tr><td>Monocitos</td><td>{{ resultados.monocitos|default:"-" }} %</td><td>2-8%</td></tr>
+                <tr><td>Eosinófilos</td><td>{{ resultados.eosinofilos|default:"-" }} %</td><td>1-4%</td></tr>
+                <tr><td>Basófilos</td><td>{{ resultados.basofilos|default:"-" }} %</td><td>0-1%</td></tr>
+                <tr><td>Plaquetas</td><td>{{ resultados.plaquetas|default:"-" }} /mm³</td><td>150-450 x10³</td></tr>
+                <tr><td>VCM</td><td>{{ resultados.vcm|default:"-" }} fL</td><td>80-100</td></tr>
+                <tr><td>HCM</td><td>{{ resultados.hcm|default:"-" }} pg</td><td>27-34</td></tr>
+                <tr><td>CHCM</td><td>{{ resultados.chcm|default:"-" }} g/dL</td><td>32-36</td></tr>
+                <tr><td>RDW</td><td>{{ resultados.rdw|default:"-" }} %</td><td>11.5-14.5</td></tr>
+                <tr><td>VSG</td><td>{{ resultados.vsg|default:"-" }} mm/h</td><td>H:&lt;15/M:&lt;20</td></tr>
+            </tbody>
+        </table>
+        
+        <!-- OBSERVACIONES (solo si existe) -->
+        {% if resultados.observaciones %}
+        <div style="margin: 4px 0; padding: 3px; background-color: #fff3cd; font-size: 8pt;">
+            <strong>Obs:</strong> {{ resultados.observaciones }}
+        </div>
+        {% endif %}
+        
+        <!-- PIE DE PÁGINA (1 línea) -->
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 7pt; color: #666; border-top: 1px solid #ccc; padding-top: 3px;">
+            <span>Sistema Policlínico</span>
+            <span>Procesado: {{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <!-- BOTONES (solo pantalla) -->
+        <div class="no-print" style="text-align: center; margin-top: 10px;">
+            <button onclick="window.print()" style="padding: 5px 15px;">🖨️ Imprimir</button>
+            <button onclick="window.close()" style="padding: 5px 15px;">✖️ Cerrar</button>
+        </div>
+    </div>
+    
+    <style>
+        @media print {
+            .no-print { display: none; }
+            body { margin: 0.5cm; font-size: 10pt; }
+            table { page-break-inside: avoid; }
+        }
+    </style>
+{% else %}
+    <!-- ... código de edición normal ... -->
+<!-- ===== VISTA DE EDICIÓN (CON INPUTS) ===== -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-tint me-2"></i>HEMOGRAMA COMPLETO</h5>
+            <small class="text-white-50">Todos los campos son opcionales - Complete según lo solicitado</small>
+        </div>
+        <div class="card-body">
+            
+            <!-- SERIE ROJA -->
+            <div class="card mb-3 border-danger">
+                <div class="card-header bg-light text-danger py-2">
+                    <h6 class="mb-0 fw-bold"><i class="fas fa-circle me-2"></i>SERIE ROJA</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Hemoglobina (g/dL):</label>
+                            <input type="text" name="hemoglobina" class="form-control" 
+                                   value="{{ resultados.hemoglobina|default:'' }}"
+                                   placeholder="Ej: 14.2">
+                            <small class="text-muted">VR: H: 13.5-17.5 | M: 12.0-15.5</small>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Hematocrito (%):</label>
+                            <input type="text" name="hematocrito" class="form-control" 
+                                   value="{{ resultados.hematocrito|default:'' }}"
+                                   placeholder="Ej: 42">
+                            <small class="text-muted">VR: H: 40-50 | M: 36-46</small>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Glóbulos Rojos (10⁶/µL):</label>
+                            <input type="text" name="globulos_rojos" class="form-control" 
+                                   value="{{ resultados.globulos_rojos|default:'' }}"
+                                   placeholder="Ej: 4.8">
+                            <small class="text-muted">VR: 4.2-5.9</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ÍNDICES CORPUSCULARES -->
+            <div class="card mb-3 border-warning">
+                <div class="card-header bg-light text-warning py-2">
+                    <h6 class="mb-0 fw-bold"><i class="fas fa-calculator me-2"></i>ÍNDICES CORPUSCULARES</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">VCM (fL):</label>
+                            <input type="text" name="vcm" class="form-control" 
+                                   value="{{ resultados.vcm|default:'' }}"
+                                   placeholder="Ej: 88">
+                            <small class="text-muted">VR: 80-100</small>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">HCM (pg):</label>
+                            <input type="text" name="hcm" class="form-control" 
+                                   value="{{ resultados.hcm|default:'' }}"
+                                   placeholder="Ej: 29">
+                            <small class="text-muted">VR: 27-34</small>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">CHCM (g/dL):</label>
+                            <input type="text" name="chcm" class="form-control" 
+                                   value="{{ resultados.chcm|default:'' }}"
+                                   placeholder="Ej: 33">
+                            <small class="text-muted">VR: 32-36</small>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">RDW (%):</label>
+                            <input type="text" name="rdw" class="form-control" 
+                                   value="{{ resultados.rdw|default:'' }}"
+                                   placeholder="Ej: 13.5">
+                            <small class="text-muted">VR: 11.5-14.5</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SERIE BLANCA -->
+            <div class="card mb-3 border-success">
+                <div class="card-header bg-light text-success py-2">
+                    <h6 class="mb-0 fw-bold"><i class="fas fa-shield-alt me-2"></i>SERIE BLANCA</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Leucocitos Totales (mm³):</label>
+                            <input type="text" name="leucocitos" class="form-control" 
+                                   value="{{ resultados.leucocitos|default:'' }}"
+                                   placeholder="Ej: 8500">
+                            <small class="text-muted">VR: 4,000-11,000</small>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Neutrófilos (%):</label>
+                            <input type="text" name="neutrofilos" class="form-control" 
+                                   value="{{ resultados.neutrofilos|default:'' }}"
+                                   placeholder="Ej: 55">
+                            <small class="text-muted">VR: 40-70</small>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Linfocitos (%):</label>
+                            <input type="text" name="linfocitos" class="form-control" 
+                                   value="{{ resultados.linfocitos|default:'' }}"
+                                   placeholder="Ej: 35">
+                            <small class="text-muted">VR: 20-40</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Monocitos (%):</label>
+                            <input type="text" name="monocitos" class="form-control" 
+                                   value="{{ resultados.monocitos|default:'' }}"
+                                   placeholder="Ej: 6">
+                            <small class="text-muted">VR: 2-8</small>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Eosinófilos (%):</label>
+                            <input type="text" name="eosinofilos" class="form-control" 
+                                   value="{{ resultados.eosinofilos|default:'' }}"
+                                   placeholder="Ej: 3">
+                            <small class="text-muted">VR: 1-4</small>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Basófilos (%):</label>
+                            <input type="text" name="basofilos" class="form-control" 
+                                   value="{{ resultados.basofilos|default:'' }}"
+                                   placeholder="Ej: 0.5">
+                            <small class="text-muted">VR: 0-1</small>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class="form-label">Cayados (%):</label>
+                            <input type="text" name="cayados" class="form-control" 
+                                   value="{{ resultados.cayados|default:'' }}"
+                                   placeholder="Ej: 0">
+                            <small class="text-muted">VR: 0-5</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PLAQUETAS -->
+            <div class="card mb-3 border-info">
+                <div class="card-header bg-light text-info py-2">
+                    <h6 class="mb-0 fw-bold"><i class="fas fa-chart-bar me-2"></i>PLAQUETAS</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Plaquetas (mm³):</label>
+                            <input type="text" name="plaquetas" class="form-control" 
+                                   value="{{ resultados.plaquetas|default:'' }}"
+                                   placeholder="Ej: 250000">
+                            <small class="text-muted">VR: 150,000-450,000</small>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">VPM (fL):</label>
+                            <input type="text" name="vpm" class="form-control" 
+                                   value="{{ resultados.vpm|default:'' }}"
+                                   placeholder="Ej: 9.5">
+                            <small class="text-muted">VR: 7-11</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- VELOCIDAD DE SEDIMENTACIÓN -->
+            <div class="card mb-3 border-secondary">
+                <div class="card-header bg-light text-secondary py-2">
+                    <h6 class="mb-0 fw-bold"><i class="fas fa-clock me-2"></i>VELOCIDAD DE SEDIMENTACIÓN</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">VSG (mm/h):</label>
+                            <input type="text" name="vsg" class="form-control" 
+                                   value="{{ resultados.vsg|default:'' }}"
+                                   placeholder="Ej: 15">
+                            <small class="text-muted">VR: H: <15 | M: <20</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OBSERVACIONES -->
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label class="form-label fw-bold">Observaciones:</label>
+                    <textarea name="observaciones" class="form-control" rows="3"
+                              placeholder="Ej: Anisocitosis, poiquilocitosis, presencia de blastos...">{{ resultados.observaciones|default:'' }}</textarea>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+{% endif %}
+
+<style>
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    .card-header {
+        background-color: #f8f9fa !important;
+        color: black !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+</style>
+{% endblock %

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrar Compra{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-truck me-2"></i>Registrar Compra a Proveedor
+                    </h4>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Puedes cargar múltiples productos usando un archivo Excel.
+                        <a href="{% url 'farmacia:descargar_plantilla_compra' %}" class="alert-link">
+                            Descargar plantilla
+                        </a>
+                    </div>
+                    
+                    <form method="post" enctype="multipart/form-data" action="{% url 'farmacia:cargar_compra_excel' %}">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Archivo Excel:</label>
+                                <input type="file" name="archivo_excel" class="form-control" accept=".xlsx,.xls" required>
+                                <small class="text-muted">
+                                    Formato: código, cantidad, lote, fecha_vencimiento, precio_unitario
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-upload me-1"></i> Cargar y Previsualizar
+                        </button>
+                        <a href="{% url 'farmacia:lista_compras' %}" class="btn btn-secondary">
+                            <i class="fas fa-times me-1"></i> Cancelar
+                        </a>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="text-center text-muted">
+                        <i class="fas fa-database fa-2x mb-3"></i>
+                        <p>¿Tienes muchos productos? Usa el Excel para cargarlos todos de una vez.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

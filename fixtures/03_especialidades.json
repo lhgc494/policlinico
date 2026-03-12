@@ -1,0 +1,47 @@
+[
+{
+    "model": "doctores.especialidad",
+    "pk": 1,
+    "fields": {
+        "nombre": "GENERAL",
+        "descripcion": "",
+        "activa": true
+    }
+},
+{
+    "model": "doctores.especialidad",
+    "pk": 2,
+    "fields": {
+        "nombre": "ECOGRAFIA",
+        "descripcion": "",
+        "activa": true
+    }
+},
+{
+    "model": "doctores.especialidad",
+    "pk": 3,
+    "fields": {
+        "nombre": "PEDIATRIA",
+        "descripcion": "",
+        "activa": true
+    }
+},
+{
+    "model": "doctores.especialidad",
+    "pk": 4,
+    "fields": {
+        "nombre": "PSICOLOGIA",
+        "descripcion": "",
+        "activa": true
+    }
+},
+{
+    "model": "doctores.especialidad",
+    "pk": 5,
+    "fields": {
+        "nombre": "OBSTETRICIA",
+        "descripcion": "",
+        "activa": true
+    }
+}
+]

@@ -1,0 +1,254 @@
+[
+{
+    "model": "notificaciones.notificacion",
+    "pk": 8,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: Pepe Aquino",
+        "elemento_id": 160,
+        "leida": true,
+        "fecha_creacion": "2026-02-13T22:07:02.766Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 9,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: alberto Fujimori",
+        "elemento_id": 161,
+        "leida": true,
+        "fecha_creacion": "2026-02-13T22:08:12.173Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 10,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: Juan Gabriel",
+        "elemento_id": 162,
+        "leida": true,
+        "fecha_creacion": "2026-02-13T22:08:56.827Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 11,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: Juan Garcia",
+        "elemento_id": 163,
+        "leida": true,
+        "fecha_creacion": "2026-02-13T22:10:51.882Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 12,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: Diego Riquelme",
+        "elemento_id": 164,
+        "leida": true,
+        "fecha_creacion": "2026-02-13T22:12:37.723Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 13,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva lectura de resultados",
+        "mensaje": "Paciente: cristina aguilera",
+        "elemento_id": 166,
+        "leida": true,
+        "fecha_creacion": "2026-02-13T22:14:56.290Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 14,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: pablo hernandez",
+        "elemento_id": 168,
+        "leida": true,
+        "fecha_creacion": "2026-02-13T22:16:53.589Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 15,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva lectura de resultados",
+        "mensaje": "Paciente: elianos caceres",
+        "elemento_id": 169,
+        "leida": true,
+        "fecha_creacion": "2026-02-13T22:17:49.135Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 16,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: Diego Torres",
+        "elemento_id": 170,
+        "leida": false,
+        "fecha_creacion": "2026-02-13T22:25:07.789Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 17,
+    "fields": {
+        "usuario": 14,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: franco devita",
+        "elemento_id": 171,
+        "leida": false,
+        "fecha_creacion": "2026-02-13T22:29:53.933Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 18,
+    "fields": {
+        "usuario": 5,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: juana castillo",
+        "elemento_id": 172,
+        "leida": true,
+        "fecha_creacion": "2026-02-13T22:33:58.020Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 19,
+    "fields": {
+        "usuario": 4,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: Pepe Aquino",
+        "elemento_id": 173,
+        "leida": true,
+        "fecha_creacion": "2026-02-16T14:11:00.537Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 20,
+    "fields": {
+        "usuario": 6,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: pablo hernandez",
+        "elemento_id": 174,
+        "leida": true,
+        "fecha_creacion": "2026-02-16T14:13:00.223Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 21,
+    "fields": {
+        "usuario": 6,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: cristina aguilera",
+        "elemento_id": 175,
+        "leida": true,
+        "fecha_creacion": "2026-02-16T19:41:51.997Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 22,
+    "fields": {
+        "usuario": 9,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: alberto Fujimori",
+        "elemento_id": 177,
+        "leida": false,
+        "fecha_creacion": "2026-02-17T19:30:25.066Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 23,
+    "fields": {
+        "usuario": 9,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva lectura de resultados",
+        "mensaje": "Paciente: elianos caceres",
+        "elemento_id": 178,
+        "leida": true,
+        "fecha_creacion": "2026-02-17T19:48:52.033Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 24,
+    "fields": {
+        "usuario": 4,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: alberto Fujimori",
+        "elemento_id": 188,
+        "leida": true,
+        "fecha_creacion": "2026-02-27T21:10:08.815Z"
+    }
+},
+{
+    "model": "notificaciones.notificacion",
+    "pk": 25,
+    "fields": {
+        "usuario": 5,
+        "tipo_usuario": "DOCTOR",
+        "tipo": "NUEVA_CONSULTA",
+        "titulo": "🔔 Nueva consulta pendiente",
+        "mensaje": "Paciente: cristina aguilera",
+        "elemento_id": 189,
+        "leida": true,
+        "fecha_creacion": "2026-03-03T13:56:34.896Z"
+    }
+}
+]

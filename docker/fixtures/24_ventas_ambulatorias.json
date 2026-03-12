@@ -1,0 +1,1082 @@
+[
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 1,
+    "fields": {
+        "paciente_dni": "21546554",
+        "paciente_nombre": "Eugenia ponce",
+        "total": "180.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T20:20:21.281Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 2,
+    "fields": {
+        "paciente_dni": "32546598",
+        "paciente_nombre": "pedro sanchez",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T20:23:37.334Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 3,
+    "fields": {
+        "paciente_dni": "12325232",
+        "paciente_nombre": "Angel chavez",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T20:30:35.122Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 4,
+    "fields": {
+        "paciente_dni": "45988765",
+        "paciente_nombre": "Carlos ferrer",
+        "total": "80.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T20:36:36.655Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 5,
+    "fields": {
+        "paciente_dni": "84848484",
+        "paciente_nombre": "pedro picapiedra",
+        "total": "75.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T20:46:36.062Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 6,
+    "fields": {
+        "paciente_dni": "32323232",
+        "paciente_nombre": "Juan pablo",
+        "total": "75.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T20:49:06.811Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 7,
+    "fields": {
+        "paciente_dni": "21212121",
+        "paciente_nombre": "felipe segundo",
+        "total": "75.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T21:53:53.166Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 8,
+    "fields": {
+        "paciente_dni": "45545457",
+        "paciente_nombre": "estefani paredes",
+        "total": "80.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T22:06:30.901Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 9,
+    "fields": {
+        "paciente_dni": "87988798",
+        "paciente_nombre": "juan del pozo",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T22:45:33.574Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 10,
+    "fields": {
+        "paciente_dni": "54653254",
+        "paciente_nombre": "cRISTIAN ASILLO",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-03T22:50:04.690Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 11,
+    "fields": {
+        "paciente_dni": "78541232",
+        "paciente_nombre": "pablo picapiedra",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-04T14:59:59.620Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 12,
+    "fields": {
+        "paciente_dni": "21659887",
+        "paciente_nombre": "juana de arco",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-04T20:29:49.067Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 13,
+    "fields": {
+        "paciente_dni": "54653252",
+        "paciente_nombre": "Danilo cordova",
+        "total": "0.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T15:45:38.595Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 14,
+    "fields": {
+        "paciente_dni": "87985135",
+        "paciente_nombre": "Karla quiroz",
+        "total": "175.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T15:52:33.538Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 15,
+    "fields": {
+        "paciente_dni": "51953557",
+        "paciente_nombre": "ANgel perez",
+        "total": "180.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T15:53:28.528Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 16,
+    "fields": {
+        "paciente_dni": "33333333",
+        "paciente_nombre": "NIcol perez",
+        "total": "255.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T15:54:55.289Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 17,
+    "fields": {
+        "paciente_dni": "36363636",
+        "paciente_nombre": "diego bertie",
+        "total": "175.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T16:34:03.189Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 18,
+    "fields": {
+        "paciente_dni": "87845454",
+        "paciente_nombre": "johan sebastian",
+        "total": "180.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T16:35:14.051Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 19,
+    "fields": {
+        "paciente_dni": "32542132",
+        "paciente_nombre": "luis miguel",
+        "total": "255.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T16:42:31.538Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 20,
+    "fields": {
+        "paciente_dni": "98653254",
+        "paciente_nombre": "rosa cantoro",
+        "total": "75.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T16:43:34.297Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 21,
+    "fields": {
+        "paciente_dni": "25652412",
+        "paciente_nombre": "mel gibson",
+        "total": "80.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T16:49:14.484Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 22,
+    "fields": {
+        "paciente_dni": "54653221",
+        "paciente_nombre": "silvetre stallone",
+        "total": "75.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T16:57:52.042Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 23,
+    "fields": {
+        "paciente_dni": "54652890",
+        "paciente_nombre": "jean cloud",
+        "total": "75.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T17:02:55.225Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 24,
+    "fields": {
+        "paciente_dni": "77441144",
+        "paciente_nombre": "steven segal",
+        "total": "255.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T17:06:10.159Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 25,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T17:38:22.949Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 26,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T17:43:03.672Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 27,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T17:43:29.728Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 28,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T17:47:16.045Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 29,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T17:55:43.284Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 30,
+    "fields": {
+        "paciente_dni": "66663363",
+        "paciente_nombre": "kevin arnold",
+        "total": "75.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T19:04:08.034Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 31,
+    "fields": {
+        "paciente_dni": "23653221",
+        "paciente_nombre": "COBRO INTERNO - Alejandro Saenz",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T19:06:57.608Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 32,
+    "fields": {
+        "paciente_dni": "23653221",
+        "paciente_nombre": "COBRO INTERNO - Alejandro Saenz",
+        "total": "150.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-05T22:53:59.131Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 33,
+    "fields": {
+        "paciente_dni": "23653221",
+        "paciente_nombre": "COBRO INTERNO - Alejandro Saenz",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T14:44:55.537Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 34,
+    "fields": {
+        "paciente_dni": "45988754",
+        "paciente_nombre": "juan garcia",
+        "total": "80.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T14:46:19.182Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 35,
+    "fields": {
+        "paciente_dni": "65665656",
+        "paciente_nombre": "juan garcia",
+        "total": "75.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T14:47:43.788Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 36,
+    "fields": {
+        "paciente_dni": "77778888",
+        "paciente_nombre": "Juan garcia",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T14:48:41.728Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 37,
+    "fields": {
+        "paciente_dni": "77778888",
+        "paciente_nombre": "Juan garcia",
+        "total": "100.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T14:49:54.303Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 38,
+    "fields": {
+        "paciente_dni": "77778888",
+        "paciente_nombre": "COBRO INTERNO - Juan Garcia",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T14:50:58.793Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 39,
+    "fields": {
+        "paciente_dni": "65326532",
+        "paciente_nombre": "Juan garcia",
+        "total": "75.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T14:56:46.805Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 40,
+    "fields": {
+        "paciente_dni": "45988788",
+        "paciente_nombre": "percy castillo",
+        "total": "50.00",
+        "descuento_aplicado": "25.00",
+        "fecha_creacion": "2026-02-06T15:12:38.437Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 41,
+    "fields": {
+        "paciente_dni": "84848484",
+        "paciente_nombre": "pedro escanoso",
+        "total": "65.00",
+        "descuento_aplicado": "10.00",
+        "fecha_creacion": "2026-02-06T16:10:20.657Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 42,
+    "fields": {
+        "paciente_dni": "77778888",
+        "paciente_nombre": "COBRO INTERNO - Juan Garcia",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T16:28:43.414Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 43,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T16:37:05.987Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 44,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T16:38:05.847Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 45,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T16:45:09.118Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 46,
+    "fields": {
+        "paciente_dni": "55555555",
+        "paciente_nombre": "oscar de la torre",
+        "total": "35.00",
+        "descuento_aplicado": "40.00",
+        "fecha_creacion": "2026-02-06T16:46:36.731Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 47,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T16:51:33.475Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 48,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T16:57:30.945Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 49,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T17:06:47.009Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 50,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "50.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-06T17:09:31.211Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 51,
+    "fields": {
+        "paciente_dni": "21546532",
+        "paciente_nombre": "COBRO INTERNO - Pepe Aquino",
+        "total": "40.00",
+        "descuento_aplicado": "10.00",
+        "fecha_creacion": "2026-02-06T17:17:27.349Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 52,
+    "fields": {
+        "paciente_dni": "22223222",
+        "paciente_nombre": "jaime perex",
+        "total": "60.00",
+        "descuento_aplicado": "15.00",
+        "fecha_creacion": "2026-02-06T17:20:55.588Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 53,
+    "fields": {
+        "paciente_dni": "56568954",
+        "paciente_nombre": "kkkkkkkkk",
+        "total": "85.00",
+        "descuento_aplicado": "15.00",
+        "fecha_creacion": "2026-02-06T17:21:48.042Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 54,
+    "fields": {
+        "paciente_dni": "78988798",
+        "paciente_nombre": "luis carpio",
+        "total": "90.00",
+        "descuento_aplicado": "10.00",
+        "fecha_creacion": "2026-02-06T17:28:19.381Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 55,
+    "fields": {
+        "paciente_dni": "54269874",
+        "paciente_nombre": "Ana maria",
+        "total": "20.00",
+        "descuento_aplicado": "8.00",
+        "fecha_creacion": "2026-02-06T17:38:29.506Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 56,
+    "fields": {
+        "paciente_dni": "32323232",
+        "paciente_nombre": "Estiven paucar",
+        "total": "200.00",
+        "descuento_aplicado": "11.00",
+        "fecha_creacion": "2026-02-06T17:44:03.409Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 57,
+    "fields": {
+        "paciente_dni": "32546598",
+        "paciente_nombre": "COBRO INTERNO - alberto Fujimori",
+        "total": "30.00",
+        "descuento_aplicado": "20.00",
+        "fecha_creacion": "2026-02-06T19:35:42.460Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 58,
+    "fields": {
+        "paciente_dni": "32546598",
+        "paciente_nombre": "COBRO INTERNO - alberto Fujimori",
+        "total": "40.00",
+        "descuento_aplicado": "10.00",
+        "fecha_creacion": "2026-02-06T19:36:20.324Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 59,
+    "fields": {
+        "paciente_dni": "32546598",
+        "paciente_nombre": "COBRO INTERNO - alberto Fujimori",
+        "total": "40.00",
+        "descuento_aplicado": "10.00",
+        "fecha_creacion": "2026-02-06T19:37:29.072Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 60,
+    "fields": {
+        "paciente_dni": "65656565",
+        "paciente_nombre": "antonio banderas",
+        "total": "20.00",
+        "descuento_aplicado": "8.00",
+        "fecha_creacion": "2026-02-06T19:38:43.784Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 61,
+    "fields": {
+        "paciente_dni": "32546598",
+        "paciente_nombre": "COBRO INTERNO - alberto Fujimori",
+        "total": "25.00",
+        "descuento_aplicado": "25.00",
+        "fecha_creacion": "2026-02-06T19:39:28.159Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 62,
+    "fields": {
+        "paciente_dni": "32546598",
+        "paciente_nombre": "COBRO INTERNO - alberto Fujimori",
+        "total": "40.00",
+        "descuento_aplicado": "10.00",
+        "fecha_creacion": "2026-02-06T19:46:25.581Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 63,
+    "fields": {
+        "paciente_dni": "45454546",
+        "paciente_nombre": "COBRO INTERNO - Juan Gabriel",
+        "total": "40.00",
+        "descuento_aplicado": "3.00",
+        "fecha_creacion": "2026-02-07T15:24:33.133Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 64,
+    "fields": {
+        "paciente_dni": "32546598",
+        "paciente_nombre": "COBRO INTERNO - alberto Fujimori",
+        "total": "90.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-07T15:26:14.840Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 65,
+    "fields": {
+        "paciente_dni": "25698632",
+        "paciente_nombre": "domingo peres",
+        "total": "93.00",
+        "descuento_aplicado": "10.00",
+        "fecha_creacion": "2026-02-07T15:27:00.542Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 66,
+    "fields": {
+        "paciente_dni": "65325412",
+        "paciente_nombre": "COBRO INTERNO - Edgar Vibar",
+        "total": "90.00",
+        "descuento_aplicado": "5.00",
+        "fecha_creacion": "2026-02-07T17:16:15.861Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 67,
+    "fields": {
+        "paciente_dni": "45454546",
+        "paciente_nombre": "COBRO INTERNO - Juan Gabriel",
+        "total": "30.00",
+        "descuento_aplicado": "5.00",
+        "fecha_creacion": "2026-02-09T15:07:48.565Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 68,
+    "fields": {
+        "paciente_dni": "33333333",
+        "paciente_nombre": "bruce lee",
+        "total": "56.00",
+        "descuento_aplicado": "12.00",
+        "fecha_creacion": "2026-02-09T15:19:47.483Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 69,
+    "fields": {
+        "paciente_dni": "45454546",
+        "paciente_nombre": "COBRO INTERNO - Juan Gabriel",
+        "total": "50.00",
+        "descuento_aplicado": "5.00",
+        "fecha_creacion": "2026-02-09T20:13:00.844Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 70,
+    "fields": {
+        "paciente_dni": "12343212",
+        "paciente_nombre": "COBRO INTERNO - david morena",
+        "total": "40.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-16T19:39:43.446Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 71,
+    "fields": {
+        "paciente_dni": "22222222",
+        "paciente_nombre": "COBRO INTERNO - laura pausini",
+        "total": "58.00",
+        "descuento_aplicado": "10.00",
+        "fecha_creacion": "2026-02-17T19:35:03.732Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 72,
+    "fields": {
+        "paciente_dni": "32659854",
+        "paciente_nombre": "Carlos Perez",
+        "total": "60.00",
+        "descuento_aplicado": "8.00",
+        "fecha_creacion": "2026-02-17T19:45:01.137Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 73,
+    "fields": {
+        "paciente_dni": "78877887",
+        "paciente_nombre": "COBRO INTERNO - elianos caceres",
+        "total": "28.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-17T19:47:05.596Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 74,
+    "fields": {
+        "paciente_dni": "98989898",
+        "paciente_nombre": "jhon peña",
+        "total": "68.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-17T20:36:03.085Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 75,
+    "fields": {
+        "paciente_dni": "78877887",
+        "paciente_nombre": "COBRO INTERNO - elianos caceres",
+        "total": "40.00",
+        "descuento_aplicado": "10.00",
+        "fecha_creacion": "2026-02-23T15:41:24.143Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 76,
+    "fields": {
+        "paciente_dni": "41254122",
+        "paciente_nombre": "COBRO INTERNO - juan carlos cueva",
+        "total": "32.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-23T17:38:07.610Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 77,
+    "fields": {
+        "paciente_dni": "14145254",
+        "paciente_nombre": "COBRO INTERNO - jorge ramos",
+        "total": "12.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-25T15:24:27.525Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 78,
+    "fields": {
+        "paciente_dni": "14145254",
+        "paciente_nombre": "COBRO INTERNO - jorge ramos",
+        "total": "45.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-25T16:36:26.717Z",
+        "usuario": 13
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 79,
+    "fields": {
+        "paciente_dni": "45678932",
+        "paciente_nombre": "angel lopez",
+        "total": "30.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-25T19:45:12.103Z",
+        "usuario": 3
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 80,
+    "fields": {
+        "paciente_dni": "22222222",
+        "paciente_nombre": "jaime nunez",
+        "total": "30.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-25T19:46:25.689Z",
+        "usuario": 3
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 81,
+    "fields": {
+        "paciente_dni": "55555555",
+        "paciente_nombre": "ggggggg",
+        "total": "30.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-25T19:59:25.744Z",
+        "usuario": 3
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 82,
+    "fields": {
+        "paciente_dni": "67892123",
+        "paciente_nombre": "felipe anger",
+        "total": "30.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-25T20:02:07.572Z",
+        "usuario": 3
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 83,
+    "fields": {
+        "paciente_dni": "14145254",
+        "paciente_nombre": "COBRO INTERNO - jorge ramos",
+        "total": "12.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-25T20:04:37.861Z",
+        "usuario": 3
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 84,
+    "fields": {
+        "paciente_dni": "14145254",
+        "paciente_nombre": "COBRO INTERNO - jorge ramos",
+        "total": "15.00",
+        "descuento_aplicado": "5.00",
+        "fecha_creacion": "2026-02-25T20:04:51.959Z",
+        "usuario": 3
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 85,
+    "fields": {
+        "paciente_dni": "32215498",
+        "paciente_nombre": "juan fernando",
+        "total": "70.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-27T16:49:07.869Z",
+        "usuario": 3
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 86,
+    "fields": {
+        "paciente_dni": "78987854",
+        "paciente_nombre": "eliami espinoza",
+        "total": "15.00",
+        "descuento_aplicado": "15.00",
+        "fecha_creacion": "2026-02-27T16:50:54.596Z",
+        "usuario": 3
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 87,
+    "fields": {
+        "paciente_dni": "21658765",
+        "paciente_nombre": "elgar paucar",
+        "total": "80.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-27T17:16:17.046Z",
+        "usuario": 3
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 88,
+    "fields": {
+        "paciente_dni": "65325412",
+        "paciente_nombre": "COBRO INTERNO - Edgar Vibar",
+        "total": "28.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-27T20:28:39.425Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 89,
+    "fields": {
+        "paciente_dni": "65543298",
+        "paciente_nombre": "Pepe aguilar",
+        "total": "20.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-27T22:43:31.738Z",
+        "usuario": 12
+    }
+},
+{
+    "model": "consultas.ventaambulatoria",
+    "pk": 90,
+    "fields": {
+        "paciente_dni": "32655498",
+        "paciente_nombre": "renato vargas",
+        "total": "30.00",
+        "descuento_aplicado": "0.00",
+        "fecha_creacion": "2026-02-27T22:46:37.304Z",
+        "usuario": 12
+    }
+}
+]

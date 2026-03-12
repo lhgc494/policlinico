@@ -1,0 +1,1112 @@
+[
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 4,
+    "fields": {
+        "nombre": "Examen completo de orina",
+        "tipo": "LABORATORIO",
+        "precio": "15.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-06T17:32:18.816Z",
+        "fecha_actualizacion": "2026-02-06T17:32:18.816Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 11,
+    "fields": {
+        "nombre": "PSA total",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:56:27.331Z",
+        "fecha_actualizacion": "2026-02-21T16:56:27.331Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 12,
+    "fields": {
+        "nombre": "PSA libre",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:56:42.969Z",
+        "fecha_actualizacion": "2026-02-21T16:56:42.969Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 13,
+    "fields": {
+        "nombre": "IgE",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:56:55.132Z",
+        "fecha_actualizacion": "2026-02-21T16:56:55.132Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 14,
+    "fields": {
+        "nombre": "TSH",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:57:07.073Z",
+        "fecha_actualizacion": "2026-02-21T16:57:07.073Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 15,
+    "fields": {
+        "nombre": "T3",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:57:25.509Z",
+        "fecha_actualizacion": "2026-02-21T16:57:25.509Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 16,
+    "fields": {
+        "nombre": "T4",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:57:52.077Z",
+        "fecha_actualizacion": "2026-02-21T16:57:52.077Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 17,
+    "fields": {
+        "nombre": "T4 libre",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:58:03.551Z",
+        "fecha_actualizacion": "2026-02-21T16:58:03.551Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 18,
+    "fields": {
+        "nombre": "Hormona antimulleriana",
+        "tipo": "LABORATORIO",
+        "precio": "150.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:58:39.790Z",
+        "fecha_actualizacion": "2026-02-21T16:58:39.790Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 19,
+    "fields": {
+        "nombre": "FSH",
+        "tipo": "LABORATORIO",
+        "precio": "38.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:59:03.859Z",
+        "fecha_actualizacion": "2026-02-21T16:59:03.859Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 20,
+    "fields": {
+        "nombre": "LH",
+        "tipo": "LABORATORIO",
+        "precio": "38.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:59:17.124Z",
+        "fecha_actualizacion": "2026-02-21T16:59:17.124Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 21,
+    "fields": {
+        "nombre": "Prolactina",
+        "tipo": "LABORATORIO",
+        "precio": "38.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:59:29.142Z",
+        "fecha_actualizacion": "2026-02-21T16:59:29.143Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 22,
+    "fields": {
+        "nombre": "Estradiol",
+        "tipo": "LABORATORIO",
+        "precio": "45.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T16:59:49.679Z",
+        "fecha_actualizacion": "2026-02-21T16:59:49.679Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 23,
+    "fields": {
+        "nombre": "Insulina",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:00:02.451Z",
+        "fecha_actualizacion": "2026-02-21T17:00:02.451Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 24,
+    "fields": {
+        "nombre": "BHCG cuantitativo",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:00:19.249Z",
+        "fecha_actualizacion": "2026-02-21T17:00:19.249Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 25,
+    "fields": {
+        "nombre": "Pregnosticon",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:00:33.700Z",
+        "fecha_actualizacion": "2026-02-21T17:00:33.700Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 26,
+    "fields": {
+        "nombre": "Glucosa",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:00:48.661Z",
+        "fecha_actualizacion": "2026-02-21T17:00:48.661Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 27,
+    "fields": {
+        "nombre": "Colesterol total",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:01:18.008Z",
+        "fecha_actualizacion": "2026-02-21T17:01:18.008Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 28,
+    "fields": {
+        "nombre": "Colesterol HDL",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:01:34.094Z",
+        "fecha_actualizacion": "2026-02-21T17:01:34.094Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 29,
+    "fields": {
+        "nombre": "Colesterol LDL",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:02:04.502Z",
+        "fecha_actualizacion": "2026-02-21T17:02:04.502Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 30,
+    "fields": {
+        "nombre": "Colesterol VLDL",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:02:21.723Z",
+        "fecha_actualizacion": "2026-02-21T17:02:21.723Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 31,
+    "fields": {
+        "nombre": "Triglicéridos",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:02:35.295Z",
+        "fecha_actualizacion": "2026-02-21T17:02:35.295Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 32,
+    "fields": {
+        "nombre": "Perfil lipídico",
+        "tipo": "LABORATORIO",
+        "precio": "50.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:02:48.001Z",
+        "fecha_actualizacion": "2026-02-21T17:02:48.001Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 33,
+    "fields": {
+        "nombre": "Tolerancia a la glucosa",
+        "tipo": "LABORATORIO",
+        "precio": "38.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:03:10.292Z",
+        "fecha_actualizacion": "2026-02-21T17:03:10.292Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 34,
+    "fields": {
+        "nombre": "Hemoglobina glicosilada",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:03:22.829Z",
+        "fecha_actualizacion": "2026-02-21T17:03:22.829Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 35,
+    "fields": {
+        "nombre": "TGO",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:03:50.774Z",
+        "fecha_actualizacion": "2026-02-21T17:03:50.774Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 36,
+    "fields": {
+        "nombre": "TGP",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:04:04.090Z",
+        "fecha_actualizacion": "2026-02-21T17:04:04.090Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 37,
+    "fields": {
+        "nombre": "Fosfatasa alcalina",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:04:19.234Z",
+        "fecha_actualizacion": "2026-02-21T17:04:19.234Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 38,
+    "fields": {
+        "nombre": "Bilirrubina total y fraccionada",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:04:33.034Z",
+        "fecha_actualizacion": "2026-02-21T17:04:33.034Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 39,
+    "fields": {
+        "nombre": "Proteínas total y fraccionadas",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:04:45.748Z",
+        "fecha_actualizacion": "2026-02-21T17:04:45.748Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 40,
+    "fields": {
+        "nombre": "Perfil hepático",
+        "tipo": "LABORATORIO",
+        "precio": "75.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:04:58.024Z",
+        "fecha_actualizacion": "2026-02-21T17:04:58.024Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 41,
+    "fields": {
+        "nombre": "Ácido úrico",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:05:14.473Z",
+        "fecha_actualizacion": "2026-02-21T17:05:14.473Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 42,
+    "fields": {
+        "nombre": "Urea",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:05:27.384Z",
+        "fecha_actualizacion": "2026-02-21T17:05:27.384Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 43,
+    "fields": {
+        "nombre": "Creatinina",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:05:43.621Z",
+        "fecha_actualizacion": "2026-02-21T17:05:43.621Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 44,
+    "fields": {
+        "nombre": "Perfil renal",
+        "tipo": "LABORATORIO",
+        "precio": "36.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:05:56.329Z",
+        "fecha_actualizacion": "2026-02-21T17:05:56.329Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 45,
+    "fields": {
+        "nombre": "GGTP",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:06:16.207Z",
+        "fecha_actualizacion": "2026-02-21T17:06:16.207Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 46,
+    "fields": {
+        "nombre": "LDH",
+        "tipo": "LABORATORIO",
+        "precio": "25.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:06:28.972Z",
+        "fecha_actualizacion": "2026-02-21T17:06:28.972Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 47,
+    "fields": {
+        "nombre": "Ferritina",
+        "tipo": "LABORATORIO",
+        "precio": "45.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:06:45.779Z",
+        "fecha_actualizacion": "2026-02-21T17:06:45.779Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 48,
+    "fields": {
+        "nombre": "Calcio orina 24h",
+        "tipo": "LABORATORIO",
+        "precio": "28.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:07:54.032Z",
+        "fecha_actualizacion": "2026-02-21T17:07:54.032Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 49,
+    "fields": {
+        "nombre": "VIH 1 y 2",
+        "tipo": "LABORATORIO",
+        "precio": "25.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:08:08.260Z",
+        "fecha_actualizacion": "2026-02-21T17:08:08.260Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 50,
+    "fields": {
+        "nombre": "RPR (sífilis)",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:08:22.902Z",
+        "fecha_actualizacion": "2026-02-21T17:08:22.902Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 51,
+    "fields": {
+        "nombre": "AgsHB (hepatitis B)",
+        "tipo": "LABORATORIO",
+        "precio": "30.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:08:40.288Z",
+        "fecha_actualizacion": "2026-02-21T17:08:40.288Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 52,
+    "fields": {
+        "nombre": "VHC (hepatitis C)",
+        "tipo": "LABORATORIO",
+        "precio": "30.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:08:51.752Z",
+        "fecha_actualizacion": "2026-02-21T17:08:51.752Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 53,
+    "fields": {
+        "nombre": "IgM HA (hepatitis A)",
+        "tipo": "LABORATORIO",
+        "precio": "30.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:09:07.152Z",
+        "fecha_actualizacion": "2026-02-21T17:09:07.152Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 54,
+    "fields": {
+        "nombre": "IgM Helicobacter pylori",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:09:19.915Z",
+        "fecha_actualizacion": "2026-02-21T17:09:19.915Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 55,
+    "fields": {
+        "nombre": "Proteína C reactiva (PCR)",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:09:31.351Z",
+        "fecha_actualizacion": "2026-02-21T17:09:31.351Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 56,
+    "fields": {
+        "nombre": "PCR cualitativo",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:09:43.126Z",
+        "fecha_actualizacion": "2026-02-21T17:09:43.126Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 57,
+    "fields": {
+        "nombre": "Factor reumatoideo látex",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:09:55.238Z",
+        "fecha_actualizacion": "2026-02-21T17:09:55.238Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 58,
+    "fields": {
+        "nombre": "ASO",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:10:07.343Z",
+        "fecha_actualizacion": "2026-02-21T17:10:07.343Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 59,
+    "fields": {
+        "nombre": "Reacción de Widal",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:10:22.045Z",
+        "fecha_actualizacion": "2026-02-21T17:10:22.045Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 64,
+    "fields": {
+        "nombre": "Depuración creatinina",
+        "tipo": "LABORATORIO",
+        "precio": "28.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:11:30.910Z",
+        "fecha_actualizacion": "2026-02-21T17:11:30.910Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 65,
+    "fields": {
+        "nombre": "Microalbuminuria",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:11:42.899Z",
+        "fecha_actualizacion": "2026-02-21T17:11:42.899Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 66,
+    "fields": {
+        "nombre": "Microalbuminuria orina 24h",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:11:55.792Z",
+        "fecha_actualizacion": "2026-02-21T17:11:55.792Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 67,
+    "fields": {
+        "nombre": "Examen directo de heces",
+        "tipo": "LABORATORIO",
+        "precio": "15.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:13:03.573Z",
+        "fecha_actualizacion": "2026-02-21T17:13:03.573Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 68,
+    "fields": {
+        "nombre": "Examen seriado de heces",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:13:19.461Z",
+        "fecha_actualizacion": "2026-02-21T17:13:19.461Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 69,
+    "fields": {
+        "nombre": "Sangre oculta en heces",
+        "tipo": "LABORATORIO",
+        "precio": "35.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:13:32.011Z",
+        "fecha_actualizacion": "2026-02-21T17:13:32.011Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 70,
+    "fields": {
+        "nombre": "Leucocitos en heces",
+        "tipo": "LABORATORIO",
+        "precio": "15.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:13:43.982Z",
+        "fecha_actualizacion": "2026-02-21T17:13:43.982Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 71,
+    "fields": {
+        "nombre": "Reacción inflamatoria",
+        "tipo": "LABORATORIO",
+        "precio": "15.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:14:01.020Z",
+        "fecha_actualizacion": "2026-02-21T17:14:01.020Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 72,
+    "fields": {
+        "nombre": "Test de Graham",
+        "tipo": "LABORATORIO",
+        "precio": "15.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:14:31.273Z",
+        "fecha_actualizacion": "2026-02-21T17:14:31.273Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 73,
+    "fields": {
+        "nombre": "Baciloscopía en esputo",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:14:42.995Z",
+        "fecha_actualizacion": "2026-02-21T17:14:42.996Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 74,
+    "fields": {
+        "nombre": "Hemograma completo",
+        "tipo": "LABORATORIO",
+        "precio": "40.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:14:53.913Z",
+        "fecha_actualizacion": "2026-02-21T17:14:53.913Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 75,
+    "fields": {
+        "nombre": "Hemoglobina",
+        "tipo": "LABORATORIO",
+        "precio": "15.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:15:17.848Z",
+        "fecha_actualizacion": "2026-02-21T17:15:17.848Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 76,
+    "fields": {
+        "nombre": "Recuento de plaquetas",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:17:32.506Z",
+        "fecha_actualizacion": "2026-02-21T17:17:32.506Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 77,
+    "fields": {
+        "nombre": "Recuento de glóbulos rojos",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:17:44.523Z",
+        "fecha_actualizacion": "2026-02-21T17:17:44.523Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 78,
+    "fields": {
+        "nombre": "Constantes corpusculares",
+        "tipo": "LABORATORIO",
+        "precio": "27.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:17:56.137Z",
+        "fecha_actualizacion": "2026-02-21T17:17:56.137Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 79,
+    "fields": {
+        "nombre": "Velocidad de sedimentación globular",
+        "tipo": "LABORATORIO",
+        "precio": "14.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:18:08.902Z",
+        "fecha_actualizacion": "2026-02-21T17:18:08.902Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 80,
+    "fields": {
+        "nombre": "Tiempo de coagulación",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:18:19.746Z",
+        "fecha_actualizacion": "2026-02-21T17:18:19.746Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 81,
+    "fields": {
+        "nombre": "Tiempo de sangría",
+        "tipo": "LABORATORIO",
+        "precio": "12.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:18:32.653Z",
+        "fecha_actualizacion": "2026-02-21T17:18:32.653Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 82,
+    "fields": {
+        "nombre": "Tiempo de protrombina + INR",
+        "tipo": "LABORATORIO",
+        "precio": "28.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:18:45.390Z",
+        "fecha_actualizacion": "2026-02-21T17:18:45.390Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 83,
+    "fields": {
+        "nombre": "Tiempo parcial de tromboplastina",
+        "tipo": "LABORATORIO",
+        "precio": "30.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:19:04.990Z",
+        "fecha_actualizacion": "2026-02-21T17:19:04.990Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 84,
+    "fields": {
+        "nombre": "Raspado piel KOH",
+        "tipo": "LABORATORIO",
+        "precio": "25.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:19:20.444Z",
+        "fecha_actualizacion": "2026-02-21T17:19:20.444Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 85,
+    "fields": {
+        "nombre": "Secreción vaginal",
+        "tipo": "LABORATORIO",
+        "precio": "25.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:19:36.477Z",
+        "fecha_actualizacion": "2026-02-21T17:19:36.477Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 86,
+    "fields": {
+        "nombre": "Secreción uretral",
+        "tipo": "LABORATORIO",
+        "precio": "25.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:19:47.326Z",
+        "fecha_actualizacion": "2026-02-21T17:19:47.326Z"
+    }
+},
+{
+    "model": "consultas.catalogoexamen",
+    "pk": 87,
+    "fields": {
+        "nombre": "Coloración de gram",
+        "tipo": "LABORATORIO",
+        "precio": "20.00",
+        "descripcion": "",
+        "tiempo_entrega": "",
+        "preparacion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-21T17:19:57.570Z",
+        "fecha_actualizacion": "2026-02-21T17:19:57.570Z"
+    }
+}
+]

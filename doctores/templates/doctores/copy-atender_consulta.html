@@ -1,0 +1,1891 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Atender Consulta #{{ consulta.id }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- MENSAJES -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- CABECERA CON PACIENTE Y TRIAGE -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user-injured"></i>
+                        {{ paciente.nombres }} {{ paciente.apellidos }}
+                    </h4>
+                    <span class="badge bg-light text-dark fs-6">Consulta #{{ consulta.id }}</span>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 border-end">
+                            <p class="mb-1"><strong>DNI:</strong> {{ paciente.dni }}</p>
+                            <p class="mb-1"><strong>Edad:</strong> {{ paciente.edad }} años</p>
+                            <p class="mb-1"><strong>Teléfono:</strong> {{ paciente.telefono }}</p>
+                        </div>
+                        <div class="col-md-4 border-end">
+                            <p class="mb-1"><strong>Médico:</strong> {{ consulta.doctor.user.get_full_name }}</p>
+                            <p class="mb-1"><strong>Especialidad:</strong> {{ consulta.especialidad }}</p>
+                            <p class="mb-1"><strong>Fecha:</strong> {{ consulta.fecha|date:"d/m/Y H:i" }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p class="mb-1"><strong>Estado:</strong>
+                                <span class="badge {% if consulta.estado == 'ATENDIDA' %}bg-success{% else %}bg-warning{% endif %}">
+                                    {{ consulta.get_estado_display }}
+                                </span>
+                            </p>
+                            <p class="mb-0"><strong>Tarifa:</strong> S/ {{ consulta.precio }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-info text-white py-2">
+                    <h5 class="mb-0"><i class="fas fa-stethoscope"></i> Triaje</h5>
+                </div>
+                <div class="card-body p-3">
+                    {% if triaje %}
+                    <div class="row g-1">
+                        <div class="col-6"><strong>Peso:</strong><br><span class="text-primary">{{ triaje.peso|default:"-" }} kg</span></div>
+                        <div class="col-6"><strong>Talla:</strong><br><span class="text-primary">{{ triaje.talla|default:"-" }} cm</span></div>
+                        <div class="col-6"><strong>Temp:</strong><br><span class="text-primary">{{ triaje.temperatura|default:"-" }} °C</span></div>
+                        <div class="col-6"><strong>Presión:</strong><br><span class="text-primary">{{ triaje.presion|default:"-" }}</span></div>
+                        <div class="col-6"><strong>FC:</strong><br><span class="text-primary">{{ triaje.frecuencia_cardiaca|default:"-" }} lpm</span></div>
+                        <div class="col-6"><strong>Sat O₂:</strong><br><span class="text-primary">{{ triaje.saturacion|default:"-" }} %</span></div>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning py-2 my-0">
+                        <i class="fas fa-exclamation-triangle"></i> Sin triaje registrado
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+		<!-- FORMULARIO DE ATENCIÓN MÉDICA -->
+  		<!-- FORMULARIO DE ATENCIÓN MÉDICA -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white py-2">
+                <h5 class="mb-0"><i class="fas fa-file-medical"></i> Atención Médica</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" id="form-atencion">
+                    {% csrf_token %}
+                    
+                    <!-- FILA 1: MOTIVO DE CONSULTA + EXAMEN FÍSICO (JUNTOS) -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label"><strong>📝 Motivo de consulta</strong></label>
+                            <textarea name="motivo_consulta"
+                                      id="motivo-consulta-field"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="¿Qué síntomas presenta el paciente? Ej: Dolor de cabeza, fiebre, tos...">{{ consulta.motivo_consulta|default:"" }}</textarea>
+                            <div class="form-text">Síntomas y razón de la consulta</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label"><strong>🏥 Examen físico</strong></label>
+                            <textarea name="examen_fisico"
+                                      id="examen-fisico-field"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Signos vitales, hallazgos del examen físico...">{{ consulta.examen_fisico|default:"" }}</textarea>
+                            <div class="form-text">Hallazgos del examen físico</div>
+                        </div>
+                    </div>
+
+                    <!-- FILA 2: DIAGNÓSTICO + TRATAMIENTO (JUNTOS) -->
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label"><strong>🔬 Diagnóstico *</strong></label>
+                            <textarea name="diagnostico"
+                                      id="diagnostico-field"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Diagnóstico principal..."
+                                      required>{{ consulta.diagnostico|default:"" }}</textarea>
+                            <div class="form-text">Diagnóstico obligatorio</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label"><strong>💊 Tratamiento *</strong></label>
+                            <textarea name="tratamiento"
+                                      id="tratamiento-field"
+                                      class="form-control"
+                                      rows="4"
+                                      placeholder="Plan de tratamiento, indicaciones..."
+                                      required>{{ consulta.tratamiento|default:"" }}</textarea>
+                            <div class="form-text">Tratamiento obligatorio</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+		<!-- SECCIÓN DE RECETAS MÉDICAS -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white py-2 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-pills"></i> Recetas Médicas</h5>
+                    <span class="badge bg-light text-dark" id="contador-recetas">{{ recetas_temp|length }} medicamento(s)</span>
+                </div>
+                <div class="card-body">
+                    <!-- FORMULARIO PARA AGREGAR RECETA (MODIFICADO PARA AJAX) -->
+                    <form id="form-agregar-receta" class="mb-4 border-bottom pb-4">
+                        {% csrf_token %}
+                        <div class="row g-2 align-items-end">
+                            <div class="col-md-4">
+                                <label class="form-label">Medicamento *</label>
+                                <input type="text"
+                                       name="medicamento"
+                                       id="input-medicamento"
+                                       class="form-control medicamento-buscador"
+                                       placeholder="Buscar por nombre comercial (ej: Aspirina)"
+                                       required
+                                       list="medicamentos-list"
+                                       autocomplete="off">
+                                <datalist id="medicamentos-list">
+                                    {% for med in medicamentos %}
+                                    <option value="{{ med.nombre_comercial }} - {{ med.nombre_generico }}">
+                                    <option value="{{ med.nombre_comercial }}">
+                                    <option value="{{ med.nombre_generico }}">
+                                    {% endfor %}
+                                </datalist>
+                                <div class="form-text">Comience a escribir el nombre comercial</div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Dosis</label>
+                                <input type="text"
+                                       name="dosis"
+                                       id="input-dosis"
+                                       class="form-control"
+                                       placeholder="500mg">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Frecuencia</label>
+                                <input type="text"
+                                       name="frecuencia"
+                                       id="input-frecuencia"
+                                       class="form-control"
+                                       placeholder="Cada 8h">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Duración</label>
+                                <input type="text"
+                                       name="duracion"
+                                       id="input-duracion"
+                                       class="form-control"
+                                       placeholder="7 días">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Indicaciones</label>
+                                <input type="text"
+                                       name="indicaciones_receta"
+                                       id="input-indicaciones"
+                                       class="form-control"
+                                       placeholder="Especiales">
+                            </div>
+
+                            <div class="col-md-1">
+                                <!-- BOTÓN CAMBIADO PARA AJAX -->
+                                <button type="button" 
+                                        id="btn-agregar-receta-ajax" 
+                                        class="btn btn-success w-100" 
+                                        title="Agregar medicamento">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- LISTA DE RECETAS AGREGADAS -->
+                    <div id="contenedor-lista-recetas">
+                        {% if recetas_temp %}
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover" id="tabla-recetas">
+                                <thead class="table-success">
+                                    <tr>
+                                        <th width="5%">#</th>
+                                        <th width="25%">Medicamento</th>
+                                        <th width="15%">Dosis</th>
+                                        <th width="15%">Frecuencia</th>
+                                        <th width="15%">Duración</th>
+                                        <th width="20%">Indicaciones</th>
+                                        <th width="5%">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lista-recetas-tbody">
+                                    {% for receta in recetas_temp %}
+                                    <tr id="receta-fila-{{ forloop.counter0 }}">
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ receta.medicamento }}</td>
+                                        <td>{{ receta.dosis|default:"-" }}</td>
+                                        <td>{{ receta.frecuencia|default:"-" }}</td>
+                                        <td>{{ receta.duracion|default:"-" }}</td>
+                                        <td>{{ receta.indicaciones|default:"-" }}</td>
+                                        <td>
+                                            <button type="button" 
+                                                    class="btn btn-sm btn-outline-danger eliminar-receta-btn"
+                                                    data-index="{{ forloop.counter0 }}"
+                                                    onclick="eliminarRecetaTemporal({{ forloop.counter0 }})"
+                                                    title="Eliminar">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <!-- BOTÓN IMPRIMIR TODAS LAS RECETAS -->
+                            <div class="mt-3 text-end">
+                                <button type="button" id="btn-imprimir-recetas" class="btn btn-warning">
+                                    <i class="fas fa-print"></i> Imprimir Todas las Recetas (<span id="contador-recetas-badge">{{ recetas_temp|length }}</span>)
+                                </button>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-info mb-0" id="mensaje-sin-recetas">
+                            <i class="fas fa-info-circle"></i> No hay medicamentos agregados
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- SECCIÓN DE EXÁMENES -->
+<!-- SECCIÓN DE EXÁMENES -->
+<div class="row">
+    <!-- EXÁMENES DE LABORATORIO CON OPCIÓN "OTRO" -->
+    <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-danger text-white py-2 d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-flask"></i> Laboratorio</h5>
+                <span class="badge bg-light text-dark" id="contador-lab-header">{{ laboratorio_temp|length }}</span>
+            </div>
+            <div class="card-body">
+                <!-- FORMULARIO LABORATORIO CON OPCIÓN "OTRO" (MODIFICADO PARA AJAX) -->
+                <form id="form-laboratorio-ajax" class="mb-3">
+                    {% csrf_token %}
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-8">
+                            <label class="form-label">Examen *</label>
+                            <select name="examen_lab" id="select-examen-lab" class="form-select form-select-sm" required
+                                    onchange="toggleOtroInputLab(this)">
+                                <option value="">Seleccionar examen...</option>
+                                <!-- ✅ CAMBIO: Usar lista dinámica del contexto -->
+                                {% for valor, texto in examenes_laboratorio %}
+                                <option value="{{ valor }}" 
+                                        {% if examenes_laboratorio_objs %}
+                                            data-precio="
+                                            {% for examen_obj in examenes_laboratorio_objs %}
+                                                {% if examen_obj.nombre == valor %}
+                                                    {{ examen_obj.precio }}
+                                                {% endif %}
+                                            {% endfor %}"
+                                        {% endif %}
+                                >
+                                    {{ texto }}
+                                    {% if examenes_laboratorio_objs %}
+                                        {% for examen_obj in examenes_laboratorio_objs %}
+                                            {% if examen_obj.nombre == valor %}
+                                                - S/ {{ examen_obj.precio }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <!-- ✅ Mostrar precio seleccionado (opcional) -->
+                            <small id="precio-lab-seleccionado" class="text-muted" style="display: none;">
+                                Precio: S/ <span id="precio-lab-valor">0.00</span>
+                            </small>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" id="btn-agregar-lab-ajax" class="btn btn-danger w-100">
+                                <i class="fas fa-plus"></i> Agregar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CAMPO "OTRO" (oculto inicialmente) -->
+                    <div class="row mt-2" id="otro-lab-container" style="display: none;">
+                        <div class="col-12">
+                            <label class="form-label">Especificar examen:</label>
+                            <input type="text" name="examen_lab_otro" id="examen_lab_otro"
+                                   class="form-control form-control-sm"
+                                   placeholder="Escriba el examen no listado...">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <label class="form-label">Indicaciones (opcional)</label>
+                            <textarea name="indicaciones_lab" id="indicaciones-lab"
+                                      class="form-control form-control-sm"
+                                      rows="2"
+                                      placeholder="Indicaciones especiales..."></textarea>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- LISTA DE EXÁMENES -->
+                <div id="contenedor-lista-lab">
+                    {% if laboratorio_temp %}
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead class="table-danger">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Examen</th>
+                                    <th>Indicaciones</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lista-lab-tbody">
+                                {% for examen in laboratorio_temp %}
+                                <tr id="lab-fila-{{ forloop.counter0 }}">
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>
+                                        {% if examen.examen|slice:":5" == "OTRO:" %}
+                                            <span class="badge bg-warning">OTRO</span> {{ examen.examen|slice:"6:" }}
+                                        {% else %}
+                                            {{ examen.examen }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ examen.indicaciones|default:"-" }}</td>
+                                    <td>
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-danger eliminar-lab-btn"
+                                                data-index="{{ forloop.counter0 }}"
+                                                onclick="eliminarLabTemporal({{ forloop.counter0 }})"
+                                                title="Eliminar">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <div class="text-end mt-2">
+                            <button type="button" id="btn-imprimir-laboratorio" class="btn btn-warning btn-sm">
+                                <i class="fas fa-print"></i> Imprimir Órdenes (<span id="contador-lab-badge">{{ laboratorio_temp|length }}</span>)
+                            </button>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-secondary mb-0">
+                        <i class="fas fa-info-circle"></i> No hay exámenes
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+        <!-- ECOGRAFÍAS CON OPCIÓN "OTRO" -->
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-warning text-dark py-2 d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-procedures"></i> Ecografías</h5>
+                    <span class="badge bg-light text-dark" id="contador-eco-header">{{ ecografias_temp|length }}</span>
+                </div>
+                <div class="card-body">
+                    <!-- FORMULARIO ECOGRAFÍAS CON OPCIÓN "OTRO" (MODIFICADO PARA AJAX) -->
+                    <form id="form-ecografia-ajax" class="mb-3">
+                        {% csrf_token %}
+                        <div class="row g-2 align-items-end">
+                            <div class="col-md-8">
+                                <label class="form-label">Ecografía *</label>
+                                <select name="examen_eco" id="select-examen-eco" class="form-select form-select-sm" required
+                                        onchange="toggleOtroInputEco(this)">
+                                    <option value="">Seleccionar ecografía...</option>
+                                    {% for valor, texto in ecografias %}
+                                    <option value="{{ valor }}">{{ texto }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" id="btn-agregar-eco-ajax" class="btn btn-warning w-100">
+                                    <i class="fas fa-plus"></i> Agregar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- CAMPO "OTRO" (oculto inicialmente) -->
+                        <div class="row mt-2" id="otro-eco-container" style="display: none;">
+                            <div class="col-12">
+                                <label class="form-label">Especificar ecografía:</label>
+                                <input type="text" name="examen_eco_otro" id="examen_eco_otro"
+                                       class="form-control form-control-sm"
+                                       placeholder="Escriba la ecografía no listada...">
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <label class="form-label">Indicaciones (opcional)</label>
+                                <textarea name="indicaciones_eco" id="indicaciones-eco"
+                                          class="form-control form-control-sm"
+                                          rows="2"
+                                          placeholder="Indicaciones especiales..."></textarea>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- LISTA DE ECOGRAFÍAS -->
+                    <div id="contenedor-lista-eco">
+                        {% if ecografias_temp %}
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead class="table-warning">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Ecografía</th>
+                                        <th>Indicaciones</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lista-eco-tbody">
+                                    {% for eco in ecografias_temp %}
+                                    <tr id="eco-fila-{{ forloop.counter0 }}">
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>
+                                            {% if eco.examen|slice:":5" == "OTRO:" %}
+                                                <span class="badge bg-info">OTRO</span> {{ eco.examen|slice:"6:" }}
+                                            {% else %}
+                                                {{ eco.examen }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ eco.indicaciones|default:"-" }}</td>
+                                        <td>
+                                            <button type="button" 
+                                                    class="btn btn-sm btn-outline-warning eliminar-eco-btn"
+                                                    data-index="{{ forloop.counter0 }}"
+                                                    onclick="eliminarEcoTemporal({{ forloop.counter0 }})"
+                                                    title="Eliminar">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <div class="text-end mt-2">
+                                <button type="button" id="btn-imprimir-ecografias" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-print"></i> Imprimir Órdenes (<span id="contador-eco-badge">{{ ecografias_temp|length }}</span>)
+                                </button>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-secondary mb-0">
+                            <i class="fas fa-info-circle"></i> No hay ecografías
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN FINALIZAR -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <span class="badge bg-primary fs-6">
+                                <i class="fas fa-file-medical"></i> Diagnóstico: {% if consulta.diagnostico %}✓{% else %}✗{% endif %} |
+                                <i class="fas fa-pills ms-3"></i> <span id="contador-recetas-footer">{{ recetas_temp|length }}</span> recetas |
+                                <i class="fas fa-flask ms-3"></i> <span id="contador-lab-footer">{{ laboratorio_temp|length }}</span> laboratorios |
+                                <i class="fas fa-procedures ms-3"></i> <span id="contador-eco-footer">{{ ecografias_temp|length }}</span> ecografías
+                            </span>
+                        </div>
+
+                        <div class="btn-group" role="group">
+                            <a href="{% url 'doctor_consultas' %}" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                            <button type="button"
+                                    onclick="finalizarConsulta()"
+                                    class="btn btn-success btn-lg">
+                                <i class="fas fa-check-circle"></i> Finalizar Consulta
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación para finalizar -->
+<div class="modal fade" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title"><i class="fas fa-check-circle"></i> Finalizar Consulta</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <h6>¿Está seguro de finalizar la consulta?</h6>
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i> <strong>Verifique que:</strong>
+                    <ul class="mb-0 mt-2">
+                        <li>El diagnóstico está completo</li>
+                        <li>El tratamiento está indicado</li>
+                        <li>Todos los medicamentos están agregados</li>
+                        <li>Los exámenes solicitados son correctos</li>
+                    </ul>
+                </div>
+                <p class="text-muted small">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Revisar</button>
+            		    
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<!-- Scripts -->
+<script>
+// ============================================
+// FUNCIONES COMUNES
+// ============================================
+
+// Función para mostrar notificaciones
+// Función para mostrar notificaciones (DEBE ESTAR ANTES DE LAS FUNCIONES AJAX)
+function mostrarNotificacion(tipo, mensaje) {
+    console.log(`Notificación: ${tipo} - ${mensaje}`);
+    
+    // Crear alerta Bootstrap
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${tipo} alert-dismissible fade show position-fixed top-0 end-0 m-3 shadow`;
+    alertDiv.style.zIndex = '9999';
+    alertDiv.style.maxWidth = '400px';
+    alertDiv.innerHTML = `
+        ${mensaje}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+    document.body.appendChild(alertDiv);
+
+    // Auto-eliminar después de 3 segundos
+    setTimeout(() => {
+        if (alertDiv.parentNode) {
+            alertDiv.remove();
+        }
+    }, 3000);
+}
+
+	// ============================================
+// FUNCIONES PARA RECETAS
+// ============================================
+async function agregarRecetaAjax() {
+    console.log('Intentando agregar receta con AJAX...');
+
+    // Obtener valores
+    const medicamento = document.getElementById('input-medicamento').value.trim();
+    const dosis = document.getElementById('input-dosis').value.trim();
+    const frecuencia = document.getElementById('input-frecuencia').value.trim();
+    const duracion = document.getElementById('input-duracion').value.trim();
+    const indicaciones = document.getElementById('input-indicaciones').value.trim();
+
+    // Validar
+    if (!medicamento) {
+        mostrarNotificacion('danger', '❌ El medicamento es obligatorio');
+        document.getElementById('input-medicamento').focus();
+        return;
+    }
+
+    // Mostrar carga
+    const btn = document.getElementById('btn-agregar-receta-ajax');
+    const originalHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    btn.disabled = true;
+
+    try {
+        const response = await fetch('{% url "agregar_receta_temp_ajax" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                medicamento: medicamento,
+                dosis: dosis,
+                frecuencia: frecuencia,
+                duracion: duracion,
+                indicaciones: indicaciones
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // 🔴 CAMBIO IMPORTANTE: Usar SOLO variables locales, NO data.mensaje
+            const mensajeExito = `✅ Medicamento "${medicamento}" agregado correctamente`;
+            
+            // Mostrar notificación
+            mostrarNotificacion('success', mensajeExito);
+            
+            // También mostrar alerta temporal en la tabla si quieres
+            console.log('Éxito:', mensajeExito);
+
+            // Limpiar formulario
+            document.getElementById('input-medicamento').value = '';
+            document.getElementById('input-dosis').value = '';
+            document.getElementById('input-frecuencia').value = '';
+            document.getElementById('input-duracion').value = '';
+            document.getElementById('input-indicaciones').value = '';
+            document.getElementById('input-medicamento').focus();
+
+            // Agregar a la tabla visualmente
+            if (data.receta) {
+                const totalRecetas = document.querySelectorAll('#lista-recetas-tbody tr').length;
+                if (typeof agregarFilaRecetaATabla === 'function') {
+                    agregarFilaRecetaATabla(data.receta, totalRecetas);
+                } else {
+                    location.reload();
+                }
+            }
+
+            actualizarContadoresRecetas();
+
+        } else {
+            // 🔴 CAMBIO IMPORTANTE: Usar data.error o mensaje por defecto
+            const mensajeError = data.error || 'Error al agregar medicamento';
+            mostrarNotificacion('danger', `❌ ${mensajeError}`);
+        }
+
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarNotificacion('danger', '❌ Error de conexión al servidor');
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+    }
+}
+
+
+async function eliminarRecetaTemporal(index) {
+    if (!confirm('¿Está seguro de eliminar este medicamento?')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/doctor/eliminar-temporal/?tipo=receta&index=${index}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Eliminar la fila visualmente
+            const fila = document.getElementById(`receta-fila-${index}`);
+            if (fila) {
+                fila.remove();
+            }
+            
+            // Actualizar contadores
+            actualizarContadoresRecetas();
+            mostrarNotificacion('success', '✅ Medicamento eliminado');
+            
+        } else {
+            mostrarNotificacion('danger', '❌ Error: ' + data.error);
+        }
+        
+    } catch (error) {
+        console.error('Error al eliminar:', error);
+        mostrarNotificacion('danger', '❌ Error de conexión');
+    }
+}
+
+function agregarFilaRecetaATabla(receta, index) {
+    let tbody = document.getElementById('lista-recetas-tbody');
+    
+    // Si no hay tabla visible, crearla
+    if (!tbody) {
+        crearTablaRecetas();
+        tbody = document.getElementById('lista-recetas-tbody');
+    }
+    
+    // Crear nueva fila
+    const fila = document.createElement('tr');
+    fila.id = `receta-fila-${index}`;
+    
+    fila.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${receta.medicamento}</td>
+        <td>${receta.dosis || '-'}</td>
+        <td>${receta.frecuencia || '-'}</td>
+        <td>${receta.duracion || '-'}</td>
+        <td>${receta.indicaciones || '-'}</td>
+        <td>
+            <button type="button" 
+                    class="btn btn-sm btn-outline-danger eliminar-receta-btn"
+                    data-index="${index}"
+                    onclick="eliminarRecetaTemporal(${index})"
+                    title="Eliminar">
+                <i class="fas fa-times"></i>
+            </button>
+        </td>
+    `;
+    
+    // Agregar al tbody
+    tbody.appendChild(fila);
+}
+
+function crearTablaRecetas() {
+    const contenedor = document.getElementById('contenedor-lista-recetas');
+    
+    // Remover mensaje de "no hay recetas"
+    const mensaje = document.getElementById('mensaje-sin-recetas');
+    if (mensaje) {
+        mensaje.remove();
+    }
+    
+    // Crear tabla
+    const tablaHTML = `
+        <div class="table-responsive">
+            <table class="table table-sm table-hover" id="tabla-recetas">
+                <thead class="table-success">
+                    <tr>
+                        <th width="5%">#</th>
+                        <th width="25%">Medicamento</th>
+                        <th width="15%">Dosis</th>
+                        <th width="15%">Frecuencia</th>
+                        <th width="15%">Duración</th>
+                        <th width="20%">Indicaciones</th>
+                        <th width="5%">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-recetas-tbody">
+                </tbody>
+            </table>
+            <div class="mt-3 text-end">
+                <button type="button" id="btn-imprimir-recetas" class="btn btn-warning">
+                    <i class="fas fa-print"></i> Imprimir Todas las Recetas (<span id="contador-recetas-badge">0</span>)
+                </button>
+            </div>
+        </div>
+    `;
+    
+    contenedor.innerHTML = tablaHTML;
+}
+
+function actualizarContadoresRecetas() {
+    const filas = document.querySelectorAll('#lista-recetas-tbody tr');
+    const total = filas.length;
+    
+    // Actualizar badge en el header
+    const badgeHeader = document.getElementById('contador-recetas');
+    if (badgeHeader) {
+        badgeHeader.textContent = total + ' medicamento(s)';
+    }
+    
+    // Actualizar badge en el botón imprimir
+    const badgeImprimir = document.getElementById('contador-recetas-badge');
+    if (badgeImprimir) {
+        badgeImprimir.textContent = total;
+    }
+    
+    // Actualizar contador en el footer
+    const footerContador = document.getElementById('contador-recetas-footer');
+    if (footerContador) {
+        footerContador.textContent = total;
+    }
+    
+    // Renumerar filas
+    filas.forEach((fila, index) => {
+        fila.querySelector('td:first-child').textContent = index + 1;
+    });
+}
+
+// ============================================
+// FUNCIONES PARA LABORATORIO
+// ============================================
+
+function toggleOtroInputLab(selectElement) {
+    const valor = selectElement.value;
+    const container = document.getElementById('otro-lab-container');
+    
+    if (container) {
+        if (valor === 'OTRO') {
+            container.style.display = 'block';
+            const input = document.getElementById('examen_lab_otro');
+            if (input) {
+                input.required = true;
+                setTimeout(() => input.focus(), 100);
+            }
+        } else {
+            container.style.display = 'none';
+        }
+    }
+}
+
+async function agregarLabAjax() {
+    console.log('Intentando agregar examen de laboratorio con AJAX...');
+
+    const selectElement = document.getElementById('select-examen-lab');
+    const examen = selectElement ? selectElement.value.trim() : '';
+    const examenOtro = document.getElementById('examen_lab_otro')?.value.trim() || '';
+    const indicaciones = document.getElementById('indicaciones-lab')?.value.trim() || '';
+
+    if (!examen) {
+        mostrarNotificacion('danger', '❌ Debe seleccionar un examen');
+        if (selectElement) selectElement.focus();
+        return;
+    }
+
+    if (examen === 'OTRO' && !examenOtro) {
+        mostrarNotificacion('danger', '❌ Debe especificar el examen');
+        document.getElementById('examen_lab_otro')?.focus();
+        return;
+    }
+
+    const nombreMostrar = examen === 'OTRO' ? examenOtro : examen;
+
+    const btn = document.getElementById('btn-agregar-lab-ajax');
+    const originalHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    btn.disabled = true;
+
+    try {
+        const response = await fetch('{% url "agregar_lab_temp_ajax" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                examen: examen,
+                examen_otro: examenOtro,
+                indicaciones: indicaciones
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // 🔴 USAR VARIABLE LOCAL, NO data.mensaje
+            mostrarNotificacion('success', `✅ Examen "${nombreMostrar}" agregado correctamente`);
+
+            selectElement.value = '';
+            if (document.getElementById('examen_lab_otro')) document.getElementById('examen_lab_otro').value = '';
+            if (document.getElementById('indicaciones-lab')) document.getElementById('indicaciones-lab').value = '';
+            document.getElementById('otro-lab-container').style.display = 'none';
+            selectElement.focus();
+
+            if (data.examen) {
+                const totalLab = document.querySelectorAll('#lista-lab-tbody tr').length;
+                if (typeof agregarFilaLabATabla === 'function') {
+                    agregarFilaLabATabla(data.examen, totalLab);
+                } else {
+                    location.reload();
+                }
+            }
+
+            actualizarContadoresLab();
+
+        } else {
+            // 🔴 USAR data.error
+            mostrarNotificacion('danger', `❌ ${data.error || 'Error al agregar examen'}`);
+        }
+
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarNotificacion('danger', '❌ Error de conexión');
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+    }
+}
+
+
+async function eliminarLabTemporal(index) {
+    if (!confirm('¿Está seguro de eliminar este examen?')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/doctor/eliminar-temporal/?tipo=laboratorio&index=${index}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Eliminar la fila visualmente
+            const fila = document.getElementById(`lab-fila-${index}`);
+            if (fila) {
+                fila.remove();
+            }
+            
+            // Actualizar contadores
+            actualizarContadoresLab();
+            mostrarNotificacion('success', '✅ Examen eliminado');
+            
+        } else {
+            mostrarNotificacion('danger', '❌ Error: ' + data.error);
+        }
+        
+    } catch (error) {
+        console.error('Error al eliminar:', error);
+        mostrarNotificacion('danger', '❌ Error de conexión');
+    }
+}
+
+function agregarFilaLabATabla(examen, index) {
+    let tbody = document.getElementById('lista-lab-tbody');
+    
+    // Si no hay tabla visible, crearla
+    if (!tbody) {
+        crearTablaLab();
+        tbody = document.getElementById('lista-lab-tbody');
+    }
+    
+    // Crear nueva fila
+    const fila = document.createElement('tr');
+    fila.id = `lab-fila-${index}`;
+    
+    // Determinar si es OTRO
+    const esOtro = examen.examen.startsWith('OTRO:');
+    const textoExamen = esOtro 
+        ? `<span class="badge bg-warning">OTRO</span> ${examen.examen.substring(6)}`
+        : examen.examen;
+    
+    fila.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${textoExamen}</td>
+        <td>${examen.indicaciones || '-'}</td>
+        <td>
+            <button type="button" 
+                    class="btn btn-sm btn-outline-danger eliminar-lab-btn"
+                    data-index="${index}"
+                    onclick="eliminarLabTemporal(${index})"
+                    title="Eliminar">
+                <i class="fas fa-times"></i>
+            </button>
+        </td>
+    `;
+    
+    // Agregar al tbody
+    tbody.appendChild(fila);
+}
+
+function crearTablaLab() {
+    const contenedor = document.getElementById('contenedor-lista-lab');
+    
+    // Remover mensaje de "no hay exámenes"
+    const mensaje = contenedor.querySelector('.alert');
+    if (mensaje) {
+        mensaje.remove();
+    }
+    
+    // Crear tabla
+    const tablaHTML = `
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead class="table-danger">
+                    <tr>
+                        <th>#</th>
+                        <th>Examen</th>
+                        <th>Indicaciones</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-lab-tbody">
+                </tbody>
+            </table>
+            <div class="text-end mt-2">
+                <button type="button" id="btn-imprimir-laboratorio" class="btn btn-warning btn-sm">
+                    <i class="fas fa-print"></i> Imprimir Órdenes (<span id="contador-lab-badge">0</span>)
+                </button>
+            </div>
+        </div>
+    `;
+    
+    contenedor.innerHTML = tablaHTML;
+}
+
+function actualizarContadoresLab() {
+    const filas = document.querySelectorAll('#lista-lab-tbody tr');
+    const total = filas.length;
+    
+    // Actualizar badge en el header
+    const badgeHeader = document.getElementById('contador-lab-header');
+    if (badgeHeader) {
+        badgeHeader.textContent = total;
+    }
+    
+    // Actualizar badge en el botón imprimir
+    const badgeImprimir = document.getElementById('contador-lab-badge');
+    if (badgeImprimir) {
+        badgeImprimir.textContent = total;
+    }
+    
+    // Actualizar contador en el footer
+    const footerContador = document.getElementById('contador-lab-footer');
+    if (footerContador) {
+        footerContador.textContent = total;
+    }
+    
+    // Renumerar filas
+    filas.forEach((fila, index) => {
+        fila.querySelector('td:first-child').textContent = index + 1;
+    });
+}
+
+// ============================================
+// FUNCIONES PARA ECOGRAFÍAS
+// ============================================
+
+function toggleOtroInputEco(selectElement) {
+    const valor = selectElement.value;
+    const container = document.getElementById('otro-eco-container');
+    
+    if (container) {
+        if (valor === 'OTRO') {
+            container.style.display = 'block';
+            const input = document.getElementById('examen_eco_otro');
+            if (input) {
+                input.required = true;
+                setTimeout(() => input.focus(), 100);
+            }
+        } else {
+            container.style.display = 'none';
+        }
+    }
+}
+
+async function agregarEcoAjax() {
+    console.log('Intentando agregar ecografía con AJAX...');
+
+    const selectElement = document.getElementById('select-examen-eco');
+    const examen = selectElement ? selectElement.value.trim() : '';
+    const examenOtro = document.getElementById('examen_eco_otro')?.value.trim() || '';
+    const indicaciones = document.getElementById('indicaciones-eco')?.value.trim() || '';
+
+    if (!examen) {
+        mostrarNotificacion('danger', '❌ Debe seleccionar una ecografía');
+        if (selectElement) selectElement.focus();
+        return;
+    }
+
+    if (examen === 'OTRO' && !examenOtro) {
+        mostrarNotificacion('danger', '❌ Debe especificar la ecografía');
+        document.getElementById('examen_eco_otro')?.focus();
+        return;
+    }
+
+    const nombreMostrar = examen === 'OTRO' ? examenOtro : examen;
+
+    const btn = document.getElementById('btn-agregar-eco-ajax');
+    const originalHtml = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    btn.disabled = true;
+
+    try {
+        const response = await fetch('{% url "agregar_eco_temp_ajax" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                examen: examen,
+                examen_otro: examenOtro,
+                indicaciones: indicaciones
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // 🔴 USAR VARIABLE LOCAL
+            mostrarNotificacion('success', `✅ Ecografía "${nombreMostrar}" agregada correctamente`);
+
+            selectElement.value = '';
+            if (document.getElementById('examen_eco_otro')) document.getElementById('examen_eco_otro').value = '';
+            if (document.getElementById('indicaciones-eco')) document.getElementById('indicaciones-eco').value = '';
+            document.getElementById('otro-eco-container').style.display = 'none';
+            selectElement.focus();
+
+            if (data.ecografia) {
+                const totalEco = document.querySelectorAll('#lista-eco-tbody tr').length;
+                if (typeof agregarFilaEcoATabla === 'function') {
+                    agregarFilaEcoATabla(data.ecografia, totalEco);
+                } else {
+                    location.reload();
+                }
+            }
+
+            actualizarContadoresEco();
+
+        } else {
+            // 🔴 USAR data.error
+            mostrarNotificacion('danger', `❌ ${data.error || 'Error al agregar ecografía'}`);
+        }
+
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarNotificacion('danger', '❌ Error de conexión');
+        btn.innerHTML = originalHtml;
+        btn.disabled = false;
+    }
+}
+async function eliminarEcoTemporal(index) {
+    if (!confirm('¿Está seguro de eliminar esta ecografía?')) {
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/doctor/eliminar-temporal/?tipo=ecografia&index=${index}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Eliminar la fila visualmente
+            const fila = document.getElementById(`eco-fila-${index}`);
+            if (fila) {
+                fila.remove();
+            }
+            
+            // Actualizar contadores
+            actualizarContadoresEco();
+            mostrarNotificacion('success', '✅ Ecografía eliminada');
+            
+        } else {
+            mostrarNotificacion('danger', '❌ Error: ' + data.error);
+        }
+        
+    } catch (error) {
+        console.error('Error al eliminar:', error);
+        mostrarNotificacion('danger', '❌ Error de conexión');
+    }
+}
+
+function agregarFilaEcoATabla(ecografia, index) {
+    let tbody = document.getElementById('lista-eco-tbody');
+    
+    // Si no hay tabla visible, crearla
+    if (!tbody) {
+        crearTablaEco();
+        tbody = document.getElementById('lista-eco-tbody');
+    }
+    
+    // Crear nueva fila
+    const fila = document.createElement('tr');
+    fila.id = `eco-fila-${index}`;
+    
+    // Determinar si es OTRO
+    const esOtro = ecografia.examen.startsWith('OTRO:');
+    const textoExamen = esOtro 
+        ? `<span class="badge bg-info">OTRO</span> ${ecografia.examen.substring(6)}`
+        : ecografia.examen;
+    
+    fila.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${textoExamen}</td>
+        <td>${ecografia.indicaciones || '-'}</td>
+        <td>
+            <button type="button" 
+                    class="btn btn-sm btn-outline-warning eliminar-eco-btn"
+                    data-index="${index}"
+                    onclick="eliminarEcoTemporal(${index})"
+                    title="Eliminar">
+                <i class="fas fa-times"></i>
+            </button>
+        </td>
+    `;
+    
+    // Agregar al tbody
+    tbody.appendChild(fila);
+}
+
+function crearTablaEco() {
+    const contenedor = document.getElementById('contenedor-lista-eco');
+    
+    // Remover mensaje de "no hay ecografías"
+    const mensaje = contenedor.querySelector('.alert');
+    if (mensaje) {
+        mensaje.remove();
+    }
+    
+    // Crear tabla
+    const tablaHTML = `
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead class="table-warning">
+                    <tr>
+                        <th>#</th>
+                        <th>Ecografía</th>
+                        <th>Indicaciones</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-eco-tbody">
+                </tbody>
+            </table>
+            <div class="text-end mt-2">
+                <button type="button" id="btn-imprimir-ecografias" class="btn btn-warning btn-sm">
+                    <i class="fas fa-print"></i> Imprimir Órdenes (<span id="contador-eco-badge">0</span>)
+                </button>
+            </div>
+        </div>
+    `;
+    
+    contenedor.innerHTML = tablaHTML;
+}
+
+function actualizarContadoresEco() {
+    const filas = document.querySelectorAll('#lista-eco-tbody tr');
+    const total = filas.length;
+    
+    // Actualizar badge en el header
+    const badgeHeader = document.getElementById('contador-eco-header');
+    if (badgeHeader) {
+        badgeHeader.textContent = total;
+    }
+    
+    // Actualizar badge en el botón imprimir
+    const badgeImprimir = document.getElementById('contador-eco-badge');
+    if (badgeImprimir) {
+        badgeImprimir.textContent = total;
+    }
+    
+    // Actualizar contador en el footer
+    const footerContador = document.getElementById('contador-eco-footer');
+    if (footerContador) {
+        footerContador.textContent = total;
+    }
+    
+    // Renumerar filas
+    filas.forEach((fila, index) => {
+        fila.querySelector('td:first-child').textContent = index + 1;
+    });
+}
+
+// ============================================
+// FUNCIONES DE IMPRESIÓN (CORREGIDAS)
+// ============================================
+
+// Función para imprimir recetas
+document.getElementById('btn-imprimir-recetas')?.addEventListener('click', function() {
+    const totalRecetas = document.querySelectorAll('#lista-recetas-tbody tr').length;
+    if (totalRecetas === 0) {
+        mostrarNotificacion('warning', '⚠️ No hay recetas para imprimir');
+        return;
+    }
+
+    // Preguntar tipo de impresión
+    if (confirm('¿Imprimir recetas en formato ticketera térmica?\n\n• Aceptar = Formato térmico (58mm)\n• Cancelar = Formato normal (A4)')) {
+        // Formato térmico
+        window.open('{% url "imprimir_recetas" consulta.id %}?tipo=termica', '_blank');
+    } else {
+        // Formato normal
+        window.open('{% url "imprimir_recetas" consulta.id %}', '_blank');
+    }
+});
+
+// Función para imprimir laboratorio
+document.getElementById('btn-imprimir-laboratorio')?.addEventListener('click', function() {
+    const totalLab = document.querySelectorAll('#lista-lab-tbody tr').length;
+    if (totalLab === 0) {
+        mostrarNotificacion('warning', '⚠️ No hay exámenes de laboratorio para imprimir');
+        return;
+    }
+
+    // Preguntar tipo de impresión
+    if (confirm('¿Imprimir laboratorio en formato ticketera térmica?\n\n• Aceptar = Formato térmico (58mm)\n• Cancelar = Formato normal (A4)')) {
+        // Formato térmico
+        window.open('{% url "imprimir_laboratorio" consulta.id %}?tipo=termica', '_blank');
+    } else {
+        // Formato normal
+        window.open('{% url "imprimir_laboratorio" consulta.id %}', '_blank');
+    }
+});
+
+// Función para imprimir ecografías
+document.getElementById('btn-imprimir-ecografias')?.addEventListener('click', function() {
+    const totalEco = document.querySelectorAll('#lista-eco-tbody tr').length;
+    if (totalEco === 0) {
+        mostrarNotificacion('warning', '⚠️ No hay ecografías para imprimir');
+        return;
+    }
+
+    // Preguntar tipo de impresión
+    if (confirm('¿Imprimir ecografías en formato ticketera térmica?\n\n• Aceptar = Formato térmico (58mm)\n• Cancelar = Formato normal (A4)')) {
+        // Formato térmico
+        window.open('{% url "imprimir_ecografias" consulta.id %}?tipo=termica', '_blank');
+    } else {
+        // Formato normal
+        window.open('{% url "imprimir_ecografias" consulta.id %}', '_blank');
+    }
+});
+
+// ============================================
+// FUNCIONES DE IMPRESIÓN CON DELEGACIÓN DE EVENTOS
+// ============================================
+
+// DELEGACIÓN DE EVENTOS - Funciona para botones creados dinámicamente
+document.addEventListener('click', function(event) {
+    
+    // 1. IMPRIMIR RECETAS
+    if (event.target.id === 'btn-imprimir-recetas' || 
+        event.target.closest('#btn-imprimir-recetas')) {
+        
+        console.log('📋 Botón imprimir recetas clickeado');
+        event.preventDefault();
+        
+        const totalRecetas = document.querySelectorAll('#lista-recetas-tbody tr').length;
+        if (totalRecetas === 0) {
+            mostrarNotificacion('warning', '⚠️ No hay recetas para imprimir');
+            return;
+        }
+
+        // Preguntar tipo de impresión
+        if (confirm('¿Imprimir recetas en formato ticketera térmica?\n\n• Aceptar = Formato térmico (58mm)\n• Cancelar = Formato normal (A4)')) {
+            // Formato térmico
+            window.open('{% url "imprimir_recetas" consulta.id %}?tipo=termica', '_blank');
+        } else {
+            // Formato normal
+            window.open('{% url "imprimir_recetas" consulta.id %}', '_blank');
+        }
+    }
+    
+    // 2. IMPRIMIR LABORATORIO
+    else if (event.target.id === 'btn-imprimir-laboratorio' || 
+             event.target.closest('#btn-imprimir-laboratorio')) {
+        
+        console.log('🔬 Botón imprimir laboratorio clickeado');
+        event.preventDefault();
+        
+        const totalLab = document.querySelectorAll('#lista-lab-tbody tr').length;
+        if (totalLab === 0) {
+            mostrarNotificacion('warning', '⚠️ No hay exámenes de laboratorio para imprimir');
+            return;
+        }
+
+        // Preguntar tipo de impresión
+        if (confirm('¿Imprimir laboratorio en formato ticketera térmica?\n\n• Aceptar = Formato térmico (58mm)\n• Cancelar = Formato normal (A4)')) {
+            // Formato térmico
+            window.open('{% url "imprimir_laboratorio" consulta.id %}?tipo=termica', '_blank');
+        } else {
+            // Formato normal
+            window.open('{% url "imprimir_laboratorio" consulta.id %}', '_blank');
+        }
+    }
+    
+    // 3. IMPRIMIR ECOGRAFÍAS
+    else if (event.target.id === 'btn-imprimir-ecografias' || 
+             event.target.closest('#btn-imprimir-ecografias')) {
+        
+        console.log('📷 Botón imprimir ecografías clickeado');
+        event.preventDefault();
+        
+        const totalEco = document.querySelectorAll('#lista-eco-tbody tr').length;
+        if (totalEco === 0) {
+            mostrarNotificacion('warning', '⚠️ No hay ecografías para imprimir');
+            return;
+        }
+
+        // Preguntar tipo de impresión
+        if (confirm('¿Imprimir ecografías en formato ticketera térmica?\n\n• Aceptar = Formato térmico (58mm)\n• Cancelar = Formato normal (A4)')) {
+            // Formato térmico
+            window.open('{% url "imprimir_ecografias" consulta.id %}?tipo=termica', '_blank');
+        } else {
+            // Formato normal
+            window.open('{% url "imprimir_ecografias" consulta.id %}', '_blank');
+        }
+    }
+});
+
+// ============================================
+// FUNCIÓN PARA FINALIZAR CONSULTA (CORREGIDA)
+// ============================================
+// ============================================
+// FUNCIÓN PARA FINALIZAR CONSULTA (CORREGIDA - TODOS OBLIGATORIOS)
+// ============================================
+
+function finalizarConsulta() {
+    console.log('=== FINALIZAR CONSULTA ===');
+
+    // 1. OBTENER VALORES DE LOS CAMPOS
+    const motivoConsulta = document.getElementById('motivo-consulta-field').value.trim();
+    const examenFisico = document.getElementById('examen-fisico-field').value.trim();
+    const diagnostico = document.getElementById('diagnostico-field').value.trim();
+    const tratamiento = document.getElementById('tratamiento-field').value.trim();
+
+    console.log('📝 Motivo:', motivoConsulta);
+    console.log('🏥 Examen Físico:', examenFisico);
+    console.log('🔬 Diagnóstico:', diagnostico);
+    console.log('💊 Tratamiento:', tratamiento);
+
+    // 2. VALIDACIÓN (TODOS LOS CAMPOS SON OBLIGATORIOS)
+    if (!motivoConsulta) {
+        alert('❌ El motivo de consulta es obligatorio');
+        document.getElementById('motivo-consulta-field').focus();
+        document.getElementById('motivo-consulta-field').style.border = '2px solid red';
+        return;
+    } else {
+        document.getElementById('motivo-consulta-field').style.border = '';
+    }
+
+    if (!examenFisico) {
+        alert('❌ El examen físico es obligatorio');
+        document.getElementById('examen-fisico-field').focus();
+        document.getElementById('examen-fisico-field').style.border = '2px solid red';
+        return;
+    } else {
+        document.getElementById('examen-fisico-field').style.border = '';
+    }
+
+    if (!diagnostico) {
+        alert('❌ El diagnóstico es obligatorio');
+        document.getElementById('diagnostico-field').focus();
+        document.getElementById('diagnostico-field').style.border = '2px solid red';
+        return;
+    } else {
+        document.getElementById('diagnostico-field').style.border = '';
+    }
+
+    if (!tratamiento) {
+        alert('❌ El tratamiento es obligatorio');
+        document.getElementById('tratamiento-field').focus();
+        document.getElementById('tratamiento-field').style.border = '2px solid red';
+        return;
+    } else {
+        document.getElementById('tratamiento-field').style.border = '';
+    }
+
+    // 3. ASIGNAR VALORES A LOS CAMPOS OCULTOS DEL MODAL
+    document.getElementById('modal-motivo-consulta').value = motivoConsulta;
+    document.getElementById('modal-examen-fisico').value = examenFisico;
+    document.getElementById('modal-diagnostico').value = diagnostico;
+    document.getElementById('modal-tratamiento').value = tratamiento;
+
+    // 4. MOSTRAR MODAL DE CONFIRMACIÓN
+    try {
+        const modalElement = document.getElementById('confirmModal');
+        if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        } else {
+            alert('Error: No se puede mostrar la confirmación');
+        }
+    } catch (error) {
+        alert('Error técnico: ' + error.message);
+    }
+}
+
+// ============================================
+// CONFIGURACIÓN INICIAL
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM cargado, configurando AJAX...');
+    
+    // Configurar botones AJAX
+    const btnReceta = document.getElementById('btn-agregar-receta-ajax');
+    const btnLab = document.getElementById('btn-agregar-lab-ajax');
+    const btnEco = document.getElementById('btn-agregar-eco-ajax');
+    
+    if (btnReceta) {
+        btnReceta.addEventListener('click', agregarRecetaAjax);
+        console.log('✅ Botón receta AJAX configurado');
+    }
+    
+    if (btnLab) {
+        btnLab.addEventListener('click', agregarLabAjax);
+        console.log('✅ Botón laboratorio AJAX configurado');
+    }
+    
+    if (btnEco) {
+        btnEco.addEventListener('click', agregarEcoAjax);
+        console.log('✅ Botón ecografía AJAX configurado');
+    }
+    
+    // Configurar eventos de tecla Enter en formularios
+    document.getElementById('input-medicamento')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            agregarRecetaAjax();
+        }
+    });
+    
+    // Configurar función finalizarConsulta globalmente
+    window.finalizarConsulta = finalizarConsulta;
+    
+    console.log('✅ Configuración completada');
+});
+
+// ============================================
+// MEJORA: BÚSQUEDA EN TIEMPO REAL DE MEDICAMENTOS
+// (Se agrega al código existente, NO reemplaza nada)
+// ============================================
+
+function buscarMedicamentosEnTiempoReal(query) {
+    if (query.length < 2) {
+        // Opcional: Si el query es muy corto, restaurar el datalist original
+        // O dejar vacío
+        return;
+    }
+    
+    console.log(`Buscando: "${query}"`);
+    
+    fetch(`{% url "buscar_medicamentos" %}?q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Resultados AJAX:', data);
+            
+            const datalist = document.getElementById('medicamentos-list');
+            if (datalist && data.medicamentos && data.medicamentos.length > 0) {
+                // 1. LIMPIAR todas las opciones anteriores
+                datalist.innerHTML = '';
+                
+                // 2. Agregar SOLO los resultados de esta búsqueda
+                data.medicamentos.forEach(med => {
+                    const option = document.createElement('option');
+                    option.value = med.nombre || med.nombre_completo;
+                    option.textContent = med.nombre_completo || med.nombre;
+                    datalist.appendChild(option);
+                });
+                
+                console.log(`✅ Mostrando ${data.medicamentos.length} resultados relevantes`);
+            } else {
+                // Si no hay resultados, dejar vacío
+                datalist.innerHTML = '';
+                console.log('❌ No se encontraron medicamentos');
+            }
+        })
+        .catch(error => {
+            console.log('⚠️ Búsqueda AJAX no disponible');
+            // Mantener el datalist estático si hay error
+        });
+}
+
+
+// Configurar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    const inputMedicamento = document.getElementById('input-medicamento');
+    
+    if (inputMedicamento) {
+        // Evento para búsqueda en tiempo real
+        let timeoutId;
+        inputMedicamento.addEventListener('input', function(e) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                buscarMedicamentosEnTiempoReal(e.target.value);
+            }, 300); // Esperar 300ms después de que el usuario deje de escribir
+        });
+        
+        console.log('✅ Búsqueda en tiempo real de medicamentos configurada');
+    }
+});
+
+
+
+// Mostrar precio del examen seleccionado
+document.getElementById('select-examen-lab').addEventListener('change', function() {
+    const precioSpan = document.getElementById('precio-lab-valor');
+    const precioContainer = document.getElementById('precio-lab-seleccionado');
+    const selectedOption = this.options[this.selectedIndex];
+    
+    if (selectedOption.value && selectedOption.dataset.precio) {
+        precioSpan.textContent = selectedOption.dataset.precio;
+        precioContainer.style.display = 'block';
+    } else {
+        precioContainer.style.display = 'none';
+    }
+});
+
+// Función para mostrar/ocultar campo "OTRO"
+function toggleOtroInputLab(select) {
+    const otroContainer = document.getElementById('otro-lab-container');
+    const precioContainer = document.getElementById('precio-lab-seleccionado');
+    
+    if (select.value === 'OTRO') {
+        otroContainer.style.display = 'block';
+        precioContainer.style.display = 'none';
+        // Limpiar campo "OTRO"
+        document.getElementById('examen_lab_otro').value = '';
+    } else {
+        otroContainer.style.display = 'none';
+        // Si hay precio, mostrarlo
+        if (select.value && select.options[select.selectedIndex].dataset.precio) {
+            precioContainer.style.display = 'block';
+        }
+    }
+}
+
+// Inicializar al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    const selectLab = document.getElementById('select-examen-lab');
+    if (selectLab.value) {
+        toggleOtroInputLab(selectLab);
+    }
+});
+
+
+
+// ============================================
+// FUNCIONES PARA AUTOGUARDADO
+// ============================================
+// ============================================
+// FUNCIONES PARA AUTOGUARDADO
+// ============================================
+
+// Variables para debounce (ACTUALIZADAS)
+let motivoConsultaTimeout = null;
+let examenFisicoTimeout = null;
+let diagnosticoTimeout = null;
+let tratamientoTimeout = null;
+const DEBOUNCE_DELAY = 1000; // 1 segundo
+
+// Función para guardar un campo específico (SE MANTIENE IGUAL)
+async function guardarCampo(consultaId, campo, valor) {
+    console.log(`Guardando ${campo}:`, valor.substring(0, 50) + '...');
+
+    try {
+        const response = await fetch(`/doctor/consulta/${consultaId}/guardar-diagnostico-ajax/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                [campo]: valor
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            console.log(`✅ ${campo.charAt(0).toUpperCase() + campo.slice(1)} guardado automáticamente`);
+
+            // Mostrar notificación sutil
+            const notif = document.createElement('div');
+            notif.className = 'alert alert-success alert-dismissible fade show position-fixed bottom-0 start-0 m-3';
+            notif.style.zIndex = '1050';
+            notif.style.maxWidth = '300px';
+            notif.innerHTML = `
+                <i class="fas fa-save"></i> Guardado automáticamente
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+
+            document.body.appendChild(notif);
+
+            // Auto-eliminar después de 2 segundos
+            setTimeout(() => {
+                if (notif.parentNode) {
+                    notif.remove();
+                }
+            }, 2000);
+
+        } else {
+            console.error(`❌ Error al guardar ${campo}:`, data.error);
+        }
+
+    } catch (error) {
+        console.error(`❌ Error de conexión al guardar ${campo}:`, error);
+    }
+}
+
+// Configurar autoguardado para los campos principales (ACTUALIZADO)
+function configurarAutoguardado() {
+    const consultaId = {{ consulta.id }};
+
+    // ============================================
+    // 1. MOTIVO DE CONSULTA (NUEVO)
+    // ============================================
+    const motivoConsultaField = document.getElementById('motivo-consulta-field');
+    if (motivoConsultaField) {
+        motivoConsultaField.addEventListener('input', function() {
+            clearTimeout(motivoConsultaTimeout);
+            motivoConsultaTimeout = setTimeout(() => {
+                guardarCampo(consultaId, 'motivo_consulta', this.value);
+            }, DEBOUNCE_DELAY);
+        });
+    }
+
+    // ============================================
+    // 2. EXAMEN FÍSICO (ANTES era "observaciones")
+    // ============================================
+    const examenFisicoField = document.getElementById('examen-fisico-field');
+    if (examenFisicoField) {
+        examenFisicoField.addEventListener('input', function() {
+            clearTimeout(examenFisicoTimeout);
+            examenFisicoTimeout = setTimeout(() => {
+                guardarCampo(consultaId, 'examen_fisico', this.value);
+            }, DEBOUNCE_DELAY);
+        });
+    }
+
+    // ============================================
+    // 3. DIAGNÓSTICO (SE MANTIENE)
+    // ============================================
+    const diagnosticoField = document.getElementById('diagnostico-field');
+    if (diagnosticoField) {
+        diagnosticoField.addEventListener('input', function() {
+            clearTimeout(diagnosticoTimeout);
+            diagnosticoTimeout = setTimeout(() => {
+                guardarCampo(consultaId, 'diagnostico', this.value);
+            }, DEBOUNCE_DELAY);
+        });
+    }
+
+    // ============================================
+    // 4. TRATAMIENTO (SE MANTIENE)
+    // ============================================
+    const tratamientoField = document.getElementById('tratamiento-field');
+    if (tratamientoField) {
+        tratamientoField.addEventListener('input', function() {
+            clearTimeout(tratamientoTimeout);
+            tratamientoTimeout = setTimeout(() => {
+                guardarCampo(consultaId, 'tratamiento', this.value);
+            }, DEBOUNCE_DELAY);
+        });
+    }
+
+    console.log('✅ Autoguardado configurado para:');
+    console.log('   - 📝 Motivo de consulta');
+    console.log('   - 🏥 Examen físico');
+    console.log('   - 🔬 Diagnóstico');
+    console.log('   - 💊 Tratamiento');
+}
+
+// También guardar cuando el campo pierde el foco (ACTUALIZADO)
+function configurarGuardadoOnBlur() {
+    const consultaId = {{ consulta.id }};
+
+    // Motivo de consulta
+    document.getElementById('motivo-consulta-field')?.addEventListener('blur', function() {
+        guardarCampo(consultaId, 'motivo_consulta', this.value);
+    });
+
+    // Examen físico
+    document.getElementById('examen-fisico-field')?.addEventListener('blur', function() {
+        guardarCampo(consultaId, 'examen_fisico', this.value);
+    });
+
+    // Diagnóstico
+    document.getElementById('diagnostico-field')?.addEventListener('blur', function() {
+        guardarCampo(consultaId, 'diagnostico', this.value);
+    });
+
+    // Tratamiento
+    document.getElementById('tratamiento-field')?.addEventListener('blur', function() {
+        guardarCampo(consultaId, 'tratamiento', this.value);
+    });
+}
+
+// ============================================
+// CONFIGURACIÓN INICIAL
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM cargado, configurando AJAX...');
+
+    // 1. Configurar autoguardado
+    configurarAutoguardado();
+    configurarGuardadoOnBlur();
+
+    // 2. Configurar botones AJAX (lo que ya tenías)
+    const btnReceta = document.getElementById('btn-agregar-receta-ajax');
+    const btnLab = document.getElementById('btn-agregar-lab-ajax');
+    const btnEco = document.getElementById('btn-agregar-eco-ajax');
+
+    if (btnReceta) {
+        btnReceta.addEventListener('click', agregarRecetaAjax);
+        console.log('✅ Botón receta AJAX configurado');
+    }
+
+    if (btnLab) {
+        btnLab.addEventListener('click', agregarLabAjax);
+        console.log('✅ Botón laboratorio AJAX configurado');
+    }
+
+    if (btnEco) {
+        btnEco.addEventListener('click', agregarEcoAjax);
+        console.log('✅ Botón ecografía AJAX configurado');
+    }
+
+    // 3. Configurar eventos de tecla Enter en formularios
+    document.getElementById('input-medicamento')?.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            agregarRecetaAjax();
+        }
+    });
+
+    // 4. Configurar función finalizarConsulta globalmente
+    window.finalizarConsulta = finalizarConsulta;
+
+    console.log('✅ Configuración completada');
+});
+</script>
+
+{% endblock %}

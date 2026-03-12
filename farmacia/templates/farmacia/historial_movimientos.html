@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-history me-2"></i>{{ titulo }}
+                    </h4>
+                </div>
+                
+                <div class="card-body">
+                    
+                    <!-- Filtros -->
+                    <form method="get" class="row mb-4">
+                        <div class="col-md-2">
+                            <label class="form-label">Fecha desde:</label>
+                            <input type="date" name="fecha_desde" class="form-control" value="{{ fecha_desde }}">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Fecha hasta:</label>
+                            <input type="date" name="fecha_hasta" class="form-control" value="{{ fecha_hasta }}">
+                        </div>
+                        
+                        <!-- FILTRO DE TIPO ÚNICO CON OPCIONES REALES -->
+                        <div class="col-md-2">
+                            <label class="form-label">Tipo:</label>
+                            <select name="tipo" class="form-select">
+                                <option value="">Todos</option>
+                                <option value="ENTRADA" {% if tipo == 'ENTRADA' %}selected{% endif %}>Entrada (Ajuste +)</option>
+                                <option value="SALIDA" {% if tipo == 'SALIDA' %}selected{% endif %}>Salida (Ajuste -)</option>
+                                <option value="COMPRA" {% if tipo == 'COMPRA' %}selected{% endif %}>Compra</option>
+                                <option value="VENTA" {% if tipo == 'VENTA' %}selected{% endif %}>Venta</option>
+                                <option value="PERDIDA" {% if tipo == 'PERDIDA' %}selected{% endif %}>Pérdida</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label">Medicamento:</label>
+                            <select name="medicamento" class="form-select">
+                                <option value="">Todos</option>
+                                {% for m in medicamentos %}
+                                <option value="{{ m.id }}" {% if medicamento_id == m.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ m.nombre_comercial }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-filter me-1"></i> Filtrar
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Tabla de movimientos -->
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Medicamento</th>
+                                    <th>Tipo</th>
+                                    <th class="text-end">Cantidad</th>
+                                    <th>Usuario</th>
+                                    <th>Referencia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in movimientos %}
+                                <tr>
+                                    <td>{{ m.fecha|date:"d/m/Y H:i" }}</td>
+                                    <td>
+                                        <a href="{% url 'farmacia:detalle_medicamento' m.medicamento.id %}">
+                                            {{ m.medicamento.nombre_comercial }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if m.tipo == 'COMPRA' or m.tipo == 'ENTRADA' %}bg-success
+                                            {% elif m.tipo == 'VENTA' or m.tipo == 'SALIDA' %}bg-primary
+                                            {% elif m.tipo == 'AJUSTE' %}bg-warning
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ m.get_tipo_display }}
+                                        </span>
+                                    </td>
+                                    <td class="text-end fw-bold">{{ m.cantidad }}</td>
+                                    <td>{{ m.usuario.username|default:"-" }}</td>
+                                    <td>{{ m.referencia }}</td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <p class="text-muted">No hay movimientos en el período seleccionado</p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Paginación -->
+                    {% if movimientos.has_other_pages %}
+                    <nav class="mt-4">
+                        <ul class="pagination justify-content-center">
+                            {% if movimientos.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ movimientos.previous_page_number }}{% if fecha_desde %}&fecha_desde={{ fecha_desde }}{% endif %}{% if fecha_hasta %}&fecha_hasta={{ fecha_hasta }}{% endif %}{% if tipo %}&tipo={{ tipo }}{% endif %}{% if medicamento_id %}&medicamento={{ medicamento_id }}{% endif %}">
+                                    &laquo;
+                                </a>
+                            </li>
+                            {% endif %}
+                            
+                            {% for i in movimientos.paginator.page_range %}
+                                {% if movimientos.number == i %}
+                                <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+                                {% elif i > movimientos.number|add:'-3' and i < movimientos.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ i }}{% if fecha_desde %}&fecha_desde={{ fecha_desde }}{% endif %}{% if fecha_hasta %}&fecha_hasta={{ fecha_hasta }}{% endif %}{% if tipo %}&tipo={{ tipo }}{% endif %}{% if medicamento_id %}&medicamento={{ medicamento_id }}{% endif %}">
+                                        {{ i }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if movimientos.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ movimientos.next_page_number }}{% if fecha_desde %}&fecha_desde={{ fecha_desde }}{% endif %}{% if fecha_hasta %}&fecha_hasta={{ fecha_hasta }}{% endif %}{% if tipo %}&tipo={{ tipo }}{% endif %}{% if medicamento_id %}&medicamento={{ medicamento_id }}{% endif %}">
+                                    &raquo;
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    <p class="text-muted small text-center">
+                        Mostrando {{ movimientos|length }} de {{ movimientos.paginator.count }} movimientos
+                    </p>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

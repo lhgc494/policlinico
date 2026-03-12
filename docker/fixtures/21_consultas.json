@@ -1,0 +1,3782 @@
+[
+{
+    "model": "consultas.consulta",
+    "pk": 1,
+    "fields": {
+        "paciente": 1,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-14T22:35:56.495Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 2,
+    "fields": {
+        "paciente": 1,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-14T22:36:15.570Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 3,
+    "fields": {
+        "paciente": 2,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": null,
+        "precio": "80.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-14T22:37:12.585Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 4,
+    "fields": {
+        "paciente": 1,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-14T22:40:29.177Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 5,
+    "fields": {
+        "paciente": 3,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-14T22:41:10.277Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 6,
+    "fields": {
+        "paciente": 1,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-15T15:04:42.483Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 7,
+    "fields": {
+        "paciente": 3,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-15T15:22:56.717Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 8,
+    "fields": {
+        "paciente": 4,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-15T15:42:03.300Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 9,
+    "fields": {
+        "paciente": 2,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": null,
+        "precio": "80.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-15T15:45:02.082Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 10,
+    "fields": {
+        "paciente": 5,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-15T15:48:44.174Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 11,
+    "fields": {
+        "paciente": 2,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-15T15:49:38.668Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 12,
+    "fields": {
+        "paciente": 5,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-15T16:07:34.904Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 13,
+    "fields": {
+        "paciente": 3,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-15T16:46:13.222Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 14,
+    "fields": {
+        "paciente": 4,
+        "tarifa": 4,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "OBSTETRICIA",
+        "precio": "45.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-15T17:37:37.302Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 15,
+    "fields": {
+        "paciente": 5,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-15T19:03:42.604Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 16,
+    "fields": {
+        "paciente": 3,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": null,
+        "estado": "TRIAJE_PENDIENTE",
+        "fecha": "2026-01-15T20:47:52.667Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 17,
+    "fields": {
+        "paciente": 7,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-15T22:23:00.189Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 18,
+    "fields": {
+        "paciente": 3,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-15T22:28:37.397Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 19,
+    "fields": {
+        "paciente": 1,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-15T22:41:57.762Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 20,
+    "fields": {
+        "paciente": 4,
+        "tarifa": 4,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "OBSTETRICIA",
+        "precio": "45.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-15T22:45:39.446Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 21,
+    "fields": {
+        "paciente": 8,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-15T22:53:23.239Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 22,
+    "fields": {
+        "paciente": 8,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-15T22:55:34.601Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 23,
+    "fields": {
+        "paciente": 4,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-16T19:05:51.866Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 24,
+    "fields": {
+        "paciente": 9,
+        "tarifa": 4,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "OBSTETRICIA",
+        "precio": "45.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-16T19:20:08.902Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 25,
+    "fields": {
+        "paciente": 5,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": null,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-16T20:04:00.334Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 26,
+    "fields": {
+        "paciente": 5,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-16T20:06:43.696Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 27,
+    "fields": {
+        "paciente": 7,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-16T20:16:19.115Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 28,
+    "fields": {
+        "paciente": 9,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-16T21:13:17.048Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 29,
+    "fields": {
+        "paciente": 2,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-16T22:52:02.281Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 30,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-17T13:54:31.834Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 31,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-17T14:35:51.159Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 32,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-17T14:44:37.582Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 33,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-17T14:57:06.354Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 34,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 1,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-17T15:01:22.797Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 35,
+    "fields": {
+        "paciente": 7,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": null,
+        "precio": "80.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-17T15:02:29.661Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 36,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-17T15:21:26.399Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 37,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-17T16:09:35.446Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 38,
+    "fields": {
+        "paciente": 12,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "REGISTRADA",
+        "fecha": "2026-01-17T16:24:58.551Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 39,
+    "fields": {
+        "paciente": 12,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 4,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-17T16:26:47.508Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "Dolor de cabeza fuertes por las noches",
+        "tratamiento": "descanzo y tratamiento con parecetamol",
+        "fecha_atencion": "2026-01-20T16:41:36.035Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 40,
+    "fields": {
+        "paciente": 11,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 1,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-01-17T17:06:58.331Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 41,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 1,
+        "estado": "REGISTRADA",
+        "fecha": "2026-01-17T17:21:50.171Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 42,
+    "fields": {
+        "paciente": 9,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 4,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-17T17:26:22.833Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "higado graso",
+        "tratamiento": "agua y operacion",
+        "fecha_atencion": "2026-01-20T17:28:02.025Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 43,
+    "fields": {
+        "paciente": 7,
+        "tarifa": 4,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "OBSTETRICIA",
+        "precio": "45.00",
+        "doctor": 3,
+        "estado": "REGISTRADA",
+        "fecha": "2026-01-17T17:33:45.027Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 44,
+    "fields": {
+        "paciente": 5,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-19T19:23:05.497Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 45,
+    "fields": {
+        "paciente": 11,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": 5,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-19T20:51:05.366Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 46,
+    "fields": {
+        "paciente": 13,
+        "tarifa": 4,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "OBSTETRICIA",
+        "precio": "45.00",
+        "doctor": 3,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-19T22:01:50.393Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "manguito rotador",
+        "tratamiento": "terapia fisica 4 veces por semana \r\ndeflazacor todos los dias antes de dormir",
+        "fecha_atencion": "2026-01-19T22:10:22.258Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 47,
+    "fields": {
+        "paciente": 14,
+        "tarifa": 4,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "OBSTETRICIA",
+        "precio": "45.00",
+        "doctor": 3,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-19T22:36:40.369Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "artritis",
+        "tratamiento": "metotrexato y deflazacor ",
+        "fecha_atencion": "2026-01-19T22:43:09.995Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 48,
+    "fields": {
+        "paciente": 15,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": 5,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-20T15:38:24.855Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dolor de espalda intenso ",
+        "tratamiento": "terapia fisico por 30 dias y tratamiento con pastillas",
+        "fecha_atencion": "2026-01-20T16:49:42.106Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 49,
+    "fields": {
+        "paciente": 16,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 4,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-20T17:35:36.544Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dolor cintura debido a desgaste de huesos",
+        "tratamiento": "terapia a medida que mejora ",
+        "fecha_atencion": "2026-01-20T19:16:08.495Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 50,
+    "fields": {
+        "paciente": 17,
+        "tarifa": 4,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "OBSTETRICIA",
+        "precio": "45.00",
+        "doctor": 3,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-20T19:21:07.760Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "gastritis ",
+        "tratamiento": "comidas a horas regulares, no tomar pastillas en ayuno",
+        "fecha_atencion": "2026-01-22T22:30:54.921Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 51,
+    "fields": {
+        "paciente": 13,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": null,
+        "estado": "REGISTRADA",
+        "fecha": "2026-01-20T19:44:02.059Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 52,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": null,
+        "precio": "80.00",
+        "doctor": 2,
+        "estado": "REGISTRADA",
+        "fecha": "2026-01-20T22:08:18.184Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 53,
+    "fields": {
+        "paciente": 13,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-21T22:16:24.375Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 54,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": null,
+        "precio": "80.00",
+        "doctor": 2,
+        "estado": "REGISTRADA",
+        "fecha": "2026-01-21T22:31:22.847Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 55,
+    "fields": {
+        "paciente": 18,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-21T22:32:17.181Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 56,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-01-22T22:46:28.828Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 57,
+    "fields": {
+        "paciente": 19,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 1,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-22T22:52:16.588Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dolor de cabeza debido a jaquecas cronicas",
+        "tratamiento": "tratamientoo oral con aspirinas ",
+        "fecha_atencion": "2026-01-22T22:55:46.581Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 58,
+    "fields": {
+        "paciente": 20,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 1,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-23T17:14:31.620Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dolor estomago por gastritis",
+        "tratamiento": "pastilla como naproxeno para tratar daño ",
+        "fecha_atencion": "2026-01-23T17:17:45.147Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 59,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-23T21:06:54.549Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dolor de cabeza interno",
+        "tratamiento": "descanzo y pastillas",
+        "fecha_atencion": "2026-01-23T21:10:35.532Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 60,
+    "fields": {
+        "paciente": 22,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-26T19:11:23.473Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "posible causa gastritis",
+        "tratamiento": "pastillas antiflamatorias aspirinas",
+        "fecha_atencion": "2026-01-26T19:14:54.599Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 61,
+    "fields": {
+        "paciente": 23,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-26T20:16:59.589Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "gastritis cronico ",
+        "tratamiento": "alimentacion horas regulares \r\ny trapamiento con aspirinas",
+        "fecha_atencion": "2026-01-26T20:19:16.575Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 62,
+    "fields": {
+        "paciente": 24,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-26T20:23:22.968Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "gastritis intensa por colicos cronicos",
+        "tratamiento": "comidas a tiempo y pastillas",
+        "fecha_atencion": "2026-01-26T20:26:00.029Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 63,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-26T20:47:57.917Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dolor de cabeza debido a estres",
+        "tratamiento": "descanzo y pastillas",
+        "fecha_atencion": "2026-01-26T20:50:12.803Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 64,
+    "fields": {
+        "paciente": 26,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-27T15:21:42.269Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "leve infeccion respiratoria ",
+        "tratamiento": "pastillas con diasepan y dieta ",
+        "fecha_atencion": "2026-01-27T21:04:19.103Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 65,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-28T15:41:03.255Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "fractura post accidente",
+        "tratamiento": "pastillas para el dolor",
+        "fecha_atencion": "2026-01-28T21:45:50.723Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 66,
+    "fields": {
+        "paciente": 29,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-28T20:48:00.993Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "adormecimiento abdiminal",
+        "tratamiento": "por definir",
+        "fecha_atencion": "2026-01-28T21:00:43.144Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 67,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": null,
+        "precio": "80.00",
+        "doctor": 2,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-28T22:26:55.269Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "xxx",
+        "tratamiento": "xxx",
+        "fecha_atencion": "2026-01-28T22:36:36.883Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 68,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": null,
+        "precio": "80.00",
+        "doctor": 2,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-28T22:37:27.168Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ardor estomacal",
+        "tratamiento": "por confirmar despues de examenes",
+        "fecha_atencion": "2026-01-29T16:30:59.709Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 69,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 4,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-28T22:41:13.131Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ddddddd",
+        "tratamiento": "qqqqqqqqqqqq",
+        "fecha_atencion": "2026-02-05T17:09:38.527Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 70,
+    "fields": {
+        "paciente": 31,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-29T16:59:35.069Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dolor intenso",
+        "tratamiento": "descanzo y dietaa",
+        "fecha_atencion": "2026-01-29T17:03:26.331Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 71,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-29T17:31:27.592Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "reservado",
+        "tratamiento": "pastillas y descanzo",
+        "fecha_atencion": "2026-01-29T17:33:57.262Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 72,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-29T17:35:40.288Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dd",
+        "tratamiento": "dddd",
+        "fecha_atencion": "2026-01-29T18:03:07.871Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 73,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-29T19:08:07.669Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "",
+        "tratamiento": "",
+        "fecha_atencion": "2026-01-29T20:39:11.864Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 74,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-29T20:42:56.832Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "",
+        "tratamiento": "",
+        "fecha_atencion": "2026-01-29T20:47:00.576Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 75,
+    "fields": {
+        "paciente": 24,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-29T20:53:36.594Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "",
+        "tratamiento": "",
+        "fecha_atencion": "2026-01-29T20:55:20.097Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 76,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-29T21:06:23.401Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "",
+        "tratamiento": "",
+        "fecha_atencion": "2026-01-29T21:09:52.325Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 77,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-29T22:51:40.025Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ssssss",
+        "tratamiento": "rrrrrrrrrrrrrrr",
+        "fecha_atencion": "2026-01-30T17:16:09.475Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 78,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-30T17:20:39.104Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "Dolor espinal",
+        "tratamiento": "despues de la cena",
+        "fecha_atencion": "2026-01-30T17:22:17.657Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 79,
+    "fields": {
+        "paciente": 13,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-01-30T17:23:27.325Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dolor estomacal intenso",
+        "tratamiento": "pastillas y analisis",
+        "fecha_atencion": "2026-02-02T17:56:24.380Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 80,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-02T19:38:47.398Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "DDD",
+        "tratamiento": "DD",
+        "fecha_atencion": "2026-02-03T16:07:16.138Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 81,
+    "fields": {
+        "paciente": 24,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-03T16:01:33.353Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "aaaaaa",
+        "tratamiento": "aaaaaaaaaaa",
+        "fecha_atencion": "2026-02-03T16:03:13.351Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 82,
+    "fields": {
+        "paciente": 11,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-03T19:27:00.000Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ddddddd",
+        "tratamiento": "ddddddddddddddd",
+        "fecha_atencion": "2026-02-04T21:39:29.745Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 83,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-03T22:54:22.020Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "DDDDDDD",
+        "tratamiento": "FFFFFFFFFFFFF",
+        "fecha_atencion": "2026-02-03T22:55:28.763Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 84,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-04T21:14:53.416Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "fffff",
+        "tratamiento": "ffffffffff",
+        "fecha_atencion": "2026-02-04T21:15:43.648Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 85,
+    "fields": {
+        "paciente": 23,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-05T14:30:18.927Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "sssssssssss",
+        "tratamiento": "eeeeeeeeeeeeeeeeeeeeeee",
+        "fecha_atencion": "2026-02-05T14:31:45.284Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 86,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-05T14:51:02.299Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ddddddd",
+        "tratamiento": "dddddddd",
+        "fecha_atencion": "2026-02-05T14:54:44.169Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 87,
+    "fields": {
+        "paciente": 24,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-05T19:04:41.564Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ddddd",
+        "tratamiento": "ccccccccccccc",
+        "fecha_atencion": "2026-02-05T19:05:40.963Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 88,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-06T13:22:59.735Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ssssss",
+        "tratamiento": "ssssssssssss",
+        "fecha_atencion": "2026-02-06T13:24:10.424Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 89,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-06T16:35:13.094Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ffffff",
+        "tratamiento": "ffffffffffffff",
+        "fecha_atencion": "2026-02-06T16:36:20.303Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 90,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-06T19:19:22.660Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ddd",
+        "tratamiento": "dddd",
+        "fecha_atencion": "2026-02-06T19:33:25.573Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 91,
+    "fields": {
+        "paciente": 13,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-07T13:35:46.931Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 92,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-07T14:45:38.927Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dd",
+        "tratamiento": "ddd",
+        "fecha_atencion": "2026-02-07T14:46:50.405Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 93,
+    "fields": {
+        "paciente": 29,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-07T14:47:44.605Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dd",
+        "tratamiento": "nnnnn",
+        "fecha_atencion": "2026-02-07T17:15:52.351Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 94,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-07T17:16:56.245Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "",
+        "tratamiento": "",
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 95,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-09T15:03:15.749Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "Dolor estomacal",
+        "tratamiento": "pastillas y descanzo",
+        "fecha_atencion": "2026-02-09T15:06:38.765Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 96,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": null,
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-09T16:48:48.532Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 97,
+    "fields": {
+        "paciente": 14,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": null,
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "PENDIENTE_ATENCION",
+        "fecha": "2026-02-09T16:50:01.997Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 98,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 4,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-09T16:52:27.174Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "",
+        "tratamiento": "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 99,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-09T17:13:27.338Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 100,
+    "fields": {
+        "paciente": 13,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-09T17:14:24.997Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "sssssssss",
+        "tratamiento": "ssssssss",
+        "fecha_atencion": "2026-02-12T22:48:28.682Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 101,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 4,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-09T19:57:49.416Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 102,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-09T20:05:45.333Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "Infeccion grave",
+        "tratamiento": "pastillas descalzo",
+        "fecha_atencion": "2026-02-09T20:10:36.237Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 103,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "PENDIENTE_ATENCION",
+        "fecha": "2026-02-11T14:02:53.556Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 104,
+    "fields": {
+        "paciente": 15,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T14:03:28.240Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": "",
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 105,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": "ECOGRAFIA",
+        "precio": "80.00",
+        "doctor": 2,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-11T14:45:31.148Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 106,
+    "fields": {
+        "paciente": 23,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "PENDIENTE_ATENCION",
+        "fecha": "2026-02-11T15:14:20.487Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 107,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T15:20:02.257Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "fffffffffffff",
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 108,
+    "fields": {
+        "paciente": 8,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-11T15:24:22.299Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "hhhhhh",
+        "tratamiento": "hhhhhhhhh",
+        "fecha_atencion": "2026-02-13T21:22:59.321Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 109,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T15:36:21.771Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 110,
+    "fields": {
+        "paciente": 2,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T15:39:42.427Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 111,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T15:45:37.793Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 112,
+    "fields": {
+        "paciente": 24,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T16:49:24.965Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 113,
+    "fields": {
+        "paciente": 29,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-11T16:53:27.224Z",
+        "motivo_consulta": "dolro de cabeza",
+        "examen_fisico": "normal",
+        "diagnostico": "migraña",
+        "tratamiento": "pastillas y ayuno cervicol",
+        "fecha_atencion": "2026-02-27T20:25:59.959Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 114,
+    "fields": {
+        "paciente": 26,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-11T16:56:28.746Z",
+        "motivo_consulta": "dd",
+        "examen_fisico": "dd",
+        "diagnostico": "dd",
+        "tratamiento": "dd",
+        "fecha_atencion": "2026-02-23T17:37:24.928Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 115,
+    "fields": {
+        "paciente": 1,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-11T17:16:22.522Z",
+        "motivo_consulta": "ddd",
+        "examen_fisico": "ddd",
+        "diagnostico": "esyk",
+        "tratamiento": "essk",
+        "fecha_atencion": "2026-02-23T17:36:31.323Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 116,
+    "fields": {
+        "paciente": 18,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": "ECOGRAFIA",
+        "precio": "80.00",
+        "doctor": 2,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T17:17:23.361Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 117,
+    "fields": {
+        "paciente": 23,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-11T17:18:30.748Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dolor de espalda",
+        "tratamiento": "pastillas",
+        "fecha_atencion": "2026-02-17T19:33:58.081Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 118,
+    "fields": {
+        "paciente": 15,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-11T17:53:25.131Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ffd",
+        "tratamiento": "ff",
+        "fecha_atencion": "2026-02-16T19:40:12.532Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 119,
+    "fields": {
+        "paciente": 27,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-11T17:56:43.572Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "Muerte inminente",
+        "tratamiento": "por las huevas",
+        "fecha_atencion": "2026-02-16T19:36:48.781Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 120,
+    "fields": {
+        "paciente": 24,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": "ECOGRAFIA",
+        "precio": "80.00",
+        "doctor": 2,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T19:16:37.320Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 121,
+    "fields": {
+        "paciente": 31,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": "ECOGRAFIA",
+        "precio": "80.00",
+        "doctor": 2,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T19:21:06.225Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 122,
+    "fields": {
+        "paciente": 20,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": "ECOGRAFIA",
+        "precio": "80.00",
+        "doctor": 2,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-11T19:23:58.402Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 123,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": "ECOGRAFIA",
+        "precio": "0.00",
+        "doctor": 2,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-12T19:13:59.464Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 124,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-12T22:34:03.631Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 125,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 3,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T14:52:39.607Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 126,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "0.00",
+        "doctor": null,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T14:59:56.250Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 127,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "0.00",
+        "doctor": null,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T15:00:36.072Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 128,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "0.00",
+        "doctor": null,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T15:01:12.637Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 129,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "0.00",
+        "doctor": null,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T15:05:43.238Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 130,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "30.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-13T15:10:13.857Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 131,
+    "fields": {
+        "paciente": 24,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "500.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-13T15:11:34.562Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 132,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "45.00",
+        "doctor": null,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-13T15:29:50.863Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 133,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 5,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-13T15:31:26.870Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 134,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 5,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-13T15:33:29.694Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 135,
+    "fields": {
+        "paciente": 8,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 3,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-13T15:59:39.815Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 136,
+    "fields": {
+        "paciente": 29,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-13T16:06:54.972Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 137,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "30.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T16:11:37.887Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": "2026-02-13T16:11:41.973Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 138,
+    "fields": {
+        "paciente": 31,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "30.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T16:12:40.885Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": "2026-02-13T16:12:48.654Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 139,
+    "fields": {
+        "paciente": 26,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": "ECOGRAFIA",
+        "precio": "60.00",
+        "doctor": 3,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T16:13:21.717Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "eee",
+        "tratamiento": "ffhhhh",
+        "fecha_atencion": "2026-02-13T22:35:06.336Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 140,
+    "fields": {
+        "paciente": 15,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": 4,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-13T16:14:59.811Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 141,
+    "fields": {
+        "paciente": 9,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "30.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T16:20:09.758Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": "2026-02-13T16:20:13.534Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 142,
+    "fields": {
+        "paciente": 22,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 5,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-13T16:26:39.421Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 143,
+    "fields": {
+        "paciente": 4,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "80.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T16:32:37.247Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": "2026-02-13T16:32:40.977Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 144,
+    "fields": {
+        "paciente": 19,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 3,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-13T16:41:44.877Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 145,
+    "fields": {
+        "paciente": 29,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": null,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T16:49:02.652Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 146,
+    "fields": {
+        "paciente": 19,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": null,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T16:49:22.257Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 147,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 3,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T16:52:48.935Z",
+        "motivo_consulta": "test3",
+        "examen_fisico": "test3",
+        "diagnostico": "test3",
+        "tratamiento": "test3",
+        "fecha_atencion": "2026-03-05T21:00:59.389Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 148,
+    "fields": {
+        "paciente": 18,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "50.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T16:55:20.080Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": "2026-02-13T16:55:32.298Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 149,
+    "fields": {
+        "paciente": 17,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": "ECOGRAFIA",
+        "precio": "100.00",
+        "doctor": 5,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-13T16:57:33.274Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 150,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 4,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T16:59:19.616Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ddddd",
+        "tratamiento": "dddd",
+        "fecha_atencion": "2026-02-16T19:43:30.657Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 151,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 1,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T17:01:45.335Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 152,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 3,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T17:02:06.746Z",
+        "motivo_consulta": "test2",
+        "examen_fisico": "test2",
+        "diagnostico": "test2",
+        "tratamiento": "test2",
+        "fecha_atencion": "2026-03-05T20:44:16.818Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 153,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 3,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T17:03:01.371Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 154,
+    "fields": {
+        "paciente": 33,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": 4,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-13T17:05:26.407Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 155,
+    "fields": {
+        "paciente": 16,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T21:09:17.423Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "fgf",
+        "tratamiento": "g",
+        "fecha_atencion": "2026-02-16T19:32:58.276Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 156,
+    "fields": {
+        "paciente": 8,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T21:20:14.274Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ffffff",
+        "tratamiento": "ffffffffffffff",
+        "fecha_atencion": "2026-02-13T21:22:16.740Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 157,
+    "fields": {
+        "paciente": 33,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T21:23:45.884Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ddd",
+        "tratamiento": "d",
+        "fecha_atencion": "2026-02-13T21:34:20.335Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 158,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T21:42:54.270Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "d",
+        "tratamiento": "dddddddd",
+        "fecha_atencion": "2026-02-13T21:46:57.442Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 159,
+    "fields": {
+        "paciente": 33,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T21:44:50.010Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "fffff",
+        "tratamiento": "fffffffff",
+        "fecha_atencion": "2026-02-13T21:53:32.826Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 160,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T22:06:40.041Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dddddddd",
+        "tratamiento": "ffffff",
+        "fecha_atencion": "2026-02-13T22:09:55.583Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 161,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T22:07:52.590Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "qqqqqqqq",
+        "tratamiento": "ffffffff",
+        "fecha_atencion": "2026-02-13T22:10:10.726Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 162,
+    "fields": {
+        "paciente": 25,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T22:08:38.556Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ssssssss",
+        "tratamiento": "fffffffff",
+        "fecha_atencion": "2026-02-13T22:09:46.023Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 163,
+    "fields": {
+        "paciente": 10,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T22:10:32.970Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "kkkk",
+        "tratamiento": "rrrrrrrrrr",
+        "fecha_atencion": "2026-02-13T22:11:57.634Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 164,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T22:12:16.650Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "hhhhh",
+        "tratamiento": "oooooooo",
+        "fecha_atencion": "2026-02-13T22:15:57.488Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 165,
+    "fields": {
+        "paciente": 24,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 7,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-13T22:13:09.556Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 166,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T22:13:53.681Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ssssssss",
+        "tratamiento": "hhhhhhhhh",
+        "fecha_atencion": "2026-02-13T22:15:49.135Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 167,
+    "fields": {
+        "paciente": 29,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-13T22:14:31.662Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 168,
+    "fields": {
+        "paciente": 19,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T22:16:24.746Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dddddd",
+        "tratamiento": "hhhhhhhh",
+        "fecha_atencion": "2026-02-13T22:18:48.453Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 169,
+    "fields": {
+        "paciente": 23,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 7,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T22:17:36.022Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ddddddd",
+        "tratamiento": "ffgggggggg",
+        "fecha_atencion": "2026-02-13T22:18:35.259Z",
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 170,
+    "fields": {
+        "paciente": 13,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-13T22:24:46.484Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 171,
+    "fields": {
+        "paciente": 17,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 7,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-13T22:29:34.164Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 172,
+    "fields": {
+        "paciente": 9,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 3,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-13T22:33:38.205Z",
+        "motivo_consulta": "test",
+        "examen_fisico": "test",
+        "diagnostico": "test",
+        "tratamiento": "testy",
+        "fecha_atencion": "2026-03-05T20:34:10.363Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 173,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-16T14:10:08.945Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "dddd",
+        "tratamiento": "dd",
+        "fecha_atencion": "2026-02-16T19:10:38.170Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 174,
+    "fields": {
+        "paciente": 19,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 4,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-16T14:12:35.167Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "ffffff",
+        "tratamiento": "jjjjjjjjjjjjjjj",
+        "fecha_atencion": "2026-02-16T14:43:00.538Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 175,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 4,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-16T19:41:31.946Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "xxxx",
+        "tratamiento": "gggggggg",
+        "fecha_atencion": "2026-02-16T19:42:47.485Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 176,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 5,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-17T19:27:21.199Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 177,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 2,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-17T19:29:42.724Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 178,
+    "fields": {
+        "paciente": 23,
+        "tarifa": 6,
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": "LECTURA_RESULTADOS",
+        "precio": "0.00",
+        "doctor": 2,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-17T19:48:23.782Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": true
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 179,
+    "fields": {
+        "paciente": 30,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "25.00",
+        "doctor": null,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-23T19:55:04.987Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 180,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 2,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-23T20:46:18.478Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 181,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 3,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "doctor": 9,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-23T20:46:42.319Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 182,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 2,
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "doctor": 6,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-23T20:47:15.969Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 183,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "2.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-23T20:47:38.408Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": "2026-02-23T20:47:43.207Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 184,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 2,
+        "estado": "EN_TRIAGE",
+        "fecha": "2026-02-23T20:47:55.915Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 185,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "30.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-23T20:48:29.766Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": "2026-02-23T20:48:39.713Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 186,
+    "fields": {
+        "paciente": 28,
+        "tarifa": 7,
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "30.00",
+        "doctor": null,
+        "estado": "ATENDIDA",
+        "fecha": "2026-02-23T20:48:52.758Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": "2026-02-23T20:48:56.958Z",
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 187,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 5,
+        "estado": "REGISTRADA",
+        "fecha": "2026-02-27T21:08:11.983Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": null,
+        "tratamiento": null,
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 188,
+    "fields": {
+        "paciente": 32,
+        "tarifa": 1,
+        "tipo_consulta": "GENERAL",
+        "especialidad": "GENERAL",
+        "precio": "15.00",
+        "doctor": 6,
+        "estado": "TRIAJE_COMPLETO",
+        "fecha": "2026-02-27T21:08:41.688Z",
+        "motivo_consulta": null,
+        "examen_fisico": null,
+        "diagnostico": "",
+        "tratamiento": "",
+        "fecha_atencion": null,
+        "es_lectura_resultados": false
+    }
+},
+{
+    "model": "consultas.consulta",
+    "pk": 189,
+    "fields": {
+        "paciente": 21,
+        "tarifa": 5,
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": "ECOGRAFIA",
+        "precio": "100.00",
+        "doctor": 3,
+        "estado": "ATENDIDA",
+        "fecha": "2026-03-03T13:55:31.845Z",
+        "motivo_consulta": "test3",
+        "examen_fisico": "test3",
+        "diagnostico": "test3",
+        "tratamiento": "test3",
+        "fecha_atencion": "2026-03-05T20:49:24.105Z",
+        "es_lectura_resultados": false
+    }
+}
+]

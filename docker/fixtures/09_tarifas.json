@@ -1,0 +1,86 @@
+[
+{
+    "model": "tarifas.tarifaconsulta",
+    "pk": 1,
+    "fields": {
+        "tipo_consulta": "GENERAL",
+        "especialidad": null,
+        "precio": "15.00",
+        "activo": true,
+        "created_at": "2026-01-14T22:34:46.708Z",
+        "updated_at": "2026-01-14T22:34:46.708Z"
+    }
+},
+{
+    "model": "tarifas.tarifaconsulta",
+    "pk": 2,
+    "fields": {
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PEDIATRIA",
+        "precio": "40.00",
+        "activo": true,
+        "created_at": "2026-01-14T22:35:01.606Z",
+        "updated_at": "2026-01-14T22:35:01.606Z"
+    }
+},
+{
+    "model": "tarifas.tarifaconsulta",
+    "pk": 3,
+    "fields": {
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "PSICOLOGIA",
+        "precio": "35.00",
+        "activo": true,
+        "created_at": "2026-01-14T22:35:11.450Z",
+        "updated_at": "2026-01-14T22:35:11.450Z"
+    }
+},
+{
+    "model": "tarifas.tarifaconsulta",
+    "pk": 4,
+    "fields": {
+        "tipo_consulta": "ESPECIALIDAD",
+        "especialidad": "OBSTETRICIA",
+        "precio": "45.00",
+        "activo": true,
+        "created_at": "2026-01-14T22:35:21.727Z",
+        "updated_at": "2026-01-14T22:35:21.727Z"
+    }
+},
+{
+    "model": "tarifas.tarifaconsulta",
+    "pk": 5,
+    "fields": {
+        "tipo_consulta": "ECOGRAFIA",
+        "especialidad": null,
+        "precio": "0.00",
+        "activo": true,
+        "created_at": "2026-01-14T22:35:39.925Z",
+        "updated_at": "2026-02-12T19:12:35.249Z"
+    }
+},
+{
+    "model": "tarifas.tarifaconsulta",
+    "pk": 6,
+    "fields": {
+        "tipo_consulta": "LECTURA_RESULTADOS",
+        "especialidad": null,
+        "precio": "0.00",
+        "activo": true,
+        "created_at": "2026-02-09T16:27:10.324Z",
+        "updated_at": "2026-02-09T16:27:10.324Z"
+    }
+},
+{
+    "model": "tarifas.tarifaconsulta",
+    "pk": 7,
+    "fields": {
+        "tipo_consulta": "TOPICO",
+        "especialidad": null,
+        "precio": "0.00",
+        "activo": true,
+        "created_at": "2026-02-12T19:19:01.461Z",
+        "updated_at": "2026-02-12T19:20:17.134Z"
+    }
+}
+]

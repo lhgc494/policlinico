@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}Comprobante de Cobro #{{ venta.id }}{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Estilo ticket térmico */
+.ticket {
+    width: 80mm;
+    max-width: 80mm;
+    margin: 0 auto;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.ticket-header {
+    text-align: center;
+    border-bottom: 1px dashed #000;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.ticket-footer {
+    text-align: center;
+    border-top: 1px dashed #000;
+    padding-top: 5px;
+    margin-top: 10px;
+}
+
+.ticket-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+    padding: 2px 0;
+}
+
+.item-orden {
+    flex: 1;
+    font-weight: bold;
+}
+
+.item-paciente {
+    flex: 2;
+}
+
+.item-examen {
+    flex: 2;
+}
+
+.item-precio {
+    flex: 1;
+    text-align: right;
+}
+
+.total-row {
+    font-weight: bold;
+    border-top: 1px solid #000;
+    padding-top: 5px;
+    margin-top: 5px;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .ticket, .ticket * {
+        visibility: visible;
+    }
+    .ticket {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 80mm;
+    }
+    .no-print {
+        display: none !important;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <!-- Botones de acción -->
+    <div class="row mb-3 no-print">
+        <div class="col-12">
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'lista_ordenes_pendientes' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Volver a Órdenes
+                </a>
+                <button onclick="window.print()" class="btn btn-success">
+                    <i class="fas fa-print me-2"></i>Imprimir Comprobante
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TICKET DE COBRO INTERNO -->
+    <div class="ticket border shadow-sm">
+        <!-- Encabezado -->
+        <div class="ticket-header">
+            <h5 class="mb-1">COMPROBANTE DE COBRO</h5>
+            <p class="mb-1"><strong>#{{ venta.id }}</strong></p>
+            <p class="mb-1">POLICLÍNICO LABORATORIO</p>
+            <p class="mb-1">{{ fecha|date:"d/m/Y H:i" }}</p>
+            <p class="mb-0">Cajero: {{ usuario.get_full_name|default:usuario.username }}</p>
+        </div>
+
+        <!-- Información del cobro -->
+        <div class="mb-2">
+            <p class="mb-1"><strong>MÉTODO DE PAGO:</strong> {{ metodo_pago }}</p>
+            <p class="mb-1"><strong>CLIENTE:</strong> COBRO INTERNO - {{ venta.paciente_nombre }}</p>
+            <p class="mb-1"><strong>DNI:</strong> {{ venta.paciente_dni }}</p>
+        </div>
+
+        <!-- Línea superior con total y descuento -->
+        <div class="mb-2 text-center" style="border-top: 1px dashed #ccc; border-bottom: 1px dashed #ccc; padding: 5px 0;">
+            <strong>{{ cantidad_ordenes }} orden(es) interna(s) cobrada(s)</strong><br>
+            <span>Total: S/ {{ total_sin_descuento|floatformat:2 }}</span>
+            {% if descuento_total > 0 %}
+            <span class="text-danger">  Descuento: S/ {{ descuento_total|floatformat:2 }}</span>
+            {% endif %}
+        </div>
+
+        <!-- Detalle de órdenes cobradas -->
+        <div class="mb-2">
+            <div class="ticket-item" style="border-bottom: 1px solid #ccc; padding-bottom: 2px;">
+                <span class="item-orden"><strong>ORDEN</strong></span>
+                <span class="item-paciente"><strong>PACIENTE</strong></span>
+                <span class="item-examen"><strong>EXAMEN</strong></span>
+                <span class="item-precio"><strong>PRECIO</strong></span>
+            </div>
+
+            {% for orden in ordenes %}
+            <div class="ticket-item">
+                <span class="item-orden">#{{ orden.id }}</span>
+                <span class="item-paciente">{{ orden.paciente|truncatechars:15 }}</span>
+                <span class="item-examen">{{ orden.examen|truncatechars:20 }}</span>
+                <!-- Mostrar precio final (con descuento aplicado) -->
+                <span class="item-precio">S/ {{ orden.precio_final|floatformat:2 }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Totales -->
+        <div class="ticket-footer">
+            <div class="ticket-item total-row">
+                <span class="item-orden"><strong>TOTAL ÓRDENES:</strong></span>
+                <span class="item-paciente"></span>
+                <span class="item-examen"></span>
+                <span class="item-precio"><strong>{{ cantidad_ordenes }}</strong></span>
+            </div>
+            
+            <!-- Mostrar desglose solo si hay descuento -->
+            {% if descuento_total > 0 %}
+            <div class="ticket-item">
+                <span class="item-orden">SUBTOTAL:</span>
+                <span class="item-paciente"></span>
+                <span class="item-examen"></span>
+                <span class="item-precio">S/ {{ total_sin_descuento|floatformat:2 }}</span>
+            </div>
+            <div class="ticket-item text-danger">
+                <span class="item-orden">DESCUENTO:</span>
+                <span class="item-paciente"></span>
+                <span class="item-examen"></span>
+                <span class="item-precio">-S/ {{ descuento_total|floatformat:2 }}</span>
+            </div>
+            {% endif %}
+
+            <div class="ticket-item total-row" style="font-size: 14px;">
+                <span class="item-orden"><strong>TOTAL COBRADO:</strong></span>
+                <span class="item-paciente"></span>
+                <span class="item-examen"></span>
+                <span class="item-precio"><strong>S/ {{ total_final|floatformat:2 }}</strong></span>
+            </div>
+        </div>
+
+        <!-- Pie de página -->
+        <div class="text-center mt-3">
+            <p class="mb-1"><strong>¡GRACIAS POR SU PAGO!</strong></p>
+            <p class="mb-1">Comprobante válido por 30 días</p>
+            <p class="mb-0">{{ fecha|date:"d/m/Y H:i" }}</p>
+        </div>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="row mt-3 no-print">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <h5><i class="fas fa-info-circle me-2"></i>Información del Comprobante</h5>
+                <ul class="mb-0">
+                    <li><strong>Comprobante #{{ venta.id }}</strong> - {{ fecha|date:"d/m/Y H:i" }}</li>
+                    <li>Órdenes cobradas: {{ cantidad_ordenes }}</li>
+                    <li>Total sin descuento: S/ {{ total_sin_descuento|floatformat:2 }}</li>
+                    {% if descuento_total > 0 %}
+                    <li>Descuento aplicado: S/ {{ descuento_total|floatformat:2 }}</li>
+                    {% endif %}
+                    <li><strong>Total cobrado: S/ {{ total_final|floatformat:2 }}</strong></li>
+                    <li>Método de pago: {{ metodo_pago }}</li>
+                    <li>Para imprimir: Click en "Imprimir Comprobante" o Ctrl+P</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-imprimir si viene de proceso de pago
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('print') === '1') {
+        setTimeout(function() {
+            window.print();
+        }, 500);
+    }
+
+    // Después de imprimir, opcionalmente redirigir
+    window.addEventListener('afterprint', function() {
+        console.log('Comprobante impreso');
+        // Opcional: auto-redirigir después de imprimir
+        // setTimeout(function() {
+        //     window.location.href = "{% url 'lista_ordenes_pendientes' %}";
+        // }, 2000);
+    });
+});
+</script>
+{% endblock %}

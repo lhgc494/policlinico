@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Detalle de Orden #{{ orden.id }} - Laboratorio{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-file-medical me-2"></i>Orden #{{ orden.id }}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <!-- Información del paciente (sin cambios) -->
+                    <div class="mb-4">
+                        <h5 class="text-primary">
+                            <i class="fas fa-user me-2"></i>Paciente
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Nombre completo:</strong><br>
+                                <span class="fw-bold fs-5">{{ paciente.nombres }} {{ paciente.apellidos }}</span></p>
+                                <p><strong>DNI:</strong>
+                                <span class="badge bg-secondary">{{ paciente.dni }}</span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Edad:</strong>
+                                <span class="badge bg-info">{{ paciente.edad }} años</span></p>
+                                <p><strong>Teléfono:</strong> {{ paciente.telefono|default:"No registrado" }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Información de la orden -->
+                    <div class="mb-4">
+                        <h5 class="text-primary">
+                            <i class="fas fa-flask me-2"></i>Examen Solicitado
+                        </h5>
+                        <p><strong>Tipo:</strong>
+                            <span class="badge bg-info">{{ orden.get_tipo_examen_display }}</span>
+                        </p>
+                        <p><strong>Examen:</strong> <span class="fw-bold">{{ orden.examen_especifico }}</span></p>
+                        
+                        <!-- ✅ NUEVO: Mostrar estado de pago -->
+                        <p><strong>Estado de pago:</strong>
+                            {% if orden.pagado %}
+                            <span class="badge bg-success">Pagado</span>
+                            {% else %}
+                            <span class="badge bg-danger">Por pagar</span>
+                            {% endif %}
+                        </p>
+                        
+                        {% if orden.indicaciones %}
+                        <div class="alert alert-warning py-2">
+                            <strong><i class="fas fa-exclamation-circle me-1"></i>Indicaciones:</strong><br>
+                            {{ orden.indicaciones }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Estados y fechas (sin cambios) -->
+                    <div class="mb-4">
+                        <h5 class="text-primary">
+                            <i class="fas fa-history me-2"></i>Estado y Fechas
+                        </h5>
+                        <p><strong>Estado actual:</strong>
+                            <span class="badge
+                                {% if orden.estado == 'SOLICITADO' %}bg-warning
+                                {% elif orden.estado == 'EN_PROCESO' %}bg-info
+                                {% elif orden.estado == 'COMPLETADO' %}bg-success
+                                {% elif orden.estado == 'ENTREGADO' %}bg-primary
+                                {% endif %} fs-6">
+                                {{ orden.get_estado_display }}
+                            </span>
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Solicitado:</strong><br>
+                                {{ orden.fecha_solicitud|date:"d/m/Y H:i" }}</p>
+                                {% if orden.fecha_asignacion %}
+                                <p><strong>Asignado:</strong><br>
+                                {{ orden.fecha_asignacion|date:"d/m/Y H:i" }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                {% if orden.fecha_realizacion %}
+                                <p><strong>Completado:</strong><br>
+                                {{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</p>
+                                {% endif %}
+                                {% if orden.fecha_entrega %}
+                                <p><strong>Entregado:</strong><br>
+                                {{ orden.fecha_entrega|date:"d/m/Y H:i" }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% if orden.tecnico_asignado %}
+                        <p><strong>Técnico asignado:</strong>
+                        <span class="badge bg-dark">{{ orden.tecnico_asignado.get_full_name|default:orden.tecnico_asignado.username }}</span></p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Información de la consulta (sin cambios) -->
+                    {% if consulta and consulta.doctor %}
+                    <div class="mb-4">
+                        <h5 class="text-primary">
+                            <i class="fas fa-stethoscope me-2"></i>Consulta
+                        </h5>
+                        <p><strong>Médico:</strong>
+                            <span class="badge bg-primary">{{ consulta.doctor.usuario.get_full_name|default:consulta.doctor.usuario.username }}</span>
+                        </p>
+                        <p><strong>Fecha consulta:</strong> {{ consulta.fecha|date:"d/m/Y H:i" }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-tasks me-2"></i>Acciones
+                    </h4>
+                </div>
+                <div class="card-body">
+
+                    {% if orden.estado == 'SOLICITADO' %}
+                    
+                    <!-- ✅ MODIFICADO: Solo mostrar botón de asignar si se puede -->
+                    {% if puede_asignarse %}
+                    <div class="alert alert-warning">
+                        <h5><i class="fas fa-clock me-2"></i>Orden Pendiente</h5>
+                        <p class="mb-3">Esta orden está lista para ser asignada.</p>
+                        <form method="post" action="{% url 'asignar_orden' orden.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success btn-lg w-100">
+                                <i class="fas fa-user-check me-2"></i>Asignarme esta orden
+                            </button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <!-- Orden solicitada pero NO asignable -->
+                    <div class="alert alert-danger">
+                        <h5><i class="fas fa-ban me-2"></i>Orden No Asignable</h5>
+                        <p class="mb-3">{{ motivo_no_asignable|default:"No se puede asignar esta orden" }}</p>
+                        <button type="button" class="btn btn-secondary btn-lg w-100" disabled>
+                            <i class="fas fa-user-check me-2"></i>No asignable
+                        </button>
+                    </div>
+                    {% endif %}
+
+
+
+
+
+{% elif orden.estado == 'EN_PROCESO' and orden.tecnico_asignado == request.user %}
+<!-- Orden asignada al usuario actual - CON BOTÓN PARA INGRESAR RESULTADOS -->
+<div class="alert alert-info">
+    <h5><i class="fas fa-user-check me-2"></i>Orden Asignada</h5>
+    <p class="mb-3">Esta orden está asignada a usted.</p>
+
+    <!-- 🔥 BOTÓN PRINCIPAL: Ingresar resultados con formato específico -->
+    <a href="{% url 'ingresar_resultados' orden.id %}" 
+       class="btn btn-primary btn-lg w-100 mb-3">
+        <i class="fas fa-edit me-2"></i>Ingresar Resultados
+        <small class="d-block mt-1 fs-6">Formato: {{ orden.examen_especifico }}</small>
+    </a>
+
+    <!-- Botón secundario: Marcar como COMPLETADA (solo después de ingresar resultados) -->
+    <form method="post" class="mt-2">
+        {% csrf_token %}
+        <input type="hidden" name="accion" value="completar">
+        <button type="submit" class="btn btn-outline-success btn-lg w-100">
+            <i class="fas fa-check-circle me-2"></i>Marcar como Completada
+        </button>
+    </form>
+
+    <div class="text-center text-muted mt-3">
+        <small>
+            <i class="fas fa-info-circle me-1"></i>
+            1. Ingrese resultados usando el formato específico<br>
+            2. Luego marque como completada
+        </small>
+    </div>
+</div>
+
+
+
+
+                    {% elif orden.estado == 'COMPLETADO' %}
+                    <!-- Orden completada, lista para entregar (sin cambios) -->
+                    <div class="alert alert-success">
+                        <h5><i class="fas fa-check-circle me-2"></i>Examen Completado</h5>
+                        <p class="mb-3">El examen ha sido procesado y está listo para entregar.</p>
+
+                        <!-- Botón para marcar como ENTREGADA -->
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="accion" value="entregar">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-box me-2"></i>Marcar como Entregada
+                            </button>
+                        </form>
+                    </div>
+
+                    {% elif orden.estado == 'ENTREGADO' %}
+                    <!-- Orden entregada (sin cambios) -->
+                    <div class="alert alert-primary">
+                        <h5><i class="fas fa-box-check me-2"></i>Examen Entregado</h5>
+                        <p class="mb-3">Los resultados han sido entregados al paciente.</p>
+                        {% if orden.fecha_entrega %}
+                        <p><strong>Fecha de entrega:</strong> {{ orden.fecha_entrega|date:"d/m/Y H:i" }}</p>
+                        {% endif %}
+                    </div>
+
+                    {% else %}
+                    <!-- Orden en proceso pero asignada a otro técnico (sin cambios) -->
+                    <div class="alert alert-warning">
+                        <h5><i class="fas fa-user-clock me-2"></i>Orden en Proceso</h5>
+                        <p class="mb-3">Esta orden está siendo procesada por otro técnico.</p>
+                        <p><strong>Técnico asignado:</strong>
+                        {{ orden.tecnico_asignado.get_full_name|default:orden.tecnico_asignado.username }}</p>
+                    </div>
+                    {% endif %}
+
+                    <!-- Botones de navegación (sin cambios) -->
+                    <div class="mt-4">
+                        <a href="{% url 'lista_ordenes_pendientes' %}" class="btn btn-outline-secondary me-2">
+                            <i class="fas fa-arrow-left me-1"></i>Volver a Pendientes
+                        </a>
+                        <a href="{% url 'mis_ordenes_en_proceso' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-list me-1"></i>Mis Órdenes
+                        </a>
+                    </div>
+
+                    <!-- Información rápida (sin cambios) -->
+                    <div class="mt-4 pt-3 border-top">
+                        <h6 class="text-muted">
+                            <i class="fas fa-info-circle me-2"></i>Información rápida
+                        </h6>
+                        <ul class="small text-muted">
+                            <li><strong>Paciente:</strong> {{ paciente.nombres }} {{ paciente.apellidos }}</li>
+                            <li><strong>Examen:</strong> {{ orden.examen_especifico }}</li>
+                            <li><strong>Orden #:</strong> {{ orden.id }}</li>
+                            <li><strong>Estado:</strong> {{ orden.get_estado_display }}</li>
+                            <li><strong>Pago:</strong> {% if orden.pagado %}Pagado{% else %}Por pagar{% endif %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

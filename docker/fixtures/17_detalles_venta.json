@@ -1,0 +1,962 @@
+[
+{
+    "model": "farmacia.detalleventa",
+    "pk": 1,
+    "fields": {
+        "venta": 1,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 2,
+    "fields": {
+        "venta": 2,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 3,
+    "fields": {
+        "venta": 3,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 4,
+    "fields": {
+        "venta": 4,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 5,
+    "fields": {
+        "venta": 4,
+        "medicamento": 4,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "subtotal": "1.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 6,
+    "fields": {
+        "venta": 4,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 7,
+    "fields": {
+        "venta": 4,
+        "medicamento": 4,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "subtotal": "1.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 8,
+    "fields": {
+        "venta": 5,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 9,
+    "fields": {
+        "venta": 5,
+        "medicamento": 4,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "subtotal": "1.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 12,
+    "fields": {
+        "venta": 6,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 13,
+    "fields": {
+        "venta": 6,
+        "medicamento": 4,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "subtotal": "1.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 14,
+    "fields": {
+        "venta": 7,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 4,
+        "precio_unitario": "3.00",
+        "subtotal": "12.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 15,
+    "fields": {
+        "venta": 7,
+        "medicamento": 4,
+        "descripcion": "",
+        "cantidad": 6,
+        "precio_unitario": "1.00",
+        "subtotal": "6.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 16,
+    "fields": {
+        "venta": 8,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 17,
+    "fields": {
+        "venta": 8,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 18,
+    "fields": {
+        "venta": 9,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 10,
+        "precio_unitario": "3.00",
+        "subtotal": "30.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 19,
+    "fields": {
+        "venta": 10,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 84,
+        "precio_unitario": "3.00",
+        "subtotal": "252.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 20,
+    "fields": {
+        "venta": 11,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 5,
+        "precio_unitario": "2.00",
+        "subtotal": "10.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 21,
+    "fields": {
+        "venta": 12,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 3,
+        "precio_unitario": "2.00",
+        "subtotal": "6.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 22,
+    "fields": {
+        "venta": 13,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 23,
+    "fields": {
+        "venta": 14,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 24,
+    "fields": {
+        "venta": 15,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 30,
+        "precio_unitario": "2.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 25,
+    "fields": {
+        "venta": 16,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 26,
+    "fields": {
+        "venta": 17,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 5,
+        "precio_unitario": "2.00",
+        "subtotal": "10.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 27,
+    "fields": {
+        "venta": 18,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "subtotal": "20.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 28,
+    "fields": {
+        "venta": 19,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 29,
+    "fields": {
+        "venta": 20,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 30,
+    "fields": {
+        "venta": 21,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 31,
+    "fields": {
+        "venta": 24,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 32,
+    "fields": {
+        "venta": 24,
+        "medicamento": 2,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 33,
+    "fields": {
+        "venta": 24,
+        "medicamento": 4,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "subtotal": "1.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 34,
+    "fields": {
+        "venta": 27,
+        "medicamento": 3,
+        "descripcion": "",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 35,
+    "fields": {
+        "venta": 28,
+        "medicamento": null,
+        "descripcion": "Retiro de sonda",
+        "cantidad": 1,
+        "precio_unitario": "30.00",
+        "subtotal": "30.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 36,
+    "fields": {
+        "venta": 29,
+        "medicamento": null,
+        "descripcion": "Lavado nasal",
+        "cantidad": 1,
+        "precio_unitario": "30.00",
+        "subtotal": "30.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 37,
+    "fields": {
+        "venta": 29,
+        "medicamento": null,
+        "descripcion": "Colocación de inyectables Endovenoso",
+        "cantidad": 1,
+        "precio_unitario": "5.00",
+        "subtotal": "5.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 38,
+    "fields": {
+        "venta": 30,
+        "medicamento": 3,
+        "descripcion": "Parecetamonl",
+        "cantidad": 5,
+        "precio_unitario": "2.00",
+        "subtotal": "10.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 39,
+    "fields": {
+        "venta": 31,
+        "medicamento": null,
+        "descripcion": "Lavado de oído",
+        "cantidad": 1,
+        "precio_unitario": "30.00",
+        "subtotal": "30.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 40,
+    "fields": {
+        "venta": 32,
+        "medicamento": 3,
+        "descripcion": "Parecetamonl",
+        "cantidad": 3,
+        "precio_unitario": "2.00",
+        "subtotal": "6.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 41,
+    "fields": {
+        "venta": 33,
+        "medicamento": 3,
+        "descripcion": "Parecetamonl",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 42,
+    "fields": {
+        "venta": 34,
+        "medicamento": null,
+        "descripcion": "Sueros vitaminados",
+        "cantidad": 1,
+        "precio_unitario": "5.00",
+        "subtotal": "5.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 43,
+    "fields": {
+        "venta": 35,
+        "medicamento": 3,
+        "descripcion": "Parecetamonl",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 44,
+    "fields": {
+        "venta": 36,
+        "medicamento": null,
+        "descripcion": "Retiro de sonda",
+        "cantidad": 1,
+        "precio_unitario": "30.00",
+        "subtotal": "30.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 45,
+    "fields": {
+        "venta": 37,
+        "medicamento": 3,
+        "descripcion": "Parecetamonl",
+        "cantidad": 4,
+        "precio_unitario": "2.00",
+        "subtotal": "8.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 46,
+    "fields": {
+        "venta": 38,
+        "medicamento": 699,
+        "descripcion": "Medicamento Prueba",
+        "cantidad": 5,
+        "precio_unitario": "8.00",
+        "subtotal": "40.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 47,
+    "fields": {
+        "venta": 39,
+        "medicamento": 2,
+        "descripcion": "aspirina",
+        "cantidad": 5,
+        "precio_unitario": "3.00",
+        "subtotal": "15.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 48,
+    "fields": {
+        "venta": 40,
+        "medicamento": 3,
+        "descripcion": "Parecetamonl",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 49,
+    "fields": {
+        "venta": 40,
+        "medicamento": 2,
+        "descripcion": "aspirina",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 50,
+    "fields": {
+        "venta": 40,
+        "medicamento": null,
+        "descripcion": "Colocación de inyectables Endovenoso",
+        "cantidad": 1,
+        "precio_unitario": "10.00",
+        "subtotal": "10.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 51,
+    "fields": {
+        "venta": 41,
+        "medicamento": 41,
+        "descripcion": "DEXAMETASONA 4 mg/ 2 mL",
+        "cantidad": 3,
+        "precio_unitario": "5.00",
+        "subtotal": "15.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 52,
+    "fields": {
+        "venta": 41,
+        "medicamento": 168,
+        "descripcion": "BETAMETASONA 0.05 %",
+        "cantidad": 4,
+        "precio_unitario": "10.00",
+        "subtotal": "40.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 53,
+    "fields": {
+        "venta": 41,
+        "medicamento": 385,
+        "descripcion": "MEJORALITO INFANTIL 160 mg/ 5 mL",
+        "cantidad": 1,
+        "precio_unitario": "10.00",
+        "subtotal": "10.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 54,
+    "fields": {
+        "venta": 41,
+        "medicamento": 506,
+        "descripcion": "ACICLAV 500 mg + 125 mg",
+        "cantidad": 5,
+        "precio_unitario": "2.50",
+        "subtotal": "12.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 55,
+    "fields": {
+        "venta": 42,
+        "medicamento": 12,
+        "descripcion": "AB-Broncol NF 1 200",
+        "cantidad": 100,
+        "precio_unitario": "35.00",
+        "subtotal": "3500.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 56,
+    "fields": {
+        "venta": 43,
+        "medicamento": 12,
+        "descripcion": "AB-Broncol NF 1 200",
+        "cantidad": 10,
+        "precio_unitario": "35.00",
+        "subtotal": "350.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 57,
+    "fields": {
+        "venta": 44,
+        "medicamento": 12,
+        "descripcion": "AB-Broncol NF 1 200",
+        "cantidad": 30,
+        "precio_unitario": "35.00",
+        "subtotal": "1050.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 58,
+    "fields": {
+        "venta": 45,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 59,
+    "fields": {
+        "venta": 46,
+        "medicamento": 80,
+        "descripcion": "SOLUNA NF 50 mg/ mL+ 5 mg/ mL",
+        "cantidad": 1,
+        "precio_unitario": "25.00",
+        "subtotal": "25.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 60,
+    "fields": {
+        "venta": 47,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 61,
+    "fields": {
+        "venta": 48,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 62,
+    "fields": {
+        "venta": 49,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 63,
+    "fields": {
+        "venta": 50,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 2,
+        "precio_unitario": "60.00",
+        "subtotal": "120.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 64,
+    "fields": {
+        "venta": 51,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 65,
+    "fields": {
+        "venta": 52,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 66,
+    "fields": {
+        "venta": 53,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 67,
+    "fields": {
+        "venta": 54,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 68,
+    "fields": {
+        "venta": 55,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 69,
+    "fields": {
+        "venta": 56,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "subtotal": "60.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 70,
+    "fields": {
+        "venta": 57,
+        "medicamento": 506,
+        "descripcion": "ACICLAV 500 mg + 125 mg",
+        "cantidad": 1,
+        "precio_unitario": "2.50",
+        "subtotal": "2.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 71,
+    "fields": {
+        "venta": 58,
+        "medicamento": 765,
+        "descripcion": "CLICK PRESERVATIVO ULTRA LIGERO",
+        "cantidad": 1,
+        "precio_unitario": "3.50",
+        "subtotal": "3.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 72,
+    "fields": {
+        "venta": 59,
+        "medicamento": 506,
+        "descripcion": "ACICLAV 500 mg + 125 mg",
+        "cantidad": 1,
+        "precio_unitario": "2.50",
+        "subtotal": "2.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 73,
+    "fields": {
+        "venta": 60,
+        "medicamento": 765,
+        "descripcion": "CLICK PRESERVATIVO ULTRA LIGERO",
+        "cantidad": 1,
+        "precio_unitario": "3.50",
+        "subtotal": "3.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 74,
+    "fields": {
+        "venta": 61,
+        "medicamento": 506,
+        "descripcion": "ACICLAV 500 mg + 125 mg",
+        "cantidad": 1,
+        "precio_unitario": "2.50",
+        "subtotal": "2.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 75,
+    "fields": {
+        "venta": 62,
+        "medicamento": 506,
+        "descripcion": "ACICLAV 500 mg + 125 mg",
+        "cantidad": 7,
+        "precio_unitario": "2.50",
+        "subtotal": "17.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 76,
+    "fields": {
+        "venta": 63,
+        "medicamento": 765,
+        "descripcion": "CLICK PRESERVATIVO ULTRA LIGERO",
+        "cantidad": 1,
+        "precio_unitario": "3.50",
+        "subtotal": "3.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 77,
+    "fields": {
+        "venta": 64,
+        "medicamento": 506,
+        "descripcion": "ACICLAV 500 mg + 125 mg",
+        "cantidad": 5,
+        "precio_unitario": "2.50",
+        "subtotal": "12.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 78,
+    "fields": {
+        "venta": 64,
+        "medicamento": 765,
+        "descripcion": "CLICK PRESERVATIVO ULTRA LIGERO",
+        "cantidad": 1,
+        "precio_unitario": "3.50",
+        "subtotal": "3.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 79,
+    "fields": {
+        "venta": 65,
+        "medicamento": 506,
+        "descripcion": "ACICLAV 500 mg + 125 mg",
+        "cantidad": 5,
+        "precio_unitario": "2.50",
+        "subtotal": "12.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 80,
+    "fields": {
+        "venta": 65,
+        "medicamento": 513,
+        "descripcion": "ATORVASTATINA 20 mg",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "subtotal": "1.00"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 81,
+    "fields": {
+        "venta": 65,
+        "medicamento": 814,
+        "descripcion": "AGUA LOA GRANADILLA",
+        "cantidad": 5,
+        "precio_unitario": "1.50",
+        "subtotal": "7.50"
+    }
+},
+{
+    "model": "farmacia.detalleventa",
+    "pk": 82,
+    "fields": {
+        "venta": 66,
+        "medicamento": 425,
+        "descripcion": "TROPIVAG",
+        "cantidad": 2,
+        "precio_unitario": "60.00",
+        "subtotal": "120.00"
+    }
+}
+]

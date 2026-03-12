@@ -1,0 +1,450 @@
+[
+{
+    "model": "pacientes.paciente",
+    "pk": 1,
+    "fields": {
+        "dni": "41254122",
+        "nombres": "juan carlos",
+        "apellidos": "cueva",
+        "fecha_nacimiento": "1985-12-04",
+        "telefono": "326598874",
+        "direccion": "las acasias 345",
+        "creado_en": "2026-01-14T22:31:05.383Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 2,
+    "fields": {
+        "dni": "3265987",
+        "nombres": "ana",
+        "apellidos": "lopez",
+        "fecha_nacimiento": "2026-01-17",
+        "telefono": "326598875",
+        "direccion": "los cocos 456",
+        "creado_en": "2026-01-14T22:37:03.683Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 3,
+    "fields": {
+        "dni": "54655421",
+        "nombres": "diego",
+        "apellidos": "torres",
+        "fecha_nacimiento": "1980-06-11",
+        "telefono": "986532654",
+        "direccion": "los sauces 349",
+        "creado_en": "2026-01-14T22:41:01.621Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 4,
+    "fields": {
+        "dni": "32652133",
+        "nombres": "rosa",
+        "apellidos": "guadalupe",
+        "fecha_nacimiento": "2026-01-08",
+        "telefono": "87986554251",
+        "direccion": "los pinos 123",
+        "creado_en": "2026-01-15T15:41:54.961Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 5,
+    "fields": {
+        "dni": "40123658",
+        "nombres": "jean",
+        "apellidos": "caceres",
+        "fecha_nacimiento": "2026-01-20",
+        "telefono": "65983254",
+        "direccion": "lacras 123",
+        "creado_en": "2026-01-15T15:48:38.287Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 7,
+    "fields": {
+        "dni": "45454545",
+        "nombres": "alberto",
+        "apellidos": "fernandez",
+        "fecha_nacimiento": "2026-01-22",
+        "telefono": "999999999999",
+        "direccion": "los sauces 345",
+        "creado_en": "2026-01-15T22:22:46.186Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 8,
+    "fields": {
+        "dni": "56986554",
+        "nombres": "teresa",
+        "apellidos": "montes",
+        "fecha_nacimiento": "1984-12-12",
+        "telefono": "9999999999",
+        "direccion": "los castaños 123",
+        "creado_en": "2026-01-15T22:53:16.688Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 9,
+    "fields": {
+        "dni": "23659847",
+        "nombres": "juana",
+        "apellidos": "castillo",
+        "fecha_nacimiento": "1990-08-11",
+        "telefono": "986532654",
+        "direccion": "acasias 2333",
+        "creado_en": "2026-01-16T19:14:28.477Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 10,
+    "fields": {
+        "dni": "77778888",
+        "nombres": "Juan",
+        "apellidos": "Garcia",
+        "fecha_nacimiento": "1950-05-11",
+        "telefono": "777778888",
+        "direccion": "san juan 123",
+        "creado_en": "2026-01-17T13:54:27.810Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 11,
+    "fields": {
+        "dni": "21326596",
+        "nombres": "elvis",
+        "apellidos": "perez",
+        "fecha_nacimiento": "2026-01-15",
+        "telefono": "989898989",
+        "direccion": "aviacion 34",
+        "creado_en": "2026-01-17T15:55:55.524Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 12,
+    "fields": {
+        "dni": "11111111",
+        "nombres": "pedro",
+        "apellidos": "osma",
+        "fecha_nacimiento": "2026-01-15",
+        "telefono": "123456789",
+        "direccion": "principal 22",
+        "creado_en": "2026-01-17T16:19:36.550Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 13,
+    "fields": {
+        "dni": "98989898",
+        "nombres": "Diego",
+        "apellidos": "Torres",
+        "fecha_nacimiento": "1980-11-11",
+        "telefono": "989898985",
+        "direccion": "los alpes 346",
+        "creado_en": "2026-01-19T22:01:35.538Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 14,
+    "fields": {
+        "dni": "65989898",
+        "nombres": "fon",
+        "apellidos": "seca",
+        "fecha_nacimiento": "1980-11-11",
+        "telefono": "123456789",
+        "direccion": "los apus 4562",
+        "creado_en": "2026-01-19T22:36:31.596Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 15,
+    "fields": {
+        "dni": "22222222",
+        "nombres": "laura",
+        "apellidos": "pausini",
+        "fecha_nacimiento": "1990-06-13",
+        "telefono": "977933288",
+        "direccion": "Calle los sauces 303",
+        "creado_en": "2026-01-20T15:38:14.826Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 16,
+    "fields": {
+        "dni": "44444444",
+        "nombres": "elver",
+        "apellidos": "espinoza",
+        "fecha_nacimiento": "1990-12-12",
+        "telefono": "123456789",
+        "direccion": "universitaria 123",
+        "creado_en": "2026-01-20T17:35:27.533Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 17,
+    "fields": {
+        "dni": "55555555",
+        "nombres": "franco",
+        "apellidos": "devita",
+        "fecha_nacimiento": "1987-12-12",
+        "telefono": "977933288",
+        "direccion": "Calle los sauces 304 condominio shangri la",
+        "creado_en": "2026-01-20T19:20:56.194Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 18,
+    "fields": {
+        "dni": "88888888",
+        "nombres": "erick",
+        "apellidos": "delgado",
+        "fecha_nacimiento": "1980-02-11",
+        "telefono": "123456987",
+        "direccion": "los alpes 345",
+        "creado_en": "2026-01-21T22:32:09.569Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 19,
+    "fields": {
+        "dni": "42424242",
+        "nombres": "pablo",
+        "apellidos": "hernandez",
+        "fecha_nacimiento": "1975-12-12",
+        "telefono": "159753456",
+        "direccion": "del prado 123",
+        "creado_en": "2026-01-22T22:51:58.479Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 20,
+    "fields": {
+        "dni": "32213221",
+        "nombres": "alejandra",
+        "apellidos": "lopez",
+        "fecha_nacimiento": "1990-02-11",
+        "telefono": "987456321",
+        "direccion": "metropolitana 23",
+        "creado_en": "2026-01-23T17:14:11.766Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 21,
+    "fields": {
+        "dni": "78988798",
+        "nombres": "cristina",
+        "apellidos": "aguilera",
+        "fecha_nacimiento": "1980-12-12",
+        "telefono": "123432123",
+        "direccion": "los tallos 234",
+        "creado_en": "2026-01-23T21:06:46.101Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 22,
+    "fields": {
+        "dni": "23212321",
+        "nombres": "Carla",
+        "apellidos": "gonzales",
+        "fecha_nacimiento": "1978-12-12",
+        "telefono": "123654456",
+        "direccion": "Los alpes 234",
+        "creado_en": "2026-01-26T19:11:06.510Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 23,
+    "fields": {
+        "dni": "78877887",
+        "nombres": "elianos",
+        "apellidos": "caceres",
+        "fecha_nacimiento": "1980-12-12",
+        "telefono": "325698745",
+        "direccion": "Aviancion 123",
+        "creado_en": "2026-01-26T20:16:54.057Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 24,
+    "fields": {
+        "dni": "23653221",
+        "nombres": "Alejandro",
+        "apellidos": "Saenz",
+        "fecha_nacimiento": "1970-12-12",
+        "telefono": "845632548",
+        "direccion": "Los rosales 987",
+        "creado_en": "2026-01-26T20:23:16.907Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 25,
+    "fields": {
+        "dni": "45454546",
+        "nombres": "Juan",
+        "apellidos": "Gabriel",
+        "fecha_nacimiento": "1985-12-05",
+        "telefono": "563256325",
+        "direccion": "calle nueva 3454",
+        "creado_en": "2026-01-26T20:47:53.900Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 26,
+    "fields": {
+        "dni": "14145254",
+        "nombres": "jorge",
+        "apellidos": "ramos",
+        "fecha_nacimiento": "1985-12-12",
+        "telefono": "556321478",
+        "direccion": "Los rayos 123",
+        "creado_en": "2026-01-27T15:21:36.917Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 27,
+    "fields": {
+        "dni": "12343212",
+        "nombres": "david",
+        "apellidos": "morena",
+        "fecha_nacimiento": "1987-11-11",
+        "telefono": "977933288",
+        "direccion": "Calle los sauces 303 condominio shangri la",
+        "creado_en": "2026-01-27T16:17:47.936Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 28,
+    "fields": {
+        "dni": "98879887",
+        "nombres": "Diego",
+        "apellidos": "Riquelme",
+        "fecha_nacimiento": "1976-11-20",
+        "telefono": "976587345",
+        "direccion": "Calle misti 876",
+        "creado_en": "2026-01-28T15:40:57.912Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 29,
+    "fields": {
+        "dni": "65325412",
+        "nombres": "Edgar",
+        "apellidos": "Vibar",
+        "fecha_nacimiento": "1974-04-05",
+        "telefono": "156321478",
+        "direccion": "moraleja 234",
+        "creado_en": "2026-01-28T20:47:54.958Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 30,
+    "fields": {
+        "dni": "21546532",
+        "nombres": "Pepe",
+        "apellidos": "Aquino",
+        "fecha_nacimiento": "1980-12-12",
+        "telefono": "159632587",
+        "direccion": "canevaro 67",
+        "creado_en": "2026-01-28T22:40:54.094Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 31,
+    "fields": {
+        "dni": "98988765",
+        "nombres": "Jean",
+        "apellidos": "perez",
+        "fecha_nacimiento": "1975-12-11",
+        "telefono": "",
+        "direccion": "",
+        "creado_en": "2026-01-29T16:59:01.076Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 32,
+    "fields": {
+        "dni": "32546598",
+        "nombres": "alberto",
+        "apellidos": "Fujimori",
+        "fecha_nacimiento": "1955-12-12",
+        "telefono": "225566983",
+        "direccion": "Los andes 98",
+        "creado_en": "2026-01-29T17:31:17.072Z",
+        "activo": true
+    }
+},
+{
+    "model": "pacientes.paciente",
+    "pk": 33,
+    "fields": {
+        "dni": "32655421",
+        "nombres": "Dina",
+        "apellidos": "Chacon de su drema",
+        "fecha_nacimiento": "1975-12-12",
+        "telefono": "666555444",
+        "direccion": "Calle los sauces 303",
+        "creado_en": "2026-02-13T17:05:15.788Z",
+        "activo": true
+    }
+}
+]

@@ -1,0 +1,215 @@
+<!-- /home/luis/policlinico/pagos/templates/pagos/ticket_pago.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Ticket de Pago #{{ orden.id }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    @media print {
+        .no-print, .btn, .card-header, footer, nav {
+            display: none !important;
+        }
+        .print-only {
+            display: block !important;
+        }
+        .card {
+            border: none !important;
+            box-shadow: none !important;
+        }
+        body {
+            background-color: white !important;
+            font-size: 12pt;
+        }
+    }
+    
+    .print-only {
+        display: none;
+    }
+    
+    .ticket-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .ticket-header h2 {
+        color: #28a745;
+        margin-bottom: 5px;
+    }
+    
+    .ticket-header p {
+        margin: 2px 0;
+        color: #666;
+    }
+    
+    .ticket-detalle {
+        border-top: 1px dashed #000;
+        border-bottom: 1px dashed #000;
+        padding: 15px 0;
+        margin: 15px 0;
+    }
+    
+    .ticket-servicio {
+        font-weight: bold;
+        color: #0066cc;
+        font-size: 1.2em;
+    }
+    
+    .ticket-precio {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #28a745;
+        text-align: right;
+    }
+    
+    .ticket-footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.9em;
+        color: #666;
+    }
+    
+    .estado-badge {
+        background: #28a745;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-align: center;
+        display: inline-block;
+        margin: 10px 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center no-print">
+            <h5 class="mb-0">
+                <i class="bi bi-ticket-detailed me-2"></i>
+                Ticket de Pago #{{ orden.id }}
+            </h5>
+            <div>
+                <button onclick="window.print()" class="btn btn-sm btn-light me-2">
+                    <i class="bi bi-printer"></i> Imprimir
+                </button>
+                <a href="{% url 'detalle_orden_pago' orden.id %}" class="btn btn-sm btn-light">
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <!-- Contenido del ticket (visible siempre) -->
+            <div class="ticket-header">
+                <h2>🏥 POLICLÍNICO</h2>
+                <p>RUC: 12345678901</p>
+                <p>Av. Principal 123 - Lima</p>
+                <p>Tel: (01) 123-4567</p>
+                <hr>
+                <h4>COMPROBANTE DE PAGO</h4>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>Fecha:</strong><br>
+                    {{ fecha|date:"d/m/Y H:i" }}
+                </div>
+                <div class="col-6 text-end">
+                    <strong>Orden N°:</strong><br>
+                    {{ orden.id }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-12">
+                    <strong>Paciente:</strong><br>
+                    {{ paciente.nombres }} {{ paciente.apellidos }}
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>DNI:</strong><br>
+                    {{ paciente.dni }}
+                </div>
+            </div>
+
+            <div class="ticket-detalle">
+                <div class="row mb-2">
+                    <div class="col-12 ticket-servicio">
+                        {% if consulta.tipo_consulta == 'TOPICO' %}
+                            🩹 {{ consulta.topico_catalogo.nombre|default:"Tópico" }}
+                        {% elif consulta.tipo_consulta == 'ECOGRAFIA' %}
+                            📷 {{ consulta.ecografia_catalogo.nombre|default:"Ecografía" }}
+                        {% elif consulta.tipo_consulta == 'LECTURA_RESULTADOS' %}
+                            📋 Lectura de Resultados
+                        {% else %}
+                            👨‍⚕️ {{ consulta.get_tipo_consulta_display }}
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {% if consulta.descripcion_servicio %}
+                <div class="row mb-2">
+                    <div class="col-12 text-muted">
+                        {{ consulta.descripcion_servicio }}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <strong>Monto pagado:</strong>
+                    </div>
+                    <div class="col-6 ticket-precio">
+                        S/ {{ orden.monto|floatformat:2 }}
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-6">
+                        <strong>Método de pago:</strong>
+                    </div>
+                    <div class="col-6">
+                        {{ orden.get_metodo_pago_display }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <span class="estado-badge">
+                    ✅ CANCELADO
+                </span>
+            </div>
+
+            <div class="ticket-footer">
+                <p>¡Gracias por su preferencia!</p>
+                <p>Este ticket es válido como comprobante</p>
+                <p>Atendido por: {{ user.get_full_name|default:user.username }}</p>
+                <p class="text-muted small">{{ fecha|date:"d/m/Y H:i:s" }}</p>
+            </div>
+
+            <!-- Mensaje para impresión -->
+            <div class="print-only alert alert-info text-center">
+                <i class="bi bi-printer"></i> Vista previa de impresión
+            </div>
+        </div>
+        
+        <div class="card-footer text-center no-print">
+            <button onclick="window.print()" class="btn btn-success">
+                <i class="bi bi-printer"></i> Imprimir Ticket
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Auto-impresión opcional (descomentar si se desea)
+    // window.onload = function() {
+    //     window.print();
+    // }
+</script>
+{% endblock %}

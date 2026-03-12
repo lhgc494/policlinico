@@ -1,0 +1,809 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrar Compra Individual{% endblock %}
+
+{% block extra_css %}
+<style>
+    .buscador-section {
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    .producto-nuevo-card {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+    .table-productos th {
+        background-color: #e9ecef;
+    }
+    .badge-pagada {
+        background-color: #28a745;
+        color: white;
+    }
+    .badge-pendiente {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-cart-plus me-2"></i>{{ titulo }}
+                    </h4>
+                    <a href="{% url 'farmacia:lista_compras' %}" class="btn btn-light btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i> Volver a Compras
+                    </a>
+                </div>
+                
+                <div class="card-body">
+                    
+                    <!-- ============================================ -->
+                    <!-- DATOS DE LA COMPRA (PROVEEDOR, FACTURA, IGV) -->
+                    <!-- ============================================ -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Proveedor:</label>
+                            <select id="proveedor" class="form-select">
+                                <option value="">Seleccione proveedor</option>
+                                {% for p in proveedores %}
+                                <option value="{{ p.id }}">{{ p.nombre }} ({{ p.ruc }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">N° Factura:</label>
+                            <input type="text" id="factura" class="form-control" placeholder="Ej: F001-00000123">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Fecha Factura:</label>
+                            <input type="date" id="fecha_factura" class="form-control" value="{% now 'Y-m-d' %}">
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" id="incluye_igv" checked>
+                                <label class="form-check-label" for="incluye_igv">
+                                    Incluye IGV (18%)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estado de factura -->
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estado_factura" id="factura_pagada" value="pagada" checked>
+                                <label class="form-check-label" for="factura_pagada">
+                                    <span class="badge-pagada badge px-3 py-2">✓ Factura Pagada</span>
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="estado_factura" id="factura_pendiente" value="pendiente">
+                                <label class="form-check-label" for="factura_pendiente">
+                                    <span class="badge-pendiente badge px-3 py-2">⏳ Factura Pendiente</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <!-- ============================================ -->
+                    <!-- BUSCADORES DE MEDICAMENTOS -->
+                    <!-- ============================================ -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="buscador-section">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-hashtag me-1"></i> Buscar por Código:
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" id="buscar_codigo" class="form-control" 
+                                           placeholder="Ej: 453, 37777...">
+                                    <button class="btn btn-outline-primary" type="button" id="btnBuscarCodigo">
+                                        <i class="fas fa-search"></i> Buscar
+                                    </button>
+                                </div>
+                                <div id="resultados_codigo" class="list-group mt-2" style="display: none;"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="buscador-section">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-pills me-1"></i> Buscar por Nombre:
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" id="buscar_nombre" class="form-control" 
+                                           placeholder="Ej: Ventolin, Amoxicilina...">
+                                    <button class="btn btn-outline-primary" type="button" id="btnBuscarNombre">
+                                        <i class="fas fa-search"></i> Buscar
+                                    </button>
+                                </div>
+                                <div id="resultados_nombre" class="list-group mt-2" style="display: none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ============================================ -->
+                    <!-- FORMULARIO PARA PRODUCTO NUEVO -->
+                    <!-- ============================================ -->
+                    <div id="form_nuevo_producto" style="display: none;" class="producto-nuevo-card">
+                        <h5 class="mb-3"><i class="fas fa-plus-circle me-2"></i>Registrar Nuevo Medicamento</h5>
+                        <input type="hidden" id="nuevo_codigo">
+                        
+                        <div class="row">
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Código <span class="text-danger">*</span>:</label>
+                                <input type="text" id="nuevo_codigo_input" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Nombre Comercial <span class="text-danger">*</span>:</label>
+                                <input type="text" id="nuevo_nombre" class="form-control">
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Principio Activo:</label>
+                                <input type="text" id="nuevo_principio" class="form-control">
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Forma Farmacéutica:</label>
+                                <input type="text" id="nuevo_forma" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Laboratorio:</label>
+                                <input type="text" id="nuevo_laboratorio" class="form-control">
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Stock Mínimo:</label>
+                                <input type="number" id="nuevo_stock_minimo" class="form-control" value="10" min="0">
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Precio Venta (opcional):</label>
+                                <input type="number" id="nuevo_precio_venta" class="form-control" step="0.01" min="0">
+                            </div>
+                        </div>
+                        <small class="text-muted">Los campos con <span class="text-danger">*</span> son obligatorios</small>
+                    </div>
+                    
+                    <!-- ============================================ -->
+                    <!-- FORMULARIO PARA AGREGAR PRODUCTO -->
+                    <!-- ============================================ -->
+                    <div id="form_agregar_producto" style="display: none;" class="mt-3">
+                        <h5 class="mb-3">Agregar producto a la compra</h5>
+                        <input type="hidden" id="medicamento_id">
+                        <input type="hidden" id="es_nuevo" value="false">
+                        
+                        <div class="row">
+                            <div class="col-md-3 mb-2">
+                                <label class="form-label">Código:</label>
+                                <input type="text" id="codigo_medicamento" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-5 mb-2">
+                                <label class="form-label">Medicamento:</label>
+                                <input type="text" id="nombre_medicamento" class="form-control" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Cantidad <span class="text-danger">*</span>:</label>
+                                <input type="number" id="cantidad" class="form-control" step="1" min="1" value="1">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Precio Unit. <span class="text-danger">*</span>:</label>
+                                <input type="number" id="precio_unitario" class="form-control" step="0.01" min="0">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Subtotal:</label>
+                                <input type="number" id="subtotal" class="form-control" step="0.01" readonly>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Lote <span class="text-danger">*</span>:</label>
+                                <input type="text" id="lote" class="form-control" placeholder="Ej: LOTE001">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Vencimiento <span class="text-danger">*</span>:</label>
+                                <input type="date" id="fecha_vencimiento" class="form-control">
+                            </div>
+                            <div class="col-md-2 mb-2 d-flex align-items-end">
+                                <button class="btn btn-success w-100" id="btnAgregarProducto">
+                                    <i class="fas fa-plus"></i> Agregar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- ============================================ -->
+                    <!-- TABLA DE PRODUCTOS AGREGADOS -->
+                    <!-- ============================================ -->
+                    <div class="mt-4">
+                        <h5>Productos agregados</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover table-productos">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Medicamento</th>
+                                        <th>Lote</th>
+                                        <th>Vencimiento</th>
+                                        <th class="text-end">Cantidad</th>
+                                        <th class="text-end">P.Unit</th>
+                                        <th class="text-end">Subtotal</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyProductos">
+                                    {% for item in carrito.productos %}
+                                    <tr data-id="{{ item.id }}">
+                                        <td>{{ item.codigo }}</td>
+                                        <td>{{ item.nombre }}</td>
+                                        <td>{{ item.lote }}</td>
+                                        <td>{{ item.fecha_vencimiento }}</td>
+                                        <td class="text-end">{{ item.cantidad }}</td>
+                                        <td class="text-end">S/ {{ item.precio_unitario|floatformat:2 }}</td>
+                                        <td class="text-end">S/ {{ item.subtotal|floatformat:2 }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger btn-eliminar" data-id="{{ item.id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr id="filaVacia">
+                                        <td colspan="8" class="text-center py-4">
+                                            <p class="text-muted">No hay productos agregados</p>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-secondary">
+                                        <th colspan="6" class="text-end">Subtotal:</th>
+                                        <th class="text-end" id="totalSubtotal">S/ {{ carrito.subtotal|floatformat:2 }}</th>
+                                        <th></th>
+                                    </tr>
+
+
+                                    <tr class="table-secondary" id="filaIGV" style="display: none;">
+                                        <th colspan="6" class="text-end">IGV (18%):</th>
+                                        <th class="text-end" id="totalIGV">S/ 0.00</th>
+                                        <th></th>
+                                    </tr>
+                                
+
+
+
+
+                                    <tr class="table-primary">
+                                        <th colspan="6" class="text-end">TOTAL:</th>
+                                        <th class="text-end" id="totalGeneral">S/ {{ carrito.total|floatformat:2 }}</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- ============================================ -->
+                    <!-- BOTONES FINALES -->
+                    <!-- ============================================ -->
+                    <div class="row mt-4">
+                        <div class="col-12 text-end">
+                            <a href="{% url 'farmacia:lista_compras' %}" class="btn btn-secondary me-2">
+                                Cancelar
+                            </a>
+                            <button class="btn btn-success" id="btnFinalizarCompra" {% if not carrito.productos %}disabled{% endif %}>
+                                <i class="fas fa-check"></i> Finalizar Compra
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Elementos del DOM
+    const inputBuscarCodigo = document.getElementById('buscar_codigo');
+    const inputBuscarNombre = document.getElementById('buscar_nombre');
+    const btnBuscarCodigo = document.getElementById('btnBuscarCodigo');
+    const btnBuscarNombre = document.getElementById('btnBuscarNombre');
+    const resultadosCodigo = document.getElementById('resultados_codigo');
+    const resultadosNombre = document.getElementById('resultados_nombre');
+    
+    const formNuevoProducto = document.getElementById('form_nuevo_producto');
+    const formAgregarProducto = document.getElementById('form_agregar_producto');
+    
+    const medicamentoId = document.getElementById('medicamento_id');
+    const esNuevo = document.getElementById('es_nuevo');
+    const codigoMedicamento = document.getElementById('codigo_medicamento');
+    const nombreMedicamento = document.getElementById('nombre_medicamento');
+    const nuevoCodigoInput = document.getElementById('nuevo_codigo_input');
+    const nuevoNombre = document.getElementById('nuevo_nombre');
+    const nuevoPrincipio = document.getElementById('nuevo_principio');
+    const nuevoForma = document.getElementById('nuevo_forma');
+    const nuevoLaboratorio = document.getElementById('nuevo_laboratorio');
+    const nuevoStockMinimo = document.getElementById('nuevo_stock_minimo');
+    const nuevoPrecioVenta = document.getElementById('nuevo_precio_venta');
+    
+    const cantidad = document.getElementById('cantidad');
+    const precioUnitario = document.getElementById('precio_unitario');
+    const subtotal = document.getElementById('subtotal');
+    const lote = document.getElementById('lote');
+    const fechaVencimiento = document.getElementById('fecha_vencimiento');
+    const btnAgregarProducto = document.getElementById('btnAgregarProducto');
+    
+    const tbody = document.getElementById('tbodyProductos');
+    const filaVacia = document.getElementById('filaVacia');
+    const totalSubtotal = document.getElementById('totalSubtotal');
+    const totalIGV = document.getElementById('totalIGV');
+    const totalGeneral = document.getElementById('totalGeneral');
+    const filaIGV = document.getElementById('filaIGV');
+    const incluyeIgv = document.getElementById('incluye_igv');
+    const btnFinalizar = document.getElementById('btnFinalizarCompra');
+    
+    // ============================================
+    // FUNCIÓN PRINCIPAL: ACTUALIZAR TOTALES
+    // ============================================
+    function actualizarTotales() {
+    const subtotalVal = parseFloat(totalSubtotal.textContent.replace('S/ ', '')) || 0;
+    
+    if (incluyeIgv.checked) {
+        const igv = subtotalVal * 0.18;
+        totalIGV.textContent = 'S/ ' + igv.toFixed(2);
+        totalGeneral.textContent = 'S/ ' + (subtotalVal + igv).toFixed(2);
+        filaIGV.style.display = '';
+    } else {
+        filaIGV.style.display = 'none';
+        totalGeneral.textContent = 'S/ ' + subtotalVal.toFixed(2);
+    }
+}
+
+// Llamar al cargar
+actualizarTotales();
+    
+    // ============================================
+    // ACTUALIZAR BOTÓN FINALIZAR
+    // ============================================
+    function actualizarBotonFinalizar() {
+        const filasProductos = document.querySelectorAll('#tbodyProductos tr:not(#filaVacia)');
+        btnFinalizar.disabled = filasProductos.length === 0;
+    }
+    
+    // ============================================
+    // AGREGAR FILA A LA TABLA
+    // ============================================
+    function agregarFilaProducto(item) {
+        if (filaVacia) filaVacia.remove();
+        
+        const row = document.createElement('tr');
+        row.setAttribute('data-id', item.id);
+        row.innerHTML = `
+            <td>${item.codigo}</td>
+            <td>${item.nombre}</td>
+            <td>${item.lote}</td>
+            <td>${item.fecha_vencimiento}</td>
+            <td class="text-end">${item.cantidad}</td>
+            <td class="text-end">S/ ${item.precio_unitario.toFixed(2)}</td>
+            <td class="text-end">S/ ${item.subtotal.toFixed(2)}</td>
+            <td>
+                <button class="btn btn-sm btn-danger btn-eliminar" data-id="${item.id}">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+        tbody.appendChild(row);
+        actualizarBotonFinalizar();
+        actualizarTotales();  // Recalcular IGV después de agregar
+    }
+    
+    // ============================================
+    // LIMPIAR FORMULARIO
+    // ============================================
+    function limpiarFormularioProducto() {
+        formAgregarProducto.style.display = 'none';
+        formNuevoProducto.style.display = 'none';
+        medicamentoId.value = '';
+        codigoMedicamento.value = '';
+        nombreMedicamento.value = '';
+        cantidad.value = '1';
+        precioUnitario.value = '';
+        subtotal.value = '';
+        lote.value = '';
+        fechaVencimiento.value = '';
+        nuevoNombre.value = '';
+        nuevoPrincipio.value = '';
+        nuevoForma.value = '';
+        nuevoLaboratorio.value = '';
+        nuevoPrecioVenta.value = '';
+    }
+    
+    // ============================================
+    // AGREGAR PRODUCTO
+    // ============================================
+    btnAgregarProducto.addEventListener('click', function() {
+        if (!medicamentoId.value && esNuevo.value === 'false') {
+            alert('Debe seleccionar un medicamento');
+            return;
+        }
+        
+        if (esNuevo.value === 'true' && !nuevoNombre.value.trim()) {
+            alert('Debe ingresar el nombre del nuevo medicamento');
+            return;
+        }
+        
+        const cant = parseFloat(cantidad.value) || 0;
+        const precio = parseFloat(precioUnitario.value) || 0;
+        
+        if (cant <= 0) {
+            alert('Ingrese una cantidad válida');
+            return;
+        }
+        if (precio <= 0) {
+            alert('Ingrese un precio unitario válido');
+            return;
+        }
+        if (!lote.value.trim()) {
+            alert('Ingrese el lote');
+            return;
+        }
+        if (!fechaVencimiento.value) {
+            alert('Ingrese la fecha de vencimiento');
+            return;
+        }
+        
+        const data = {
+            es_nuevo: esNuevo.value === 'true',
+            cantidad: cant,
+            precio_unitario: precio,
+            lote: lote.value,
+            fecha_vencimiento: fechaVencimiento.value
+        };
+        
+        if (esNuevo.value === 'true') {
+            data.codigo = nuevoCodigoInput.value;
+            data.nombre_comercial = nuevoNombre.value.trim();
+            data.principio_activo = nuevoPrincipio.value.trim();
+            data.forma_farmaceutica = nuevoForma.value.trim();
+            data.fabricante = nuevoLaboratorio.value.trim();
+            data.stock_minimo = parseInt(nuevoStockMinimo.value) || 10;
+            data.precio_venta = parseFloat(nuevoPrecioVenta.value) || 0;
+        } else {
+            data.medicamento_id = medicamentoId.value;
+        }
+        
+        fetch('/farmacia/compras/individual/agregar/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                agregarFilaProducto(data.item);
+                totalSubtotal.textContent = 'S/ ' + data.carrito.subtotal.toFixed(2);
+                actualizarTotales();  // Recalcular IGV
+                limpiarFormularioProducto();
+            } else {
+                alert('Error: ' + data.error);
+            }
+        });
+    });
+    
+    // ============================================
+    // ELIMINAR PRODUCTO
+    // ============================================
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.btn-eliminar')) {
+            const btn = e.target.closest('.btn-eliminar');
+            const itemId = btn.getAttribute('data-id');
+            
+            fetch(`/farmacia/compras/individual/eliminar/${itemId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const row = btn.closest('tr');
+                    row.remove();
+                    
+                    totalSubtotal.textContent = 'S/ ' + data.carrito.subtotal.toFixed(2);
+                    actualizarTotales();  // Recalcular IGV
+                    actualizarBotonFinalizar();
+                    
+                    if (tbody.children.length === 0) {
+                        tbody.innerHTML = `
+                            <tr id="filaVacia">
+                                <td colspan="8" class="text-center py-4">
+                                    <p class="text-muted">No hay productos agregados</p>
+                                </td>
+                            </tr>
+                        `;
+                    }
+                }
+            });
+        }
+    });
+    
+    // ============================================
+    // EVENTO IGV
+    // ============================================
+    incluyeIgv.addEventListener('change', actualizarTotales);
+    
+    // ============================================
+    // BUSQUEDA DE MEDICAMENTOS
+    // ============================================
+    function buscarMedicamentos(query, tipo) {
+        if (tipo === 'codigo' && query.length < 1) {
+            alert('Ingrese un código');
+            return;
+        }
+        if (tipo === 'nombre' && query.length < 2) {
+            alert('Ingrese al menos 2 caracteres');
+            return;
+        }
+        
+        const resultadosDiv = tipo === 'codigo' ? resultadosCodigo : resultadosNombre;
+        resultadosDiv.innerHTML = '<div class="list-group-item">Buscando...</div>';
+        resultadosDiv.style.display = 'block';
+        
+        if (tipo === 'codigo') resultadosNombre.style.display = 'none';
+        else resultadosCodigo.style.display = 'none';
+        
+        fetch(`/farmacia/compras/individual/buscar-medicamento/?q=${encodeURIComponent(query)}&tipo=${tipo}`)
+            .then(response => response.json())
+            .then(data => {
+                resultadosDiv.innerHTML = '';
+                if (data.medicamentos && data.medicamentos.length > 0) {
+                    data.medicamentos.forEach(med => {
+                        const item = document.createElement('a');
+                        item.href = '#';
+                        item.className = 'list-group-item list-group-item-action';
+                        item.innerHTML = `
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${med.nombre}</strong>
+                                    <br>
+                                    <small class="text-muted">Código: ${med.codigo} | ${med.principio_activo || ''}</small>
+                                </div>
+                                <span class="badge bg-primary">S/ ${med.precio_venta}</span>
+                            </div>
+                        `;
+                        item.onclick = (e) => {
+                            e.preventDefault();
+                            seleccionarMedicamentoExistente(med);
+                        };
+                        resultadosDiv.appendChild(item);
+                    });
+                    
+                    const itemNuevo = document.createElement('a');
+                    itemNuevo.href = '#';
+                    itemNuevo.className = 'list-group-item list-group-item-action list-group-item-warning';
+                    itemNuevo.innerHTML = `
+                        <i class="fas fa-plus-circle me-2"></i>
+                        <strong>Crear nuevo medicamento con código "${query}"</strong>
+                    `;
+                    itemNuevo.onclick = (e) => {
+                        e.preventDefault();
+                        mostrarFormularioNuevo(query);
+                    };
+                    resultadosDiv.appendChild(itemNuevo);
+                    
+                } else {
+                    resultadosDiv.innerHTML = `
+                        <div class="list-group-item list-group-item-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            No se encontraron resultados. 
+                            <a href="#" onclick="mostrarFormularioNuevo('${query}')">Crear nuevo medicamento</a>
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                resultadosDiv.innerHTML = '<div class="list-group-item text-danger">Error en la búsqueda</div>';
+            });
+    }
+    
+    window.seleccionarMedicamentoExistente = function(med) {
+        medicamentoId.value = med.id;
+        esNuevo.value = 'false';
+        codigoMedicamento.value = med.codigo;
+        nombreMedicamento.value = med.nombre;
+        
+        formNuevoProducto.style.display = 'none';
+        formAgregarProducto.style.display = 'block';
+        
+        resultadosCodigo.style.display = 'none';
+        resultadosNombre.style.display = 'none';
+        inputBuscarCodigo.value = '';
+        inputBuscarNombre.value = '';
+        
+        cantidad.value = '1';
+        precioUnitario.value = '';
+        subtotal.value = '';
+        lote.value = '';
+        fechaVencimiento.value = '';
+        
+        cantidad.focus();
+    };
+    
+    window.mostrarFormularioNuevo = function(codigo) {
+        nuevoCodigoInput.value = codigo;
+        nuevoNombre.value = '';
+        nuevoPrincipio.value = '';
+        nuevoForma.value = '';
+        nuevoLaboratorio.value = '';
+        nuevoStockMinimo.value = '10';
+        nuevoPrecioVenta.value = '';
+        
+        formNuevoProducto.style.display = 'block';
+        formAgregarProducto.style.display = 'none';
+        resultadosCodigo.style.display = 'none';
+        resultadosNombre.style.display = 'none';
+        
+        nuevoNombre.focus();
+    };
+    
+    document.getElementById('nuevo_nombre').addEventListener('change', function() {
+        if (this.value.trim() && nuevoCodigoInput.value) {
+            medicamentoId.value = '';
+            esNuevo.value = 'true';
+            codigoMedicamento.value = nuevoCodigoInput.value;
+            nombreMedicamento.value = this.value;
+            
+            formAgregarProducto.style.display = 'block';
+        }
+    });
+    
+    // ============================================
+    // CÁLCULO DE SUBTOTAL
+    // ============================================
+    function calcularSubtotal() {
+        const cant = parseFloat(cantidad.value) || 0;
+        const precio = parseFloat(precioUnitario.value) || 0;
+        subtotal.value = (cant * precio).toFixed(2);
+    }
+    
+    cantidad.addEventListener('input', calcularSubtotal);
+    precioUnitario.addEventListener('input', calcularSubtotal);
+    
+    // ============================================
+    // EVENTOS DE BÚSQUEDA
+    // ============================================
+    btnBuscarCodigo.addEventListener('click', function() {
+        buscarMedicamentos(inputBuscarCodigo.value.trim(), 'codigo');
+    });
+    
+    btnBuscarNombre.addEventListener('click', function() {
+        buscarMedicamentos(inputBuscarNombre.value.trim(), 'nombre');
+    });
+    
+    inputBuscarCodigo.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') buscarMedicamentos(this.value.trim(), 'codigo');
+    });
+    
+    inputBuscarNombre.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') buscarMedicamentos(this.value.trim(), 'nombre');
+    });
+    
+    // Cerrar resultados al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#buscar_codigo') && !e.target.closest('#btnBuscarCodigo') && !e.target.closest('#resultados_codigo')) {
+            resultadosCodigo.style.display = 'none';
+        }
+        if (!e.target.closest('#buscar_nombre') && !e.target.closest('#btnBuscarNombre') && !e.target.closest('#resultados_nombre')) {
+            resultadosNombre.style.display = 'none';
+        }
+    });
+    
+    // ============================================
+    // FINALIZAR COMPRA
+    // ============================================
+    // ============================================
+// FINALIZAR COMPRA (VERSIÓN CORREGIDA)
+// ============================================
+btnFinalizar.addEventListener('click', function(e) {
+    e.preventDefault();  // Evitar envío tradicional
+    
+    const proveedor = document.getElementById('proveedor').value;
+    const factura = document.getElementById('factura').value;
+    const fecha = document.getElementById('fecha_factura').value;
+    const estadoFactura = document.querySelector('input[name="estado_factura"]:checked').value;
+    const incluyeIgvChecked = incluyeIgv.checked;
+    
+    if (!proveedor) {
+        alert('Seleccione un proveedor');
+        return;
+    }
+    if (!factura) {
+        alert('Ingrese el número de factura');
+        return;
+    }
+    
+    // Verificar que hay productos
+    const filasProductos = document.querySelectorAll('#tbodyProductos tr:not(#filaVacia)');
+    if (filasProductos.length === 0) {
+        alert('No hay productos en el carrito');
+        return;
+    }
+    
+    // Deshabilitar botón para evitar doble clic
+    btnFinalizar.disabled = true;
+    btnFinalizar.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
+    
+    // Crear formulario con los datos
+    const formData = new FormData();
+    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+    formData.append('proveedor_id', proveedor);
+    formData.append('numero_factura', factura);
+    formData.append('fecha_factura', fecha);
+    formData.append('factura_pagada', estadoFactura === 'pagada' ? 'on' : '');
+    formData.append('incluye_igv', incluyeIgvChecked ? 'on' : '');
+    
+    // Enviar por AJAX
+    fetch('/farmacia/compras/individual/confirmar/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: formData
+    })
+    .then(response => {
+        if (response.redirected) {
+            // Si el servidor redirige, seguir la redirección
+            
+            window.location.href = response.url;
+        } else {
+            return response.json();
+        }
+    })
+    .then(data => {
+        if (data && data.success) {
+            window.location.href = data.redirect_url;
+        } else if (data && data.error) {
+            alert('Error: ' + data.error);
+            btnFinalizar.disabled = false;
+            btnFinalizar.innerHTML = '<i class="fas fa-check"></i> Finalizar Compra';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error de conexión al procesar la compra');
+        btnFinalizar.disabled = false;
+        btnFinalizar.innerHTML = '<i class="fas fa-check"></i> Finalizar Compra';
+    });
+});
+    
+    // ============================================
+    // INICIALIZAR
+    // ============================================
+    actualizarTotales();
+    actualizarBotonFinalizar();
+    
+});
+</script>
+{% endblock %}

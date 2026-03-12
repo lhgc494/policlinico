@@ -1,0 +1,107 @@
+{% extends 'consultas/laboratorio/formatos/base_formato.html' %}
+
+{% block title %}Perfil Renal - {{ orden.examen_especifico }}{% endblock %}
+
+{% block campos_formulario %}
+{% if modo_impresion %}
+    <!-- ===== VERSIÓN IMPRESIÓN PERFIL RENAL ===== -->
+    <div style="font-family: Arial, sans-serif;">
+        
+        <!-- Encabezado 1 línea -->
+        <div style="display: flex; justify-content: space-between; background-color: #003366; color: white; padding: 4px 8px; margin-bottom: 6px;">
+            <span style="font-weight: bold;">PERFIL RENAL #{{ orden.id }}</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <!-- Datos paciente 1 línea -->
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; background-color: #f0f0f0; padding: 4px 8px; margin-bottom: 8px; font-size: 9pt;">
+            <span><strong>Pac:</strong> {{ orden.get_paciente_nombre|truncatechars:30 }}</span>
+            <span><strong>DNI:</strong> {{ orden.get_paciente_dni }}</span>
+            <span><strong>Téc:</strong> {{ orden.tecnico_asignado.get_short_name|default:orden.tecnico_asignado.username }}</span>
+        </div>
+        
+        <!-- Tabla de resultados -->
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+            <thead>
+                <tr style="background-color: #006633; color: white;">
+                    <th style="padding: 3px 5px; text-align: left;">Parámetro</th>
+                    <th style="padding: 3px 5px; text-align: left;">Resultado</th>
+                    <th style="padding: 3px 5px; text-align: left;">Ref</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Urea</td><td>{{ resultados.urea|default:"-" }} mg/dL</td><td>15-45</td></tr>
+                <tr><td>Creatinina</td><td>{{ resultados.creatinina|default:"-" }} mg/dL</td><td>0.6-1.2</td></tr>
+                <tr><td>Ácido Úrico</td><td>{{ resultados.acido_urico|default:"-" }} mg/dL</td><td>3.5-7.2</td></tr>
+                <tr><td>Depuración Creatinina</td><td>{{ resultados.depuracion|default:"-" }} mL/min</td><td>85-125</td></tr>
+            </tbody>
+        </table>
+        
+        <!-- Observaciones -->
+        {% if resultados.observaciones %}
+        <div style="margin: 4px 0; padding: 3px; background-color: #fff3cd; font-size: 8pt;">
+            <strong>Obs:</strong> {{ resultados.observaciones }}
+        </div>
+        {% endif %}
+        
+        <!-- Pie -->
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 7pt; color: #666; border-top: 1px solid #ccc; padding-top: 3px;">
+            <span>Sistema Policlínico</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <!-- Botones -->
+        <div class="no-print" style="text-align: center; margin-top: 10px;">
+            <button onclick="window.print()" style="padding: 5px 15px;">🖨️ Imprimir</button>
+            <button onclick="window.close()" style="padding: 5px 15px;">✖️ Cerrar</button>
+        </div>
+    </div>
+
+{% else %}
+    <!-- ===== VERSIÓN EDICIÓN PERFIL RENAL ===== -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">PERFIL RENAL</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Urea (mg/dL):</label>
+                    <input type="text" name="urea" class="form-control" 
+                           value="{{ resultados.urea|default:'' }}" placeholder="Ej: 32">
+                    <small class="text-muted">VR: 15-45</small>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Creatinina (mg/dL):</label>
+                    <input type="text" name="creatinina" class="form-control" 
+                           value="{{ resultados.creatinina|default:'' }}" placeholder="Ej: 0.9">
+                    <small class="text-muted">VR: 0.6-1.2</small>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Ácido Úrico (mg/dL):</label>
+                    <input type="text" name="acido_urico" class="form-control" 
+                           value="{{ resultados.acido_urico|default:'' }}" placeholder="Ej: 5.2">
+                    <small class="text-muted">VR: 3.5-7.2</small>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Depuración Creatinina (mL/min):</label>
+                    <input type="text" name="depuracion" class="form-control" 
+                           value="{{ resultados.depuracion|default:'' }}" placeholder="Ej: 95">
+                    <small class="text-muted">VR: 85-125</small>
+                </div>
+            </div>
+            
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label class="form-label">Observaciones:</label>
+                    <textarea name="observaciones" class="form-control" rows="2">{{ resultados.observaciones|default:'' }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<style>
+@media print { .no-print { display: none; } }
+</style>
+{% endblock %}

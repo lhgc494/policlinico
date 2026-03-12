@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h3 class="mb-4">Lista de Triaje Pendiente</h3>
+
+    {% if page_obj %}
+        <div class="alert alert-info">
+            Total de triajes pendientes: <strong>{{ total_pendientes }}</strong>
+        </div>
+         <table class="table table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Paciente</th>
+                    <th>Consulta</th>
+                    <th>Especialidad</th>
+                    <th>Estado Consulta</th>
+                    <th>Estado Triaje</th>
+                    <th class="text-center">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for consulta in page_obj %}
+                <tr>
+                    <td>
+			   
+  			  {{ consulta.paciente.nombres }} {{ consulta.paciente.apellidos }}<br>
+			    <small class="text-muted">DNI: {{ consulta.paciente.dni }}</small>
+
+                    </td>
+                    <td>{{ consulta.tipo_consulta }}</td>
+                    <td>{{ consulta.especialidad|default:"No especificada" }}</td>
+                    <td>
+                        {% if consulta.estado == 'REGISTRADA' %}
+                            <span class="badge bg-secondary">Registrada</span>
+                        {% elif consulta.estado == 'PAGADA' %}
+                            <span class="badge bg-success">Pagada</span>
+                        {% elif consulta.estado == 'TRIAJE_PENDIENTE' %}
+                            <span class="badge bg-warning text-dark">Triaje Pendiente</span>
+                        {% elif consulta.estado == 'EN_TRIAGE' %}
+                            <span class="badge bg-primary">En Triaje</span>
+                        {% elif consulta.estado == 'TRIAJE_COMPLETO' %}
+                            <span class="badge bg-info">Triaje Completo</span>
+                        {% elif consulta.estado == 'ATENDIDA' %}
+                            <span class="badge bg-success">Atendida</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if consulta.triaje %}
+                            {% if consulta.triaje.estado == 'INICIADO' %}
+                                <span class="badge bg-warning text-dark">Iniciado</span>
+                            {% elif consulta.triaje.estado == 'COMPLETO' %}
+                                <span class="badge bg-success">Completo</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="badge bg-secondary">Sin triaje</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-center">
+                        {% if consulta.estado == 'PAGADA' or consulta.estado == 'EN_TRIAGE' %}
+                            {% if consulta.triaje %}
+                                <a href="{% url 'crear_triaje' consulta.id %}" class="btn btn-sm btn-outline-primary">
+                                    Continuar Triaje
+                                </a>
+                            {% else %}
+                                <a href="{% url 'crear_triaje' consulta.id %}" class="btn btn-sm btn-primary">
+                                    Iniciar Triaje
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <button class="btn btn-sm btn-secondary" disabled>
+                                No disponible
+                            </button>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Paginación -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+            {% endif %}
+          </ul>
+        </nav>
+
+    {% else %}
+        <div class="alert alert-info">
+            <h5>¡Excelente!</h5>
+            <p>No hay triajes pendientes. Todas las consultas han sido atendidas.</p>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

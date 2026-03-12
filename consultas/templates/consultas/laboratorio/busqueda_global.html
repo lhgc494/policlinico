@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Buscar Órdenes - Laboratorio{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-search me-2"></i>
+                        Resultados de búsqueda para DNI: <code>{{ dni_buscado }}</code>
+                    </h4>
+                </div>
+                
+                <div class="card-body">
+                    <!-- RESUMEN DE RESULTADOS -->
+                    <div class="alert alert-info mb-4">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <strong>Total encontrados:</strong>
+                                <span class="badge bg-primary">{{ contadores.total }}</span>
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Pendientes:</strong>
+                                <span class="badge bg-warning">{{ contadores.pendientes }}</span>
+                            </div>
+                            <div class="col-md-2">
+                                <strong>En proceso:</strong>
+                                <span class="badge bg-info">{{ contadores.en_proceso }}</span>
+                            </div>
+                            <div class="col-md-2">
+                                <strong>Completados:</strong>
+                                <span class="badge bg-success">{{ contadores.completados }}</span>
+                            </div>
+                            <div class="col-md-3">
+                                <strong>Entregados:</strong>
+                                <span class="badge bg-primary">{{ contadores.entregados }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if ordenes %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Paciente</th>
+                                    <th>Examen</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                    <th width="180">Acciones</th>  <!-- Aumentado para 2 botones -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for orden in ordenes %}
+                                <tr>
+                                    <td><strong>#{{ orden.id }}</strong></td>
+                                    <td>
+                                        {% if orden.consulta %}
+                                            {{ orden.consulta.paciente.nombres }} {{ orden.consulta.paciente.apellidos }}
+                                            <div class="small text-muted">DNI: {{ orden.consulta.paciente.dni }}</div>
+                                        {% elif orden.venta_ambulatoria %}
+                                            {{ orden.venta_ambulatoria.paciente_nombre }}
+                                            <div class="small text-muted">DNI: {{ orden.venta_ambulatoria.paciente_dni }}</div>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ orden.examen_especifico }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if orden.estado == 'SOLICITADO' %}bg-warning
+                                            {% elif orden.estado == 'EN_PROCESO' %}bg-info
+                                            {% elif orden.estado == 'COMPLETADO' %}bg-success
+                                            {% elif orden.estado == 'ENTREGADO' %}bg-primary
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ orden.get_estado_display }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ orden.fecha_solicitud|date:"d/m/Y H:i" }}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <!-- Botón VER (siempre visible) -->
+                                            <a href="{% url 'detalle_orden_examen' orden.id %}" 
+                                               class="btn btn-outline-primary">
+                                                <i class="fas fa-eye"></i> Ver
+                                            </a>
+                                            
+                                            <!-- 🔥 NUEVO: Botón IMPRIMIR para estados COMPLETADO y ENTREGADO -->
+                                            {% if orden.estado == 'COMPLETADO' or orden.estado == 'ENTREGADO' %}
+                                            <a href="{% url 'imprimir_resultado' orden.id %}" 
+                                               class="btn btn-outline-success" 
+                                               target="_blank"
+                                               title="Imprimir resultado">
+                                                <i class="fas fa-print"></i> Imprimir
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <div class="text-muted mb-3">
+                            <i class="fas fa-search fa-2x"></i>
+                        </div>
+                        <h5 class="text-muted">No se encontraron resultados</h5>
+                        <p class="text-muted">No hay órdenes para el DNI: <strong>{{ dni_buscado }}</strong></p>
+                        <a href="{% url 'lista_ordenes_pendientes' %}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left me-1"></i> Volver al listado
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <div class="card-footer">
+                    <a href="{% url 'lista_ordenes_pendientes' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Volver al laboratorio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

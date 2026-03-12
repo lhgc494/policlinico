@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Receta{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-danger text-white">
+            <h3>Eliminar Receta Médica</h3>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>¿Está seguro de eliminar esta receta?</strong>
+                <p>Esta acción no se puede deshacer.</p>
+            </div>
+            
+            <p><strong>Paciente:</strong> {{ paciente.nombres }} {{ paciente.apellidos }}</p>
+            <p><strong>Medicamento:</strong> {{ receta.medicamento }}</p>
+            <p><strong>Dosis:</strong> {{ receta.dosis }}</p>
+            <p><strong>Frecuencia:</strong> {{ receta.frecuencia }}</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'atender_consulta' receta.consulta.id %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Sí, Eliminar Receta
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

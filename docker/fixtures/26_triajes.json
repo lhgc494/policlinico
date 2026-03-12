@@ -1,0 +1,2297 @@
+[
+{
+    "model": "triaje.triaje",
+    "pk": 1,
+    "fields": {
+        "consulta": 8,
+        "estado": "INICIADO",
+        "peso": "0.00",
+        "talla": 0,
+        "temperatura": "0.0",
+        "presion": "",
+        "frecuencia_cardiaca": 0,
+        "saturacion": null,
+        "fecha": "2026-01-15T15:42:07.525Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 2,
+    "fields": {
+        "consulta": 9,
+        "estado": "INICIADO",
+        "peso": "0.00",
+        "talla": 0,
+        "temperatura": "0.0",
+        "presion": "",
+        "frecuencia_cardiaca": 0,
+        "saturacion": null,
+        "fecha": "2026-01-15T15:45:05.689Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 3,
+    "fields": {
+        "consulta": 10,
+        "estado": "COMPLETO",
+        "peso": "89.00",
+        "talla": 150,
+        "temperatura": "35.0",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 98,
+        "saturacion": 100,
+        "fecha": "2026-01-15T15:48:47.387Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 4,
+    "fields": {
+        "consulta": 11,
+        "estado": "COMPLETO",
+        "peso": "56.00",
+        "talla": 180,
+        "temperatura": "33.0",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 98,
+        "saturacion": 95,
+        "fecha": "2026-01-15T15:49:45.302Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 5,
+    "fields": {
+        "consulta": 12,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "32.0",
+        "presion": "120/90",
+        "frecuencia_cardiaca": 86,
+        "saturacion": 89,
+        "fecha": "2026-01-15T16:07:37.866Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 6,
+    "fields": {
+        "consulta": 13,
+        "estado": "COMPLETO",
+        "peso": "89.00",
+        "talla": 200,
+        "temperatura": "33.0",
+        "presion": "120/70",
+        "frecuencia_cardiaca": 85,
+        "saturacion": 89,
+        "fecha": "2026-01-15T16:46:16.090Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 7,
+    "fields": {
+        "consulta": 15,
+        "estado": "INICIADO",
+        "peso": "96.00",
+        "talla": 150,
+        "temperatura": "32.0",
+        "presion": "120/90",
+        "frecuencia_cardiaca": 110,
+        "saturacion": 95,
+        "fecha": "2026-01-15T19:03:51.644Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 8,
+    "fields": {
+        "consulta": 16,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-15T20:47:55.740Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 9,
+    "fields": {
+        "consulta": 17,
+        "estado": "COMPLETO",
+        "peso": "69.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 99,
+        "fecha": "2026-01-15T22:23:03.606Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 10,
+    "fields": {
+        "consulta": 18,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 145,
+        "temperatura": "35.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 45,
+        "saturacion": 98,
+        "fecha": "2026-01-15T22:28:40.036Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 11,
+    "fields": {
+        "consulta": 19,
+        "estado": "COMPLETO",
+        "peso": "80.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/92",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 90,
+        "fecha": "2026-01-15T22:42:00.888Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 12,
+    "fields": {
+        "consulta": 20,
+        "estado": "COMPLETO",
+        "peso": "70.00",
+        "talla": 190,
+        "temperatura": "35.0",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 74,
+        "saturacion": 98,
+        "fecha": "2026-01-15T22:45:46.398Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 13,
+    "fields": {
+        "consulta": 21,
+        "estado": "COMPLETO",
+        "peso": "70.00",
+        "talla": 100,
+        "temperatura": "36.0",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 80,
+        "saturacion": 90,
+        "fecha": "2026-01-15T22:53:29.898Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 14,
+    "fields": {
+        "consulta": 22,
+        "estado": "COMPLETO",
+        "peso": "70.00",
+        "talla": 100,
+        "temperatura": "32.0",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 80,
+        "saturacion": 98,
+        "fecha": "2026-01-15T22:55:41.670Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 15,
+    "fields": {
+        "consulta": 23,
+        "estado": "COMPLETO",
+        "peso": "50.00",
+        "talla": 160,
+        "temperatura": "35.0",
+        "presion": "120/90",
+        "frecuencia_cardiaca": 80,
+        "saturacion": 90,
+        "fecha": "2026-01-16T19:06:02.204Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 16,
+    "fields": {
+        "consulta": 24,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "32.0",
+        "presion": "120/90",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 98,
+        "fecha": "2026-01-16T19:20:14.356Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 17,
+    "fields": {
+        "consulta": 25,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-16T20:04:03.410Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 18,
+    "fields": {
+        "consulta": 26,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 134,
+        "temperatura": "35.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 99,
+        "saturacion": 98,
+        "fecha": "2026-01-16T20:06:45.858Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 19,
+    "fields": {
+        "consulta": 27,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 100,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 98,
+        "fecha": "2026-01-16T20:16:22.054Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 20,
+    "fields": {
+        "consulta": 28,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-16T21:13:19.403Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 21,
+    "fields": {
+        "consulta": 29,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 200,
+        "temperatura": "32.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 75,
+        "saturacion": 99,
+        "fecha": "2026-01-16T22:52:04.969Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 22,
+    "fields": {
+        "consulta": 30,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-01-17T13:54:34.712Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 23,
+    "fields": {
+        "consulta": 31,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-17T14:35:55.883Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 24,
+    "fields": {
+        "consulta": 32,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-01-17T14:44:43.431Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 25,
+    "fields": {
+        "consulta": 33,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-17T14:57:11.496Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 26,
+    "fields": {
+        "consulta": 34,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-17T15:01:26.048Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 27,
+    "fields": {
+        "consulta": 35,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 98,
+        "fecha": "2026-01-17T15:02:35.447Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 28,
+    "fields": {
+        "consulta": 36,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-17T15:21:37.716Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 29,
+    "fields": {
+        "consulta": 37,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-17T16:09:38.442Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 30,
+    "fields": {
+        "consulta": 39,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 150,
+        "temperatura": "32.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-01-17T16:26:50.945Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 31,
+    "fields": {
+        "consulta": 40,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "35.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-01-17T17:07:03.370Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 32,
+    "fields": {
+        "consulta": 42,
+        "estado": "COMPLETO",
+        "peso": "78.00",
+        "talla": 200,
+        "temperatura": "38.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 78,
+        "fecha": "2026-01-17T17:26:25.882Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 33,
+    "fields": {
+        "consulta": 44,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-19T19:23:09.669Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 34,
+    "fields": {
+        "consulta": 45,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-19T20:51:09.524Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 35,
+    "fields": {
+        "consulta": 46,
+        "estado": "COMPLETO",
+        "peso": "70.00",
+        "talla": 190,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 80,
+        "saturacion": 98,
+        "fecha": "2026-01-19T22:01:55.672Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 36,
+    "fields": {
+        "consulta": 47,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 98,
+        "fecha": "2026-01-19T22:36:44.064Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 37,
+    "fields": {
+        "consulta": 48,
+        "estado": "COMPLETO",
+        "peso": "70.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-01-20T15:38:29.130Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 38,
+    "fields": {
+        "consulta": 49,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "32.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 98,
+        "fecha": "2026-01-20T17:35:41.145Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 39,
+    "fields": {
+        "consulta": 50,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 154,
+        "temperatura": "32.0",
+        "presion": "120/90",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 98,
+        "fecha": "2026-01-20T19:21:11.852Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 40,
+    "fields": {
+        "consulta": 53,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-21T22:16:33.588Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 41,
+    "fields": {
+        "consulta": 55,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-21T22:32:21.579Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 42,
+    "fields": {
+        "consulta": 56,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-01-22T22:46:36.252Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 43,
+    "fields": {
+        "consulta": 57,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "35.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 75,
+        "saturacion": 96,
+        "fecha": "2026-01-22T22:52:20.229Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 44,
+    "fields": {
+        "consulta": 58,
+        "estado": "COMPLETO",
+        "peso": "70.00",
+        "talla": 165,
+        "temperatura": "35.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-01-23T17:14:35.239Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 45,
+    "fields": {
+        "consulta": 59,
+        "estado": "COMPLETO",
+        "peso": "99.00",
+        "talla": 178,
+        "temperatura": "37.0",
+        "presion": "120/98",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-01-23T21:06:58.216Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 46,
+    "fields": {
+        "consulta": 60,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "35.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 98,
+        "fecha": "2026-01-26T19:11:26.631Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 47,
+    "fields": {
+        "consulta": 61,
+        "estado": "COMPLETO",
+        "peso": "70.00",
+        "talla": 170,
+        "temperatura": "32.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 75,
+        "saturacion": 98,
+        "fecha": "2026-01-26T20:17:02.014Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 48,
+    "fields": {
+        "consulta": 62,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "35.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 98,
+        "fecha": "2026-01-26T20:23:26.830Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 49,
+    "fields": {
+        "consulta": 63,
+        "estado": "COMPLETO",
+        "peso": "70.00",
+        "talla": 170,
+        "temperatura": "35.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 98,
+        "fecha": "2026-01-26T20:48:00.468Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 50,
+    "fields": {
+        "consulta": 64,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 189,
+        "temperatura": "35.0",
+        "presion": "120/87",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 98,
+        "fecha": "2026-01-27T15:21:45.172Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 51,
+    "fields": {
+        "consulta": 65,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 189,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 98,
+        "fecha": "2026-01-28T15:41:06.214Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 52,
+    "fields": {
+        "consulta": 66,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "32.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 95,
+        "fecha": "2026-01-28T20:48:04.138Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 53,
+    "fields": {
+        "consulta": 67,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 75,
+        "saturacion": 98,
+        "fecha": "2026-01-28T22:27:09.187Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 54,
+    "fields": {
+        "consulta": 68,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 74,
+        "saturacion": 98,
+        "fecha": "2026-01-28T22:37:30.014Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 55,
+    "fields": {
+        "consulta": 69,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 150,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 72,
+        "saturacion": 98,
+        "fecha": "2026-01-28T22:41:16.739Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 56,
+    "fields": {
+        "consulta": 70,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-01-29T16:59:39.239Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 57,
+    "fields": {
+        "consulta": 71,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 78,
+        "fecha": "2026-01-29T17:31:30.521Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 58,
+    "fields": {
+        "consulta": 72,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-01-29T17:35:43.383Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 59,
+    "fields": {
+        "consulta": 73,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/87",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 78,
+        "fecha": "2026-01-29T19:08:10.525Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 60,
+    "fields": {
+        "consulta": 74,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-01-29T20:43:21.839Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 61,
+    "fields": {
+        "consulta": 75,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 98,
+        "fecha": "2026-01-29T20:53:38.834Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 62,
+    "fields": {
+        "consulta": 76,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "35.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-01-29T21:06:26.216Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 63,
+    "fields": {
+        "consulta": 77,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-01-29T22:51:43.186Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 64,
+    "fields": {
+        "consulta": 78,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-01-30T17:20:41.361Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 65,
+    "fields": {
+        "consulta": 79,
+        "estado": "COMPLETO",
+        "peso": "56.00",
+        "talla": 145,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-01-30T17:23:29.972Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 66,
+    "fields": {
+        "consulta": 80,
+        "estado": "COMPLETO",
+        "peso": "56.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 98,
+        "fecha": "2026-02-02T19:38:50.672Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 67,
+    "fields": {
+        "consulta": 81,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 98,
+        "fecha": "2026-02-03T16:01:36.475Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 68,
+    "fields": {
+        "consulta": 82,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 98,
+        "saturacion": 98,
+        "fecha": "2026-02-03T19:27:02.800Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 69,
+    "fields": {
+        "consulta": 83,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 78,
+        "fecha": "2026-02-03T22:54:24.311Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 70,
+    "fields": {
+        "consulta": 84,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 174,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 78,
+        "fecha": "2026-02-04T21:14:56.247Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 71,
+    "fields": {
+        "consulta": 85,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 178,
+        "temperatura": "32.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-05T14:30:21.539Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 72,
+    "fields": {
+        "consulta": 86,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 189,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-02-05T14:51:04.709Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 73,
+    "fields": {
+        "consulta": 87,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 151,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 98,
+        "saturacion": 98,
+        "fecha": "2026-02-05T19:04:43.785Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 74,
+    "fields": {
+        "consulta": 88,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-06T13:23:02.661Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 75,
+    "fields": {
+        "consulta": 89,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-06T16:35:15.856Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 76,
+    "fields": {
+        "consulta": 90,
+        "estado": "COMPLETO",
+        "peso": "68.00",
+        "talla": 189,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-06T19:19:25.653Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 77,
+    "fields": {
+        "consulta": 91,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-07T13:35:49.713Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 78,
+    "fields": {
+        "consulta": 92,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 150,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-07T14:45:41.586Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 79,
+    "fields": {
+        "consulta": 93,
+        "estado": "COMPLETO",
+        "peso": "64.00",
+        "talla": 159,
+        "temperatura": "35.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-07T14:47:47.371Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 80,
+    "fields": {
+        "consulta": 94,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-07T17:16:58.791Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 81,
+    "fields": {
+        "consulta": 95,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-02-09T15:03:18.985Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 82,
+    "fields": {
+        "consulta": 96,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/98",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 98,
+        "fecha": "2026-02-09T16:48:59.076Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 83,
+    "fields": {
+        "consulta": 97,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-09T16:50:06.446Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 84,
+    "fields": {
+        "consulta": 98,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-02-09T16:52:31.207Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 85,
+    "fields": {
+        "consulta": 99,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 178,
+        "temperatura": "36.0",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-09T17:13:30.475Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 86,
+    "fields": {
+        "consulta": 100,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-09T17:14:29.620Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 87,
+    "fields": {
+        "consulta": 101,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-09T19:57:53.739Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 88,
+    "fields": {
+        "consulta": 102,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/98",
+        "frecuencia_cardiaca": 98,
+        "saturacion": 98,
+        "fecha": "2026-02-09T20:05:51.833Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 89,
+    "fields": {
+        "consulta": 103,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T14:03:03.478Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 90,
+    "fields": {
+        "consulta": 104,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-11T14:03:42.870Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 91,
+    "fields": {
+        "consulta": 106,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T15:14:24.214Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 92,
+    "fields": {
+        "consulta": 107,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T15:20:05.058Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 93,
+    "fields": {
+        "consulta": 108,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T15:24:29.797Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 94,
+    "fields": {
+        "consulta": 109,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T15:36:23.992Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 95,
+    "fields": {
+        "consulta": 110,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T15:39:44.864Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 96,
+    "fields": {
+        "consulta": 111,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T15:45:40.368Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 97,
+    "fields": {
+        "consulta": 112,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T16:49:27.365Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 98,
+    "fields": {
+        "consulta": 113,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T16:53:29.769Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 99,
+    "fields": {
+        "consulta": 114,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T16:56:31.401Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 100,
+    "fields": {
+        "consulta": 115,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T17:16:26.070Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 101,
+    "fields": {
+        "consulta": 116,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-11T17:17:27.979Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 102,
+    "fields": {
+        "consulta": 117,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T17:18:32.819Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 103,
+    "fields": {
+        "consulta": 118,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T17:53:28.142Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 104,
+    "fields": {
+        "consulta": 119,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T17:56:45.950Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 105,
+    "fields": {
+        "consulta": 120,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T19:16:41.250Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 106,
+    "fields": {
+        "consulta": 121,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T19:21:09.866Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 107,
+    "fields": {
+        "consulta": 122,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-11T19:24:01.008Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 108,
+    "fields": {
+        "consulta": 123,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-12T19:14:05.121Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 109,
+    "fields": {
+        "consulta": 124,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-12T22:34:11.508Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 110,
+    "fields": {
+        "consulta": 130,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T15:10:25.588Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 111,
+    "fields": {
+        "consulta": 131,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T15:11:43.200Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 112,
+    "fields": {
+        "consulta": 132,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T15:30:00.903Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 113,
+    "fields": {
+        "consulta": 133,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-13T15:31:33.166Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 114,
+    "fields": {
+        "consulta": 134,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-13T15:33:33.450Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 115,
+    "fields": {
+        "consulta": 135,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-13T15:59:43.144Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 116,
+    "fields": {
+        "consulta": 136,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-13T16:06:58.045Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 117,
+    "fields": {
+        "consulta": 139,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T16:13:24.463Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 118,
+    "fields": {
+        "consulta": 140,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-13T16:15:03.866Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 119,
+    "fields": {
+        "consulta": 142,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-13T16:26:47.194Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 120,
+    "fields": {
+        "consulta": 144,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T16:41:50.323Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 121,
+    "fields": {
+        "consulta": 147,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T16:52:54.232Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 122,
+    "fields": {
+        "consulta": 149,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T16:57:38.264Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 123,
+    "fields": {
+        "consulta": 150,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T16:59:25.661Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 124,
+    "fields": {
+        "consulta": 152,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 178,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 98,
+        "fecha": "2026-02-13T17:02:14.512Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 125,
+    "fields": {
+        "consulta": 154,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-13T17:05:29.918Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 126,
+    "fields": {
+        "consulta": 155,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-13T21:09:21.237Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 127,
+    "fields": {
+        "consulta": 156,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-13T21:20:18.017Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 128,
+    "fields": {
+        "consulta": 157,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-13T21:23:48.759Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 129,
+    "fields": {
+        "consulta": 158,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 78,
+        "fecha": "2026-02-13T21:42:57.348Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 130,
+    "fields": {
+        "consulta": 159,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 78,
+        "fecha": "2026-02-13T21:44:52.419Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 131,
+    "fields": {
+        "consulta": 160,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-02-13T22:06:42.898Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 132,
+    "fields": {
+        "consulta": 161,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-13T22:07:54.961Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 133,
+    "fields": {
+        "consulta": 162,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 98,
+        "saturacion": 98,
+        "fecha": "2026-02-13T22:08:41.356Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 134,
+    "fields": {
+        "consulta": 163,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 98,
+        "saturacion": 98,
+        "fecha": "2026-02-13T22:10:35.585Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 135,
+    "fields": {
+        "consulta": 164,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 145,
+        "temperatura": "35.0",
+        "presion": "120/87",
+        "frecuencia_cardiaca": 87,
+        "saturacion": 87,
+        "fecha": "2026-02-13T22:12:19.734Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 136,
+    "fields": {
+        "consulta": 166,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T22:13:59.451Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 137,
+    "fields": {
+        "consulta": 167,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-13T22:14:34.452Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 138,
+    "fields": {
+        "consulta": 168,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 151,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 89,
+        "fecha": "2026-02-13T22:16:28.526Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 139,
+    "fields": {
+        "consulta": 169,
+        "estado": "COMPLETO",
+        "peso": "1.00",
+        "talla": 1,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-13T22:17:39.440Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 140,
+    "fields": {
+        "consulta": 170,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-13T22:24:50.122Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 141,
+    "fields": {
+        "consulta": 171,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-13T22:29:37.372Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 142,
+    "fields": {
+        "consulta": 172,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-13T22:33:41.012Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 143,
+    "fields": {
+        "consulta": 173,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-16T14:10:12.601Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 144,
+    "fields": {
+        "consulta": 174,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-16T14:12:38.371Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 145,
+    "fields": {
+        "consulta": 175,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 180,
+        "temperatura": "36.0",
+        "presion": "120/89",
+        "frecuencia_cardiaca": 89,
+        "saturacion": 89,
+        "fecha": "2026-02-16T19:41:34.904Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 146,
+    "fields": {
+        "consulta": 176,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-17T19:27:35.429Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 147,
+    "fields": {
+        "consulta": 177,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 98,
+        "fecha": "2026-02-17T19:29:49.003Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 148,
+    "fields": {
+        "consulta": 178,
+        "estado": "COMPLETO",
+        "peso": "80.00",
+        "talla": 90,
+        "temperatura": "36.5",
+        "presion": "120/80",
+        "frecuencia_cardiaca": 70,
+        "saturacion": 98,
+        "fecha": "2026-02-17T19:48:28.203Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 149,
+    "fields": {
+        "consulta": 180,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-23T20:46:21.769Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 150,
+    "fields": {
+        "consulta": 181,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-23T20:46:48.477Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 151,
+    "fields": {
+        "consulta": 184,
+        "estado": "INICIADO",
+        "peso": null,
+        "talla": null,
+        "temperatura": null,
+        "presion": "",
+        "frecuencia_cardiaca": null,
+        "saturacion": null,
+        "fecha": "2026-02-23T20:48:00.288Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 152,
+    "fields": {
+        "consulta": 188,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 170,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 98,
+        "fecha": "2026-02-27T21:08:56.355Z"
+    }
+},
+{
+    "model": "triaje.triaje",
+    "pk": 153,
+    "fields": {
+        "consulta": 189,
+        "estado": "COMPLETO",
+        "peso": "65.00",
+        "talla": 150,
+        "temperatura": "36.0",
+        "presion": "120/78",
+        "frecuencia_cardiaca": 78,
+        "saturacion": 98,
+        "fecha": "2026-03-03T13:55:38.176Z"
+    }
+}
+]

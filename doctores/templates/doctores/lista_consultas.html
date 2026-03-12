@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Mis Consultas - Dr. {{ doctor.nombres }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Mis Consultas</h1>
+    <h2>Dr. {{ doctor.nombres }} {{ doctor.apellidos }}</h2>
+
+    <!-- Contenedor principal para actualización automática -->
+    <div id="consultas-container">
+        <!-- Pestañas de filtro -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link {% if filtro_actual == 'pendientes' %}active{% endif %}"
+                           href="?estado=pendientes">
+                            Pendientes
+                            <span class="badge bg-warning ms-1">{{ total_pendientes }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if filtro_actual == 'atendidas' %}active{% endif %}"
+                           href="?estado=atendidas">
+                            Atendidas
+                            <span class="badge bg-success ms-1">{{ total_atendidas }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if filtro_actual == 'todas' %}active{% endif %}"
+                           href="?estado=todas">
+                            Todas
+                            <span class="badge bg-primary ms-1">{{ total_todas }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card-body">
+                <!-- Indicador de filtro activo -->
+                <div class="mb-3">
+                    <p class="mb-0">
+                        {% if filtro_actual == 'pendientes' %}
+                            <span class="badge bg-warning">Mostrando consultas pendientes</span>
+                        {% elif filtro_actual == 'atendidas' %}
+                            <span class="badge bg-success">Mostrando consultas atendidas</span>
+                        {% else %}
+                            <span class="badge bg-primary">Mostrando todas las consultas</span>
+                        {% endif %}
+                    </p>
+                </div>
+
+                {% if consultas %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Paciente</th>
+                                    <th>Especialidad</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for consulta in consultas %}
+                                <tr>
+                                    <td>{{ consulta.id }}</td>
+                                    <td>{{ consulta.paciente.nombres }} {{ consulta.paciente.apellidos }}</td>
+                                    <td>{{ consulta.get_especialidad_display|default:consulta.especialidad }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if consulta.estado == 'ATENDIDA' %}bg-success
+                                            {% elif consulta.estado == 'TRIAJE_COMPLETO' %}bg-warning
+                                            {% elif consulta.estado == 'REGISTRADA' %}bg-primary
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ consulta.get_estado_display }}
+                                        </span>
+                                    </td>
+                                    <td>{{ consulta.fecha|date:"d/m/Y H:i" }}</td>
+                                    <td>
+                                        {% if consulta.estado == 'TRIAJE_COMPLETO' %}
+                                            <a href="{% url 'atender_consulta' consulta.id %}" 
+                                               class="btn btn-sm btn-primary"
+                                               onclick="marcarNotificacionLeida({{ consulta.id }})">
+                                                <i class="bi bi-pencil-square"></i> Atender
+                                            </a>
+                                        {% elif consulta.estado == 'ATENDIDA' %}
+                                            <a href="{% url 'historial_paciente' consulta.paciente.id %}" 
+                                               class="btn btn-sm btn-info">
+                                                <i class="bi bi-clock-history"></i> Ver Historial
+                                            </a>
+                                        {% else %}
+                                            <span class="badge bg-secondary">
+                                                {{ consulta.get_estado_display }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i>
+                        {% if filtro_actual == 'pendientes' %}
+                            No tiene consultas pendientes para atender.
+                        {% elif filtro_actual == 'atendidas' %}
+                            No tiene consultas atendidas.
+                        {% else %}
+                            No tiene consultas asignadas.
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Audio para notificaciones (solo declarado una vez) -->
+<audio id="notificacion-sonido" preload="auto" style="display: none;">
+    <source src="{% static 'sounds/sonido.mp3' %}" type="audio/mpeg">
+</audio>
+{% endblock %}
+{% block extra_js %}
+<script>
+// ========================================
+// SOLO CÓDIGO ESPECÍFICO DE ESTA PÁGINA
+// ========================================
+function actualizarListaConsultas() {
+    const url = window.location.href;
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const nuevoContenido = doc.getElementById('consultas-container');
+            
+            if (nuevoContenido) {
+                document.getElementById('consultas-container').innerHTML = nuevoContenido.innerHTML;
+                console.log('✅ Lista de consultas actualizada');
+            }
+        })
+        .catch(error => console.error('Error actualizando lista:', error));
+}
+
+// Escuchar evento de notificaciones
+document.addEventListener('notificaciones-actualizadas', function() {
+    actualizarListaConsultas();
+});
+
+// Actualizar cada 30 segundos también
+setInterval(actualizarListaConsultas, 30000);
+
+// Marcar notificación como leída
+function marcarNotificacionLeida(consultaId) {
+    fetch(`/notificaciones/api/marcar-por-consulta/${consultaId}/`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('✅ Notificación marcada como leída');
+        })
+        .catch(error => console.error('Error:', error));
+}
+</script>
+
+{% endblock %}

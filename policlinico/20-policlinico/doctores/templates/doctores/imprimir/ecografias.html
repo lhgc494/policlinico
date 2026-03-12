@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Órdenes de Ecografía - {{ paciente.nombres }} {{ paciente.apellidos }}</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        
+        .clinic-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fd7e14;
+        }
+        
+        .patient-info {
+            margin: 15px 0;
+            padding: 10px;
+            border: 1px solid #000;
+        }
+        
+        .title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #fd7e14;
+        }
+        
+        .order-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .order-table th {
+            background-color: #fd7e14;
+            color: white;
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .order-table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .doctor-signature {
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .doctor-name {
+            font-weight: bold;
+            margin-top: 40px;
+        }
+        
+        .stamp {
+            float: right;
+            border: 2px solid #fd7e14;
+            padding: 10px;
+            margin: 20px;
+            text-align: center;
+            font-size: 10px;
+            color: #fd7e14;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+        
+        .urgent {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print" style="text-align: center; margin-bottom: 20px;">
+        <button onclick="window.print()" style="padding: 10px 20px; background-color: #fd7e14; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            🖨️ Imprimir
+        </button>
+        <button onclick="window.close()" style="padding: 10px 20px; background-color: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            ❌ Cerrar
+        </button>
+    </div>
+
+    <div class="header">
+        <div class="clinic-name">POLICLÍNICO MÉDICO</div>
+        <div>Servicio de Ecografía</div>
+    </div>
+
+    <div class="patient-info">
+        <table width="100%">
+            <tr>
+                <td width="50%"><strong>Paciente:</strong> {{ paciente.nombres }} {{ paciente.apellidos }}</td>
+                <td width="50%"><strong>DNI:</strong> {{ paciente.dni }}</td>
+            </tr>
+            <tr>
+                <td><strong>Edad:</strong> {{ paciente.edad }} años</td>
+                <td><strong>Fecha:</strong> {{ fecha_actual|date:"d/m/Y" }}</td>
+            </tr>
+            <tr>
+                <td><strong>Médico:</strong> Dr. {{ consulta.doctor.nombres }} {{ consulta.doctor.apellidos }}</td>
+                <td><strong>Orden #:</strong> {{ consulta.id }}-ECO</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="title">
+        ÓRDENES DE ECOGRAFÍA
+    </div>
+
+    <table class="order-table">
+        <thead>
+            <tr>
+                <th width="10%">#</th>
+                <th width="60%">ECOGRAFÍA SOLICITADA</th>
+                <th width="30%">INDICACIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for eco in ecografias %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    {{ eco.examen }}
+                    {% if "OTRO:" in eco.examen %}
+                        <span class="urgent">[ECOGRAFÍA ESPECIAL]</span>
+                    {% endif %}
+                </td>
+                <td>{{ eco.indicaciones|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" style="text-align: center; padding: 20px;">
+                    No hay ecografías solicitadas
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="doctor-signature">
+        <div class="stamp">
+            ORIGINAL<br>
+            VÁLIDO POR 30 DÍAS
+        </div>
+
+        <div style="margin-top: 40px;">
+            _________________________
+            <br>
+            <small>Firma del médico</small>
+        </div>
+
+        <div class="doctor-name">
+            Dr. {{ consulta.doctor.nombres }} {{ consulta.doctor.apellidos }}<br>
+            <small>{{ consulta.doctor.especialidad.get_nombre_display }}</small>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Este documento es válido por 30 días a partir de la fecha de emisión</p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Auto-imprimir si se desea
+            // window.print();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,2270 @@
+[
+{
+    "model": "pagos.ordenpago",
+    "pk": 1,
+    "fields": {
+        "consulta": 1,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-14T22:36:00.732Z",
+        "created_at": "2026-01-14T22:35:56.511Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 2,
+    "fields": {
+        "consulta": 2,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-14T22:36:20.848Z",
+        "created_at": "2026-01-14T22:36:15.582Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 3,
+    "fields": {
+        "consulta": 3,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-14T22:37:18.889Z",
+        "created_at": "2026-01-14T22:37:12.599Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 4,
+    "fields": {
+        "consulta": 4,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-14T22:40:32.623Z",
+        "created_at": "2026-01-14T22:40:29.192Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 5,
+    "fields": {
+        "consulta": 5,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-14T22:41:13.409Z",
+        "created_at": "2026-01-14T22:41:10.285Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 6,
+    "fields": {
+        "consulta": 6,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T15:04:45.447Z",
+        "created_at": "2026-01-15T15:04:42.492Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 7,
+    "fields": {
+        "consulta": 7,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T15:23:03.666Z",
+        "created_at": "2026-01-15T15:22:56.730Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 8,
+    "fields": {
+        "consulta": 8,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T15:42:07.498Z",
+        "created_at": "2026-01-15T15:42:03.329Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 9,
+    "fields": {
+        "consulta": 9,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T15:45:05.661Z",
+        "created_at": "2026-01-15T15:45:02.109Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 10,
+    "fields": {
+        "consulta": 10,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T15:48:47.349Z",
+        "created_at": "2026-01-15T15:48:44.190Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 11,
+    "fields": {
+        "consulta": 11,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-15T15:49:45.279Z",
+        "created_at": "2026-01-15T15:49:38.684Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 12,
+    "fields": {
+        "consulta": 12,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T16:07:37.839Z",
+        "created_at": "2026-01-15T16:07:34.920Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 13,
+    "fields": {
+        "consulta": 13,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T16:46:16.050Z",
+        "created_at": "2026-01-15T16:46:13.234Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 14,
+    "fields": {
+        "consulta": 14,
+        "monto": "45.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T17:37:40.567Z",
+        "created_at": "2026-01-15T17:37:37.319Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 15,
+    "fields": {
+        "consulta": 15,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "PLIN",
+        "fecha_pago": "2026-01-15T19:03:51.625Z",
+        "created_at": "2026-01-15T19:03:42.613Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 16,
+    "fields": {
+        "consulta": 16,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-15T20:47:55.712Z",
+        "created_at": "2026-01-15T20:47:52.677Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 17,
+    "fields": {
+        "consulta": 17,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T22:23:03.586Z",
+        "created_at": "2026-01-15T22:23:00.200Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 18,
+    "fields": {
+        "consulta": 18,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T22:28:39.931Z",
+        "created_at": "2026-01-15T22:28:37.409Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 19,
+    "fields": {
+        "consulta": 19,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-15T22:42:00.867Z",
+        "created_at": "2026-01-15T22:41:57.775Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 20,
+    "fields": {
+        "consulta": 20,
+        "monto": "45.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T22:45:46.372Z",
+        "created_at": "2026-01-15T22:45:39.457Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 21,
+    "fields": {
+        "consulta": 21,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-15T22:53:29.873Z",
+        "created_at": "2026-01-15T22:53:23.253Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 22,
+    "fields": {
+        "consulta": 22,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-15T22:55:41.637Z",
+        "created_at": "2026-01-15T22:55:34.611Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 23,
+    "fields": {
+        "consulta": 23,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-16T19:06:02.177Z",
+        "created_at": "2026-01-16T19:05:51.876Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 24,
+    "fields": {
+        "consulta": 24,
+        "monto": "45.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-16T19:20:14.333Z",
+        "created_at": "2026-01-16T19:20:08.968Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 25,
+    "fields": {
+        "consulta": 25,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "PLIN",
+        "fecha_pago": "2026-01-16T20:04:03.384Z",
+        "created_at": "2026-01-16T20:04:00.345Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 26,
+    "fields": {
+        "consulta": 26,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-16T20:06:45.828Z",
+        "created_at": "2026-01-16T20:06:43.711Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 27,
+    "fields": {
+        "consulta": 27,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-16T20:16:22.025Z",
+        "created_at": "2026-01-16T20:16:19.128Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 28,
+    "fields": {
+        "consulta": 28,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-16T21:13:19.373Z",
+        "created_at": "2026-01-16T21:13:17.060Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 29,
+    "fields": {
+        "consulta": 29,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-16T22:52:04.939Z",
+        "created_at": "2026-01-16T22:52:02.293Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 30,
+    "fields": {
+        "consulta": 30,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-17T13:54:34.694Z",
+        "created_at": "2026-01-17T13:54:31.855Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 31,
+    "fields": {
+        "consulta": 31,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-17T14:35:55.859Z",
+        "created_at": "2026-01-17T14:35:51.215Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 32,
+    "fields": {
+        "consulta": 32,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-17T14:44:43.402Z",
+        "created_at": "2026-01-17T14:44:37.599Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 33,
+    "fields": {
+        "consulta": 33,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-17T14:57:11.463Z",
+        "created_at": "2026-01-17T14:57:06.367Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 34,
+    "fields": {
+        "consulta": 34,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-17T15:01:26.023Z",
+        "created_at": "2026-01-17T15:01:22.811Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 35,
+    "fields": {
+        "consulta": 35,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-17T15:02:35.419Z",
+        "created_at": "2026-01-17T15:02:29.672Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 36,
+    "fields": {
+        "consulta": 36,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-17T15:21:37.694Z",
+        "created_at": "2026-01-17T15:21:26.431Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 37,
+    "fields": {
+        "consulta": 37,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-17T16:09:38.389Z",
+        "created_at": "2026-01-17T16:09:35.465Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 38,
+    "fields": {
+        "consulta": 38,
+        "monto": "15.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-01-17T16:24:58.561Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 39,
+    "fields": {
+        "consulta": 39,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-17T16:26:50.921Z",
+        "created_at": "2026-01-17T16:26:47.525Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 40,
+    "fields": {
+        "consulta": 40,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-17T17:07:03.347Z",
+        "created_at": "2026-01-17T17:06:58.347Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 41,
+    "fields": {
+        "consulta": 41,
+        "monto": "15.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-01-17T17:21:50.189Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 42,
+    "fields": {
+        "consulta": 42,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-17T17:26:25.768Z",
+        "created_at": "2026-01-17T17:26:22.942Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 43,
+    "fields": {
+        "consulta": 43,
+        "monto": "45.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-01-17T17:33:45.038Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 44,
+    "fields": {
+        "consulta": 44,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-19T19:23:09.640Z",
+        "created_at": "2026-01-19T19:23:05.528Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 45,
+    "fields": {
+        "consulta": 45,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-19T20:51:09.490Z",
+        "created_at": "2026-01-19T20:51:05.381Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 46,
+    "fields": {
+        "consulta": 46,
+        "monto": "45.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-19T22:01:55.640Z",
+        "created_at": "2026-01-19T22:01:50.404Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 47,
+    "fields": {
+        "consulta": 47,
+        "monto": "45.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-19T22:36:44.034Z",
+        "created_at": "2026-01-19T22:36:40.391Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 48,
+    "fields": {
+        "consulta": 48,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-20T15:38:29.107Z",
+        "created_at": "2026-01-20T15:38:24.863Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 49,
+    "fields": {
+        "consulta": 49,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "PLIN",
+        "fecha_pago": "2026-01-20T17:35:41.118Z",
+        "created_at": "2026-01-20T17:35:36.558Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 50,
+    "fields": {
+        "consulta": 50,
+        "monto": "45.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-20T19:21:11.814Z",
+        "created_at": "2026-01-20T19:21:07.845Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 51,
+    "fields": {
+        "consulta": 51,
+        "monto": "15.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-01-20T19:44:02.078Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 52,
+    "fields": {
+        "consulta": 52,
+        "monto": "80.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-01-20T22:08:18.201Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 53,
+    "fields": {
+        "consulta": 53,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-21T22:16:33.560Z",
+        "created_at": "2026-01-21T22:16:24.390Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 54,
+    "fields": {
+        "consulta": 54,
+        "monto": "80.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-01-21T22:31:22.858Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 55,
+    "fields": {
+        "consulta": 55,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-21T22:32:21.551Z",
+        "created_at": "2026-01-21T22:32:17.193Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 56,
+    "fields": {
+        "consulta": 56,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-22T22:46:36.220Z",
+        "created_at": "2026-01-22T22:46:28.844Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 57,
+    "fields": {
+        "consulta": 57,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-22T22:52:20.200Z",
+        "created_at": "2026-01-22T22:52:16.604Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 58,
+    "fields": {
+        "consulta": 58,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-23T17:14:35.206Z",
+        "created_at": "2026-01-23T17:14:31.631Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 59,
+    "fields": {
+        "consulta": 59,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-23T21:06:58.194Z",
+        "created_at": "2026-01-23T21:06:54.560Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 60,
+    "fields": {
+        "consulta": 60,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-26T19:11:26.596Z",
+        "created_at": "2026-01-26T19:11:23.489Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 61,
+    "fields": {
+        "consulta": 61,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-26T20:17:01.995Z",
+        "created_at": "2026-01-26T20:16:59.609Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 62,
+    "fields": {
+        "consulta": 62,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-26T20:23:26.797Z",
+        "created_at": "2026-01-26T20:23:22.985Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 63,
+    "fields": {
+        "consulta": 63,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-26T20:48:00.439Z",
+        "created_at": "2026-01-26T20:47:57.930Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 64,
+    "fields": {
+        "consulta": 64,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-27T15:21:45.146Z",
+        "created_at": "2026-01-27T15:21:42.278Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 65,
+    "fields": {
+        "consulta": 65,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-28T15:41:06.185Z",
+        "created_at": "2026-01-28T15:41:03.263Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 66,
+    "fields": {
+        "consulta": 66,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-28T20:48:04.117Z",
+        "created_at": "2026-01-28T20:48:01.012Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 67,
+    "fields": {
+        "consulta": 67,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-01-28T22:27:09.165Z",
+        "created_at": "2026-01-28T22:26:55.287Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 68,
+    "fields": {
+        "consulta": 68,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-28T22:37:29.951Z",
+        "created_at": "2026-01-28T22:37:27.180Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 69,
+    "fields": {
+        "consulta": 69,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-28T22:41:16.713Z",
+        "created_at": "2026-01-28T22:41:13.147Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 70,
+    "fields": {
+        "consulta": 70,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-29T16:59:39.209Z",
+        "created_at": "2026-01-29T16:59:35.085Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 71,
+    "fields": {
+        "consulta": 71,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-29T17:31:30.495Z",
+        "created_at": "2026-01-29T17:31:27.602Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 72,
+    "fields": {
+        "consulta": 72,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-29T17:35:43.349Z",
+        "created_at": "2026-01-29T17:35:40.311Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 73,
+    "fields": {
+        "consulta": 73,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-29T19:08:10.502Z",
+        "created_at": "2026-01-29T19:08:07.682Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 74,
+    "fields": {
+        "consulta": 74,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-29T20:43:21.812Z",
+        "created_at": "2026-01-29T20:42:56.849Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 75,
+    "fields": {
+        "consulta": 75,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-29T20:53:38.809Z",
+        "created_at": "2026-01-29T20:53:36.610Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 76,
+    "fields": {
+        "consulta": 76,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-29T21:06:26.187Z",
+        "created_at": "2026-01-29T21:06:23.418Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 77,
+    "fields": {
+        "consulta": 77,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-29T22:51:43.162Z",
+        "created_at": "2026-01-29T22:51:40.060Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 78,
+    "fields": {
+        "consulta": 78,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-30T17:20:41.335Z",
+        "created_at": "2026-01-30T17:20:39.122Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 79,
+    "fields": {
+        "consulta": 79,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-01-30T17:23:29.950Z",
+        "created_at": "2026-01-30T17:23:27.337Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 80,
+    "fields": {
+        "consulta": 80,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-02T19:38:50.603Z",
+        "created_at": "2026-02-02T19:38:47.485Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 81,
+    "fields": {
+        "consulta": 81,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-03T16:01:36.450Z",
+        "created_at": "2026-02-03T16:01:33.414Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 82,
+    "fields": {
+        "consulta": 82,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-03T19:27:02.773Z",
+        "created_at": "2026-02-03T19:27:00.020Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 83,
+    "fields": {
+        "consulta": 83,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-03T22:54:24.245Z",
+        "created_at": "2026-02-03T22:54:22.036Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 84,
+    "fields": {
+        "consulta": 84,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-04T21:14:56.188Z",
+        "created_at": "2026-02-04T21:14:53.432Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 85,
+    "fields": {
+        "consulta": 85,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-05T14:30:21.507Z",
+        "created_at": "2026-02-05T14:30:18.942Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 86,
+    "fields": {
+        "consulta": 86,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-05T14:51:04.678Z",
+        "created_at": "2026-02-05T14:51:02.313Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 87,
+    "fields": {
+        "consulta": 87,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-05T19:04:43.763Z",
+        "created_at": "2026-02-05T19:04:41.578Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 88,
+    "fields": {
+        "consulta": 88,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-06T13:23:02.621Z",
+        "created_at": "2026-02-06T13:22:59.760Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 89,
+    "fields": {
+        "consulta": 89,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-06T16:35:15.822Z",
+        "created_at": "2026-02-06T16:35:13.111Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 90,
+    "fields": {
+        "consulta": 90,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-06T19:19:25.622Z",
+        "created_at": "2026-02-06T19:19:22.672Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 91,
+    "fields": {
+        "consulta": 91,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-07T13:35:49.683Z",
+        "created_at": "2026-02-07T13:35:46.976Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 92,
+    "fields": {
+        "consulta": 92,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-07T14:45:41.561Z",
+        "created_at": "2026-02-07T14:45:38.944Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 93,
+    "fields": {
+        "consulta": 93,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-07T14:47:47.349Z",
+        "created_at": "2026-02-07T14:47:44.685Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 94,
+    "fields": {
+        "consulta": 94,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-07T17:16:58.754Z",
+        "created_at": "2026-02-07T17:16:56.261Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 95,
+    "fields": {
+        "consulta": 95,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-09T15:03:18.959Z",
+        "created_at": "2026-02-09T15:03:15.765Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 96,
+    "fields": {
+        "consulta": 96,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-09T16:48:59.047Z",
+        "created_at": "2026-02-09T16:48:48.548Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 97,
+    "fields": {
+        "consulta": 97,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-09T16:50:06.420Z",
+        "created_at": "2026-02-09T16:50:02.014Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 98,
+    "fields": {
+        "consulta": 98,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-09T16:52:31.172Z",
+        "created_at": "2026-02-09T16:52:27.231Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 99,
+    "fields": {
+        "consulta": 99,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-09T17:13:30.444Z",
+        "created_at": "2026-02-09T17:13:27.357Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 100,
+    "fields": {
+        "consulta": 100,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-09T17:14:29.592Z",
+        "created_at": "2026-02-09T17:14:25.010Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 101,
+    "fields": {
+        "consulta": 101,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-09T19:57:53.707Z",
+        "created_at": "2026-02-09T19:57:49.433Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 102,
+    "fields": {
+        "consulta": 102,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-09T20:05:51.806Z",
+        "created_at": "2026-02-09T20:05:45.344Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 103,
+    "fields": {
+        "consulta": 103,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T14:03:03.450Z",
+        "created_at": "2026-02-11T14:02:53.576Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 104,
+    "fields": {
+        "consulta": 104,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T14:03:42.741Z",
+        "created_at": "2026-02-11T14:03:28.337Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 105,
+    "fields": {
+        "consulta": 105,
+        "monto": "80.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-11T14:45:31.167Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 106,
+    "fields": {
+        "consulta": 106,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T15:14:24.135Z",
+        "created_at": "2026-02-11T15:14:20.498Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 107,
+    "fields": {
+        "consulta": 107,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T15:20:05.006Z",
+        "created_at": "2026-02-11T15:20:02.273Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 108,
+    "fields": {
+        "consulta": 108,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "GRATUITO",
+        "fecha_pago": "2026-02-11T15:33:21.476Z",
+        "created_at": "2026-02-11T15:24:22.337Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 109,
+    "fields": {
+        "consulta": 109,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "GRATUITO",
+        "fecha_pago": "2026-02-11T15:36:32.490Z",
+        "created_at": "2026-02-11T15:36:21.786Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 110,
+    "fields": {
+        "consulta": 110,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "GRATUITO",
+        "fecha_pago": "2026-02-11T15:40:04.597Z",
+        "created_at": "2026-02-11T15:39:42.443Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 111,
+    "fields": {
+        "consulta": 111,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "GRATUITO",
+        "fecha_pago": "2026-02-11T15:45:49.249Z",
+        "created_at": "2026-02-11T15:45:37.866Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 112,
+    "fields": {
+        "consulta": 112,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "GRATUITO",
+        "fecha_pago": "2026-02-11T16:49:34.442Z",
+        "created_at": "2026-02-11T16:49:24.982Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 113,
+    "fields": {
+        "consulta": 113,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "GRATUITO",
+        "fecha_pago": "2026-02-11T16:55:29.113Z",
+        "created_at": "2026-02-11T16:53:27.239Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 114,
+    "fields": {
+        "consulta": 114,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "GRATUITO",
+        "fecha_pago": "2026-02-11T16:56:42.031Z",
+        "created_at": "2026-02-11T16:56:28.759Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 115,
+    "fields": {
+        "consulta": 115,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T17:16:25.966Z",
+        "created_at": "2026-02-11T17:16:22.537Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 116,
+    "fields": {
+        "consulta": 116,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T17:17:27.948Z",
+        "created_at": "2026-02-11T17:17:23.372Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 117,
+    "fields": {
+        "consulta": 117,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T17:18:32.793Z",
+        "created_at": "2026-02-11T17:18:30.765Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 118,
+    "fields": {
+        "consulta": 118,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T17:53:28.115Z",
+        "created_at": "2026-02-11T17:53:25.145Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 119,
+    "fields": {
+        "consulta": 119,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T17:56:45.924Z",
+        "created_at": "2026-02-11T17:56:43.585Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 120,
+    "fields": {
+        "consulta": 120,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T19:16:41.219Z",
+        "created_at": "2026-02-11T19:16:37.336Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 121,
+    "fields": {
+        "consulta": 121,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T19:21:09.839Z",
+        "created_at": "2026-02-11T19:21:06.243Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 122,
+    "fields": {
+        "consulta": 122,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-11T19:24:00.979Z",
+        "created_at": "2026-02-11T19:23:58.454Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 123,
+    "fields": {
+        "consulta": 123,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-12T19:14:05.090Z",
+        "created_at": "2026-02-12T19:13:59.476Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 124,
+    "fields": {
+        "consulta": 124,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-12T22:34:11.436Z",
+        "created_at": "2026-02-12T22:34:03.715Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 125,
+    "fields": {
+        "consulta": 125,
+        "monto": "15.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T14:52:39.618Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 126,
+    "fields": {
+        "consulta": 126,
+        "monto": "0.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T14:59:56.262Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 127,
+    "fields": {
+        "consulta": 127,
+        "monto": "0.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T15:00:36.081Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 128,
+    "fields": {
+        "consulta": 128,
+        "monto": "0.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T15:01:12.693Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 129,
+    "fields": {
+        "consulta": 129,
+        "monto": "0.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T15:05:43.249Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 130,
+    "fields": {
+        "consulta": 130,
+        "monto": "30.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T15:10:25.561Z",
+        "created_at": "2026-02-13T15:10:13.872Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 131,
+    "fields": {
+        "consulta": 131,
+        "monto": "500.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T15:11:43.179Z",
+        "created_at": "2026-02-13T15:11:34.583Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 132,
+    "fields": {
+        "consulta": 132,
+        "monto": "45.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T15:30:00.880Z",
+        "created_at": "2026-02-13T15:29:50.891Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 133,
+    "fields": {
+        "consulta": 133,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T15:31:33.143Z",
+        "created_at": "2026-02-13T15:31:26.882Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 134,
+    "fields": {
+        "consulta": 134,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T15:33:33.424Z",
+        "created_at": "2026-02-13T15:33:29.706Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 135,
+    "fields": {
+        "consulta": 135,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T15:59:43.120Z",
+        "created_at": "2026-02-13T15:59:39.826Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 136,
+    "fields": {
+        "consulta": 136,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:06:58.019Z",
+        "created_at": "2026-02-13T16:06:55.044Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 137,
+    "fields": {
+        "consulta": 137,
+        "monto": "30.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:11:41.961Z",
+        "created_at": "2026-02-13T16:11:37.915Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 138,
+    "fields": {
+        "consulta": 138,
+        "monto": "30.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:12:48.635Z",
+        "created_at": "2026-02-13T16:12:40.906Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 139,
+    "fields": {
+        "consulta": 139,
+        "monto": "60.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:13:24.438Z",
+        "created_at": "2026-02-13T16:13:21.739Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 140,
+    "fields": {
+        "consulta": 140,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:15:03.842Z",
+        "created_at": "2026-02-13T16:14:59.827Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 141,
+    "fields": {
+        "consulta": 141,
+        "monto": "30.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:20:13.519Z",
+        "created_at": "2026-02-13T16:20:09.778Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 142,
+    "fields": {
+        "consulta": 142,
+        "monto": "40.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:26:47.167Z",
+        "created_at": "2026-02-13T16:26:39.435Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 143,
+    "fields": {
+        "consulta": 143,
+        "monto": "80.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:32:40.965Z",
+        "created_at": "2026-02-13T16:32:37.271Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 144,
+    "fields": {
+        "consulta": 144,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:41:50.297Z",
+        "created_at": "2026-02-13T16:41:44.888Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 145,
+    "fields": {
+        "consulta": 145,
+        "monto": "0.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T16:49:02.665Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 146,
+    "fields": {
+        "consulta": 146,
+        "monto": "0.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T16:49:22.269Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 147,
+    "fields": {
+        "consulta": 147,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:52:54.086Z",
+        "created_at": "2026-02-13T16:52:48.946Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 148,
+    "fields": {
+        "consulta": 148,
+        "monto": "50.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:55:32.286Z",
+        "created_at": "2026-02-13T16:55:20.099Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 149,
+    "fields": {
+        "consulta": 149,
+        "monto": "100.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-02-13T16:57:38.237Z",
+        "created_at": "2026-02-13T16:57:33.297Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 150,
+    "fields": {
+        "consulta": 150,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T16:59:25.631Z",
+        "created_at": "2026-02-13T16:59:19.634Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 151,
+    "fields": {
+        "consulta": 151,
+        "monto": "0.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T17:01:45.347Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 152,
+    "fields": {
+        "consulta": 152,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T17:02:14.492Z",
+        "created_at": "2026-02-13T17:02:06.755Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 153,
+    "fields": {
+        "consulta": 153,
+        "monto": "15.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T17:03:01.383Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 154,
+    "fields": {
+        "consulta": 154,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T17:05:29.891Z",
+        "created_at": "2026-02-13T17:05:26.446Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 155,
+    "fields": {
+        "consulta": 155,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T21:09:21.210Z",
+        "created_at": "2026-02-13T21:09:17.460Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 156,
+    "fields": {
+        "consulta": 156,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T21:20:17.990Z",
+        "created_at": "2026-02-13T21:20:14.286Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 157,
+    "fields": {
+        "consulta": 157,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T21:23:48.716Z",
+        "created_at": "2026-02-13T21:23:45.899Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 158,
+    "fields": {
+        "consulta": 158,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T21:42:57.327Z",
+        "created_at": "2026-02-13T21:42:54.331Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 159,
+    "fields": {
+        "consulta": 159,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-02-13T21:44:52.399Z",
+        "created_at": "2026-02-13T21:44:50.023Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 160,
+    "fields": {
+        "consulta": 160,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:06:42.870Z",
+        "created_at": "2026-02-13T22:06:40.053Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 161,
+    "fields": {
+        "consulta": 161,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:07:54.934Z",
+        "created_at": "2026-02-13T22:07:52.629Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 162,
+    "fields": {
+        "consulta": 162,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:08:41.304Z",
+        "created_at": "2026-02-13T22:08:38.568Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 163,
+    "fields": {
+        "consulta": 163,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:10:35.548Z",
+        "created_at": "2026-02-13T22:10:32.987Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 164,
+    "fields": {
+        "consulta": 164,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:12:19.662Z",
+        "created_at": "2026-02-13T22:12:16.661Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 165,
+    "fields": {
+        "consulta": 165,
+        "monto": "0.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-13T22:13:09.567Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 166,
+    "fields": {
+        "consulta": 166,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:13:59.375Z",
+        "created_at": "2026-02-13T22:13:53.692Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 167,
+    "fields": {
+        "consulta": 167,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:14:34.425Z",
+        "created_at": "2026-02-13T22:14:31.680Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 168,
+    "fields": {
+        "consulta": 168,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-02-13T22:16:28.505Z",
+        "created_at": "2026-02-13T22:16:24.760Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 169,
+    "fields": {
+        "consulta": 169,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:17:39.365Z",
+        "created_at": "2026-02-13T22:17:36.032Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 170,
+    "fields": {
+        "consulta": 170,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:24:50.016Z",
+        "created_at": "2026-02-13T22:24:46.495Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 171,
+    "fields": {
+        "consulta": 171,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-13T22:29:37.338Z",
+        "created_at": "2026-02-13T22:29:34.177Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 172,
+    "fields": {
+        "consulta": 172,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-02-13T22:33:40.980Z",
+        "created_at": "2026-02-13T22:33:38.215Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 173,
+    "fields": {
+        "consulta": 173,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-16T14:10:12.573Z",
+        "created_at": "2026-02-16T14:10:08.963Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 174,
+    "fields": {
+        "consulta": 174,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-16T14:12:38.340Z",
+        "created_at": "2026-02-16T14:12:35.202Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 175,
+    "fields": {
+        "consulta": 175,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-16T19:41:34.874Z",
+        "created_at": "2026-02-16T19:41:31.957Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 176,
+    "fields": {
+        "consulta": 176,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-17T19:27:35.380Z",
+        "created_at": "2026-02-17T19:27:21.225Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 177,
+    "fields": {
+        "consulta": 177,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-17T19:29:48.960Z",
+        "created_at": "2026-02-17T19:29:42.741Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 178,
+    "fields": {
+        "consulta": 178,
+        "monto": "0.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-17T19:48:28.140Z",
+        "created_at": "2026-02-17T19:48:23.801Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 179,
+    "fields": {
+        "consulta": 179,
+        "monto": "25.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-23T19:55:05.032Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 180,
+    "fields": {
+        "consulta": 180,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-23T20:46:21.742Z",
+        "created_at": "2026-02-23T20:46:18.498Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 181,
+    "fields": {
+        "consulta": 181,
+        "monto": "35.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-02-23T20:46:48.423Z",
+        "created_at": "2026-02-23T20:46:42.339Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 182,
+    "fields": {
+        "consulta": 182,
+        "monto": "40.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-23T20:47:16.093Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 183,
+    "fields": {
+        "consulta": 183,
+        "monto": "2.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-02-23T20:47:43.197Z",
+        "created_at": "2026-02-23T20:47:38.433Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 184,
+    "fields": {
+        "consulta": 184,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-23T20:48:00.181Z",
+        "created_at": "2026-02-23T20:47:55.931Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 185,
+    "fields": {
+        "consulta": 185,
+        "monto": "30.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-23T20:48:39.701Z",
+        "created_at": "2026-02-23T20:48:29.791Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 186,
+    "fields": {
+        "consulta": 186,
+        "monto": "30.00",
+        "estado": "PAGADO",
+        "metodo_pago": "EFECTIVO",
+        "fecha_pago": "2026-02-23T20:48:56.942Z",
+        "created_at": "2026-02-23T20:48:52.792Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 187,
+    "fields": {
+        "consulta": 187,
+        "monto": "15.00",
+        "estado": "PENDIENTE",
+        "metodo_pago": null,
+        "fecha_pago": null,
+        "created_at": "2026-02-27T21:08:11.993Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 188,
+    "fields": {
+        "consulta": 188,
+        "monto": "15.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-02-27T21:08:56.324Z",
+        "created_at": "2026-02-27T21:08:41.699Z"
+    }
+},
+{
+    "model": "pagos.ordenpago",
+    "pk": 189,
+    "fields": {
+        "consulta": 189,
+        "monto": "100.00",
+        "estado": "PAGADO",
+        "metodo_pago": "YAPE",
+        "fecha_pago": "2026-03-03T13:55:37.986Z",
+        "created_at": "2026-03-03T13:55:31.970Z"
+    }
+}
+]

@@ -1,0 +1,47 @@
+[
+{
+    "model": "farmacia.combomedicamento",
+    "pk": 1,
+    "fields": {
+        "combo": 1,
+        "medicamento": 3,
+        "cantidad": 1
+    }
+},
+{
+    "model": "farmacia.combomedicamento",
+    "pk": 2,
+    "fields": {
+        "combo": 1,
+        "medicamento": 2,
+        "cantidad": 1
+    }
+},
+{
+    "model": "farmacia.combomedicamento",
+    "pk": 3,
+    "fields": {
+        "combo": 1,
+        "medicamento": 4,
+        "cantidad": 1
+    }
+},
+{
+    "model": "farmacia.combomedicamento",
+    "pk": 4,
+    "fields": {
+        "combo": 2,
+        "medicamento": 3,
+        "cantidad": 1
+    }
+},
+{
+    "model": "farmacia.combomedicamento",
+    "pk": 5,
+    "fields": {
+        "combo": 2,
+        "medicamento": 2,
+        "cantidad": 1
+    }
+}
+]

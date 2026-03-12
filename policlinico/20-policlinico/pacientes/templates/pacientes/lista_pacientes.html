@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Pacientes{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- ENCABEZADO CON ESTADÍSTICAS -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="mb-1">
+                <i class="bi bi-people-fill text-primary me-2"></i>
+                Pacientes Registrados
+            </h2>
+            <p class="text-muted mb-0">
+                Total: <span class="badge bg-primary">{{ total_pacientes }}</span>
+                {% if query %}
+                • Resultados: <span class="badge bg-info">{{ pacientes|length }}</span>
+                {% endif %}
+            </p>
+        </div>
+        <a href="{% url 'crear_paciente' %}" class="btn btn-primary">
+            <i class="bi bi-person-plus me-2"></i>
+            Nuevo Paciente
+        </a>
+    </div>
+
+    <!-- PANEL DE BÚSQUEDA -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-8">
+                    <label class="form-label small text-muted mb-1">
+                        <i class="bi bi-search me-1"></i>Búsqueda rápida
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-person-vcard"></i>
+                        </span>
+                        <input
+                            type="text"
+                            name="q"
+                            class="form-control"
+                            placeholder="DNI, nombres, apellidos o teléfono..."
+                            value="{{ query }}"
+                            aria-label="Buscar paciente"
+                        >
+                        {% if query %}
+                        <a href="{% url 'lista_pacientes' %}" class="btn btn-outline-secondary" title="Limpiar búsqueda">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                        {% endif %}
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-search me-1"></i> Buscar
+                        </button>
+                    </div>
+                    <small class="form-text text-muted">
+                        Presiona Enter para buscar. Deja vacío para ver todos.
+                    </small>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="d-grid">
+                        <a href="{% url 'lista_pacientes' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-clockwise me-1"></i>
+                            Ver todos
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TABLA DE PACIENTES -->
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th width="100" class="text-center">Acción</th>
+                            <th>DNI</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th width="100" class="text-center">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for paciente in pacientes %}
+                        <tr class="align-middle">
+                            <td class="text-center">
+                                <a href="{% url 'crear_consulta' paciente.id %}"
+                                   class="btn btn-sm btn-outline-success"
+                                   title="Crear consulta para {{ paciente.nombres }}">
+                                    <i class="bi bi-clipboard-plus"></i>
+                                    Consulta
+                                </a>
+                            </td>
+                            <td>
+                                <strong>{{ paciente.dni }}</strong>
+                            </td>
+                            <td>
+                                {{ paciente.nombres }}
+                                {% if paciente.fecha_nacimiento %}
+                                <br>
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar3 me-1"></i>
+                                    {{ paciente.fecha_nacimiento|date:"d/m/Y" }}
+                                </small>
+                                {% endif %}
+                            </td>
+                            <td>{{ paciente.apellidos }}</td>
+                            <td>
+                                {% if paciente.telefono %}
+                                <span class="text-nowrap">
+                                    <i class="bi bi-telephone me-1"></i>
+                                    {{ paciente.telefono }}
+                                </span>
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a href="{% url 'editar_paciente' paciente.id %}"
+                                       class="btn btn-outline-warning"
+                                       title="Editar paciente">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5">
+                                <div class="text-muted">
+                                    <i class="bi bi-person-x display-6 d-block mb-3"></i>
+                                    {% if query %}
+                                    <h5>No se encontraron pacientes</h5>
+                                    <p>No hay resultados para "{{ query }}"</p>
+                                    <a href="{% url 'lista_pacientes' %}" class="btn btn-outline-primary">
+                                        Ver todos los pacientes
+                                    </a>
+                                    {% else %}
+                                    <h5>No hay pacientes registrados</h5>
+                                    <p>Comienza registrando tu primer paciente</p>
+                                    <a href="{% url 'crear_paciente' %}" class="btn btn-primary">
+                                        <i class="bi bi-person-plus me-1"></i>
+                                        Registrar primer paciente
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGINACIÓN MEJORADA -->
+    {% if pacientes.paginator.num_pages > 1 %}
+    <nav aria-label="Navegación de páginas" class="mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="text-muted small">
+                Página {{ pacientes.number }} de {{ pacientes.paginator.num_pages }}
+                • Mostrando {{ pacientes.start_index }}–{{ pacientes.end_index }} de {{ total_pacientes }}
+            </div>
+            
+            <ul class="pagination mb-0">
+                {% if pacientes.has_previous %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ pacientes.previous_page_number }}{% if query %}&q={{ query }}{% endif %}"
+                       aria-label="Anterior">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link"><i class="bi bi-chevron-left"></i></span>
+                </li>
+                {% endif %}
+
+                {% for num in pacientes.paginator.page_range %}
+                    {% if num == pacientes.number %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                    {% elif num > pacientes.number|add:"-3" and num < pacientes.number|add:"3" %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}">
+                            {{ num }}
+                        </a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if pacientes.has_next %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="?page={{ pacientes.next_page_number }}{% if query %}&q={{ query }}{% endif %}"
+                       aria-label="Siguiente">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link"><i class="bi bi-chevron-right"></i></span>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    {% endif %}
+</div>
+
+<style>
+.table td {
+    vertical-align: middle;
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+.badge {
+    font-size: 0.85em;
+}
+</style>
+
+<script>
+// Auto-focus en campo de búsqueda
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('input[name="q"]');
+    if (searchInput) {
+        searchInput.focus();
+        if (searchInput.value) {
+            searchInput.select();
+        }
+    }
+});
+</script>
+{% endblock %}

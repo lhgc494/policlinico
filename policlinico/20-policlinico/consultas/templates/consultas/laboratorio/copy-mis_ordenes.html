@@ -1,0 +1,460 @@
+{% extends "base.html" %}
+
+{% block title %}Mis Órdenes - Laboratorio{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="mb-0">
+                                <i class="fas fa-vial me-2"></i>Mis Órdenes en Proceso
+                            </h4>
+                            <small class="opacity-75">
+                                Órdenes asignadas a: {{ user.get_full_name|default:user.username }}
+                            </small>
+                        </div>
+                        <div>
+                            <span class="badge bg-light text-dark fs-6">
+                                {{ ordenes|length }} orden{{ ordenes|pluralize:"es" }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    {% if ordenes %}
+                    <!-- FILTROS RÁPIDOS -->
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-primary btn-sm active" 
+                                        onclick="filterOrders('all')">
+                                    Todas ({{ ordenes|length }})
+                                </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm" 
+                                        onclick="filterOrders('interno')">
+                                    <span class="badge bg-primary me-1">I</span> Internos
+                                </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm" 
+                                        onclick="filterOrders('ambulatorio')">
+                                    <span class="badge bg-info me-1">A</span> Ambulatorios
+                                </button>
+                                <button type="button" class="btn btn-outline-primary btn-sm" 
+                                        onclick="filterOrders('urgente')">
+                                    <i class="fas fa-exclamation-triangle me-1"></i>Urgentes
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <a href="{% url 'lista_ordenes_pendientes' %}" class="btn btn-sm btn-success">
+                                <i class="fas fa-plus-circle me-1"></i>Asignar más órdenes
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="ordenesTable">
+                            <thead class="table-info">
+                                <tr>
+                                    <th># Orden</th>
+                                    <th>Tipo</th>
+                                    <th>Paciente</th>
+                                    <th>Examen</th>
+                                    <th>Fecha Asignación</th>
+                                    <th>Tiempo</th>
+                                    <th>Prioridad</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for orden in ordenes %}
+                                <tr class="orden-row 
+                                    {% if orden.urgente %}table-warning urgent-row{% endif %}
+                                    {% if orden.consulta %}orden-interno{% else %}orden-ambulatorio{% endif %}"
+                                    data-tipo="{% if orden.consulta %}interno{% else %}ambulatorio{% endif %}"
+                                    data-urgente="{% if orden.urgente %}true{% else %}false{% endif %}">
+                                    
+                                    <td>
+                                        <strong>#{{ orden.id }}</strong>
+                                        {% if orden.urgente %}
+                                        <span class="badge bg-danger ms-1">Urgente</span>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>
+                                        {% if orden.consulta %}
+                                            <span class="badge bg-primary" title="Paciente interno de consulta">
+                                                <i class="fas fa-user-injured me-1"></i>Interno
+                                            </span>
+                                        {% else %}
+                                            <span class="badge bg-info" title="Paciente ambulatorio/externo">
+                                                <i class="fas fa-walking me-1"></i>Ambulatorio
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>
+                                        <!-- INFORMACIÓN COMPLETA DEL PACIENTE - CORREGIDO -->
+                                        {% if orden.consulta %}
+                                            <!-- PACIENTE INTERNO -->
+                                            <div class="fw-bold">
+                                                {{ orden.consulta.paciente.nombres }} {{ orden.consulta.paciente.apellidos }}
+                                            </div>
+                                            <div class="small">
+                                                <span class="badge bg-secondary me-1">
+                                                    <i class="fas fa-id-card me-1"></i>{{ orden.consulta.paciente.dni }}
+                                                </span>
+                                                {% if orden.consulta.paciente.edad %}
+                                                <span class="badge bg-info">{{ orden.consulta.paciente.edad }} años</span>
+                                                {% endif %}
+                                                {% if orden.consulta.paciente.sexo %}
+                                                <span class="badge bg-dark">{{ orden.consulta.paciente.get_sexo_display }}</span>
+                                                {% endif %}
+                                            </div>
+                                            {% if orden.consulta.paciente.telefono %}
+                                            <div class="text-muted mt-1">
+                                                <i class="fas fa-phone-alt me-1"></i> {{ orden.consulta.paciente.telefono }}
+                                            </div>
+                                            {% endif %}
+                                            {% if orden.consulta.doctor %}
+                                            <div class="mt-1">
+                                                <small class="text-primary">
+                                                    <i class="fas fa-user-md me-1"></i>
+                                                    Dr. {{ orden.consulta.doctor.nombres }}
+                                                </small>
+                                            </div>
+                                            {% endif %}
+                                        {% elif orden.venta_ambulatoria %}
+                                            <!-- PACIENTE AMBULATORIO -->
+                                            <div class="fw-bold text-info">
+                                                <i class="fas fa-external-link-alt me-1"></i>
+                                                {{ orden.venta_ambulatoria.paciente_nombre }}
+                                            </div>
+                                            <div class="small">
+                                                <span class="badge bg-secondary me-1">
+                                                    <i class="fas fa-id-card me-1"></i>{{ orden.venta_ambulatoria.paciente_dni }}
+                                                </span>
+                                                <span class="badge bg-light text-dark">
+                                                    <i class="fas fa-shopping-cart me-1"></i>Venta #{{ orden.venta_ambulatoria.id }}
+                                                </span>
+                                            </div>
+                                            <div class="mt-1">
+                                                <small class="text-success">
+                                                    <i class="fas fa-money-bill-wave me-1"></i>
+                                                    S/ {{ orden.venta_ambulatoria.total }}
+                                                </small>
+                                            </div>
+                                            <div class="text-muted mt-1">
+                                                <i class="fas fa-calendar-alt me-1"></i> 
+                                                {{ orden.venta_ambulatoria.fecha_creacion|date:"d/m/Y" }}
+                                            </div>
+                                        {% else %}
+                                            <!-- CASO DE SEGURIDAD -->
+                                            <div class="text-warning">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                                Datos no disponibles
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>
+                                        <div class="fw-bold">{{ orden.examen_especifico }}</div>
+                                        <div>
+                                            <small class="text-muted">{{ orden.get_tipo_examen_display }}</small>
+                                        </div>
+                                        {% if orden.indicaciones %}
+                                        <div class="mt-1">
+                                            <small class="text-warning">
+                                                <i class="fas fa-exclamation-circle me-1"></i>
+                                                {{ orden.indicaciones|truncatechars:50 }}
+                                            </small>
+                                        </div>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>
+                                        {% if orden.fecha_asignacion %}
+                                        <div class="fw-bold">{{ orden.fecha_asignacion|date:"d/m/Y" }}</div>
+                                        <div>
+                                            <small class="text-muted">{{ orden.fecha_asignacion|time:"H:i" }}</small>
+                                        </div>
+                                        <div class="small text-muted">
+                                            <i class="fas fa-user me-1"></i>
+                                            {{ orden.tecnico_asignado.get_full_name|default:orden.tecnico_asignado.username }}
+                                        </div>
+                                        {% else %}
+                                        <em class="text-muted">Sin fecha</em>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>
+                                        {% if orden.fecha_asignacion %}
+                                            {% now "Y-m-d" as hoy %}
+                                            {% with orden.fecha_asignacion|date:"Y-m-d" as asignada %}
+                                                {% if hoy == asignada %}
+                                                <span class="badge bg-success">
+                                                    <i class="fas fa-bolt me-1"></i>Hoy
+                                                </span>
+                                                {% else %}
+                                                <span class="badge bg-warning">
+                                                    {{ orden.fecha_asignacion|timesince }}
+                                                </span>
+                                                {% endif %}
+                                            {% endwith %}
+                                        {% else %}
+                                        <span class="badge bg-light text-dark">N/A</span>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>
+                                        {% if orden.urgente %}
+                                        <span class="badge bg-danger">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>Alta
+                                        </span>
+                                        <div class="progress mt-1" style="height: 5px;">
+                                            <div class="progress-bar bg-danger" style="width: 100%"></div>
+                                        </div>
+                                        {% else %}
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-clock me-1"></i>Normal
+                                        </span>
+                                        <div class="progress mt-1" style="height: 5px;">
+                                            <div class="progress-bar bg-secondary" style="width: 60%"></div>
+                                        </div>
+                                        {% endif %}
+                                    </td>
+                                    
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'detalle_orden_examen' orden.id %}"
+                                               class="btn btn-sm btn-primary"
+                                               title="Procesar esta orden">
+                                                <i class="fas fa-edit me-1"></i> Procesar
+                                            </a>
+                                            <a href="{% url 'detalle_orden_examen' orden.id %}"
+                                               class="btn btn-sm btn-outline-secondary"
+                                               title="Ver detalles completos">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                        <div class="mt-1">
+                                            <small class="text-muted">
+                                                <i class="fas fa-info-circle me-1"></i>
+                                                {{ orden.get_estado_display }}
+                                            </small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- RESUMEN ESTADÍSTICO -->
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Resumen por tipo</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="text-center p-3 border rounded bg-primary text-white">
+                                                <div class="display-6">{{ ordenes_internos_count|default:0 }}</div>
+                                                <small>Internos</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-center p-3 border rounded bg-info text-white">
+                                                <div class="display-6">{{ ordenes_ambulatorios_count|default:0 }}</div>
+                                                <small>Ambulatorios</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header bg-light">
+                                    <h6 class="mb-0"><i class="fas fa-bullhorn me-2"></i>Acciones rápidas</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-grid gap-2">
+                                        <a href="{% url 'lista_ordenes_pendientes' %}" class="btn btn-outline-primary">
+                                            <i class="fas fa-flask me-2"></i>Ver todas las órdenes
+                                        </a>
+                                        {% if ordenes_urgentes_count %}
+                                        <a href="javascript:void(0)" onclick="filterOrders('urgente')" 
+                                           class="btn btn-outline-danger">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            Ver urgentes ({{ ordenes_urgentes_count }})
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% else %}
+                    <!-- ESTADO VACÍO -->
+                    <div class="text-center py-5">
+                        <div class="display-1 text-muted mb-4">
+                            <i class="fas fa-user-clock"></i>
+                        </div>
+                        <h3 class="text-muted">No tienes órdenes asignadas</h3>
+                        <p class="text-muted mb-4">
+                            Todas tus órdenes están completadas o no tienes asignaciones pendientes.<br>
+                            Ve a la lista de órdenes pendientes para asignarte nuevas.
+                        </p>
+                        <div class="mt-4">
+                            <a href="{% url 'lista_ordenes_pendientes' %}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus-circle me-2"></i>Asignar nuevas órdenes
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">
+                                <i class="fas fa-sync-alt me-1"></i>
+                                Actualizado: {% now "d/m/Y H:i" %}
+                            </small>
+                        </div>
+                        <div class="col text-end">
+                            <a href="{% url 'mis_ordenes_en_proceso' %}" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-redo me-1"></i> Actualizar
+                            </a>
+                            {% if ordenes %}
+                            <button onclick="exportarTabla()" class="btn btn-sm btn-outline-success ms-2">
+                                <i class="fas fa-file-excel me-1"></i> Exportar
+                            </button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Filtros por tipo de orden
+function filterOrders(tipo) {
+    const rows = document.querySelectorAll('.orden-row');
+    let visibleCount = 0;
+    
+    rows.forEach(row => {
+        let show = true;
+        
+        if (tipo === 'interno') {
+            show = row.classList.contains('orden-interno');
+        } else if (tipo === 'ambulatorio') {
+            show = row.classList.contains('orden-ambulatorio');
+        } else if (tipo === 'urgente') {
+            show = row.getAttribute('data-urgente') === 'true';
+        } else {
+            show = true; // 'all'
+        }
+        
+        if (show) {
+            row.style.display = '';
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+    
+    // Actualizar botones activos
+    document.querySelectorAll('.btn-group .btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Mostrar contador
+    if (tipo !== 'all') {
+        showNotification(`Mostrando ${visibleCount} orden${visibleCount !== 1 ? 'es' : ''} (${tipo})`);
+    }
+}
+
+// Función para exportar la tabla (placeholder)
+function exportarTabla() {
+    alert('Funcionalidad de exportación en desarrollo. Se exportarán ' + 
+          document.querySelectorAll('.orden-row').length + ' órdenes.');
+    // Aquí puedes implementar exportación a Excel/PDF
+}
+
+// Mostrar notificación temporal
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'alert alert-info alert-dismissible fade show position-fixed';
+    notification.style.top = '20px';
+    notification.style.right = '20px';
+    notification.style.zIndex = '1050';
+    notification.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Auto-refresh cada 60 segundos (opcional)
+setTimeout(() => {
+    window.location.reload();
+}, 60000);
+</script>
+
+<style>
+.orden-row:hover {
+    background-color: #f8f9fa !important;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+.orden-interno {
+    border-left: 4px solid #0d6efd;
+}
+
+.orden-ambulatorio {
+    border-left: 4px solid #0dcaf0;
+}
+
+.urgent-row {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 193, 7, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); }
+}
+
+.badge {
+    font-size: 0.75em;
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.table th {
+    white-space: nowrap;
+}
+</style>
+{% endblock %}

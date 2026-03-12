@@ -1,0 +1,62 @@
+{% extends 'consultas/laboratorio/formatos/base_formato.html' %}
+
+{% block title %}Perfil Lipídico - {{ orden.examen_especifico }}{% endblock %}
+
+{% block campos_formulario %}
+{% if modo_impresion %}
+    <div style="font-family: Arial, sans-serif;">
+        <div style="display: flex; justify-content: space-between; background-color: #003366; color: white; padding: 4px 8px; margin-bottom: 6px;">
+            <span style="font-weight: bold;">PERFIL LIPÍDICO #{{ orden.id }}</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; background-color: #f0f0f0; padding: 4px 8px; margin-bottom: 8px; font-size: 9pt;">
+            <span><strong>Pac:</strong> {{ orden.get_paciente_nombre|truncatechars:30 }}</span>
+            <span><strong>DNI:</strong> {{ orden.get_paciente_dni }}</span>
+            <span><strong>Téc:</strong> {{ orden.tecnico_asignado.get_short_name|default:orden.tecnico_asignado.username }}</span>
+        </div>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+            <thead><tr style="background-color: #006633; color: white;"><th>Parámetro</th><th>Resultado</th><th>Ref</th></tr></thead>
+            <tbody>
+                <tr><td>Colesterol Total</td><td>{{ resultados.colesterol_total|default:"-" }} mg/dL</td><td><200</td></tr>
+                <tr><td>Colesterol HDL</td><td>{{ resultados.hdl|default:"-" }} mg/dL</td><td>>40</td></tr>
+                <tr><td>Colesterol LDL</td><td>{{ resultados.ldl|default:"-" }} mg/dL</td><td><130</td></tr>
+                <tr><td>Colesterol VLDL</td><td>{{ resultados.vldl|default:"-" }} mg/dL</td><td>5-40</td></tr>
+                <tr><td>Triglicéridos</td><td>{{ resultados.trigliceridos|default:"-" }} mg/dL</td><td><150</td></tr>
+            </tbody>
+        </table>
+        
+        {% if resultados.observaciones %}
+        <div style="margin: 4px 0; padding: 3px; background-color: #fff3cd; font-size: 8pt;">
+            <strong>Obs:</strong> {{ resultados.observaciones }}
+        </div>
+        {% endif %}
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 7pt; color: #666; border-top: 1px solid #ccc; padding-top: 3px;">
+            <span>Sistema Policlínico</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div class="no-print" style="text-align: center; margin-top: 10px;">
+            <button onclick="window.print()">🖨️ Imprimir</button>
+            <button onclick="window.close()">✖️ Cerrar</button>
+        </div>
+    </div>
+{% else %}
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white"><h5 class="mb-0">PERFIL LIPÍDICO</h5></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3"><label>Colesterol Total:</label><input type="text" name="colesterol_total" class="form-control" value="{{ resultados.colesterol_total|default:'' }}"><small>VR: <200</small></div>
+                <div class="col-md-6 mb-3"><label>Colesterol HDL:</label><input type="text" name="hdl" class="form-control" value="{{ resultados.hdl|default:'' }}"><small>VR: >40</small></div>
+                <div class="col-md-6 mb-3"><label>Colesterol LDL:</label><input type="text" name="ldl" class="form-control" value="{{ resultados.ldl|default:'' }}"><small>VR: <130</small></div>
+                <div class="col-md-6 mb-3"><label>Colesterol VLDL:</label><input type="text" name="vldl" class="form-control" value="{{ resultados.vldl|default:'' }}"><small>VR: 5-40</small></div>
+                <div class="col-md-6 mb-3"><label>Triglicéridos:</label><input type="text" name="trigliceridos" class="form-control" value="{{ resultados.trigliceridos|default:'' }}"><small>VR: <150</small></div>
+            </div>
+            <div class="row"><div class="col-12"><label>Observaciones:</label><textarea name="observaciones" class="form-control" rows="2">{{ resultados.observaciones|default:'' }}</textarea></div></div>
+        </div>
+    </div>
+{% endif %}
+<style>@media print{.no-print{display:none;}}</style>
+{% endblock %}

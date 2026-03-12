@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Encabezado -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow border-0">
+                <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+                    <div>
+                        <h4 class="mb-0">
+                            <i class="fas fa-truck me-2"></i>{{ proveedor.nombre }}
+                        </h4>
+                        <small class="opacity-75">RUC: {{ proveedor.ruc }}</small>
+                    </div>
+                    <div class="btn-group">
+                        <a href="{% url 'editar_proveedor' proveedor.id %}" class="btn btn-warning text-white">
+                            <i class="fas fa-edit me-1"></i> Editar
+                        </a>
+                        <a href="{% url 'lista_proveedores' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i> Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Información básica -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle text-primary me-2"></i>
+                        Información del Proveedor
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <strong>Razón Social:</strong><br>
+                        {{ proveedor.nombre }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <strong>RUC:</strong><br>
+                        <code>{{ proveedor.ruc }}</code>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <strong>Tipo de Proveedor:</strong><br>
+                        <span class="badge bg-info">
+                            {{ proveedor.get_tipo_proveedor_display }}
+                        </span>
+                    </div>
+                    
+                    {% if proveedor.direccion %}
+                    <div class="mb-3">
+                        <strong>Dirección:</strong><br>
+                        {{ proveedor.direccion|linebreaks }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if proveedor.sitio_web %}
+                    <div class="mb-3">
+                        <strong>Sitio Web:</strong><br>
+                        <a href="{{ proveedor.sitio_web }}" target="_blank">
+                            <i class="fas fa-globe me-1"></i> {{ proveedor.sitio_web }}
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="fas fa-address-book text-success me-2"></i>
+                        Información de Contacto
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if proveedor.contacto %}
+                    <div class="mb-3">
+                        <strong>Persona de Contacto:</strong><br>
+                        {{ proveedor.contacto }}
+                    </div>
+                    {% endif %}
+                    
+                    {% if proveedor.telefono %}
+                    <div class="mb-3">
+                        <strong>Teléfono Principal:</strong><br>
+                        <a href="tel:{{ proveedor.telefono }}">
+                            <i class="fas fa-phone me-1"></i> {{ proveedor.telefono }}
+                        </a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if proveedor.telefono_alternativo %}
+                    <div class="mb-3">
+                        <strong>Teléfono Alternativo:</strong><br>
+                        <a href="tel:{{ proveedor.telefono_alternativo }}">
+                            <i class="fas fa-phone-alt me-1"></i> {{ proveedor.telefono_alternativo }}
+                        </a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if proveedor.email %}
+                    <div class="mb-3">
+                        <strong>Email:</strong><br>
+                        <a href="mailto:{{ proveedor.email }}">
+                            <i class="fas fa-envelope me-1"></i> {{ proveedor.email }}
+                        </a>
+                    </div>
+                    {% endif %}
+                    
+                    {% if proveedor.notas %}
+                    <div class="mb-3">
+                        <strong>Notas:</strong><br>
+                        {{ proveedor.notas|linebreaks }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Medicamentos suministrados -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="fas fa-pills text-purple me-2"></i>
+                        Medicamentos Suministrados
+                        <span class="badge bg-secondary ms-2">{{ medicamentos.count }}</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if medicamentos %}
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Medicamento</th>
+                                    <th>Principio Activo</th>
+                                    <th class="text-center">Stock</th>
+                                    <th class="text-center">Precio Venta</th>
+                                    <th class="text-center">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for med in medicamentos %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'detalle_medicamento' med.id %}" class="text-decoration-none">
+                                            {{ med.codigo }}
+                                        </a>
+                                    </td>
+                                    <td>{{ med.nombre_comercial }}</td>
+                                    <td>{{ med.principio_activo }}</td>
+                                    <td class="text-center">
+                                        <span class="badge 
+                                            {% if med.stock_actual <= 0 %}bg-danger
+                                            {% elif med.stock_actual < med.stock_minimo %}bg-warning
+                                            {% else %}bg-success{% endif %}">
+                                            {{ med.stock_actual }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center">S/ {{ med.precio_venta|default:"0.00" }}</td>
+                                    <td class="text-center">
+                                        {% if med.vencido %}
+                                        <span class="badge bg-danger">Vencido</span>
+                                        {% elif med.proximo_vencer %}
+                                        <span class="badge bg-warning">Próximo</span>
+                                        {% else %}
+                                        <span class="badge bg-success">Normal</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-pills fa-2x text-muted mb-3"></i>
+                        <p class="text-muted">No hay medicamentos suministrados por este proveedor</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">
+                        <i class="fas fa-bolt text-warning me-2"></i>
+                        Acciones
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="{% url 'editar_proveedor' proveedor.id %}" class="btn btn-warning">
+                            <i class="fas fa-edit me-1"></i> Editar Proveedor
+                        </a>
+                        <a href="{% url 'crear_medicamento' %}" class="btn btn-success">
+                            <i class="fas fa-plus-circle me-1"></i> Nuevo Medicamento
+                        </a>
+                        <a href="{% url 'lista_medicamentos' %}?proveedor={{ proveedor.id }}" class="btn btn-info">
+                            <i class="fas fa-filter me-1"></i> Filtrar por Proveedor
+                        </a>
+                        <a href="{% url 'eliminar_proveedor' proveedor.id %}" class="btn btn-danger">
+                            <i class="fas fa-trash me-1"></i> Eliminar Proveedor
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Funcionalidad básica
+    console.log('Detalle de proveedor cargado');
+    
+    // Confirmación para eliminar
+    const deleteBtn = document.querySelector('a.btn-danger');
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', function(e) {
+            if (!confirm('¿Está seguro de eliminar este proveedor?\n\nEsta acción no se puede deshacer.')) {
+                e.preventDefault();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

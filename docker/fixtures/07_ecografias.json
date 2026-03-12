@@ -1,0 +1,189 @@
+[
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 1,
+    "fields": {
+        "nombre": "Eco hepatobiliar (bilis)",
+        "precio": "60.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-07T14:26:23.324Z",
+        "fecha_actualizacion": "2026-02-12T22:21:49.566Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 2,
+    "fields": {
+        "nombre": "Eco morfológica",
+        "precio": "250.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-07T14:26:51.953Z",
+        "fecha_actualizacion": "2026-02-12T22:22:44.651Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 3,
+    "fields": {
+        "nombre": "Eco abd. completo + anexos",
+        "precio": "130.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-07T14:27:27.742Z",
+        "fecha_actualizacion": "2026-02-12T22:21:06.678Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 4,
+    "fields": {
+        "nombre": "Abdominal completo",
+        "precio": "90.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-07T14:49:57.693Z",
+        "fecha_actualizacion": "2026-02-12T22:20:14.524Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 5,
+    "fields": {
+        "nombre": "Eco genética",
+        "precio": "250.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T18:48:33.922Z",
+        "fecha_actualizacion": "2026-02-12T22:22:18.271Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 6,
+    "fields": {
+        "nombre": "Renal",
+        "precio": "60.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T18:48:33.922Z",
+        "fecha_actualizacion": "2026-02-12T22:18:31.255Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 7,
+    "fields": {
+        "nombre": "Ginecológica (endovaginal)",
+        "precio": "60.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T18:48:33.922Z",
+        "fecha_actualizacion": "2026-02-12T22:19:43.954Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 8,
+    "fields": {
+        "nombre": "Ecografía Pelvica",
+        "precio": "50.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T18:48:33.922Z",
+        "fecha_actualizacion": "2026-02-12T18:48:33.922Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 9,
+    "fields": {
+        "nombre": "Riñón + vejiga",
+        "precio": "80.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T18:48:33.922Z",
+        "fecha_actualizacion": "2026-02-12T22:18:51.887Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 10,
+    "fields": {
+        "nombre": "Eco testicular con doppler",
+        "precio": "120.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T22:23:45.469Z",
+        "fecha_actualizacion": "2026-02-12T22:23:45.470Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 11,
+    "fields": {
+        "nombre": "Eco testicular simple",
+        "precio": "100.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T22:24:05.066Z",
+        "fecha_actualizacion": "2026-02-12T22:24:05.066Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 12,
+    "fields": {
+        "nombre": "Eco mamas",
+        "precio": "100.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T22:24:19.182Z",
+        "fecha_actualizacion": "2026-02-12T22:24:19.182Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 13,
+    "fields": {
+        "nombre": "Eco tiroides con doppler",
+        "precio": "120.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T22:24:36.298Z",
+        "fecha_actualizacion": "2026-02-12T22:24:36.298Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 14,
+    "fields": {
+        "nombre": "Ecocardiograma",
+        "precio": "250.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T22:24:54.947Z",
+        "fecha_actualizacion": "2026-02-12T22:24:54.947Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 15,
+    "fields": {
+        "nombre": "Eco partes blandas(tejidos, nervios, ganglios)",
+        "precio": "100.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T22:25:32.891Z",
+        "fecha_actualizacion": "2026-02-12T22:25:32.891Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 16,
+    "fields": {
+        "nombre": "Eco partes blandas con doppler",
+        "precio": "120.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T22:25:47.920Z",
+        "fecha_actualizacion": "2026-02-12T22:25:47.920Z"
+    }
+},
+{
+    "model": "consultas.catalogoecografia",
+    "pk": 17,
+    "fields": {
+        "nombre": "Eco obstétrica",
+        "precio": "60.00",
+        "activo": true,
+        "fecha_creacion": "2026-02-12T22:26:02.933Z",
+        "fecha_actualizacion": "2026-02-12T22:26:02.933Z"
+    }
+}
+]

@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Previsualizar Compra{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-eye me-2"></i>Previsualizar Compra
+                    </h4>
+                </div>
+                
+                <div class="card-body">
+                    
+                    {% if errores %}
+                    <div class="alert alert-danger">
+                        <h5>⚠️ Errores encontrados:</h5>
+                        <ul class="mb-0">
+                            {% for error in errores %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- ============================================ -->
+                    <!-- FORMULARIO DE CONFIRMACIÓN -->
+                    <!-- ============================================ -->
+                    <form method="post" action="{% url 'farmacia:confirmar_compra' %}">
+                        {% csrf_token %}
+                        
+                        <!-- DATOS DE COMPRA (AQUÍ SÍ SE INGRESAN) -->
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">Proveedor:</label>
+                                <select name="proveedor_id" class="form-select" required>
+                                    <option value="">Seleccione proveedor</option>
+                                    {% for p in proveedores %}
+                                    <option value="{{ p.id }}">{{ p.nombre }} ({{ p.ruc }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <label class="form-label">N° Factura:</label>
+                                <input type="text" name="numero_factura" class="form-control" 
+                                       placeholder="Ej: F001-00000123" required>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <label class="form-label">Fecha Factura:</label>
+                                <input type="date" name="fecha_factura" class="form-control" 
+                                       value="{% now 'Y-m-d' %}" required>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <div class="form-check mt-4">
+                                    <input class="form-check-input" type="checkbox" name="incluye_igv" id="incluye_igv" 
+                                           {% if incluye_igv %}checked{% endif %}>
+                                    <label class="form-check-label" for="incluye_igv">
+                                        Incluye IGV (18%)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mb-3">Productos a registrar ({{ items|length }})</h5>
+                        
+                        <!-- TABLA DE PRODUCTOS -->
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Código</th>
+                                        <th>Medicamento</th>
+                                        <th>Lote</th>
+                                        <th>Vencimiento</th>
+                                        <th class="text-end">Cantidad</th>
+                                        <th class="text-end">Precio Unit.</th>
+                                        <th class="text-end">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in items %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ item.codigo }}</td>
+                                        <td>{{ item.nombre }}</td>
+                                        <td>{{ item.lote }}</td>
+                                        <td>{{ item.fecha_vencimiento|date:"d/m/Y" }}</td>
+                                        <td class="text-end">{{ item.cantidad }}</td>
+                                        <td class="text-end">S/ {{ item.precio_unitario|floatformat:2 }}</td>
+                                        <td class="text-end">S/ {{ item.subtotal|floatformat:2 }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot class="table-light">
+                                    <tr>
+                                        <th colspan="7" class="text-end">Subtotal:</th>
+                                        <th class="text-end">S/ {{ subtotal|floatformat:2 }}</th>
+                                    </tr>
+                                    <tr id="filaIGV" {% if not incluye_igv %}style="display:none"{% endif %}>
+                                        <th colspan="7" class="text-end">IGV (18%):</th>
+                                        <th class="text-end" id="totalIGV">S/ {{ igv|floatformat:2 }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="7" class="text-end">TOTAL:</th>
+                                        <th class="text-end text-success" id="totalGeneral">S/ {{ total|floatformat:2 }}</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        
+                        <!-- OBSERVACIONES -->
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label class="form-label">Observaciones:</label>
+                                <textarea name="observaciones" class="form-control" rows="2" placeholder="Opcional"></textarea>
+                            </div>
+                        </div>
+                        
+                        <!-- BOTONES -->
+                        <div class="row mt-4">
+                            <div class="col-12 text-end">
+                                <a href="{% url 'farmacia:compra_manual' %}" class="btn btn-secondary">
+                                    <i class="fas fa-arrow-left"></i> Volver a productos
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-check"></i> Confirmar Compra
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const incluyeIgv = document.getElementById('incluye_igv');
+    const filaIGV = document.getElementById('filaIGV');
+    const totalIGV = document.getElementById('totalIGV');
+    const totalGeneral = document.getElementById('totalGeneral');
+    
+    // Función para actualizar IGV en tiempo real
+    function actualizarIGV() {
+        // Obtener subtotal del texto (formato "S/ 1234.56")
+        const subtotalText = document.querySelector('tfoot tr:first-child th:last-child').textContent;
+        const subtotal = parseFloat(subtotalText.replace('S/ ', '')) || 0;
+        
+        if (incluyeIgv.checked) {
+            const igv = subtotal * 0.18;
+            totalIGV.textContent = 'S/ ' + igv.toFixed(2);
+            totalGeneral.textContent = 'S/ ' + (subtotal + igv).toFixed(2);
+            filaIGV.style.display = '';
+        } else {
+            filaIGV.style.display = 'none';
+            totalGeneral.textContent = 'S/ ' + subtotal.toFixed(2);
+        }
+    }
+    
+    // Evento cambio de IGV
+    incluyeIgv.addEventListener('change', actualizarIGV);
+    
+    // Ejecutar al cargar para asegurar estado correcto
+    actualizarIGV();
+    
+    // Validar que se seleccione proveedor antes de enviar
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const proveedor = document.querySelector('select[name="proveedor_id"]').value;
+        const factura = document.querySelector('input[name="numero_factura"]').value.trim();
+        const fecha = document.querySelector('input[name="fecha_factura"]').value;
+        
+        if (!proveedor) {
+            e.preventDefault();
+            alert('Debe seleccionar un proveedor');
+            return;
+        }
+        
+        if (!factura) {
+            e.preventDefault();
+            alert('Debe ingresar el número de factura');
+            return;
+        }
+        
+        if (!fecha) {
+            e.preventDefault();
+            alert('Debe ingresar la fecha de factura');
+            return;
+        }
+    });
+    
+});
+</script>
+{% endblock %}

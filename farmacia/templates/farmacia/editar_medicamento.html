@@ -1,0 +1,472 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-section {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-left: 4px solid #0d6efd;
+    }
+    .form-section h5 {
+        color: #0d6efd;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    .required label:after {
+        content: " *";
+        color: #dc3545;
+    }
+    .alert-icon {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+    .stock-info {
+        background-color: #e8f4f8;
+        border-left: 4px solid #17a2b8;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="mb-0">
+                                <i class="fas fa-edit me-2"></i>{{ titulo }}
+                            </h4>
+                            <small class="opacity-75">
+                                Código: {{ medicamento.codigo }} |
+                                Última actualización: {{ medicamento.fecha_actualizacion|date:"d/m/Y H:i" }}
+                            </small>
+                        </div>
+                        <div>
+                            <a href="{% url 'farmacia:detalle_medicamento' medicamento.id %}" class="btn btn-light btn-sm">
+                                <i class="fas fa-eye me-1"></i> Ver Detalle
+                            </a>
+                            <a href="{% url 'farmacia:lista_medicamentos' %}" class="btn btn-light btn-sm ms-2">
+                                <i class="fas fa-arrow-left me-1"></i> Volver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <!-- Alertas de estado -->
+                    {% if medicamento.vencido %}
+                    <div class="alert alert-dark d-flex align-items-center mb-4" role="alert">
+                        <i class="fas fa-skull-crossbones alert-icon"></i>
+                        <div>
+                            <strong>¡ATENCIÓN!</strong> Este medicamento está VENCIDO desde
+                            {{ medicamento.fecha_vencimiento|date:"d/m/Y" }}
+                        </div>
+                    </div>
+                    {% elif medicamento.proximo_vencer %}
+                    <div class="alert alert-warning d-flex align-items-center mb-4" role="alert">
+                        <i class="fas fa-exclamation-triangle alert-icon"></i>
+                        <div>
+                            <strong>¡PRECAUCIÓN!</strong> Este medicamento vence en
+                            {{ medicamento.dias_vencimiento }} días ({{ medicamento.fecha_vencimiento|date:"d/m/Y" }})
+                        </div>
+                    </div>
+                    {% elif medicamento.bajo_stock %}
+                    <div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+                        <i class="fas fa-box alert-icon"></i>
+                        <div>
+                            <strong>Stock bajo:</strong> Solo quedan {{ medicamento.stock_actual }} unidades
+                            (mínimo recomendado: {{ medicamento.stock_minimo }})
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Formulario -->
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong> Por favor corrige los errores a continuación.
+                            <ul class="mb-0 mt-2">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ field }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Sección 1: Información Básica -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-info-circle me-2"></i>Información Básica</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 required">
+                                    <label for="{{ form.codigo.id_for_label }}" class="form-label">{{ form.codigo.label }}</label>
+                                    {{ form.codigo }}
+                                    {% if form.codigo.help_text %}
+                                    <small class="form-text text-muted">{{ form.codigo.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3 required">
+                                    <label for="{{ form.codigo_barras.id_for_label }}" class="form-label">{{ form.codigo_barras.label }}</label>
+                                    {{ form.codigo_barras }}
+                                    {% if form.codigo_barras.help_text %}
+                                    <small class="form-text text-muted">{{ form.codigo_barras.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-8 mb-3 required">
+                                    <label for="{{ form.nombre_comercial.id_for_label }}" class="form-label">{{ form.nombre_comercial.label }}</label>
+                                    {{ form.nombre_comercial }}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3 required">
+                                    <label for="{{ form.principio_activo.id_for_label }}" class="form-label">{{ form.principio_activo.label }}</label>
+                                    {{ form.principio_activo }}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.categoria.id_for_label }}" class="form-label">{{ form.categoria.label }}</label>
+                                    {{ form.categoria }}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.forma_farmaceutica.id_for_label }}" class="form-label">{{ form.forma_farmaceutica.label }}</label>
+                                    {{ form.forma_farmaceutica }}
+                                    {% if form.forma_farmaceutica.help_text %}
+                                    <small class="form-text text-muted">{{ form.forma_farmaceutica.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.fabricante.id_for_label }}" class="form-label">{{ form.fabricante.label }}</label>
+                                    {{ form.fabricante }}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.proveedor.id_for_label }}" class="form-label">{{ form.proveedor.label }}</label>
+                                    {{ form.proveedor }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección 2: Stock y Precios -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-boxes me-2"></i>Stock y Precios</h5>
+                            
+                            <!-- Stock Actual (SOLO INFORMACIÓN - NO EDITABLE) -->
+                            <div class="alert alert-info stock-info mb-4">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        <strong>Stock Actual:</strong>
+                                        <span class="badge bg-primary fs-5 ms-2">{{ medicamento.stock_actual }}</span>
+                                    </div>
+                                    <div class="col-md-6 text-md-end">
+                                        <small>
+                                            <i class="fas fa-exclamation-triangle text-warning me-1"></i>
+                                            El stock se modifica mediante 
+                                            <a href="{% url 'farmacia:ajustar_inventario' medicamento.id %}" class="alert-link">Ajustes</a> 
+                                            o <a href="{% url 'farmacia:venta_directa' %}" class="alert-link">Ventas</a>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4 mb-3 required">
+                                    <label for="{{ form.stock_minimo.id_for_label }}" class="form-label">{{ form.stock_minimo.label }}</label>
+                                    {{ form.stock_minimo }}
+                                    {% if form.stock_minimo.help_text %}
+                                    <small class="form-text text-muted">{{ form.stock_minimo.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="{{ form.cantidad_por_caja.id_for_label }}" class="form-label">{{ form.cantidad_por_caja.label }}</label>
+                                    {{ form.cantidad_por_caja }}
+                                    {% if form.cantidad_por_caja.help_text %}
+                                    <small class="form-text text-muted">{{ form.cantidad_por_caja.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="{{ form.precio_por_caja.id_for_label }}" class="form-label">{{ form.precio_por_caja.label }}</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">S/</span>
+                                        {{ form.precio_por_caja }}
+                                    </div>
+                                    {% if form.precio_por_caja.help_text %}
+                                    <small class="form-text text-muted">{{ form.precio_por_caja.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3 required">
+                                    <label for="{{ form.precio_compra.id_for_label }}" class="form-label">{{ form.precio_compra.label }}</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">S/</span>
+                                        {{ form.precio_compra }}
+                                    </div>
+                                    {% if form.precio_compra.help_text %}
+                                    <small class="form-text text-muted">{{ form.precio_compra.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3 required">
+                                    <label for="{{ form.precio_venta.id_for_label }}" class="form-label">{{ form.precio_venta.label }}</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">S/</span>
+                                        {{ form.precio_venta }}
+                                    </div>
+                                    {% if form.precio_venta.help_text %}
+                                    <small class="form-text text-muted">{{ form.precio_venta.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección 3: Lote y Registro -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-barcode me-2"></i>Lote y Registro</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="{{ form.lote.id_for_label }}" class="form-label">{{ form.lote.label }}</label>
+                                    {{ form.lote }}
+                                    {% if form.lote.help_text %}
+                                    <small class="form-text text-muted">{{ form.lote.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="{{ form.registro_sanitario.id_for_label }}" class="form-label">{{ form.registro_sanitario.label }}</label>
+                                    {{ form.registro_sanitario }}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="{{ form.fecha_vencimiento.id_for_label }}" class="form-label">{{ form.fecha_vencimiento.label }}</label>
+                                    {{ form.fecha_vencimiento }}
+                                    {% if form.fecha_vencimiento.help_text %}
+                                    <small class="form-text text-muted">{{ form.fecha_vencimiento.help_text }}</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección 4: Estado -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-toggle-on me-2"></i>Estado</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-check form-switch">
+                                        {{ form.activo }}
+                                        <label class="form-check-label" for="{{ form.activo.id_for_label }}">
+                                            {{ form.activo.label }}
+                                        </label>
+                                        {% if form.activo.help_text %}
+                                        <small class="form-text text-muted d-block">{{ form.activo.help_text }}</small>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Botones -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">
+                                            <i class="fas fa-trash me-1"></i> Desactivar
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <a href="{% url 'farmacia:lista_medicamentos' %}" class="btn btn-secondary me-2">
+                                            <i class="fas fa-times me-1"></i> Cancelar
+                                        </a>
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-save me-1"></i> Guardar Cambios
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Información adicional -->
+                <div class="card-footer bg-light">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <small class="text-muted d-block">Valor en inventario</small>
+                            <div class="h5 text-success">S/ {{ medicamento.valor_inventario|floatformat:2|default:"0.00" }}</div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <small class="text-muted d-block">Valor de venta</small>
+                            <div class="h5 text-primary">S/ {{ medicamento.valor_venta_inventario|floatformat:2|default:"0.00" }}</div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <small class="text-muted d-block">Días hasta vencimiento</small>
+                            <div class="h5 {% if medicamento.vencido %}text-danger{% elif medicamento.proximo_vencer %}text-warning{% else %}text-success{% endif %}">
+                                {{ medicamento.dias_vencimiento|default:"N/A" }}
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <small class="text-muted d-block">Margen actual</small>
+                            <div class="h5 text-info">{{ medicamento.margen_ganancia|floatformat:2|default:"0.00" }}%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para confirmar eliminación -->
+<div class="modal fade" id="eliminarModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Confirmar Desactivación
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas desactivar este medicamento?</p>
+                
+                {% if medicamento.stock_actual > 0 %}
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>¡Atención!</strong> Este medicamento tiene 
+                    <strong>{{ medicamento.stock_actual }} unidades</strong> en stock.
+                    <br>
+                    <small class="text-muted">
+                        Se registrará automáticamente como <strong>PÉRDIDA</strong> en el inventario al desactivarlo.
+                    </small>
+                </div>
+                {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    El medicamento se ocultará del sistema pero no se eliminará permanentemente.
+                </div>
+                {% endif %}
+                
+                <p><strong>Medicamento:</strong> {{ medicamento.nombre_comercial }}</p>
+                <p><strong>Código:</strong> {{ medicamento.codigo }}</p>
+                <p><strong>Stock actual:</strong> {{ medicamento.stock_actual }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-1"></i> Cancelar
+                </button>
+                <a href="{% url 'farmacia:eliminar_medicamento' medicamento.id %}" class="btn btn-danger">
+                    <i class="fas fa-trash me-1"></i> Sí, Desactivar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Formatear precios automáticamente
+    const precioCompra = document.getElementById('id_precio_compra');
+    const precioVenta = document.getElementById('id_precio_venta');
+    const precioPorCaja = document.getElementById('id_precio_por_caja');
+    
+    function formatearPrecio(input) {
+        if (input) {
+            input.addEventListener('blur', function(e) {
+                let value = parseFloat(e.target.value);
+                if (!isNaN(value)) {
+                    e.target.value = value.toFixed(2);
+                }
+            });
+        }
+    }
+    
+    formatearPrecio(precioCompra);
+    formatearPrecio(precioVenta);
+    formatearPrecio(precioPorCaja);
+    
+    // Validación en tiempo real del precio de venta
+    if (precioCompra && precioVenta) {
+        function validarPrecios() {
+            const compra = parseFloat(precioCompra.value) || 0;
+            const venta = parseFloat(precioVenta.value) || 0;
+            
+            if (venta < compra) {
+                precioVenta.classList.add('is-invalid');
+                
+                // Crear o actualizar mensaje de error
+                let feedback = precioVenta.nextElementSibling;
+                if (!feedback || !feedback.classList.contains('invalid-feedback')) {
+                    feedback = document.createElement('div');
+                    feedback.className = 'invalid-feedback';
+                    precioVenta.parentNode.appendChild(feedback);
+                }
+                feedback.textContent = `El precio de venta no puede ser menor al de compra (S/ ${compra.toFixed(2)})`;
+                return false;
+            } else {
+                precioVenta.classList.remove('is-invalid');
+                const feedback = precioVenta.nextElementSibling;
+                if (feedback && feedback.classList.contains('invalid-feedback')) {
+                    feedback.remove();
+                }
+                return true;
+            }
+        }
+        
+        precioCompra.addEventListener('input', validarPrecios);
+        precioCompra.addEventListener('blur', validarPrecios);
+        precioVenta.addEventListener('input', validarPrecios);
+        precioVenta.addEventListener('blur', validarPrecios);
+        
+        // Validar al cargar la página
+        validarPrecios();
+    }
+    
+    // Validar que cantidad por caja sea positiva
+    const cantidadCaja = document.getElementById('id_cantidad_por_caja');
+    if (cantidadCaja) {
+        cantidadCaja.addEventListener('input', function() {
+            let value = parseInt(this.value);
+            if (value < 1) {
+                this.value = 1;
+            }
+        });
+    }
+    
+    // Validar stock mínimo no negativo
+    const stockMinimo = document.getElementById('id_stock_minimo');
+    if (stockMinimo) {
+        stockMinimo.addEventListener('input', function() {
+            let value = parseInt(this.value);
+            if (value < 0) {
+                this.value = 0;
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

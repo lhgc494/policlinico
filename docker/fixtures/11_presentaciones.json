@@ -1,0 +1,321 @@
+[
+{
+    "model": "farmacia.presentacion",
+    "pk": 1,
+    "fields": {
+        "nombre": "Tabletas",
+        "abreviatura": "TAB",
+        "descripcion": null,
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 2,
+    "fields": {
+        "nombre": "Cápsulas",
+        "abreviatura": "CAP",
+        "descripcion": "Cápsulas blanda o dura",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 3,
+    "fields": {
+        "nombre": "Jarabe",
+        "abreviatura": "JAR",
+        "descripcion": "Jarabe - medicamento líquido",
+        "unidad_medida": "ml",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 4,
+    "fields": {
+        "nombre": "Suspensión",
+        "abreviatura": "SUS",
+        "descripcion": "Suspensión oral",
+        "unidad_medida": "ml",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 5,
+    "fields": {
+        "nombre": "Crema",
+        "abreviatura": "CRE",
+        "descripcion": "Crema tópica",
+        "unidad_medida": "gramos",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 6,
+    "fields": {
+        "nombre": "Ungüento",
+        "abreviatura": "UNG",
+        "descripcion": "Ungüento o pomada",
+        "unidad_medida": "gramos",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 7,
+    "fields": {
+        "nombre": "Gel",
+        "abreviatura": "GEL",
+        "descripcion": "Gel tópico",
+        "unidad_medida": "gramos",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 8,
+    "fields": {
+        "nombre": "Gotas",
+        "abreviatura": "GOT",
+        "descripcion": "Gotas oftálmicas o nasales",
+        "unidad_medida": "ml",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 9,
+    "fields": {
+        "nombre": "Inyección",
+        "abreviatura": "INY",
+        "descripcion": "Ampolla o vial inyectable",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 10,
+    "fields": {
+        "nombre": "Supositorio",
+        "abreviatura": "SUP",
+        "descripcion": "Supositorio rectal o vaginal",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 11,
+    "fields": {
+        "nombre": "Óvulo",
+        "abreviatura": "OVU",
+        "descripcion": "Óvulo vaginal",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 12,
+    "fields": {
+        "nombre": "Spray",
+        "abreviatura": "SPR",
+        "descripcion": "Spray nasal o bucal",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 13,
+    "fields": {
+        "nombre": "Polvo",
+        "abreviatura": "POL",
+        "descripcion": "Polvo para solución",
+        "unidad_medida": "gramos",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 14,
+    "fields": {
+        "nombre": "Parche",
+        "abreviatura": "PAR",
+        "descripcion": "Parche transdérmico",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 15,
+    "fields": {
+        "nombre": "Inhalador",
+        "abreviatura": "INH",
+        "descripcion": "Inhalador de dosis medida",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 16,
+    "fields": {
+        "nombre": "Solución",
+        "abreviatura": "SOL",
+        "descripcion": "Solución oral o tópica",
+        "unidad_medida": "ml",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 17,
+    "fields": {
+        "nombre": "Emulsión",
+        "abreviatura": "EMU",
+        "descripcion": "Emulsión",
+        "unidad_medida": "ml",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 18,
+    "fields": {
+        "nombre": "Loción",
+        "abreviatura": "LOC",
+        "descripcion": "Loción tópica",
+        "unidad_medida": "ml",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 19,
+    "fields": {
+        "nombre": "Shampoo",
+        "abreviatura": "SHA",
+        "descripcion": "Shampoo medicinal",
+        "unidad_medida": "ml",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 20,
+    "fields": {
+        "nombre": "Colirio",
+        "abreviatura": "COL",
+        "descripcion": "Gotas oftálmicas",
+        "unidad_medida": "ml",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 21,
+    "fields": {
+        "nombre": "Ampolla",
+        "abreviatura": "AMP",
+        "descripcion": "Ampolla bebible",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 22,
+    "fields": {
+        "nombre": "Vial",
+        "abreviatura": "VIA",
+        "descripcion": "Vial inyectable",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 23,
+    "fields": {
+        "nombre": "Comprimido",
+        "abreviatura": "COM",
+        "descripcion": "Comprimido",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 24,
+    "fields": {
+        "nombre": "Pastilla",
+        "abreviatura": "PAS",
+        "descripcion": "Pastilla",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 25,
+    "fields": {
+        "nombre": "Granulado",
+        "abreviatura": "GRA",
+        "descripcion": "Granulado efervescente",
+        "unidad_medida": "gramos",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 26,
+    "fields": {
+        "nombre": "Cápsula Banda",
+        "abreviatura": "CAP-B",
+        "descripcion": "Cápsula con banda",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 27,
+    "fields": {
+        "nombre": "Cápsula Gel",
+        "abreviatura": "CAP-G",
+        "descripcion": "Cápsula de gelatina",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 28,
+    "fields": {
+        "nombre": "Tableta Masticable",
+        "abreviatura": "TAB-M",
+        "descripcion": "Tableta masticable",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+},
+{
+    "model": "farmacia.presentacion",
+    "pk": 29,
+    "fields": {
+        "nombre": "Tableta Efervescente",
+        "abreviatura": "TAB-E",
+        "descripcion": "Tableta efervescente",
+        "unidad_medida": "unidades",
+        "activa": true
+    }
+}
+]

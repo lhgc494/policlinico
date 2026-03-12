@@ -1,0 +1,409 @@
+{% extends "base.html" %}
+
+{% block title %}Punto de Venta Ambulatorio - Laboratorio{% endblock %}
+
+{% block extra_css %}
+<style>
+.carrito-item {
+    transition: background-color 0.2s;
+}
+.carrito-item:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+.badge-tipo {
+    font-size: 0.7em;
+}
+.examen-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+    border-left: 4px solid #0d6efd;
+}
+.examen-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-left-color: #198754;
+}
+.cantidad-input {
+    width: 70px;
+    text-align: center;
+}
+.badge-ambulatorio {
+    background-color: #6f42c1;
+}
+.empty-state {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sticky-cart {
+    position: sticky;
+    top: 20px;
+}
+
+/* Estilo compacto para métodos de pago */
+.btn-group-pago {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.btn-group-pago .btn-outline-primary {
+    flex: 1 1 auto;
+    min-width: 70px;
+    text-align: center;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.85rem;
+}
+.btn-group-pago .btn-outline-primary i {
+    margin-right: 3px;
+    font-size: 0.9rem;
+}
+
+/* Altura máxima controlada para el carrito */
+.carrito-scroll {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+/* Footer compacto */
+.compact-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Estilo para el descuento */
+.descuento-label {
+    font-size: 0.7rem;
+    color: #dc3545;
+    font-weight: 600;
+    display: block;
+    margin-top: 2px;
+}
+
+/* Campos de formulario más grandes */
+.form-control-sm-custom {
+    font-size: 0.85rem !important;
+    padding: 0.3rem 0.5rem !important;
+    height: auto !important;
+}
+
+/* Ajuste para el botón de procesar */
+.btn-sm-custom {
+    font-size: 0.9rem !important;
+    padding: 0.4rem !important;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <!-- Columna izquierda: Catálogo de exámenes -->
+        <div class="col-md-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white py-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-store me-2"></i>Punto de Venta Ambulatorio
+                        </h5>
+                        <span class="badge bg-warning">Pacientes Externos</span>
+                    </div>
+                </div>
+                <div class="card-body p-2">
+                    <!-- Información -->
+                    <div class="alert alert-info py-1 mb-2 small">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Exámenes de laboratorio para pacientes externos
+                    </div>
+
+                    <!-- Búsqueda -->
+                    <div class="mb-2">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-light p-1">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" 
+                                   class="form-control form-control-sm" 
+                                   id="buscarExamen" 
+                                   placeholder="Buscar examen...">
+                        </div>
+                    </div>
+
+                    <!-- Lista de exámenes (compacta) -->
+                    <div class="row row-cols-1 row-cols-md-2 g-1" id="listaExamenes">
+                        {% for examen in examenes %}
+                        <div class="col examen-item">
+                            <div class="card examen-card h-100" data-id="{{ examen.id }}" style="border-left-width: 3px;">
+                                <div class="card-body p-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <span class="fw-bold small">{{ examen.nombre|truncatechars:25 }}</span>
+                                            <small class="text-muted d-block">{{ examen.get_tipo_display }}</small>
+                                        </div>
+                                        <span class="fw-bold text-primary small">S/ {{ examen.precio }}</span>
+                                    </div>
+                                    <div class="mt-1 text-end">
+                                        <form method="post" action="{% url 'agregar_al_carrito' examen.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-outline-primary py-0 px-1" style="font-size: 0.7rem;">
+                                                <i class="fas fa-cart-plus"></i> Agregar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-12 text-center py-2">
+                            <p class="text-muted small">No hay exámenes disponibles</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna derecha: Carrito de compras COMPACTO -->
+        <div class="col-md-4">
+            <div class="card shadow sticky-cart">
+                <div class="card-header bg-success text-white py-1">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0">
+                            <i class="fas fa-shopping-cart me-1"></i>Carrito
+                        </h6>
+                        <span class="badge bg-light text-dark">{{ items_carrito }} item(s)</span>
+                    </div>
+                </div>
+                
+                <div class="card-body p-2">
+                    {% if carrito %}
+                    <!-- Tabla del carrito con scroll limitado -->
+                    <div class="carrito-scroll">
+                        <table class="table table-sm table-borderless mb-0">
+                            <tbody>
+                                {% for item_id, item in carrito.items %}
+                                <tr class="carrito-item">
+                                    <td class="p-1" style="width: 70%;">
+                                        <div class="d-flex align-items-center">
+                                            {% if item.tipo == 'INTERNO_POR_COBRAR' %}
+                                            <span class="badge bg-info me-1" style="font-size: 0.5rem;">INT</span>
+                                            {% endif %}
+                                            <span class="fw-bold small">{{ item.nombre|truncatechars:18 }}</span>
+                                        </div>
+                                        <small class="text-muted">S/ {{ item.precio }} x {{ item.cantidad }}</small>
+                                    </td>
+                                    <td class="p-1 text-end align-middle" style="width: 25%;">
+                                        <span class="fw-bold text-success small">S/ {% widthratio item.precio 1 item.cantidad %}</span>
+                                    </td>
+                                    <td class="p-1 text-center align-middle" style="width: 5%;">
+                                        <form method="post" action="{% url 'eliminar_del_carrito' item_id=item_id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-link text-danger p-0" title="Eliminar">
+                                                <i class="fas fa-trash" style="font-size: 0.7rem;"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- FORMULARIO CON CAMPOS MÁS GRANDES -->
+                    <form method="post" action="{% url 'procesar_venta_ambulatoria' %}" id="formVenta">
+                        {% csrf_token %}
+                        
+                        <!-- Fila: DNI y Nombre (campos más grandes) -->
+                        {% if tiene_examenes_nuevos %}
+                        <div class="row g-2 mb-2">
+                            <div class="col-4">
+                                <input type="text" 
+                                       class="form-control form-control-sm-custom" 
+                                       name="dni" 
+                                       id="dniPaciente" 
+                                       placeholder="DNI"
+                                       maxlength="8"
+                                       pattern="[0-9]{8}"
+                                       style="font-size: 0.85rem; padding: 0.4rem;">
+                            </div>
+                            <div class="col-8">
+                                <input type="text" 
+                                       class="form-control form-control-sm-custom" 
+                                       name="nombre" 
+                                       id="nombrePaciente" 
+                                       placeholder="Nombre completo"
+                                       style="font-size: 0.85rem; padding: 0.4rem;">
+                            </div>
+                        </div>
+                        {% else %}
+                        <input type="hidden" name="dni" value="INTERNO">
+                        <input type="hidden" name="nombre" value="PACIENTE INTERNO">
+                        {% endif %}
+                        
+                        <!-- Fila: Observaciones y Descuento (campos más grandes) -->
+                        <div class="row g-2 mb-2">
+                            <div class="col-7">
+                                <textarea class="form-control form-control-sm-custom" 
+                                          name="observaciones" 
+                                          id="observaciones" 
+                                          rows="1" 
+                                          placeholder="Observaciones..."
+                                          style="font-size: 0.85rem; padding: 0.4rem;"></textarea>
+                            </div>
+                            <div class="col-5">
+                                <div class="input-group">
+                                    <span class="input-group-text" style="font-size: 0.85rem; padding: 0.4rem;">S/</span>
+                                    <input type="number"
+                                           class="form-control form-control-sm-custom"
+                                           name="descuento"
+                                           id="descuento"
+                                           value="0"
+                                           min="0"
+                                           max="{{ total_carrito|default:'0' }}"
+                                           step="0.01"
+                                           placeholder="0.00"
+                                           style="font-size: 0.85rem; padding: 0.4rem;">
+                                </div>
+                                <small class="descuento-label">Descuento en soles</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Fila: MÉTODOS DE PAGO (solo 3 opciones) -->
+                        <div class="mb-2">
+                            <div class="btn-group-pago">
+                                <input type="radio" class="btn-check" name="metodo_pago" id="efectivo" value="EFECTIVO" checked>
+                                <label class="btn btn-outline-primary py-1" for="efectivo">
+                                    <i class="fas fa-money-bill"></i> Efectivo
+                                </label>
+                                
+                                <input type="radio" class="btn-check" name="metodo_pago" id="yape" value="YAPE">
+                                <label class="btn btn-outline-primary py-1" for="yape">
+                                    <i class="fas fa-mobile-alt"></i> Yape
+                                </label>
+                                
+                                <input type="radio" class="btn-check" name="metodo_pago" id="plin" value="PLIN">
+                                <label class="btn btn-outline-primary py-1" for="plin">
+                                    <i class="fas fa-qrcode"></i> Plin
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Resumen de descuento -->
+                        <div class="mb-2 text-end" id="resumenDescuento" style="display: none;">
+                            <small class="text-success">
+                                Total con descuento: S/ <span id="totalConDescuento">0.00</span>
+                            </small>
+                        </div>
+                        
+                        <!-- BOTÓN DE PROCESAR (más grande) -->
+                        <button type="button" class="btn btn-success w-100 py-2" id="btnProcesarVenta" style="font-size: 1rem;">
+                            <i class="fas fa-check-circle me-2"></i>Procesar Venta (S/ <span id="totalBoton">{{ total_carrito|floatformat:2 }}</span>)
+                        </button>
+                    </form>
+                    
+                    {% else %}
+                    <!-- Carrito vacío compacto -->
+                    <div class="text-center py-2">
+                        <p class="text-muted small mb-0">Carrito vacío</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Búsqueda
+    const buscarInput = document.getElementById('buscarExamen');
+    if (buscarInput) {
+        buscarInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            document.querySelectorAll('.examen-item').forEach(item => {
+                const nombre = item.querySelector('.card-title')?.textContent.toLowerCase() || '';
+                item.style.display = nombre.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+    }
+
+    // Cálculo de descuento
+    const inputDescuento = document.getElementById('descuento');
+    const totalOriginal = parseFloat('{{ total_carrito|default:"0" }}') || 0;
+    const totalBoton = document.getElementById('totalBoton');
+    const resumenDescuento = document.getElementById('resumenDescuento');
+    const totalConDescuento = document.getElementById('totalConDescuento');
+
+    if (inputDescuento) {
+        function actualizarDescuento() {
+            let descuento = parseFloat(inputDescuento.value) || 0;
+            if (descuento < 0) descuento = 0;
+            if (descuento > totalOriginal) {
+                descuento = totalOriginal;
+                inputDescuento.value = totalOriginal.toFixed(2);
+            }
+            
+            const totalFinal = totalOriginal - descuento;
+            totalBoton.textContent = totalFinal.toFixed(2);
+            
+            if (descuento > 0) {
+                totalConDescuento.textContent = totalFinal.toFixed(2);
+                resumenDescuento.style.display = 'block';
+            } else {
+                resumenDescuento.style.display = 'none';
+            }
+        }
+        
+        inputDescuento.addEventListener('input', actualizarDescuento);
+        actualizarDescuento();
+    }
+
+    // Procesar venta
+    const btnProcesar = document.getElementById('btnProcesarVenta');
+    const formVenta = document.getElementById('formVenta');
+    
+    if (btnProcesar && formVenta) {
+        btnProcesar.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const tieneExamenesNuevos = {{ tiene_examenes_nuevos|yesno:"true,false" }};
+            
+            // Validar DNI y nombre si es necesario
+            if (tieneExamenesNuevos) {
+                const dni = document.getElementById('dniPaciente')?.value.trim() || '';
+                const nombre = document.getElementById('nombrePaciente')?.value.trim() || '';
+                
+                if (!dni || !/^\d{8}$/.test(dni)) {
+                    alert('❌ DNI inválido (8 dígitos)');
+                    document.getElementById('dniPaciente')?.focus();
+                    return;
+                }
+                
+                if (!nombre || nombre.length < 3) {
+                    alert('❌ Nombre inválido');
+                    document.getElementById('nombrePaciente')?.focus();
+                    return;
+                }
+            }
+            
+            // Validar método de pago
+            if (!document.querySelector('input[name="metodo_pago"]:checked')) {
+                alert('❌ Seleccione método de pago');
+                return;
+            }
+            
+            // Confirmar
+            const totalFinal = totalOriginal - (parseFloat(inputDescuento?.value || 0));
+            if (confirm(`¿Confirmar venta por S/ ${totalFinal.toFixed(2)}?`)) {
+                btnProcesar.disabled = true;
+                btnProcesar.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Procesando...';
+                formVenta.submit();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

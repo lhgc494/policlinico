@@ -1,0 +1,2402 @@
+[
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 1,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "2.00",
+        "referencia": "Creación de medicamento - Stock inicial",
+        "usuario": 11,
+        "fecha": "2026-01-21T17:13:22.519Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 2,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "1.00",
+        "referencia": "Creación de medicamento - Stock inicial",
+        "usuario": 11,
+        "fecha": "2026-01-21T17:29:38.040Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 3,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "precio_unitario": "0.50",
+        "referencia": "Creación de medicamento - Stock inicial",
+        "usuario": 11,
+        "fecha": "2026-01-21T17:43:24.167Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 4,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "SALIDA",
+        "cantidad": 2,
+        "precio_unitario": "3.00",
+        "referencia": "Venta receta #9 - Consulta #57",
+        "usuario": 11,
+        "fecha": "2026-01-23T16:54:48.218Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 5,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "SALIDA",
+        "cantidad": 2,
+        "precio_unitario": "1.00",
+        "referencia": "Venta receta #8 - Consulta #50",
+        "usuario": 11,
+        "fecha": "2026-01-23T17:09:45.242Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 6,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "SALIDA",
+        "cantidad": 36,
+        "precio_unitario": "1.00",
+        "referencia": "Venta receta #10 - Consulta #58",
+        "usuario": 11,
+        "fecha": "2026-01-23T17:18:59.983Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 7,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "SALIDA",
+        "cantidad": 10,
+        "precio_unitario": "3.00",
+        "referencia": "Venta receta #11 - Consulta #59",
+        "usuario": 11,
+        "fecha": "2026-01-23T21:14:31.240Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 8,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 3,
+        "precio_unitario": "2.00",
+        "referencia": "Venta directa #1",
+        "usuario": 11,
+        "fecha": "2026-01-24T14:34:22.268Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 9,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta directa #2",
+        "usuario": 11,
+        "fecha": "2026-01-24T14:35:36.995Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 10,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta directa #2",
+        "usuario": 11,
+        "fecha": "2026-01-24T14:35:37.033Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 11,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "1.00",
+        "referencia": "Venta directa #2",
+        "usuario": 11,
+        "fecha": "2026-01-24T14:35:37.079Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 12,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta receta #14 - Consulta #63",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:18:12.163Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 13,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta receta #14 - Consulta #63",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:24:07.776Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 14,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta receta #14 - Consulta #63",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:26:16.461Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 15,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta directa #4",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:55:16.855Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 16,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "referencia": "Venta directa #4",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:55:16.859Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 17,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta directa #4",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:55:16.861Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 18,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "referencia": "Venta directa #4",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:55:16.862Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 19,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta directa #5",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:56:42.420Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 20,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "referencia": "Venta directa #5",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:56:42.423Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 21,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta directa #5",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:56:42.424Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 22,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "referencia": "Venta directa #5",
+        "usuario": 11,
+        "fecha": "2026-01-26T21:56:42.425Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 23,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta Directa #6",
+        "usuario": 11,
+        "fecha": "2026-01-26T22:42:15.449Z",
+        "observaciones": null,
+        "venta": 6
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 24,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "referencia": "Venta Directa #6",
+        "usuario": 11,
+        "fecha": "2026-01-26T22:42:15.452Z",
+        "observaciones": null,
+        "venta": 6
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 25,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 4,
+        "precio_unitario": "3.00",
+        "referencia": "Venta Directa #7",
+        "usuario": 11,
+        "fecha": "2026-01-26T22:44:21.148Z",
+        "observaciones": null,
+        "venta": 7
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 26,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "VENTA",
+        "cantidad": 6,
+        "precio_unitario": "1.00",
+        "referencia": "Venta Directa #7",
+        "usuario": 11,
+        "fecha": "2026-01-26T22:44:21.149Z",
+        "observaciones": null,
+        "venta": 7
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 27,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta Directa #8",
+        "usuario": 11,
+        "fecha": "2026-01-27T15:24:01.104Z",
+        "observaciones": null,
+        "venta": 8
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 28,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #8",
+        "usuario": 11,
+        "fecha": "2026-01-27T15:24:01.107Z",
+        "observaciones": null,
+        "venta": 8
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 29,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 10,
+        "precio_unitario": "3.00",
+        "referencia": "Venta Directa #9",
+        "usuario": 11,
+        "fecha": "2026-01-28T22:46:39.249Z",
+        "observaciones": null,
+        "venta": 9
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 30,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 84,
+        "precio_unitario": "3.00",
+        "referencia": "Venta receta #16 - Consulta #70",
+        "usuario": 11,
+        "fecha": "2026-01-29T17:21:20.734Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 31,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "2.00",
+        "referencia": "Venta receta #31 - Consulta #78",
+        "usuario": 11,
+        "fecha": "2026-02-03T15:53:50.574Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 32,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 3,
+        "precio_unitario": "2.00",
+        "referencia": "Venta receta #35 - Consulta #81",
+        "usuario": 11,
+        "fecha": "2026-02-03T16:04:31.875Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 33,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #13",
+        "usuario": 11,
+        "fecha": "2026-02-03T16:53:08.119Z",
+        "observaciones": null,
+        "venta": 13
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 34,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #14",
+        "usuario": 11,
+        "fecha": "2026-02-03T16:53:50.424Z",
+        "observaciones": null,
+        "venta": 14
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 35,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 30,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #15",
+        "usuario": 11,
+        "fecha": "2026-02-03T16:57:30.100Z",
+        "observaciones": null,
+        "venta": 15
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 36,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta receta #45 - Consulta #150",
+        "usuario": 11,
+        "fecha": "2026-02-16T22:25:34.099Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 37,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #17",
+        "usuario": 11,
+        "fecha": "2026-02-17T20:10:08.402Z",
+        "observaciones": null,
+        "venta": 17
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 38,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #18",
+        "usuario": 11,
+        "fecha": "2026-02-17T20:26:42.708Z",
+        "observaciones": null,
+        "venta": 18
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 39,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #19",
+        "usuario": 11,
+        "fecha": "2026-02-17T20:27:16.858Z",
+        "observaciones": null,
+        "venta": 19
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 40,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #20",
+        "usuario": 11,
+        "fecha": "2026-02-23T19:48:29.853Z",
+        "observaciones": null,
+        "venta": 20
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 41,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #21",
+        "usuario": 11,
+        "fecha": "2026-02-24T16:02:07.794Z",
+        "observaciones": null,
+        "venta": 21
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 42,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #27",
+        "usuario": 11,
+        "fecha": "2026-02-24T16:34:51.004Z",
+        "observaciones": null,
+        "venta": 27
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 43,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #30",
+        "usuario": 11,
+        "fecha": "2026-02-25T13:37:05.742Z",
+        "observaciones": null,
+        "venta": 30
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 44,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 3,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #32",
+        "usuario": 11,
+        "fecha": "2026-02-25T14:57:53.688Z",
+        "observaciones": null,
+        "venta": 32
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 45,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #33",
+        "usuario": 11,
+        "fecha": "2026-02-25T15:04:00.828Z",
+        "observaciones": null,
+        "venta": 33
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 46,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #35",
+        "usuario": 3,
+        "fecha": "2026-02-25T20:06:52.637Z",
+        "observaciones": null,
+        "venta": 35
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 47,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 4,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Directa #37",
+        "usuario": 11,
+        "fecha": "2026-02-26T17:09:34.114Z",
+        "observaciones": null,
+        "venta": 37
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 48,
+    "fields": {
+        "medicamento": 698,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "1.00",
+        "referencia": "Creación de medicamento - Stock inicial",
+        "usuario": 3,
+        "fecha": "2026-02-28T13:57:55.278Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 49,
+    "fields": {
+        "medicamento": 699,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "5.00",
+        "referencia": "Stock inicial al crear medicamento",
+        "usuario": 3,
+        "fecha": "2026-02-28T14:56:48.995Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 50,
+    "fields": {
+        "medicamento": 699,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "8.00",
+        "referencia": "Venta Directa #38",
+        "usuario": 11,
+        "fecha": "2026-02-28T14:58:30.909Z",
+        "observaciones": null,
+        "venta": 38
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 51,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "3.00",
+        "referencia": "Venta receta #47 - Consulta #114",
+        "usuario": 11,
+        "fecha": "2026-02-28T14:59:45.219Z",
+        "observaciones": null,
+        "venta": 39
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 52,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Venta Tópico - Combo combo 2 - Venta #40",
+        "usuario": 11,
+        "fecha": "2026-02-28T15:05:27.806Z",
+        "observaciones": null,
+        "venta": 40
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 53,
+    "fields": {
+        "medicamento": 2,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Venta Tópico - Combo combo 2 - Venta #40",
+        "usuario": 11,
+        "fecha": "2026-02-28T15:05:27.809Z",
+        "observaciones": null,
+        "venta": 40
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 54,
+    "fields": {
+        "medicamento": 699,
+        "tipo": "AJUSTE",
+        "cantidad": 110,
+        "precio_unitario": "5.00",
+        "referencia": "Ajuste manual: compra proveedor",
+        "usuario": 3,
+        "fecha": "2026-02-28T15:35:18.002Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 55,
+    "fields": {
+        "medicamento": 699,
+        "tipo": "AJUSTE",
+        "cantidad": 50,
+        "precio_unitario": "5.00",
+        "referencia": "Ajuste manual: perdida por huaycos",
+        "usuario": 3,
+        "fecha": "2026-02-28T15:37:57.759Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 56,
+    "fields": {
+        "medicamento": 1,
+        "tipo": "PERDIDA",
+        "cantidad": 100,
+        "precio_unitario": "1.50",
+        "referencia": "Medicamento desactivado - Stock dado de baja",
+        "usuario": 3,
+        "fecha": "2026-02-28T15:42:40.492Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 57,
+    "fields": {
+        "medicamento": 1,
+        "tipo": "AJUSTE",
+        "cantidad": 50,
+        "precio_unitario": "1.50",
+        "referencia": "Ajuste manual: recuperados ",
+        "usuario": 3,
+        "fecha": "2026-02-28T15:44:02.112Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 58,
+    "fields": {
+        "medicamento": 11,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "2.13",
+        "referencia": "Compra #1 - Factura F10101010 - maso.sac",
+        "usuario": 1,
+        "fecha": "2026-03-02T14:35:22.135Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 59,
+    "fields": {
+        "medicamento": 700,
+        "tipo": "ENTRADA",
+        "cantidad": 200,
+        "precio_unitario": "2.50",
+        "referencia": "Compra #1 - Factura F10101010 - maso.sac",
+        "usuario": 1,
+        "fecha": "2026-03-02T14:35:22.246Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 60,
+    "fields": {
+        "medicamento": 701,
+        "tipo": "ENTRADA",
+        "cantidad": 150,
+        "precio_unitario": "3.80",
+        "referencia": "Compra #1 - Factura F10101010 - maso.sac",
+        "usuario": 1,
+        "fecha": "2026-03-02T14:35:22.248Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 61,
+    "fields": {
+        "medicamento": 11,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "2.13",
+        "referencia": "Compra #2 - Factura f11111111 - Proveedor Test",
+        "usuario": 1,
+        "fecha": "2026-03-02T15:00:03.950Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 62,
+    "fields": {
+        "medicamento": 700,
+        "tipo": "ENTRADA",
+        "cantidad": 200,
+        "precio_unitario": "2.50",
+        "referencia": "Compra #2 - Factura f11111111 - Proveedor Test",
+        "usuario": 1,
+        "fecha": "2026-03-02T15:00:03.961Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 63,
+    "fields": {
+        "medicamento": 701,
+        "tipo": "ENTRADA",
+        "cantidad": 150,
+        "precio_unitario": "3.80",
+        "referencia": "Compra #2 - Factura f11111111 - Proveedor Test",
+        "usuario": 1,
+        "fecha": "2026-03-02T15:00:03.962Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 64,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "29.94",
+        "referencia": "Compra #3 - Factura F12121212 - maso.sac",
+        "usuario": 1,
+        "fecha": "2026-03-02T15:03:47.853Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 65,
+    "fields": {
+        "medicamento": 700,
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "precio_unitario": "2.50",
+        "referencia": "Compra #3 - Factura F12121212 - maso.sac",
+        "usuario": 1,
+        "fecha": "2026-03-02T15:03:47.855Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 66,
+    "fields": {
+        "medicamento": 701,
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "precio_unitario": "3.80",
+        "referencia": "Compra #3 - Factura F12121212 - maso.sac",
+        "usuario": 1,
+        "fecha": "2026-03-02T15:03:47.857Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 67,
+    "fields": {
+        "medicamento": 475,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "12.00",
+        "referencia": "Compra #4 - Factura F1312111909",
+        "usuario": 1,
+        "fecha": "2026-03-02T17:07:56.390Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 68,
+    "fields": {
+        "medicamento": 700,
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "precio_unitario": "2.50",
+        "referencia": "Compra #4 - Factura F1312111909",
+        "usuario": 1,
+        "fecha": "2026-03-02T17:07:56.402Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 69,
+    "fields": {
+        "medicamento": 701,
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "precio_unitario": "3.80",
+        "referencia": "Compra #4 - Factura F1312111909",
+        "usuario": 1,
+        "fecha": "2026-03-02T17:07:56.404Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 70,
+    "fields": {
+        "medicamento": 4,
+        "tipo": "AJUSTE",
+        "cantidad": 30,
+        "precio_unitario": "0.50",
+        "referencia": "Ajuste manual: compra proveedor ",
+        "usuario": 1,
+        "fecha": "2026-03-02T17:31:00.082Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 71,
+    "fields": {
+        "medicamento": 41,
+        "tipo": "VENTA",
+        "cantidad": 3,
+        "precio_unitario": "5.00",
+        "referencia": "Venta Directa #41",
+        "usuario": 11,
+        "fecha": "2026-03-03T13:52:24.758Z",
+        "observaciones": null,
+        "venta": 41
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 72,
+    "fields": {
+        "medicamento": 168,
+        "tipo": "VENTA",
+        "cantidad": 4,
+        "precio_unitario": "10.00",
+        "referencia": "Venta Directa #41",
+        "usuario": 11,
+        "fecha": "2026-03-03T13:52:24.766Z",
+        "observaciones": null,
+        "venta": 41
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 73,
+    "fields": {
+        "medicamento": 385,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "10.00",
+        "referencia": "Venta Directa #41",
+        "usuario": 11,
+        "fecha": "2026-03-03T13:52:24.767Z",
+        "observaciones": null,
+        "venta": 41
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 74,
+    "fields": {
+        "medicamento": 506,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "2.50",
+        "referencia": "Venta Directa #41",
+        "usuario": 11,
+        "fecha": "2026-03-03T13:52:24.768Z",
+        "observaciones": null,
+        "venta": 41
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 75,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "AJUSTE",
+        "cantidad": 10,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: comparación real del inventario",
+        "usuario": 3,
+        "fecha": "2026-03-03T15:03:06.042Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 76,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "AJUSTE",
+        "cantidad": 30,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: conteo real del inventario ",
+        "usuario": 3,
+        "fecha": "2026-03-03T15:05:49.737Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 77,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "AJUSTE",
+        "cantidad": 40,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: test",
+        "usuario": 3,
+        "fecha": "2026-03-03T15:07:53.684Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 78,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "VENTA",
+        "cantidad": 100,
+        "precio_unitario": "35.00",
+        "referencia": "Venta Directa #42",
+        "usuario": 11,
+        "fecha": "2026-03-03T15:09:55.497Z",
+        "observaciones": null,
+        "venta": 42
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 79,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #5 - F151515153421",
+        "usuario": 3,
+        "fecha": "2026-03-03T15:35:32.969Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 80,
+    "fields": {
+        "medicamento": 170,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #5 - F151515153421",
+        "usuario": 3,
+        "fecha": "2026-03-03T15:35:32.984Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 81,
+    "fields": {
+        "medicamento": 666,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #6 - F15151515345454",
+        "usuario": 3,
+        "fecha": "2026-03-03T17:05:15.404Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 82,
+    "fields": {
+        "medicamento": 270,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "1.00",
+        "referencia": "Compra #6 - F15151515345454",
+        "usuario": 3,
+        "fecha": "2026-03-03T17:05:15.418Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 83,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "10.00",
+        "referencia": "Compra #7 - F15151515151",
+        "usuario": 3,
+        "fecha": "2026-03-03T17:13:48.894Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 84,
+    "fields": {
+        "medicamento": 10,
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #7 - F15151515151",
+        "usuario": 3,
+        "fecha": "2026-03-03T17:13:48.896Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 85,
+    "fields": {
+        "medicamento": 262,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #8 - F15151515122",
+        "usuario": 3,
+        "fecha": "2026-03-03T17:16:02.967Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 86,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #9 - F151515153000",
+        "usuario": 3,
+        "fecha": "2026-03-03T17:33:35.255Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 87,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #10 - F1515151533",
+        "usuario": 3,
+        "fecha": "2026-03-03T19:37:42.458Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 88,
+    "fields": {
+        "medicamento": 140,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #11 - F1515151532",
+        "usuario": 3,
+        "fecha": "2026-03-03T19:42:40.445Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 89,
+    "fields": {
+        "medicamento": 46,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #12 - F15151515334",
+        "usuario": 3,
+        "fecha": "2026-03-03T19:45:54.767Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 90,
+    "fields": {
+        "medicamento": 108,
+        "tipo": "ENTRADA",
+        "cantidad": 14,
+        "precio_unitario": "50.00",
+        "referencia": "Compra #13 - F15151511111",
+        "usuario": 3,
+        "fecha": "2026-03-03T19:49:14.134Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 91,
+    "fields": {
+        "medicamento": 97,
+        "tipo": "ENTRADA",
+        "cantidad": 15,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #14 - F15151513333",
+        "usuario": 3,
+        "fecha": "2026-03-03T19:49:56.886Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 92,
+    "fields": {
+        "medicamento": 205,
+        "tipo": "ENTRADA",
+        "cantidad": 20,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #15 - F15151515355",
+        "usuario": 3,
+        "fecha": "2026-03-04T13:21:48.695Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 93,
+    "fields": {
+        "medicamento": 303,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #16 - F151515122",
+        "usuario": 3,
+        "fecha": "2026-03-04T14:06:54.109Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 94,
+    "fields": {
+        "medicamento": 382,
+        "tipo": "ENTRADA",
+        "cantidad": 1,
+        "precio_unitario": "10.00",
+        "referencia": "Compra #17 - F15151512",
+        "usuario": 3,
+        "fecha": "2026-03-04T14:16:26.631Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 95,
+    "fields": {
+        "medicamento": 606,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #18 - F15151515151222",
+        "usuario": 3,
+        "fecha": "2026-03-04T14:20:31.174Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 96,
+    "fields": {
+        "medicamento": 382,
+        "tipo": "ENTRADA",
+        "cantidad": 1,
+        "precio_unitario": "4.00",
+        "referencia": "Compra #23 - F151510000",
+        "usuario": 3,
+        "fecha": "2026-03-04T14:54:57.189Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 97,
+    "fields": {
+        "medicamento": 472,
+        "tipo": "ENTRADA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Compra #24 - F151515153000000",
+        "usuario": 3,
+        "fecha": "2026-03-04T15:01:13.295Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 98,
+    "fields": {
+        "medicamento": 123,
+        "tipo": "ENTRADA",
+        "cantidad": 1,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #25 - F15151513333333",
+        "usuario": 3,
+        "fecha": "2026-03-04T15:03:43.849Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 99,
+    "fields": {
+        "medicamento": 630,
+        "tipo": "ENTRADA",
+        "cantidad": 1,
+        "precio_unitario": "4.00",
+        "referencia": "Compra #26 - F15",
+        "usuario": 3,
+        "fecha": "2026-03-04T15:08:32.190Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 100,
+    "fields": {
+        "medicamento": 104,
+        "tipo": "ENTRADA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #27 - F15151513",
+        "usuario": 3,
+        "fecha": "2026-03-04T15:12:52.832Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 101,
+    "fields": {
+        "medicamento": 472,
+        "tipo": "ENTRADA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #28 - F151515153454542",
+        "usuario": 3,
+        "fecha": "2026-03-04T15:15:06.796Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 102,
+    "fields": {
+        "medicamento": 472,
+        "tipo": "ENTRADA",
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #29 - F15151515342111",
+        "usuario": 3,
+        "fecha": "2026-03-04T15:15:59.058Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 103,
+    "fields": {
+        "medicamento": 472,
+        "tipo": "ENTRADA",
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "referencia": "Compra #30 - F151500000000",
+        "usuario": 3,
+        "fecha": "2026-03-04T15:44:28.062Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 104,
+    "fields": {
+        "medicamento": 458,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #31 - F22222222222222",
+        "usuario": 3,
+        "fecha": "2026-03-04T17:06:12.197Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 105,
+    "fields": {
+        "medicamento": 439,
+        "tipo": "AJUSTE",
+        "cantidad": 10,
+        "precio_unitario": "1.29",
+        "referencia": "Ajuste manual: perdida por huaycos",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:11:55.211Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 106,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "AJUSTE",
+        "cantidad": 10,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: perdida por huaycos (-10)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:24:30.405Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 107,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "AJUSTE",
+        "cantidad": 20,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: recuperados  (+20)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:24:51.246Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 108,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "SALIDA",
+        "cantidad": 20,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: test disminuir (-20)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:28:54.573Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 109,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: test incremento (+10)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:29:38.300Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 110,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #32 - F1515000000",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:31:14.392Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 111,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "SALIDA",
+        "cantidad": 60,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: nuevos estados (-60)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:41:27.275Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 112,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 10,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: test nuevos estados de incremento (+10)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:41:57.289Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 113,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "30.00",
+        "referencia": "Compra #33 - F2344444",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:42:58.859Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 114,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "SALIDA",
+        "cantidad": 10,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: nuevo test ajsute negativo (-10)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:46:00.915Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 115,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 100,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: test nuevo incremento (+100)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:46:19.936Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 116,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: test ajuste + (+50)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:51:25.239Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 117,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: ajuste negativo (+50)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:52:00.108Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 118,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "SALIDA",
+        "cantidad": 100,
+        "precio_unitario": "29.94",
+        "referencia": "Ajuste manual: negativo (-100)",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:52:29.249Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 119,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "ENTRADA",
+        "cantidad": 50,
+        "precio_unitario": "2.00",
+        "referencia": "Compra #34 - F233333333333",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:53:18.987Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 120,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "COMPRA",
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "referencia": "Compra #35 - F3444444444",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:58:43.058Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 121,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "VENTA",
+        "cantidad": 10,
+        "precio_unitario": "35.00",
+        "referencia": "Venta Directa #43",
+        "usuario": 3,
+        "fecha": "2026-03-04T20:59:46.102Z",
+        "observaciones": null,
+        "venta": 43
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 122,
+    "fields": {
+        "medicamento": 12,
+        "tipo": "VENTA",
+        "cantidad": 30,
+        "precio_unitario": "35.00",
+        "referencia": "Venta Directa #44",
+        "usuario": 3,
+        "fecha": "2026-03-04T21:00:31.848Z",
+        "observaciones": null,
+        "venta": 44
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 123,
+    "fields": {
+        "medicamento": 3,
+        "tipo": "PERDIDA",
+        "cantidad": 41,
+        "precio_unitario": "1.00",
+        "referencia": "Medicamento desactivado - Stock dado de baja",
+        "usuario": 3,
+        "fecha": "2026-03-05T17:21:49.466Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 124,
+    "fields": {
+        "medicamento": 701,
+        "tipo": "PERDIDA",
+        "cantidad": 550,
+        "precio_unitario": "3.80",
+        "referencia": "Medicamento desactivado - Stock dado de baja",
+        "usuario": 3,
+        "fecha": "2026-03-05T17:21:59.993Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 125,
+    "fields": {
+        "medicamento": 699,
+        "tipo": "PERDIDA",
+        "cantidad": 350,
+        "precio_unitario": "5.00",
+        "referencia": "Medicamento desactivado - Stock dado de baja",
+        "usuario": 3,
+        "fecha": "2026-03-05T17:22:04.547Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 126,
+    "fields": {
+        "medicamento": 1,
+        "tipo": "PERDIDA",
+        "cantidad": 50,
+        "precio_unitario": "1.50",
+        "referencia": "Medicamento desactivado - Stock dado de baja",
+        "usuario": 3,
+        "fecha": "2026-03-05T17:22:08.470Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 127,
+    "fields": {
+        "medicamento": 700,
+        "tipo": "PERDIDA",
+        "cantidad": 700,
+        "precio_unitario": "2.50",
+        "referencia": "Medicamento desactivado - Stock dado de baja",
+        "usuario": 3,
+        "fecha": "2026-03-05T17:22:12.261Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 128,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "AJUSTE_POSITIVO",
+        "cantidad": 7,
+        "precio_unitario": "38.63",
+        "referencia": "Ajuste manual: producto encontrado test (+7)",
+        "usuario": 3,
+        "fecha": "2026-03-05T17:45:27.736Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 129,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "AJUSTE_NEGATIVO",
+        "cantidad": 7,
+        "precio_unitario": "38.63",
+        "referencia": "Ajuste manual: perdida test (-7)",
+        "usuario": 3,
+        "fecha": "2026-03-05T17:46:08.324Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 130,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #45",
+        "usuario": 3,
+        "fecha": "2026-03-05T17:47:34.456Z",
+        "observaciones": null,
+        "venta": 45
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 131,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "AJUSTE_POSITIVO",
+        "cantidad": 1,
+        "precio_unitario": "38.63",
+        "referencia": "Ajuste manual: test incremento a 3 (+1)",
+        "usuario": 3,
+        "fecha": "2026-03-05T19:15:28.382Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 132,
+    "fields": {
+        "medicamento": 80,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "25.00",
+        "referencia": "Venta receta #48 - Consulta #113",
+        "usuario": 11,
+        "fecha": "2026-03-05T19:17:23.753Z",
+        "observaciones": null,
+        "venta": 46
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 133,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #47",
+        "usuario": 11,
+        "fecha": "2026-03-05T19:21:06.572Z",
+        "observaciones": null,
+        "venta": 47
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 134,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "AJUSTE_POSITIVO",
+        "cantidad": 2,
+        "precio_unitario": "38.63",
+        "referencia": "Ajuste manual: mala data (+2)",
+        "usuario": 3,
+        "fecha": "2026-03-05T19:27:52.549Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 135,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #48",
+        "usuario": 11,
+        "fecha": "2026-03-05T19:28:43.421Z",
+        "observaciones": null,
+        "venta": 48
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 136,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #49",
+        "usuario": 11,
+        "fecha": "2026-03-05T19:34:09.882Z",
+        "observaciones": null,
+        "venta": 49
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 137,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 2,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #50",
+        "usuario": 11,
+        "fecha": "2026-03-05T19:36:57.668Z",
+        "observaciones": null,
+        "venta": 50
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 138,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "COMPRA",
+        "cantidad": 5,
+        "precio_unitario": "40.00",
+        "referencia": "Compra #36 - F15345667",
+        "usuario": 3,
+        "fecha": "2026-03-05T19:40:02.649Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 139,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #51",
+        "usuario": 11,
+        "fecha": "2026-03-05T19:50:20.522Z",
+        "observaciones": null,
+        "venta": 51
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 140,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #52",
+        "usuario": 11,
+        "fecha": "2026-03-05T19:59:11.236Z",
+        "observaciones": null,
+        "venta": 52
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 141,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #53",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:14:38.699Z",
+        "observaciones": null,
+        "venta": 53
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 142,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "COMPRA",
+        "cantidad": 2,
+        "precio_unitario": "38.63",
+        "referencia": "Compra #37 - F1999999999999",
+        "usuario": 3,
+        "fecha": "2026-03-05T20:19:52.731Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 143,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #54",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:23:38.882Z",
+        "observaciones": null,
+        "venta": 54
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 144,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "COMPRA",
+        "cantidad": 2,
+        "precio_unitario": "40.00",
+        "referencia": "Compra #38 - F0989765534",
+        "usuario": 3,
+        "fecha": "2026-03-05T20:27:51.057Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 145,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #55",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:28:30.809Z",
+        "observaciones": null,
+        "venta": 55
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 146,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "AJUSTE_POSITIVO",
+        "cantidad": 1,
+        "precio_unitario": "38.63",
+        "referencia": "Ajuste manual: test manual (+1)",
+        "usuario": 3,
+        "fecha": "2026-03-05T20:29:36.359Z",
+        "observaciones": null,
+        "venta": null
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 147,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #56",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:29:51.696Z",
+        "observaciones": null,
+        "venta": 56
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 148,
+    "fields": {
+        "medicamento": 506,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.50",
+        "referencia": "Venta receta #50 - Consulta #172",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:36:11.547Z",
+        "observaciones": null,
+        "venta": 57
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 149,
+    "fields": {
+        "medicamento": 765,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.50",
+        "referencia": "Venta receta #51 - Consulta #172",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:36:11.607Z",
+        "observaciones": null,
+        "venta": 58
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 150,
+    "fields": {
+        "medicamento": 506,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.50",
+        "referencia": "Venta receta #52 - Consulta #152",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:45:18.369Z",
+        "observaciones": null,
+        "venta": 59
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 151,
+    "fields": {
+        "medicamento": 765,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.50",
+        "referencia": "Venta receta #53 - Consulta #152",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:45:18.415Z",
+        "observaciones": null,
+        "venta": 60
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 152,
+    "fields": {
+        "medicamento": 506,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "2.50",
+        "referencia": "Venta Directa #61",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:48:17.914Z",
+        "observaciones": null,
+        "venta": 61
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 153,
+    "fields": {
+        "medicamento": 506,
+        "tipo": "VENTA",
+        "cantidad": 7,
+        "precio_unitario": "2.50",
+        "referencia": "Venta receta #54 - Consulta #189",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:51:57.470Z",
+        "observaciones": null,
+        "venta": 62
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 154,
+    "fields": {
+        "medicamento": 765,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.50",
+        "referencia": "Venta receta #55 - Consulta #189",
+        "usuario": 11,
+        "fecha": "2026-03-05T20:51:57.542Z",
+        "observaciones": null,
+        "venta": 63
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 155,
+    "fields": {
+        "medicamento": 506,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "2.50",
+        "referencia": "Venta receta #57 - Consulta #147",
+        "usuario": 11,
+        "fecha": "2026-03-05T21:03:42.459Z",
+        "observaciones": null,
+        "venta": 64
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 156,
+    "fields": {
+        "medicamento": 765,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "3.50",
+        "referencia": "Venta receta #56 - Consulta #147",
+        "usuario": 11,
+        "fecha": "2026-03-05T21:03:42.510Z",
+        "observaciones": null,
+        "venta": 64
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 157,
+    "fields": {
+        "medicamento": 506,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "2.50",
+        "referencia": "Venta Directa #65",
+        "usuario": 11,
+        "fecha": "2026-03-05T21:06:39.309Z",
+        "observaciones": null,
+        "venta": 65
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 158,
+    "fields": {
+        "medicamento": 513,
+        "tipo": "VENTA",
+        "cantidad": 1,
+        "precio_unitario": "1.00",
+        "referencia": "Venta Directa #65",
+        "usuario": 11,
+        "fecha": "2026-03-05T21:06:39.314Z",
+        "observaciones": null,
+        "venta": 65
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 159,
+    "fields": {
+        "medicamento": 814,
+        "tipo": "VENTA",
+        "cantidad": 5,
+        "precio_unitario": "1.50",
+        "referencia": "Venta Directa #65",
+        "usuario": 11,
+        "fecha": "2026-03-05T21:06:39.316Z",
+        "observaciones": null,
+        "venta": 65
+    }
+},
+{
+    "model": "farmacia.movimientoinventario",
+    "pk": 160,
+    "fields": {
+        "medicamento": 425,
+        "tipo": "VENTA",
+        "cantidad": 2,
+        "precio_unitario": "60.00",
+        "referencia": "Venta Directa #66",
+        "usuario": 11,
+        "fecha": "2026-03-05T21:19:54.534Z",
+        "observaciones": null,
+        "venta": 66
+    }
+}
+]

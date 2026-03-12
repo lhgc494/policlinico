@@ -1,0 +1,65 @@
+<!-- /home/luis/policlinico/consultas/templates/consultas/formatos/base_formato.html -->
+{% extends 'base.html' %}
+
+{% block title %}Ingresar Resultados - {{ orden.examen_especifico }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-flask me-2"></i>{{ orden.examen_especifico }}
+            </h4>
+        </div>
+        <div class="card-body">
+            <!-- Datos del paciente -->
+            <div class="alert alert-info mb-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <strong>Paciente:</strong> {{ orden.get_paciente_nombre }}
+                    </div>
+                    <div class="col-md-3">
+                        <strong>DNI:</strong> {{ orden.get_paciente_dni }}
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Fecha:</strong> {% now "d/m/Y H:i" %}
+                    </div>
+                    <div class="col-md-2">
+                        <strong>Orden #:</strong> {{ orden.id }}
+                    </div>
+                </div>
+            </div>
+
+            <form method="POST" id="form-resultados">
+                {% csrf_token %}
+
+                <!-- BLOQUE DE CAMPOS ESPECÍFICOS - CADA PLANTILLA LO LLENA -->
+                {% block campos_formulario %}
+                {% endblock %}
+
+                <!-- Observaciones generales -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Observaciones adicionales:</label>
+                        <textarea name="observaciones"
+                                  class="form-control"
+                                  rows="2">{{ orden.resultado_json.observaciones|default:'' }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <div class="row mt-4">
+                    <div class="col-12 text-end">
+                        <a href="{% url 'mis_ordenes_en_proceso' %}" class="btn btn-secondary me-2">
+                            <i class="fas fa-times"></i> Cancelar
+                        </a>
+                        <button type="submit" name="btn_guardar" class="btn btn-success">
+                            <i class="fas fa-save"></i> Guardar Resultados
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

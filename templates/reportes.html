@@ -1,0 +1,1698 @@
+{% extends 'base.html' %}
+
+{% block title %}Reportes de Gestión{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-chart-line text-primary me-2"></i>Reportes de Gestión</h2>
+        <div>
+            <span class="badge bg-primary">{{ user.get_full_name|default:user.username }}</span>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Tipo de Reporte:</label>
+                    <select name="tipo" class="form-select">
+                        {% for reporte in reportes %}
+                        <option value="{{ reporte.value }}" {% if tipo_reporte == reporte.value %}selected{% endif %}>
+                            {{ reporte.label }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Desde:</label>
+                    <input type="date" name="desde" class="form-control" value="{{ fecha_desde }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Hasta:</label>
+                    <input type="date" name="hasta" class="form-control" value="{{ fecha_hasta }}">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-1"></i>Ver Reporte
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                {% for reporte in reportes %}
+                    {% if tipo_reporte == reporte.value %}{{ reporte.label }}{% endif %}
+                {% endfor %}
+            </h5>
+            
+            <div>
+
+                <button class="btn btn-sm btn-success me-2" onclick="exportarExcel()">
+                    <i class="fas fa-file-excel me-1"></i>Excel
+                </button>
+		   <!--  <button class="btn btn-sm btn-info" onclick="window.print()">
+                    <i class="fas fa-print me-1"></i>Imprimir
+                </button>-->
+
+            </div>  
+
+
+        </div>
+        <div class="card-body">
+
+            <!-- ============================================ -->
+            <!-- REPORTE 1: CONSULTAS POR PERÍODO -->
+            <!-- ============================================ -->
+            {% if tipo_reporte == 'consultas_periodo' %}
+                <!-- Resumen -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h6>Total Consultas</h6>
+                                <h3>{{ data.total_consultas }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h6>Atendidas</h6>
+                                <h3>{{ data.atendidas }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h6>Total Ingresos</h6>
+                                <h3>S/ {{ data.total_ingresos|floatformat:2 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Métodos de pago -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Ingresos por Método de Pago</h6>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th>Efectivo:</th>
+                                        <td>S/ {{ data.efectivo|floatformat:2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Yape:</th>
+                                        <td>S/ {{ data.yape|floatformat:2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Plin:</th>
+                                        <td>S/ {{ data.plin|floatformat:2 }}</td>
+                                    </tr>
+                                    <tr class="table-active">
+                                        <th>TOTAL:</th>
+                                        <th>S/ {{ data.total_ingresos|floatformat:2 }}</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listado detallado -->
+                <h6 class="mb-3">Listado de Consultas</h6>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Paciente</th>
+                                <th>Doctor</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in data.detalle %}
+                            <tr>
+                                <td>{{ item.fecha }}</td>
+                                <td>{{ item.hora }}</td>
+                                <td>{{ item.paciente }}</td>
+                                <td>{{ item.doctor }}</td>
+                                <td>{{ item.tipo }}</td>
+                                <td>
+                                    <span class="badge {% if item.estado == 'ATENDIDA' %}bg-success{% else %}bg-warning{% endif %}">
+                                        {{ item.estado }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No hay datos en el período seleccionado</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginación -->
+                {% if data.paginator and data.paginator.num_pages > 1 %}
+                <nav aria-label="Navegación de páginas" class="mt-3">
+                    <ul class="pagination justify-content-center">
+                        {% if data.page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page=1">
+                                <i class="fas fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.previous_page_number }}">
+                                <i class="fas fa-angle-left"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for num in data.paginator.page_range %}
+                            {% if data.page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                            {% elif num > data.page_obj.number|add:'-3' and num < data.page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ num }}">
+                                    {{ num }}
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if data.page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.next_page_number }}">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.paginator.num_pages }}">
+                                <i class="fas fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <p class="text-muted small">
+                    Mostrando {{ data.detalle|length }} de {{ data.total_registros }} registros
+                    | Página {{ data.page_obj.number }} de {{ data.paginator.num_pages }}
+                </p>
+                {% endif %}
+
+            
+            <!-- ============================================ -->
+<!-- REPORTE 2: CONSULTAS POR DOCTOR (DETALLADO) -->
+<!-- ============================================ -->
+<!-- ============================================ -->
+<!-- ============================================ -->
+<!-- REPORTE 2: CONSULTAS POR DOCTOR -->
+<!-- ============================================ -->
+{% elif tipo_reporte == 'consultas_doctor' %}
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th rowspan="2">Doctor</th>
+                    <th colspan="2" class="text-center bg-info text-white">General</th>
+                    <th colspan="2" class="text-center bg-primary text-white">Especialidad</th>
+                    <th colspan="2" class="text-center bg-success text-white">Ecografía</th>
+                    <th colspan="2" class="text-center bg-warning">Lectura Resultados</th>
+                    <th rowspan="2" class="text-center bg-dark text-white">Total Consultas</th>
+                    <th rowspan="2" class="text-center bg-dark text-white">Total Ingresos</th>
+                </tr>
+                <tr>
+                    <th class="text-end">Cant</th>
+                    <th class="text-end">S/</th>
+                    <th class="text-end">Cant</th>
+                    <th class="text-end">S/</th>
+                    <th class="text-end">Cant</th>
+                    <th class="text-end">S/</th>
+                    <th class="text-end">Cant</th>
+                    <th class="text-end">S/</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in data.doctores %}
+                <tr>
+                    <td><strong>{{ d.doctor_nombre }}</strong></td>
+                    
+                    <!-- General -->
+                    <td class="text-end">{{ d.tipo_GENERAL_cant }}</td>
+                    <td class="text-end">S/ {{ d.tipo_GENERAL_total|floatformat:2 }}</td>
+                    
+                    <!-- Especialidad -->
+                    <td class="text-end">{{ d.tipo_ESPECIALIDAD_cant }}</td>
+                    <td class="text-end">S/ {{ d.tipo_ESPECIALIDAD_total|floatformat:2 }}</td>
+                    
+                    <!-- Ecografía -->
+                    <td class="text-end">{{ d.tipo_ECOGRAFIA_cant }}</td>
+                    <td class="text-end">S/ {{ d.tipo_ECOGRAFIA_total|floatformat:2 }}</td>
+                    
+                    <!-- Lectura Resultados -->
+                    <td class="text-end">{{ d.tipo_LECTURA_RESULTADOS_cant }}</td>
+                    <td class="text-end">S/ {{ d.tipo_LECTURA_RESULTADOS_total|floatformat:2 }}</td>
+                    
+                    <!-- Totales -->
+                    <td class="text-end fw-bold">{{ d.total_consultas }}</td>
+                    <td class="text-end fw-bold text-success">S/ {{ d.total_ingresos|floatformat:2 }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="11" class="text-center py-4">
+                        No hay datos en el período seleccionado
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+      <!-- ============================================ -->
+            <!-- REPORTE 3: LABORATORIO -->
+            <!-- ============================================ -->
+            {% elif tipo_reporte == 'laboratorio' %}
+                <!-- Resumen general -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h6>Total Ingresos</h6>
+                                <h3>S/ {{ data.total_ingresos|floatformat:2 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h6>Total Exámenes</h6>
+                                <h3>{{ data.total_examenes }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h6>Internas</h6>
+                                <h3>S/ {{ data.total_internas|floatformat:2 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning">
+                            <div class="card-body">
+                                <h6>Ambulatorias</h6>
+                                <h3>S/ {{ data.total_ambulatorias|floatformat:2 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ingresos por tipo de examen -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">📋 Ingresos por Tipo de Examen</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Examen</th>
+                                        <th class="text-end">Cantidad</th>
+                                        <th class="text-end">Internas</th>
+                                        <th class="text-end">Ambulatorias</th>
+                                        <th class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in data.examenes_por_tipo %}
+                                    <tr>
+                                        <td>{{ item.examen_especifico }}</td>
+                                        <td class="text-end">{{ item.cantidad }}</td>
+                                        <td class="text-end">S/ {{ item.total_internas|default:0|floatformat:2 }}</td>
+                                        <td class="text-end">S/ {{ item.total_ambulatorias|default:0|floatformat:2 }}</td>
+                                        <td class="text-end"><strong>S/ {{ item.total_general|floatformat:2 }}</strong></td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No hay datos en el período seleccionado</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desglose por método de pago -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">💳 Desglose por Método de Pago</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Método</th>
+                                        <th class="text-end">Internas</th>
+                                        <th class="text-end">Ambulatorias</th>
+                                        <th class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in data.metodos_pago %}
+                                    <tr>
+                                        <td>{{ item.metodo_pago|default:"No especificado" }}</td>
+                                        <td class="text-end">S/ {{ item.total_internas|default:0|floatformat:2 }}</td>
+                                        <td class="text-end">S/ {{ item.total_ambulatorias|default:0|floatformat:2 }}</td>
+                                        <td class="text-end"><strong>S/ {{ item.total_general|floatformat:2 }}</strong></td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="4" class="text-center">No hay datos en el período seleccionado</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listado detallado -->
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0">📋 Listado Detallado de Exámenes</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Paciente</th>
+                                        <th>DNI</th>
+                                        <th>Examen</th>
+                                        <th>Tipo</th>
+                                        <th>Pago</th>
+                                        <th class="text-end">Monto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in data.detalle %}
+                                    <tr>
+                                        <td>{{ item.fecha }} {{ item.hora }}</td>
+                                        <td>{{ item.paciente }}</td>
+                                        <td>{{ item.dni }}</td>
+                                        <td>{{ item.examen }}</td>
+                                        <td>
+                                            <span class="badge {% if item.tipo == 'Interno' %}bg-primary{% else %}bg-info{% endif %}">
+                                                {{ item.tipo }}
+                                            </span>
+                                        </td>
+                                        <td>{{ item.metodo_pago }}</td>
+                                        <td class="text-end">S/ {{ item.monto|floatformat:2 }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="7" class="text-center">No hay datos en el período seleccionado</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paginación -->
+                {% if data.paginator and data.paginator.num_pages > 1 %}
+                <nav aria-label="Navegación de páginas" class="mt-3">
+                    <ul class="pagination justify-content-center">
+                        {% if data.page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page=1">
+                                <i class="fas fa-angle-double-left"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.previous_page_number }}">
+                                <i class="fas fa-angle-left"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for num in data.paginator.page_range %}
+                            {% if data.page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                            {% elif num > data.page_obj.number|add:'-3' and num < data.page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ num }}">
+                                    {{ num }}
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if data.page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.next_page_number }}">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.paginator.num_pages }}">
+                                <i class="fas fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <p class="text-muted small">
+                    Mostrando {{ data.detalle|length }} de {{ data.total_registros }} registros
+                    | Página {{ data.page_obj.number }} de {{ data.paginator.num_pages }}
+                </p>
+                {% endif %}
+
+<!-- REPORTE 4: FARMACIA -->
+<!-- ============================================ -->
+{% elif tipo_reporte == 'farmacia' %}
+    <!-- Resumen general -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h6>Total Ingresos</h6>
+                    <h3>S/ {{ data.total_ingresos|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h6>Total Ventas</h6>
+                    <h3>{{ data.total_ventas }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ventas por vendedor -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h6 class="mb-0">👤 Ventas por Vendedor</h6>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Vendedor</th>
+                            <th class="text-end">Cantidad</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for v in data.ventas_por_vendedor %}
+                        <tr>
+                            <td>{{ v.usuario__first_name }} {{ v.usuario__last_name }} ({{ v.usuario__username }})</td>
+                            <td class="text-end">{{ v.cantidad }}</td>
+                            <td class="text-end">S/ {{ v.total|floatformat:2 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">No hay datos en el período seleccionado</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top 20 Medicamentos MÁS vendidos -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h6 class="mb-0">
+                <i class="fas fa-arrow-up me-2"></i>
+                Top 20 Medicamentos MÁS vendidos (alta rotación)
+            </h6>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Medicamento</th>
+                            <th class="text-end">Cantidad Vendida</th>
+                            <th class="text-end">Total Ingresos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data.ventas_por_medicamento %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ item.medicamento__nombre_comercial }}</td>
+                            <td class="text-end">{{ item.cantidad }}</td>
+                            <td class="text-end">S/ {{ item.total|floatformat:2 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No hay datos en el período seleccionado</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if data.ventas_por_medicamento %}
+        <div class="card-footer bg-light">
+            <small class="text-muted">
+                <i class="fas fa-info-circle me-1"></i>
+                Estos son los medicamentos con mayor rotación. Asegúrate de mantener stock suficiente.
+            </small>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🔥 NUEVO: Top 20 Medicamentos MENOS vendidos -->
+    <!-- ============================================ -->
+    <!-- ============================================ -->
+<!-- 🔥 Top 20 Medicamentos MENOS vendidos -->
+<!-- ============================================ -->
+<div class="card mb-4">
+    <div class="card-header bg-warning text-white">
+        <h6 class="mb-0">
+            <i class="fas fa-arrow-down me-2"></i>
+            Top 20 Medicamentos MENOS vendidos
+        </h6>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Medicamento</th>
+                        <th class="text-end">Cantidad Vendida</th>
+                        <th class="text-end">Total Ingresos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data.menos_vendidos %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.nombre }}</td>
+                        <td class="text-end">{{ item.cantidad_vendida }}</td>
+                        <td class="text-end">S/ {{ item.total_ingresos|floatformat:2 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4">
+                            <i class="fas fa-info-circle fa-2x text-muted mb-3"></i>
+                            <p class="text-muted">No hay datos suficientes para mostrar el top 20 de menos vendidos</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% if data.menos_vendidos %}
+    <div class="card-footer bg-light">
+        <small class="text-muted">
+            <i class="fas fa-info-circle me-1"></i>
+            Estos son los medicamentos con menor rotación. Considera revisar su necesidad en inventario.
+        </small>
+    </div>
+    {% endif %}
+</div>
+
+    <!-- Desglose por método de pago -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h6 class="mb-0">💳 Desglose por Método de Pago</h6>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Método</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data.metodos_pago %}
+                        <tr>
+                            <td>{{ item.metodo_pago|default:"No especificado" }}</td>
+                            <td class="text-end"><strong>S/ {{ item.total|floatformat:2 }}</strong></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2" class="text-center">No hay datos en el período seleccionado</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Listado detallado -->
+    <div class="card">
+        <div class="card-header">
+            <h6 class="mb-0">📋 Listado Detallado de Ventas</h6>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Vendedor</th>
+                            <th>Medicamentos</th>
+                            <th>Pago</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data.detalle %}
+                        <tr>
+                            <td>{{ item.fecha }} {{ item.hora }}</td>
+                            <td>{{ item.vendedor }}</td>
+                            <td>{{ item.medicamentos }}</td>
+                            <td>{{ item.metodo_pago }}</td>
+                            <td class="text-end">S/ {{ item.total|floatformat:2 }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No hay datos en el período seleccionado</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación -->
+    {% if data.paginator and data.paginator.num_pages > 1 %}
+    <nav aria-label="Navegación de páginas" class="mt-3">
+        <ul class="pagination justify-content-center">
+            {% if data.page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page=1">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.previous_page_number }}">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
+            {% endif %}
+
+            {% for num in data.paginator.page_range %}
+                {% if data.page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+                {% elif num > data.page_obj.number|add:'-3' and num < data.page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ num }}">
+                        {{ num }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if data.page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.next_page_number }}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.paginator.num_pages }}">
+                    <i class="fas fa-angle-double-right"></i>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <p class="text-muted small">
+        Mostrando {{ data.detalle|length }} de {{ data.total_registros }} registros
+        | Página {{ data.page_obj.number }} de {{ data.paginator.num_pages }}
+    </p>
+    {% endif %}
+
+            <!-- ============================================-->
+            <!-- REPORTE 5: TÓPICO -->
+            <!-- ============================================ -->
+            {% elif tipo_reporte == 'topico' %}
+	        <!-- 🔍 DEPURACIÓN TEMPORAL -->
+                <!-- Resumen general -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h6>Total Ingresos</h6>
+                            	<h3>S/ {{ data.total_ingresos }}</h3>
+			    </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h6>Total Procedimientos</h6>
+                                <h3>{{ data.total_procedimientos }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Procedimientos por tipo -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">🩺 Procedimientos más realizados</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                  <tr>
+                                        <th>Procedimiento</th>
+                                        <th class="text-end">Cantidad</th>
+                                        <th class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in data.procedimientos_por_tipo %}
+                                    <tr>
+                                        <td>{{ item.descripcion|default:"Procedimiento" }}</td>
+                                        <td class="text-end">{{ item.cantidad }}</td>
+                                        <td class="text-end">S/ {{ item.total|floatformat:2 }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">No hay datos en el período seleccionado</td>
+                                   </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ventas por vendedor -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">👤 Ventas por Vendedor</h6>
+                    </div>
+                    <div class="card-bod p-0">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Vendedor</th>
+                                        <th class="text-end">Cantidad</th>
+                                        <th class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for v in data.ventas_por_vendedor %}
+                                    <tr>
+                                        <td>{{ v.usuario__first_name }} {{ v.usuario__last_name }} ({{ v.usuario__username }})</td>
+                                        <td class="text-end">{{ v.cantidad }}</td>
+                                        <td class="text-end">S/ {{ v.total|floatformat:2 }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">No hay datos en el período seleccionado</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desglose por mÃdo de pago -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="mb-0">💳 Desglose por Método de Pago</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                      <th>Método</th>
+                                        <th class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in data.metodos_pago %}
+                                    <tr>
+                                        <td>{{ item.metodo_pago|default:"No especificado" }}</td>
+                                        <td class="text-end"><strong>S/ {{item.total|floatformat:2 }}</strong></td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="2" class="text-center">No hay datos en el período seleccionado</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                   </div>
+                </div>
+
+                <!-- Listado detallado -->
+                <div class="card">
+                    <div class="card-header">
+                        <h6 class="mb-0">📋 Listado Detallado de Procedimientos</h6>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover mb-0">
+                                <thead class="table-light">
+                                  <tr>
+                                        <th>Fecha</th>
+                                        <th>Vendedor</th>
+                                        <th>Procedimientos</th>
+                                        <th>Pago</th>
+                                        <th class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in data.detalle %}
+                                    <tr>
+                                        <td>{{ item.fecha }} {{ item.hora }}</td>
+                                        <td>{{ item.vendedor }}</td>
+                                        <td>{{ item.procedimientos }}</td>
+                                        <td>{{ item.metodo_pago }}</td>
+                                        <td class="text-end">S/ {{ item.total|floatformat:2 }}</td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">No hay datos en el período seleccionado</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paginación -->
+                {% if dataaginator and data.paginator.num_pages > 1 %}
+                <nav aria-label="Navegación de páginas" class="mt-3">
+                    <ul class="pagination justify-content-center">
+                        {% if data.page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page=1">
+                                <i class="fas fa-angle-double-left"></i>
+                          </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.previous_page_number }}">
+                                <i class="fas fa-angle-left"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for num in data.paginator.page_range %}
+                            {% if data.page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                            {% elif num > data.page_obj.number|add:'-3' and num < data.page_obj.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ num }}">
+                                    {{ num }}
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if data.page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.next_page_number }}">
+                                <i class="fas fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo={{ tipo_reporte }}&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.paginator.num_pages }}">
+                                <i class="fas fa-angle-double-right"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <p class="text-muted small">
+                    Mostrando {{ data.detalle|length }} de {{ data.total_registros }} registros
+                    | Página {{ data.page_obj.number }} de {{ data.paginator.num_pages }}
+                </p>
+                {% endif %}
+
+            <!-- ============================================ -->
+            <!-- REPORTE 6: INGRESOS TOTALES -->
+            <!-- ============================================ -->
+		<!-- REPORTE 6: INGRESOS TOTALES -->
+{% elif tipo_reporte == 'ingresos_totales' %}
+    <!-- Resumen general con 4 columnas -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h6>Consultas</h6>
+                    <h3>S/ {{ data.total_consultas|floatformat:2 }}</h3>
+                    <small>{{ data.cantidad_consultas }} pagos</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h6>Laboratorio</h6>
+                    <h3>S/ {{ data.total_laboratorio|floatformat:2 }}</h3>
+                    <small>{{ data.cantidad_lab }} exámenes</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h6>Farmacia</h6>
+                    <h3>S/ {{ data.total_farmacia|floatformat:2 }}</h3>
+                    <small>{{ data.cantidad_farmacia }} ventas</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning">
+                <div class="card-body">
+                    <h6>Tópico</h6>
+                    <h3>S/ {{ data.total_topico|floatformat:2 }}</h3>
+                    <small>{{ data.cantidad_topico }} procedimientos</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarjeta del total general -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-dark text-white">
+                <div class="card-body text-center">
+                    <h4>TOTAL GENERAL</h4>
+                    <h2>S/ {{ data.total_general|floatformat:2 }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+                <!-- Comparativa por módulo -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">📊 Distribución por Módulo</h6>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm">
+                                    <tr>
+                                   <th>Consultas:</th>
+                                        <td>S/ {{ data.total_consultas|floatformat:2 }}</td>
+                                        <td class="text-end">{{ data.porcentaje_consultas|floatformat:1 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Laboratorio:</th>
+                                        <td>S/ {{ data.total_laboratorio|floatformat:2 }}</td>
+                                        <td class="text-end">{{ data.porcentaje_laboratorio|floatformat:1 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Farmacia:</th>
+                                        <td>S/ {{ data.total_farmacia|floatformat:2 }}</td>
+                                        <td class="text-end">{{ data.porcentaje_farmacia|floatformat:1 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Tópico:</th>
+                                        <td>S/ {{ data.total_topico|floatformat:2 }}</td>
+                                        <td class="text-end">{{ data.porcentaje_topico|floatformat:1 }}</td>
+                                    </tr>
+                                    <tr class="table-active">
+                                        <th>TOTAL:</th>
+                                        <th>S/ {{ data.total_general|floatformat:2 }}</th>
+                                       <th class="text-end"></th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- REPORTE 7: MÉTODOS DE PAGO -->
+{% elif tipo_reporte == 'metodos_pago' %}
+    <!-- Resumen general -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-dark text-white">
+                <div class="card-body text-center">
+                    <h4>TOTAL GENERAL</h4>
+                    <h2>S/ {{ data.total_general|floatformat:2 }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla detallada por método -->
+    <div class="card">
+        <div class="card-header">
+            <h6 class="mb-0">💳 Detalle por Método de Pago</h6>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Método</th>
+                            <th class="text-end">Consultas</th>
+                            <th class="text-end">Laboratorio</th>
+                            <th class="text-end">Farmacia</th>
+                            <th class="text-end">Tópico</th>
+                            <th class="text-end">TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data.metodos %}
+                        <tr>
+                            <td><strong>{{ item.metodo }}</strong></td>
+                            <td class="text-end">S/ {{ item.consultas|floatformat:2 }}</td>
+                            <td class="text-end">S/ {{ item.laboratorio|floatformat:2 }}</td>
+                            <td class="text-end">S/ {{ item.farmacia|floatformat:2 }}</td>
+                            <td class="text-end">S/ {{ item.topico|floatformat:2 }}</td>
+                            <td class="text-end"><strong>S/ {{ item.total|floatformat:2 }}</strong></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No hay datos en el período seleccionado</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- REPORTE 8: INVENTARIO -->
+<!-- REPORTE 8: INVENTARIO - VERSIÓN ACTUALIZADA (4 MESES) -->
+{% elif tipo_reporte == 'inventario' %}
+    <!-- Buscador -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form method="get" class="d-flex">
+                <input type="hidden" name="tipo" value="inventario">
+                <input type="hidden" name="desde" value="{{ fecha_desde }}">
+                <input type="hidden" name="hasta" value="{{ fecha_hasta }}">
+                <input type="text"
+                       name="q"
+                       class="form-control me-2"
+                       placeholder="Buscar medicamento..."
+                       value="{{ data.query }}">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resumen general -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h6>Total Productos</h6>
+                    <h3>{{ data.total_productos }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h6>Total Unidades</h6>
+                    <h3>{{ data.total_unidades }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h6>Valor Inventario</h6>
+                    <h3>S/ {{ data.valor_total|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stock Bajo -->
+    <div class="card mb-4">
+        <div class="card-header bg-danger text-white d-flex justify-content-between">
+            <h6 class="mb-0">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Stock Bajo ({{ data.total_stock_bajo }})
+            </h6>
+            {% if data.total_stock_bajo > 0 %}
+            <span class="badge bg-light text-dark">⚠️ Requiere atención</span>
+            {% endif %}
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Código</th>
+                            <th>Medicamento</th>
+                            <th>Principio Activo</th>
+                            <th class="text-end">Stock</th>
+                            <th class="text-end">Mínimo</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data.stock_bajo %}
+                        <tr>
+                            <td>{{ item.codigo }}</td>
+                            <td>{{ item.nombre }}</td>
+                            <td>{{ item.principio_activo|truncatechars:30 }}</td>
+                            <td class="text-end {% if item.stock_actual == 0 %}text-danger fw-bold{% endif %}">
+                                {{ item.stock_actual }}
+                            </td>
+                            <td class="text-end">{{ item.stock_minimo }}</td>
+                            <td>
+                                {% if item.stock_actual == 0 %}
+                                    <span class="badge bg-danger">CRÍTICO</span>
+                                {% else %}
+                                    <span class="badge bg-warning">BAJO</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ item.url_ajustar }}" class="btn btn-sm btn-primary" target="_blank">
+                                    <i class="fas fa-edit"></i> Ajustar
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center py-4">
+                                <i class="fas fa-check-circle text-success fa-2x mb-3"></i>
+                                <h5 class="text-success">¡Todo en orden!</h5>
+                                <p class="text-muted">No hay medicamentos con stock bajo</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Paginación stock bajo -->
+        {% if data.paginator_stock and data.paginator_stock.num_pages > 1 %}
+        <div class="card-footer">
+            <nav>
+                <ul class="pagination pagination-sm justify-content-center mb-0">
+                    {% if data.page_obj_stock.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?tipo=inventario&page={{ data.page_obj_stock.previous_page_number }}{% if data.query %}&q={{ data.query }}{% endif %}">
+                            &laquo;
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in data.paginator_stock.page_range %}
+                        {% if num == data.page_obj_stock.number %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% elif num > data.page_obj_stock.number|add:'-3' and num < data.page_obj_stock.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo=inventario&page={{ num }}{% if data.query %}&q={{ data.query }}{% endif %}">
+                                {{ num }}
+                            </a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if data.page_obj_stock.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?tipo=inventario&page={{ data.page_obj_stock.next_page_number }}{% if data.query %}&q={{ data.query }}{% endif %}">
+                            &raquo;
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- ============================================ -->
+    <!-- PRÓXIMOS A VENCER - ACTUALIZADO 4 MESES -->
+    <!-- ============================================ -->
+    <div class="card">
+        <div class="card-header bg-warning d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">
+                <i class="fas fa-clock me-2"></i>
+                Próximos a Vencer ({{ data.total_proximos_vencer }})
+            </h6>
+            <span class="badge bg-dark text-white">
+                <i class="fas fa-calendar-alt me-1"></i>
+                Próximos 4 meses (hasta {{ data.limite_4_meses|default:"" }})
+            </span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Código</th>
+                            <th>Medicamento</th>
+                            <th>Lote</th>
+                            <th>Vencimiento</th>
+                            <th class="text-center">Días</th>
+                            <th>Urgencia</th>
+                            <th class="text-center">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in data.proximos_vencer %}
+                        <tr class="{% if item.urgencia == 'URGENTE' %}table-danger{% elif item.urgencia == 'PRÓXIMO' %}table-warning{% else %}table-info{% endif %}">
+                            <td><strong>{{ item.codigo }}</strong></td>
+                            <td>{{ item.nombre }}</td>
+                            <td>{{ item.lote|default:"-" }}</td>
+                            <td>
+                                <strong>{{ item.fecha_vencimiento }}</strong>
+                                {% if item.dias <= 7 %}
+                                <i class="fas fa-exclamation-circle text-danger ms-1" title="¡Vence esta semana!"></i>
+                                {% endif %}
+                            </td>
+                            <td class="text-center fw-bold">
+                                {% if item.dias <= 7 %}
+                                    <span class="badge bg-danger">{{ item.dias }} días</span>
+                                {% elif item.dias <= 30 %}
+                                    <span class="badge bg-warning">{{ item.dias }} días</span>
+                                {% else %}
+                                    <span class="badge bg-info">{{ item.dias }} días</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if item.urgencia == 'URGENTE' %}
+                                    <span class="badge bg-danger">⚠️ URGENTE (&lt;30d)</span>
+                                {% elif item.urgencia == 'PRÓXIMO' %}
+                                    <span class="badge bg-warning">⏳ PRÓXIMO (30-60d)</span>
+                                {% else %}
+                                    <span class="badge bg-info">ℹ️ PRECAUCIÓN (60-120d)</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <a href="{{ item.url_detalle }}" class="btn btn-sm btn-outline-primary" target="_blank" title="Ver detalle">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{{ item.url_ajustar }}" class="btn btn-sm btn-outline-warning" target="_blank" title="Ajustar stock">
+                                    <i class="fas fa-balance-scale"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center py-5">
+                                <i class="fas fa-check-circle text-success fa-3x mb-3"></i>
+                                <h4 class="text-success">¡Todo en orden!</h4>
+                                <p class="text-muted mb-2">No hay medicamentos próximos a vencer en los próximos 4 meses.</p>
+                                <small class="text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Fecha límite: {{ data.limite_4_meses|default:"No definida" }}
+                                </small>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Leyenda informativa -->
+        <div class="card-footer bg-light">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="mb-2 mb-md-0">
+                    <span class="badge bg-danger me-1" style="width: 20px; height: 20px;">&nbsp;</span>
+                    <small class="text-muted me-3">Urgente (&lt;30 días)</small>
+                    
+                    <span class="badge bg-warning me-1" style="width: 20px; height: 20px;">&nbsp;</span>
+                    <small class="text-muted me-3">Próximo (30-60 días)</small>
+                    
+                    <span class="badge bg-info me-1" style="width: 20px; height: 20px;">&nbsp;</span>
+                    <small class="text-muted me-3">Precaución (60-120 días)</small>
+                    
+                    <span class="badge bg-danger me-1">7</span>
+                    <small class="text-muted">Vence esta semana</small>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Paginación próximos a vencer -->
+        {% if data.paginator_vencer and data.paginator_vencer.num_pages > 1 %}
+        <div class="card-footer">
+            <nav>
+                <ul class="pagination pagination-sm justify-content-center mb-0">
+                    {% if data.page_obj_vencer.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?tipo=inventario&page={{ data.page_obj_vencer.previous_page_number }}{% if data.query %}&q={{ data.query }}{% endif %}">
+                            &laquo;
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in data.paginator_vencer.page_range %}
+                        {% if num == data.page_obj_vencer.number %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        {% elif num > data.page_obj_vencer.number|add:'-3' and num < data.page_obj_vencer.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?tipo=inventario&page={{ num }}{% if data.query %}&q={{ data.query }}{% endif %}">
+                                {{ num }}
+                            </a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if data.page_obj_vencer.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?tipo=inventario&page={{ data.page_obj_vencer.next_page_number }}{% if data.query %}&q={{ data.query }}{% endif %}">
+                            &raquo;
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+
+        <!-- ============================================ -->
+<!-- REPORTE 9: COMPRAS A PROVEEDORES -->
+<!-- ============================================ -->
+{% elif tipo_reporte == 'compras' %}
+    <!-- Filtro adicional: Estado de pago (usa fechas globales) -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <form method="get" class="row g-3">
+                <input type="hidden" name="tipo" value="compras">
+                <input type="hidden" name="desde" value="{{ fecha_desde }}">
+                <input type="hidden" name="hasta" value="{{ fecha_hasta }}">
+                <div class="col-md-3">
+                    <label class="form-label">Estado de pago:</label>
+                    <select name="estado" class="form-select">
+                        <option value="todas" {% if estado == 'todas' %}selected{% endif %}>Todas</option>
+                        <option value="pagadas" {% if estado == 'pagadas' %}selected{% endif %}>Pagadas</option>
+                        <option value="pendientes" {% if estado == 'pendientes' %}selected{% endif %}>Pendientes</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-filter me-1"></i> Aplicar filtro
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Totales -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <h6>Subtotal</h6>
+                    <h3>S/ {{ data.totales.subtotal|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-white">
+                <div class="card-body text-center">
+                    <h6>IGV (18%)</h6>
+                    <h3>S/ {{ data.totales.igv|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h6>Total</h6>
+                    <h3>S/ {{ data.totales.total|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de compras -->
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h6 class="mb-0">📋 Listado de Compras</h6>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Factura</th>
+                            <th>Fecha</th>
+                            <th>Proveedor</th>
+                            <th class="text-end">Subtotal</th>
+                            <th class="text-end">IGV</th>
+                            <th class="text-end">Total</th>
+                            <th>Estado</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in data.compras %}
+                        <tr>
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.numero_factura }}</td>
+                            <td>{{ c.fecha_factura }}</td>
+                            <td>{{ c.proveedor }}</td>
+                            <td class="text-end">S/ {{ c.subtotal|floatformat:2 }}</td>
+                            <td class="text-end">S/ {{ c.igv|floatformat:2 }}</td>
+                            <td class="text-end">S/ {{ c.total|floatformat:2 }}</td>
+                            <td>
+                                <span class="badge bg-{{ c.badge_class }}">
+                                    {{ c.estado_pago }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{% url 'farmacia:detalle_compra' c.id %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center py-4">
+                                <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No hay compras en el período seleccionado</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación -->
+    {% if data.paginator and data.paginator.num_pages > 1 %}
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if data.page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?tipo=compras&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&estado={{ estado }}&page={{ data.page_obj.previous_page_number }}">
+                    &laquo;
+                </a>
+            </li>
+            {% endif %}
+
+            {% for i in data.paginator.page_range %}
+                {% if data.page_obj.number == i %}
+                <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+                {% elif i > data.page_obj.number|add:'-3' and i < data.page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?tipo=compras&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&estado={{ estado }}&page={{ i }}">
+                        {{ i }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if data.page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?tipo=compras&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&estado={{ estado }}&page={{ data.page_obj.next_page_number }}">
+                    &raquo;
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <p class="text-muted small text-center">
+        Mostrando {{ data.compras|length }} de {{ data.paginator.count }} compras
+    </p>
+    {% endif %}
+
+    <!-- ============================================ -->
+<!-- REPORTE 10: DIGEMID (PRECIOS) -->
+    <!-- ============================================ -->
+<!-- REPORTE 10: DIGEMID (PRECIOS) - 4 COLUMNAS -->
+<!-- ============================================ -->
+{% elif tipo_reporte == 'digemid' %}
+    <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Reporte DIGEMID</strong> - Solo medicamentos con Registro Sanitario válido
+        <br>
+        <small>Período: {{ fecha_desde }} al {{ fecha_hasta }} | Total: {{ data.total }} medicamentos</small>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>CodEstab</th>
+                    <th>CodProd</th>
+                    <th class="text-end">Precio1</th>
+                    <th class="text-end">Precio2</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in data.medicamentos %}
+                <tr>
+                    <td>{{ m.CodEstab }}</td>
+                    <td>{{ m.CodProd }}</td>
+                    <td class="text-end">S/ {{ m.Precio1|floatformat:2 }}</td>
+                    <td class="text-end">S/ {{ m.Precio2|floatformat:2 }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-4">
+                        <i class="fas fa-exclamation-circle fa-2x text-muted mb-3"></i>
+                        <p class="text-muted">No hay medicamentos con registro sanitario válido en el período seleccionado</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot class="table-light">
+                <tr>
+                    <th colspan="3" class="text-end">Total medicamentos:</th>
+                    <th class="text-end">{{ data.total }}</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- Paginación -->
+    {% if data.paginator and data.paginator.num_pages > 1 %}
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if data.page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?tipo=digemid&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.previous_page_number }}">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+            </li>
+            {% endif %}
+
+            {% for i in data.paginator.page_range %}
+                {% if data.page_obj.number == i %}
+                <li class="page-item active">
+                    <span class="page-link">{{ i }}</span>
+                </li>
+                {% elif i > data.page_obj.number|add:'-3' and i < data.page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?tipo=digemid&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ i }}">
+                        {{ i }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if data.page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?tipo=digemid&desde={{ fecha_desde }}&hasta={{ fecha_hasta }}&page={{ data.page_obj.next_page_number }}">
+                    <i class="fas fa-angle-right"></i>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <p class="text-muted small text-center">
+        Mostrando {{ data.medicamentos|length }} de {{ data.paginator.count }} medicamentos
+    </p>
+    {% endif %}
+
+            <!-- ============================================ -->
+            <!-- REPORTES EN DESARROLLO -->
+            <!-- ============================================ -->
+            {% elif data.mensaje %}
+                <div class="alert alert-info text-center py-5">
+                    <i class="fas fa-flask fa-3x mb-3"></i>
+                    <h4>{{ data.mensaje }}</h4>
+                    <p>Este reporte estará disponible próximamente.</p>
+                </div>
+
+            <!-- ============================================ -->
+            <!-- REPORTE NO ENCONTRADO -->
+            <!-- ============================================ -->
+            {% else %}
+                <div class="alert alert-warning">
+                    <i clas"fas fa-info-circle me-2"></i>
+                    Reporte "{{ tipo_reporte }}" no encontrado.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function exportarExcel() {
+    const tipo = document.querySelector('select[name="tipo"]').value;
+    const desde = document.querySelector('input[name="desde"]').value;
+    const hasta = document.querySelector('input[name="hasta"]').value;
+    
+    window.location.href = `/reportes/excel/?tipo=${tipo}&desde=${desde}&hasta=${hasta}`;
+}
+
+</script>
+
+<style media="print">
+    .btn, .no-print { display: none; }
+    .card { border: none; }
+</style>
+{% endblock %}

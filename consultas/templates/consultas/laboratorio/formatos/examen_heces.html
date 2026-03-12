@@ -1,0 +1,103 @@
+{% extends 'consultas/laboratorio/formatos/base_formato.html' %}
+
+{% block title %}Examen de Heces - {{ orden.examen_especifico }}{% endblock %}
+
+{% block campos_formulario %}
+{% if modo_impresion %}
+    <div style="font-family: Arial, sans-serif;">
+        <div style="display: flex; justify-content: space-between; background-color: #003366; color: white; padding: 4px 8px; margin-bottom: 6px;">
+            <span style="font-weight: bold;">EXAMEN DE HECES #{{ orden.id }}</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; background-color: #f0f0f0; padding: 4px 8px; margin-bottom: 8px; font-size: 9pt;">
+            <span><strong>Pac:</strong> {{ orden.get_paciente_nombre|truncatechars:30 }}</span>
+            <span><strong>DNI:</strong> {{ orden.get_paciente_dni }}</span>
+            <span><strong>Téc:</strong> {{ orden.tecnico_asignado.get_short_name|default:orden.tecnico_asignado.username }}</span>
+        </div>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 8px;">
+            <tr><td><strong>Consistencia:</strong> {{ resultados.consistencia|default:"-" }}</td><td><strong>Color:</strong> {{ resultados.color_heces|default:"-" }}</td><td><strong>Moco:</strong> {{ resultados.moco|default:"-" }}</td></tr>
+        </table>
+        
+        <h6 style="margin: 5px 0; font-size: 9pt;">EXAMEN MICROSCÓPICO</h6>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 8px;">
+            <tr><td>Leucocitos: {{ resultados.leucocitos_heces|default:"-" }}</td><td>Hematíes: {{ resultados.hematies_heces|default:"-" }}</td><td>Restos: {{ resultados.restos_alimentarios|default:"-" }}</td></tr>
+        </table>
+        
+        <h6 style="margin: 5px 0; font-size: 9pt;">PARASITOLÓGICO</h6>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 8px;">
+            <tr><td>Parásitos: {{ resultados.parasitos|default:"-" }}</td><td>Quistes: {{ resultados.quistes|default:"-" }}</td></tr>
+        </table>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+            <tr><td><strong>Sangre oculta:</strong> {{ resultados.sangre_oculta|default:"-" }}</td><td><strong>Reacción inflamatoria:</strong> {{ resultados.reaccion_inflamatoria|default:"-" }}</td></tr>
+        </table>
+        
+        {% if resultados.observaciones %}
+        <div style="margin: 4px 0; padding: 3px; background-color: #fff3cd; font-size: 8pt;">
+            <strong>Obs:</strong> {{ resultados.observaciones }}
+        </div>
+        {% endif %}
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 7pt; color: #666; border-top: 1px solid #ccc; padding-top: 3px;">
+            <span>Sistema Policlínico</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div class="no-print" style="text-align: center; margin-top: 10px;">
+            <button onclick="window.print()">🖨️ Imprimir</button>
+            <button onclick="window.close()">✖️ Cerrar</button>
+        </div>
+    </div>
+
+{% else %}
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white"><h5 class="mb-0">EXAMEN DE HECES</h5></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>Consistencia:</label>
+                    <select name="consistencia" class="form-select">
+                        <option value="">---</option>
+                        <option value="Formada" {% if resultados.consistencia == 'Formada' %}selected{% endif %}>Formada</option>
+                        <option value="Blanda" {% if resultados.consistencia == 'Blanda' %}selected{% endif %}>Blanda</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3"><label>Color:</label><input type="text" name="color_heces" class="form-control" value="{{ resultados.color_heces|default:'' }}"></div>
+                <div class="col-md-4 mb-3">
+                    <label>Moco:</label>
+                    <select name="moco" class="form-select">
+                        <option value="">---</option>
+                        <option value="Ausente" {% if resultados.moco == 'Ausente' %}selected{% endif %}>Ausente</option>
+                        <option value="Escaso" {% if resultados.moco == 'Escaso' %}selected{% endif %}>Escaso</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3"><label>Leucocitos:</label><input type="text" name="leucocitos_heces" class="form-control" value="{{ resultados.leucocitos_heces|default:'' }}"></div>
+                <div class="col-md-4 mb-3"><label>Hematíes:</label><input type="text" name="hematies_heces" class="form-control" value="{{ resultados.hematies_heces|default:'' }}"></div>
+                <div class="col-md-4 mb-3"><label>Restos:</label><input type="text" name="restos_alimentarios" class="form-control" value="{{ resultados.restos_alimentarios|default:'' }}"></div>
+                <div class="col-md-6 mb-3"><label>Parásitos:</label><input type="text" name="parasitos" class="form-control" value="{{ resultados.parasitos|default:'' }}"></div>
+                <div class="col-md-6 mb-3"><label>Quistes:</label><input type="text" name="quistes" class="form-control" value="{{ resultados.quistes|default:'' }}"></div>
+                <div class="col-md-6 mb-3">
+                    <label>Sangre oculta:</label>
+                    <select name="sangre_oculta" class="form-select">
+                        <option value="">---</option>
+                        <option value="Negativo" {% if resultados.sangre_oculta == 'Negativo' %}selected{% endif %}>Negativo</option>
+                        <option value="Positivo" {% if resultados.sangre_oculta == 'Positivo' %}selected{% endif %}>Positivo</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Reacción inflamatoria:</label>
+                    <select name="reaccion_inflamatoria" class="form-select">
+                        <option value="">---</option>
+                        <option value="Negativa" {% if resultados.reaccion_inflamatoria == 'Negativa' %}selected{% endif %}>Negativa</option>
+                        <option value="Leve" {% if resultados.reaccion_inflamatoria == 'Leve' %}selected{% endif %}>Leve</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row"><div class="col-12"><label>Observaciones:</label><textarea name="observaciones" class="form-control" rows="2">{{ resultados.observaciones|default:'' }}</textarea></div></div>
+        </div>
+    </div>
+{% endif %}
+<style>@media print{.no-print{display:none;}}</style>
+{% endblock %}

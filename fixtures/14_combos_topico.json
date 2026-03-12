@@ -1,0 +1,24 @@
+[
+{
+    "model": "farmacia.combotopico",
+    "pk": 1,
+    "fields": {
+        "nombre": "combo 1",
+        "descripcion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-23T21:27:01.626Z",
+        "fecha_actualizacion": "2026-02-23T21:27:45.910Z"
+    }
+},
+{
+    "model": "farmacia.combotopico",
+    "pk": 2,
+    "fields": {
+        "nombre": "combo 2",
+        "descripcion": "",
+        "activo": true,
+        "fecha_creacion": "2026-02-28T15:04:14.571Z",
+        "fecha_actualizacion": "2026-02-28T15:04:14.571Z"
+    }
+}
+]

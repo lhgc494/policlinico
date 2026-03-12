@@ -1,0 +1,610 @@
+[
+{
+    "model": "farmacia.compra",
+    "pk": 1,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F10101010",
+        "fecha_factura": "2026-03-02",
+        "fecha_compra": "2026-03-02T14:35:22.130Z",
+        "subtotal": "1283.00",
+        "igv": "230.94",
+        "total": "1513.94",
+        "observaciones": "test carga masiva primera compra sin IGV?",
+        "archivo_factura": "",
+        "usuario": 1
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 2,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "f11111111",
+        "fecha_factura": "2026-03-02",
+        "fecha_compra": "2026-03-02T15:00:03.949Z",
+        "subtotal": "1283.00",
+        "igv": "230.94",
+        "total": "1513.94",
+        "observaciones": "",
+        "archivo_factura": "",
+        "usuario": 1
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 3,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F12121212",
+        "fecha_factura": "2026-03-02",
+        "fecha_compra": "2026-03-02T15:03:47.851Z",
+        "subtotal": "3309.00",
+        "igv": "595.62",
+        "total": "3904.62",
+        "observaciones": "test-ingremento o reemplazo?",
+        "archivo_factura": "",
+        "usuario": 1
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 4,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F1312111909",
+        "fecha_factura": "2026-03-02",
+        "fecha_compra": "2026-03-02T17:07:56.382Z",
+        "subtotal": "1515.00",
+        "igv": "272.70",
+        "total": "1787.70",
+        "observaciones": "etst nuevos nombres",
+        "archivo_factura": "",
+        "usuario": 1
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 5,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F151515153421",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T15:35:32.957Z",
+        "subtotal": "100.00",
+        "igv": "18.00",
+        "total": "100.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 6,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151515345454",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T17:05:15.402Z",
+        "subtotal": "30.00",
+        "igv": "5.40",
+        "total": "30.00",
+        "observaciones": " [FACTURA PENDIENTE]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 7,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151515151",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T17:13:48.892Z",
+        "subtotal": "350.00",
+        "igv": "63.00",
+        "total": "350.00",
+        "observaciones": " [FACTURA PENDIENTE]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 8,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F15151515122",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T17:16:02.966Z",
+        "subtotal": "50.00",
+        "igv": "9.00",
+        "total": "50.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 9,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F151515153000",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T17:33:35.253Z",
+        "subtotal": "20.00",
+        "igv": "3.60",
+        "total": "20.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 10,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F1515151533",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T19:37:42.455Z",
+        "subtotal": "20.00",
+        "igv": "3.60",
+        "total": "20.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 11,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F1515151532",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T19:42:40.439Z",
+        "subtotal": "50.00",
+        "igv": "9.00",
+        "total": "50.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 12,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151515334",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T19:45:54.759Z",
+        "subtotal": "50.00",
+        "igv": "9.00",
+        "total": "50.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 13,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151511111",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T19:49:14.121Z",
+        "subtotal": "700.00",
+        "igv": "126.00",
+        "total": "700.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 14,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151513333",
+        "fecha_factura": "2026-03-03",
+        "fecha_compra": "2026-03-03T19:49:56.885Z",
+        "subtotal": "75.00",
+        "igv": "13.50",
+        "total": "75.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 15,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151515355",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T13:21:48.687Z",
+        "subtotal": "40.00",
+        "igv": "7.20",
+        "total": "40.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 16,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F151515122",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T14:06:54.101Z",
+        "subtotal": "20.00",
+        "igv": "3.60",
+        "total": "20.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 17,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151512",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T14:16:26.629Z",
+        "subtotal": "10.00",
+        "igv": "1.80",
+        "total": "10.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 18,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F15151515151222",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T14:20:31.172Z",
+        "subtotal": "200.00",
+        "igv": "36.00",
+        "total": "200.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 19,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15152",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T14:25:10.077Z",
+        "subtotal": "10.00",
+        "igv": "1.80",
+        "total": "10.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 20,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F1515151",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T14:42:03.049Z",
+        "subtotal": "10.00",
+        "igv": "1.80",
+        "total": "10.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 21,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F1515151515",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T14:44:27.424Z",
+        "subtotal": "20.00",
+        "igv": "3.60",
+        "total": "20.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 22,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151516",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T14:48:41.766Z",
+        "subtotal": "4.00",
+        "igv": "0.72",
+        "total": "4.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 23,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F151510000",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T14:54:57.187Z",
+        "subtotal": "4.00",
+        "igv": "0.72",
+        "total": "4.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 24,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F151515153000000",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T15:01:13.291Z",
+        "subtotal": "3.00",
+        "igv": "0.54",
+        "total": "3.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 25,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151513333333",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T15:03:43.847Z",
+        "subtotal": "5.00",
+        "igv": "0.90",
+        "total": "5.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 26,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F15",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T15:08:32.188Z",
+        "subtotal": "4.00",
+        "igv": "0.72",
+        "total": "4.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 27,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151513",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T15:12:52.831Z",
+        "subtotal": "2.00",
+        "igv": "0.36",
+        "total": "2.36",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 28,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F151515153454542",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T15:15:06.793Z",
+        "subtotal": "2.00",
+        "igv": "0.36",
+        "total": "2.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 29,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15151515342111",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T15:15:59.057Z",
+        "subtotal": "2.00",
+        "igv": "0.36",
+        "total": "2.36",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 30,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F151500000000",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T15:44:28.057Z",
+        "subtotal": "3.00",
+        "igv": "0.54",
+        "total": "3.00",
+        "observaciones": " [FACTURA PENDIENTE]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 31,
+    "fields": {
+        "proveedor": 2,
+        "numero_factura": "F22222222222222",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T17:06:12.195Z",
+        "subtotal": "20.00",
+        "igv": "3.60",
+        "total": "20.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 32,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F1515000000",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T20:31:14.390Z",
+        "subtotal": "500.00",
+        "igv": "90.00",
+        "total": "500.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 33,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F2344444",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T20:42:58.857Z",
+        "subtotal": "3000.00",
+        "igv": "540.00",
+        "total": "3000.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 34,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F233333333333",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T20:53:18.985Z",
+        "subtotal": "100.00",
+        "igv": "18.00",
+        "total": "100.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 35,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F3444444444",
+        "fecha_factura": "2026-03-04",
+        "fecha_compra": "2026-03-04T20:58:43.056Z",
+        "subtotal": "50.00",
+        "igv": "9.00",
+        "total": "59.00",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 36,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F15345667",
+        "fecha_factura": "2026-03-05",
+        "fecha_compra": "2026-03-05T19:40:02.636Z",
+        "subtotal": "200.00",
+        "igv": "36.00",
+        "total": "200.00",
+        "observaciones": " [FACTURA PENDIENTE]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 37,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F1999999999999",
+        "fecha_factura": "2026-03-05",
+        "fecha_compra": "2026-03-05T20:19:52.719Z",
+        "subtotal": "77.26",
+        "igv": "13.91",
+        "total": "91.17",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.compra",
+    "pk": 38,
+    "fields": {
+        "proveedor": 1,
+        "numero_factura": "F0989765534",
+        "fecha_factura": "2026-03-05",
+        "fecha_compra": "2026-03-05T20:27:51.049Z",
+        "subtotal": "80.00",
+        "igv": "14.40",
+        "total": "94.40",
+        "observaciones": " [FACTURA PAGADA]",
+        "archivo_factura": "",
+        "usuario": 3
+    }
+}
+]

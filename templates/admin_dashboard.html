@@ -1,0 +1,448 @@
+{% extends 'base.html' %}
+
+{% block title %}Panel de Administración{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-chart-pie text-primary me-2"></i>Panel de Administración</h2>
+        <div>
+            <span class="badge bg-primary">{{ user.get_full_name|default:user.username }}</span>
+            <span class="badge bg-danger ms-2">Administrador</span>
+        </div>
+    </div>
+
+    <!-- MÓDULO PACIENTES -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-users me-2"></i>Pacientes</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'lista_pacientes' %}" class="text-decoration-none">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-list fa-3x text-primary mb-3"></i>
+                                        <h6 class="fw-bold">Lista de Pacientes</h6>
+                                        <p class="small text-muted">Ver y gestionar pacientes</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'crear_paciente' %}" class="text-decoration-none">
+                                <div class="card h-100 border-primary" style="background-color: #e7f1ff;">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-user-plus fa-3x text-primary mb-3"></i>
+                                        <h6 class="fw-bold">Registrar Paciente</h6>
+                                        <p class="small text-muted">Crear nuevo paciente en el sistema</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'historial_triajes' %}" class="text-decoration-none">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-heartbeat fa-3x text-primary mb-3"></i>
+                                        <span class="badge bg-warning text-dark mb-2">EDITABLE</span>
+                                        <h6 class="fw-bold">Historial de Triaje</h6>
+                                        <p class="small text-muted">Ver y modificar valores de triaje</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÓDULO FARMACIA -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm border-success">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-pills me-2"></i>Farmacia</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'farmacia:venta_directa' %}" class="text-decoration-none">
+                                <div class="card h-100 border-success" style="background-color: #e8f5e9;">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-cash-register fa-3x text-success mb-3"></i>
+                                        <h6 class="fw-bold">Ventas Externas</h6>
+                                        <p class="small text-muted">Venta directa sin receta</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'farmacia:recetas_pendientes' %}" class="text-decoration-none">
+                                <div class="card h-100 border-success" style="background-color: #e8f5e9;">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-file-prescription fa-3x text-success mb-3"></i>
+                                        <h6 class="fw-bold">Ventas Internas</h6>
+                                        <p class="small text-muted">Atender recetas médicas</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'farmacia:lista_combos' %}" class="text-decoration-none">
+                                <div class="card h-100 border-success" style="background-color: #e8f5e9;">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-cubes fa-3x text-success mb-3"></i>
+                                        <h6 class="fw-bold">Tópico Combos</h6>
+                                        <p class="small text-muted">Vender combos de tópico</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÓDULO LABORATORIO -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-flask me-2"></i>Laboratorio</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'buscar_ordenes_global' %}" class="text-decoration-none">
+                                <div class="card h-100 border-warning">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-search fa-3x text-warning mb-3"></i>
+                                        <h6 class="fw-bold">Búsqueda Global</h6>
+                                        <p class="small text-muted">Buscar órdenes por DNI</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'lista_ordenes_pendientes' %}" class="text-decoration-none">
+                                <div class="card h-100 border-warning">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-vial fa-3x text-warning mb-3"></i>
+                                        <h6 class="fw-bold">Venta Interna</h6>
+                                        <p class="small text-muted">Cobrar exámenes de pacientes</p>
+                                        <span class="badge bg-info text-dark mt-2">Solo cobro</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="{% url 'punto_venta_laboratorio' %}" class="text-decoration-none">
+                                <div class="card h-100 border-warning">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-cash-register fa-3x text-warning mb-3"></i>
+                                        <h6 class="fw-bold">Venta Ambulatoria</h6>
+                                        <p class="small text-muted">Vender exámenes a externos</p>
+                                        <span class="badge bg-info text-dark mt-2">Solo cobro</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MÓDULO CONSULTAS (NUEVO) -->
+	<!-- MÓDULO CONSULTAS (VERSIÓN FINAL) -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-sm border-info">
+            <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class="fas fa-stethoscope me-2"></i>Consultas del Día</h5>
+                <span class="badge bg-light text-dark">En Vivo</span>
+            </div>
+            <div class="card-body">
+                <!-- Filtro por doctor -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label"><i class="fas fa-user-md me-1"></i>Filtrar por Doctor:</label>
+                        <select class="form-select" id="filtroDoctor" onchange="filtrarConsultas()">
+                            <option value="todos">Todos los doctores</option>
+                            {% for doctor in doctores %}
+                            <option value="{{ doctor.id }}">Dr. {{ doctor.nombres }} {{ doctor.apellidos }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label"><i class="fas fa-calendar me-1"></i>Fecha:</label>
+                        <input type="date" class="form-control" id="fechaConsulta" value="{{ hoy }}" onchange="cargarConsultas()">
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button class="btn btn-info" onclick="cargarConsultas()">
+                            <i class="fas fa-sync-alt me-1"></i>Actualizar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Resumen rápido (solo 2 categorías) -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body py-2">
+                                <small class="text-muted">Total Consultas</small>
+                                <h4 id="totalConsultas">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-warning">
+                            <div class="card-body py-2">
+                                <small class="text-dark">Pendientes</small>
+                                <h4 id="totalPendientes" class="text-dark">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success">
+                            <div class="card-body py-2">
+                                <small class="text-white">Atendidas</small>
+                                <h4 id="totalAtendidas" class="text-white">0</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de consultas (sin columna acciones) -->
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered" id="tablaConsultas">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Hora</th>
+                                <th>Paciente</th>
+                                <th>DNI</th>
+                                <th>Doctor</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyConsultas">
+                            <tr>
+                                <td colspan="6" class="text-center py-4">
+                                    <i class="fas fa-spinner fa-spin me-2"></i>Cargando consultas...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Variables globales
+let consultasData = [];
+
+// Cargar consultas al iniciar
+document.addEventListener('DOMContentLoaded', function() {
+    cargarConsultas();
+    // Actualizar cada 30 segundos
+    setInterval(cargarConsultas, 30000);
+});
+
+function cargarConsultas() {
+    const fecha = document.getElementById('fechaConsulta').value;
+    const doctorId = document.getElementById('filtroDoctor').value;
+    fetch(`/consultas/api/consultas-dia/?fecha=${fecha}&doctor=${doctorId}`)
+        .then(response => response.json())
+        .then(data => {
+            consultasData = data.consultas;
+            actualizarTabla(data.consultas);
+            actualizarResumen(data.consultas);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('tbodyConsultas').innerHTML = `
+                <tr>
+                    <td colspan="7" class="text-center py-4 text-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Error al cargar datos
+                    </td>
+                </tr>
+            `;
+        });
+}
+
+function actualizarTabla(consultas) {
+    const tbody = document.getElementById('tbodyConsultas');
+
+    if (consultas.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center py-4">
+                    <i class="fas fa-info-circle me-2"></i>No hay consultas para esta fecha
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    let html = '';
+    consultas.forEach(c => {
+        const estadoClass = {
+            'REGISTRADA': 'bg-secondary',
+            'PAGADA': 'bg-info',
+            'TRIAJE_PENDIENTE': 'bg-warning',
+            'EN_TRIAGE': 'bg-warning',
+            'TRIAJE_COMPLETO': 'bg-primary',
+            'ATENDIDA': 'bg-success'
+        }[c.estado] || 'bg-secondary';
+
+        html += `
+            <tr>
+                <td>${c.hora}</td>
+                <td>${c.paciente}</td>
+                <td>${c.dni}</td>
+                <td>${c.doctor}</td>
+                <td>${c.tipo}</td>
+                <td>
+                    <span class="badge ${estadoClass}">${c.estado_display}</span>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-outline-info"
+                            onclick="verDetalle(${c.id})"
+                            title="Ver detalles (solo lectura)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html;
+}
+
+function actualizarResumen(consultas) {
+    const total = consultas.length;
+    
+    // Pendientes = TODO excepto ATENDIDA
+    const pendientes = consultas.filter(c => c.estado !== 'ATENDIDA').length;
+    
+    // Atendidas = solo ATENDIDA
+    const atendidas = consultas.filter(c => c.estado === 'ATENDIDA').length;
+    
+    document.getElementById('totalConsultas').textContent = total;
+    document.getElementById('totalPendientes').textContent = pendientes;
+    document.getElementById('totalAtendidas').textContent = atendidas;
+}
+
+function actualizarTabla(consultas) {
+    const tbody = document.getElementById('tbodyConsultas');
+
+    if (consultas.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center py-4">
+                    <i class="fas fa-info-circle me-2"></i>No hay consultas para esta fecha
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    let html = '';
+    consultas.forEach(c => {
+        const estadoClass = {
+            'REGISTRADA': 'bg-secondary',
+            'PAGADA': 'bg-info',
+            'TRIAJE_PENDIENTE': 'bg-warning',
+            'EN_TRIAGE': 'bg-warning',
+            'TRIAJE_COMPLETO': 'bg-primary',
+            'ATENDIDA': 'bg-success'
+        }[c.estado] || 'bg-secondary';
+
+        html += `
+            <tr>
+                <td>${c.hora}</td>
+                <td>${c.paciente}</td>
+                <td>${c.dni}</td>
+                <td>${c.doctor}</td>
+                <td>${c.tipo}</td>
+                <td>
+                    <span class="badge ${estadoClass}">${c.estado_display}</span>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html;
+}
+
+
+function cargarConsultas() {
+    const fecha = document.getElementById('fechaConsulta').value;
+    const doctorId = document.getElementById('filtroDoctor').value;
+    
+    fetch(`/consultas/api/consultas-dia/?fecha=${fecha}&doctor=${doctorId}`)
+        .then(response => response.json())
+        .then(data => {
+            consultasData = data.consultas;
+            actualizarTabla(data.consultas);
+            actualizarResumen(data.consultas);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('tbodyConsultas').innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center py-4 text-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Error al cargar datos
+                    </td>
+                </tr>
+            `;
+        });
+}
+
+
+
+function filtrarConsultas() {
+    cargarConsultas();
+}
+
+
+function filtrarConsultas() {
+    cargarConsultas();
+}
+
+function verDetalle(consultaId) {
+    // Solo vista previa, sin edición
+    alert('Vista de detalle - próximamente');
+}
+
+function exportarTabla() {
+    // Exportar a CSV
+    let csv = "Hora,Paciente,DNI,Doctor,Tipo,Estado\n";
+    consultasData.forEach(c => {
+        csv += `${c.hora},${c.paciente},${c.dni},${c.doctor},${c.tipo},${c.estado_display}\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `consultas_${document.getElementById('fechaConsulta').value}.csv`;
+    a.click();
+}
+</script>
+{% endblock %}

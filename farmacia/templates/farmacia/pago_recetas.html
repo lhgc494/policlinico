@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Encabezado -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-credit-card me-2"></i>
+                        Pago de Recetas - Consulta #{{ consulta.id }}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-2">
+                                <i class="fas fa-user me-2"></i>
+                                <strong>Paciente:</strong> {{ consulta.paciente.nombres }} {{ consulta.paciente.apellidos }}
+                            </p>
+                            <p class="mb-2">
+                                <i class="fas fa-id-card me-2"></i>
+                                <strong>DNI:</strong> {{ consulta.paciente.dni }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-2">
+                                <i class="fas fa-user-md me-2"></i>
+                                <strong>Médico:</strong> Dr. {{ consulta.doctor.nombres }} {{ consulta.doctor.apellidos }}
+                            </p>
+                            <p class="mb-0">
+                                <i class="fas fa-calendar me-2"></i>
+                                <strong>Fecha:</strong> {{ consulta.fecha_consulta|date:"d/m/Y H:i" }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resumen de compra -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        Resumen de la Compra
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Medicamento</th>
+                                    <th class="text-center">Cantidad</th>
+                                    <th class="text-center">Precio Unit.</th>
+                                    <th class="text-center">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ item.receta.medicamento }}</strong><br>
+                                        <small class="text-muted">{{ item.receta.dosis }}</small>
+                                    </td>
+                                    <td class="text-center">{{ item.cantidad }}</td>
+                                    <td class="text-center">S/ {{ item.precio|floatformat:2 }}</td>
+                                    <td class="text-center">
+                                        <strong class="text-success">S/ {{ item.subtotal|floatformat:2 }}</strong>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de pago -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-calculator me-2"></i>
+                        Total a Pagar
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <!-- Subtotal -->
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <strong>S/ <span id="subtotalDisplay">{{ subtotal|floatformat:2 }}</span></strong>
+                    </div>
+
+                    <!-- Descuento (solo lectura) -->
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Descuento aplicado:</span>
+                        <strong class="text-danger">- S/ <span id="descuentoDisplay">{{ descuento|floatformat:2 }}</span></strong>
+                    </div>
+
+                    <!-- Método de pago (solo lectura) -->
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Método de pago:</span>
+                        <strong class="text-primary">{{ metodo_pago }}</strong>
+                    </div>
+
+                    <!-- Total final -->
+                    <div class="border-top pt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="mb-0">TOTAL:</h5>
+                            <h3 class="mb-0 text-primary" id="totalFinal">S/ {{ total|floatformat:2 }}</h3>
+                        </div>
+
+                        <!-- Formulario de pago con campos ocultos -->
+                        <form method="post" action="{% url 'farmacia:finalizar_pago_consulta' consulta.id %}" id="formPagoFinal">
+                            {% csrf_token %}
+                            <input type="hidden" name="total_final" id="totalFinalInput" value="{{ total }}">
+                            <input type="hidden" name="descuento_aplicado" value="{{ descuento }}">
+                            <input type="hidden" name="metodo_pago" value="{{ metodo_pago }}">
+
+                            {% for item in items %}
+                            <input type="hidden" name="recetas[{{ forloop.counter0 }}][receta_id]" value="{{ item.receta.id }}">
+                            <input type="hidden" name="recetas[{{ forloop.counter0 }}][cantidad]" value="{{ item.cantidad }}">
+                            <input type="hidden" name="recetas[{{ forloop.counter0 }}][precio]" value="{{ item.precio }}">
+                            {% endfor %}
+
+                            <button type="button" class="btn btn-success btn-lg w-100 mb-2" id="btnConfirmar">
+                                <i class="fas fa-check-circle me-2"></i> Confirmar Pago
+                            </button>
+                        </form>
+
+                        <!-- Botón Cancelar fuera del formulario -->
+                        <div class="mt-2">
+                            <a href="{% url 'farmacia:detalle_recetas_consulta' consulta.id %}"
+                               class="btn btn-secondary w-100"
+                               id="btnCancelar">
+                                <i class="fas fa-times-circle me-2"></i> Cancelar y Volver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('formPagoFinal');
+    const btnConfirmar = document.getElementById('btnConfirmar');
+    const btnCancelar = document.getElementById('btnCancelar');
+
+    btnConfirmar.addEventListener('click', function() {
+        if (confirm('¿Confirmar el pago? Esta acción no se puede deshacer.')) {
+            // Crear campo confirmado dinámicamente
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'confirmado';
+            input.value = 'true';
+            form.appendChild(input);
+            form.submit();
+        }
+    });
+
+    btnCancelar.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('¿Estás seguro que deseas cancelar? Los datos ingresados se perderán.')) {
+            window.location.href = this.href;
+        }
+    });
+});
+</script>
+{% endblock %}

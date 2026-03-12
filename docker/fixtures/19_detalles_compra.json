@@ -1,0 +1,587 @@
+[
+{
+    "model": "farmacia.detallecompra",
+    "pk": 1,
+    "fields": {
+        "compra": 1,
+        "medicamento": 11,
+        "cantidad": 100,
+        "precio_unitario": "2.13",
+        "lote": "LOTE001",
+        "fecha_vencimiento": "2026-12-31",
+        "subtotal": "213.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 2,
+    "fields": {
+        "compra": 1,
+        "medicamento": 700,
+        "cantidad": 200,
+        "precio_unitario": "2.50",
+        "lote": "LOTE004",
+        "fecha_vencimiento": "2026-05-15",
+        "subtotal": "500.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 3,
+    "fields": {
+        "compra": 1,
+        "medicamento": 701,
+        "cantidad": 150,
+        "precio_unitario": "3.80",
+        "lote": "LOTE005",
+        "fecha_vencimiento": "2026-07-20",
+        "subtotal": "570.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 4,
+    "fields": {
+        "compra": 2,
+        "medicamento": 11,
+        "cantidad": 100,
+        "precio_unitario": "2.13",
+        "lote": "LOTE001",
+        "fecha_vencimiento": "2026-12-31",
+        "subtotal": "213.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 5,
+    "fields": {
+        "compra": 2,
+        "medicamento": 700,
+        "cantidad": 200,
+        "precio_unitario": "2.50",
+        "lote": "LOTE004",
+        "fecha_vencimiento": "2026-05-15",
+        "subtotal": "500.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 6,
+    "fields": {
+        "compra": 2,
+        "medicamento": 701,
+        "cantidad": 150,
+        "precio_unitario": "3.80",
+        "lote": "LOTE005",
+        "fecha_vencimiento": "2026-07-20",
+        "subtotal": "570.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 7,
+    "fields": {
+        "compra": 3,
+        "medicamento": 12,
+        "cantidad": 100,
+        "precio_unitario": "29.94",
+        "lote": "LOTE001",
+        "fecha_vencimiento": "2026-12-31",
+        "subtotal": "2994.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 8,
+    "fields": {
+        "compra": 3,
+        "medicamento": 700,
+        "cantidad": 50,
+        "precio_unitario": "2.50",
+        "lote": "LOTE004",
+        "fecha_vencimiento": "2026-05-15",
+        "subtotal": "125.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 9,
+    "fields": {
+        "compra": 3,
+        "medicamento": 701,
+        "cantidad": 50,
+        "precio_unitario": "3.80",
+        "lote": "LOTE005",
+        "fecha_vencimiento": "2026-07-20",
+        "subtotal": "190.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 10,
+    "fields": {
+        "compra": 4,
+        "medicamento": 475,
+        "cantidad": 100,
+        "precio_unitario": "12.00",
+        "lote": "LOTE006",
+        "fecha_vencimiento": "2026-12-31",
+        "subtotal": "1200.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 11,
+    "fields": {
+        "compra": 4,
+        "medicamento": 700,
+        "cantidad": 50,
+        "precio_unitario": "2.50",
+        "lote": "LOTE004",
+        "fecha_vencimiento": "2026-05-15",
+        "subtotal": "125.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 12,
+    "fields": {
+        "compra": 4,
+        "medicamento": 701,
+        "cantidad": 50,
+        "precio_unitario": "3.80",
+        "lote": "LOTE005",
+        "fecha_vencimiento": "2026-07-20",
+        "subtotal": "190.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 13,
+    "fields": {
+        "compra": 5,
+        "medicamento": 12,
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "lote": "lote 2024-001",
+        "fecha_vencimiento": "2026-07-11",
+        "subtotal": "50.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 14,
+    "fields": {
+        "compra": 5,
+        "medicamento": 170,
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "lote": "lote 2034",
+        "fecha_vencimiento": "2026-07-31",
+        "subtotal": "50.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 15,
+    "fields": {
+        "compra": 6,
+        "medicamento": 666,
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "lote": "L230601",
+        "fecha_vencimiento": "2026-04-10",
+        "subtotal": "20.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 16,
+    "fields": {
+        "compra": 6,
+        "medicamento": 270,
+        "cantidad": 10,
+        "precio_unitario": "1.00",
+        "lote": "lote 2024-001",
+        "fecha_vencimiento": "2026-04-11",
+        "subtotal": "10.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 17,
+    "fields": {
+        "compra": 7,
+        "medicamento": 12,
+        "cantidad": 10,
+        "precio_unitario": "10.00",
+        "lote": "lote 2024-001",
+        "fecha_vencimiento": "2026-06-11",
+        "subtotal": "100.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 18,
+    "fields": {
+        "compra": 7,
+        "medicamento": 10,
+        "cantidad": 50,
+        "precio_unitario": "5.00",
+        "lote": "lote 2024",
+        "fecha_vencimiento": "2026-04-11",
+        "subtotal": "250.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 19,
+    "fields": {
+        "compra": 8,
+        "medicamento": 262,
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "lote": "lote 2024-002",
+        "fecha_vencimiento": "2026-03-12",
+        "subtotal": "50.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 20,
+    "fields": {
+        "compra": 9,
+        "medicamento": 12,
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "lote": "nan",
+        "fecha_vencimiento": "2026-07-02",
+        "subtotal": "20.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 21,
+    "fields": {
+        "compra": 10,
+        "medicamento": 12,
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "lote": "L230603",
+        "fecha_vencimiento": "2026-04-18",
+        "subtotal": "20.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 22,
+    "fields": {
+        "compra": 11,
+        "medicamento": 140,
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "lote": "lote 2024-0011",
+        "fecha_vencimiento": "2026-07-30",
+        "subtotal": "50.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 23,
+    "fields": {
+        "compra": 12,
+        "medicamento": 46,
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "lote": "lote 2024-0056",
+        "fecha_vencimiento": "2026-04-11",
+        "subtotal": "50.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 24,
+    "fields": {
+        "compra": 13,
+        "medicamento": 108,
+        "cantidad": 14,
+        "precio_unitario": "50.00",
+        "lote": "lote 2024-001",
+        "fecha_vencimiento": "2026-03-16",
+        "subtotal": "700.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 25,
+    "fields": {
+        "compra": 14,
+        "medicamento": 97,
+        "cantidad": 15,
+        "precio_unitario": "5.00",
+        "lote": "lote 2024-002",
+        "fecha_vencimiento": "2026-07-03",
+        "subtotal": "75.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 26,
+    "fields": {
+        "compra": 15,
+        "medicamento": 205,
+        "cantidad": 20,
+        "precio_unitario": "2.00",
+        "lote": "L230601",
+        "fecha_vencimiento": "2026-03-17",
+        "subtotal": "40.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 27,
+    "fields": {
+        "compra": 16,
+        "medicamento": 303,
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "lote": "nan",
+        "fecha_vencimiento": "2026-09-03",
+        "subtotal": "20.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 28,
+    "fields": {
+        "compra": 17,
+        "medicamento": 382,
+        "cantidad": 1,
+        "precio_unitario": "10.00",
+        "lote": "lote 2028",
+        "fecha_vencimiento": "2026-04-09",
+        "subtotal": "10.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 29,
+    "fields": {
+        "compra": 18,
+        "medicamento": 606,
+        "cantidad": 100,
+        "precio_unitario": "2.00",
+        "lote": "lote 2024",
+        "fecha_vencimiento": "2026-03-18",
+        "subtotal": "200.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 30,
+    "fields": {
+        "compra": 23,
+        "medicamento": 382,
+        "cantidad": 1,
+        "precio_unitario": "4.00",
+        "lote": "nan",
+        "fecha_vencimiento": "2026-04-08",
+        "subtotal": "4.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 31,
+    "fields": {
+        "compra": 24,
+        "medicamento": 472,
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "lote": "lote 2024",
+        "fecha_vencimiento": "2026-03-11",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 32,
+    "fields": {
+        "compra": 25,
+        "medicamento": 123,
+        "cantidad": 1,
+        "precio_unitario": "5.00",
+        "lote": "nan",
+        "fecha_vencimiento": "2026-03-12",
+        "subtotal": "5.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 33,
+    "fields": {
+        "compra": 26,
+        "medicamento": 630,
+        "cantidad": 1,
+        "precio_unitario": "4.00",
+        "lote": "L230601",
+        "fecha_vencimiento": "2026-03-24",
+        "subtotal": "4.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 34,
+    "fields": {
+        "compra": 27,
+        "medicamento": 104,
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "lote": "lote 2024-001",
+        "fecha_vencimiento": "2026-04-06",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 35,
+    "fields": {
+        "compra": 28,
+        "medicamento": 472,
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "lote": "L230601",
+        "fecha_vencimiento": "2026-04-08",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 36,
+    "fields": {
+        "compra": 29,
+        "medicamento": 472,
+        "cantidad": 1,
+        "precio_unitario": "2.00",
+        "lote": "lote 2024",
+        "fecha_vencimiento": "2026-03-25",
+        "subtotal": "2.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 37,
+    "fields": {
+        "compra": 30,
+        "medicamento": 472,
+        "cantidad": 1,
+        "precio_unitario": "3.00",
+        "lote": "nan",
+        "fecha_vencimiento": "2026-03-25",
+        "subtotal": "3.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 38,
+    "fields": {
+        "compra": 31,
+        "medicamento": 458,
+        "cantidad": 10,
+        "precio_unitario": "2.00",
+        "lote": "lote 2024-001",
+        "fecha_vencimiento": "2026-06-18",
+        "subtotal": "20.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 39,
+    "fields": {
+        "compra": 32,
+        "medicamento": 12,
+        "cantidad": 100,
+        "precio_unitario": "5.00",
+        "lote": "lote 2024-001",
+        "fecha_vencimiento": "2026-07-28",
+        "subtotal": "500.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 40,
+    "fields": {
+        "compra": 33,
+        "medicamento": 12,
+        "cantidad": 100,
+        "precio_unitario": "30.00",
+        "lote": "lote 2024-002",
+        "fecha_vencimiento": "2026-11-03",
+        "subtotal": "3000.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 41,
+    "fields": {
+        "compra": 34,
+        "medicamento": 12,
+        "cantidad": 50,
+        "precio_unitario": "2.00",
+        "lote": "lote 2024-002",
+        "fecha_vencimiento": "2026-04-10",
+        "subtotal": "100.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 42,
+    "fields": {
+        "compra": 35,
+        "medicamento": 12,
+        "cantidad": 10,
+        "precio_unitario": "5.00",
+        "lote": "lote 2024-003",
+        "fecha_vencimiento": "2026-04-09",
+        "subtotal": "50.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 43,
+    "fields": {
+        "compra": 36,
+        "medicamento": 425,
+        "cantidad": 5,
+        "precio_unitario": "40.00",
+        "lote": "lote 2024-008",
+        "fecha_vencimiento": "2026-07-30",
+        "subtotal": "200.00"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 44,
+    "fields": {
+        "compra": 37,
+        "medicamento": 425,
+        "cantidad": 2,
+        "precio_unitario": "38.63",
+        "lote": "lote 2024-002",
+        "fecha_vencimiento": "2026-07-28",
+        "subtotal": "77.26"
+    }
+},
+{
+    "model": "farmacia.detallecompra",
+    "pk": 45,
+    "fields": {
+        "compra": 38,
+        "medicamento": 425,
+        "cantidad": 2,
+        "precio_unitario": "40.00",
+        "lote": "lote 2024-003",
+        "fecha_vencimiento": "2026-03-27",
+        "subtotal": "80.00"
+    }
+}
+]

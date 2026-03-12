@@ -1,0 +1,179 @@
+/usr/local/lib/python3.10/site-packages/django/db/models/base.py:368: RuntimeWarning: Model 'farmacia.compra' was already registered. Reloading models is not advised as it can lead to inconsistencies, most notably with related models.
+  new_class._meta.apps.register_model(new_class._meta.app_label, new_class)
+/usr/local/lib/python3.10/site-packages/django/db/models/base.py:368: RuntimeWarning: Model 'farmacia.detallecompra' was already registered. Reloading models is not advised as it can lead to inconsistencies, most notably with related models.
+  new_class._meta.apps.register_model(new_class._meta.app_label, new_class)
+[
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "recepcion",
+        "permissions": [
+            41,
+            44,
+            33,
+            34,
+            35,
+            36,
+            25,
+            26,
+            27,
+            28,
+            37,
+            38,
+            40
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "administrador",
+        "permissions": [
+            1,
+            2,
+            3,
+            4,
+            9,
+            10,
+            11,
+            12,
+            5,
+            6,
+            7,
+            8,
+            13,
+            14,
+            15,
+            16,
+            41,
+            42,
+            43,
+            44,
+            33,
+            34,
+            35,
+            36,
+            21,
+            22,
+            23,
+            24,
+            29,
+            30,
+            31,
+            32,
+            25,
+            26,
+            27,
+            28,
+            45,
+            46,
+            47,
+            48,
+            37,
+            38,
+            39,
+            40,
+            17,
+            18,
+            19,
+            20,
+            85,
+            86,
+            87,
+            88,
+            81,
+            82,
+            83,
+            84,
+            49,
+            50,
+            51,
+            52,
+            97,
+            98,
+            99,
+            100,
+            73,
+            74,
+            75,
+            76,
+            61,
+            62,
+            63,
+            64,
+            69,
+            70,
+            71,
+            72,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            65,
+            66,
+            67,
+            68,
+            77,
+            78,
+            79,
+            80,
+            93,
+            94,
+            95,
+            96,
+            89,
+            90,
+            91,
+            92
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+        "name": "doctores",
+        "permissions": [
+            33,
+            34,
+            35,
+            36,
+            45,
+            46,
+            47,
+            48
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 4,
+    "fields": {
+        "name": "laboratorio",
+        "permissions": [
+            62,
+            64
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 5,
+    "fields": {
+        "name": "farmacia",
+        "permissions": [
+            60,
+            65,
+            66,
+            67,
+            68
+        ]
+    }
+}
+]

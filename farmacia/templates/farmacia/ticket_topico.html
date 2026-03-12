@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Ticket de Venta #{{ venta.id }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h3 class="mb-0">COMPROBANTE DE VENTA - TÓPICO</h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-6">
+                    <strong>Venta #:</strong> {{ venta.id }}<br>
+                    <strong>Fecha:</strong> {{ venta.fecha_creacion|date:"d/m/Y H:i" }}<br>
+                    <strong>Usuario:</strong> {{ usuario.get_full_name|default:usuario.username }}
+                </div>
+            </div>
+            
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Cant</th>
+                        <th>P.Unit</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detalle in detalles %}
+                    <tr>
+                        <td>{{ detalle.descripcion }}</td>
+                        <td>{{ detalle.cantidad }}</td>
+                        <td>S/ {{ detalle.precio_unitario|floatformat:2 }}</td>
+                        <td>S/ {{ detalle.subtotal|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>TOTAL:</strong></td>
+                        <td><strong>S/ {{ venta.total|floatformat:2 }}</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+            <div class="text-center mt-4 no-print">
+                <button onclick="window.print()" class="btn btn-primary">
+                    <i class="fas fa-print"></i> Imprimir Ticket
+                </button>
+                <a href="{% url 'farmacia:lista_combos' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Nueva Venta
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style media="print">
+    .no-print, .btn { display: none; }
+    .card { border: none; }
+</style>
+{% endblock %}

@@ -1,0 +1,533 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registrar Compra Manual{% endblock %}
+
+{% block extra_css %}
+<style>
+    .buscador-section {
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    .calculated-field {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+    .alert-success {
+        border-left: 4px solid #28a745;
+    }
+    .estado-badge {
+        font-size: 0.9rem;
+        padding: 5px 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-cart-plus me-2"></i>{{ titulo }}
+                    </h4>
+                    <a href="{% url 'farmacia:lista_compras' %}" class="btn btn-light btn-sm">
+                        <i class="fas fa-arrow-left me-1"></i> Volver
+                    </a>
+                </div>
+                
+                <div class="card-body">
+                    
+                    <hr>
+                    
+                    <!-- BUSCADORES -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="buscador-section">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-hashtag me-1"></i> Buscar por Código:
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" id="buscar_codigo" class="form-control" 
+                                           placeholder="Ej: 453, 37777...">
+                                    <button class="btn btn-outline-primary" type="button" id="btnBuscarCodigo">
+                                        <i class="fas fa-search"></i> Buscar
+                                    </button>
+                                </div>
+                                <div id="resultados_codigo" class="list-group mt-2" style="display: none;"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="buscador-section">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-pills me-1"></i> Buscar por Nombre:
+                                </label>
+                                <div class="input-group">
+                                    <input type="text" id="buscar_nombre" class="form-control" 
+                                           placeholder="Ej: Ventolin, Amoxicilina...">
+                                    <button class="btn btn-outline-primary" type="button" id="btnBuscarNombre">
+                                        <i class="fas fa-search"></i> Buscar
+                                    </button>
+                                </div>
+                                <div id="resultados_nombre" class="list-group mt-2" style="display: none;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- FORMULARIO PRODUCTO (oculto hasta seleccionar) -->
+                    <div id="form_producto" style="display: none;">
+                        <h5 class="mb-3">Agregar producto</h5>
+                        <input type="hidden" id="medicamento_id">
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <label class="form-label">Medicamento seleccionado:</label>
+                                <input type="text" id="medicamento_nombre" class="form-control" readonly>
+                            </div>
+                        </div>
+                        
+                        <!-- MODO DE CÁLCULO -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label class="form-label d-block">Modo de cálculo:</label>
+                                <div class="btn-group btn-group-sm">
+                                    <input type="radio" class="btn-check" name="modoCalculo" id="modoManual" value="manual" checked>
+                                    <label class="btn btn-outline-secondary" for="modoManual">Manual</label>
+                                    <input type="radio" class="btn-check" name="modoCalculo" id="modoCP" value="cantidad-precio">
+                                    <label class="btn btn-outline-primary" for="modoCP">Cant + Prec</label>
+                                    <input type="radio" class="btn-check" name="modoCalculo" id="modoCS" value="cantidad-subtotal">
+                                    <label class="btn btn-outline-primary" for="modoCS">Cant + Subt</label>
+                                    <input type="radio" class="btn-check" name="modoCalculo" id="modoPS" value="precio-subtotal">
+                                    <label class="btn btn-outline-primary" for="modoPS">Prec + Subt</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Cantidad:</label>
+                                <input type="number" id="cantidad" class="form-control" step="1" min="0">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Precio Unit.:</label>
+                                <input type="number" id="precio_unitario" class="form-control" step="0.01" min="0">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Subtotal:</label>
+                                <input type="number" id="subtotal" class="form-control" step="0.01" min="0">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Lote:</label>
+                                <input type="text" id="lote" class="form-control" placeholder="Ej: LOTE001">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label class="form-label">Vencimiento:</label>
+                                <input type="date" id="fecha_vencimiento" class="form-control">
+                            </div>
+                            <div class="col-md-2 mb-2 d-flex align-items-end">
+                                <button class="btn btn-success w-100" id="btnAgregar">
+                                    <i class="fas fa-plus"></i> Agregar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- TABLA DE PRODUCTOS -->
+                    <div class="mt-4">
+                        <h5>Productos agregados</h5>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Medicamento</th>
+                                        <th>Lote</th>
+                                        <th>Vencimiento</th>
+                                        <th class="text-end">Cantidad</th>
+                                        <th class="text-end">P.Unit</th>
+                                        <th class="text-end">Subtotal</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyProductos">
+                                    {% for item in carrito.items %}
+                                    <tr data-id="{{ item.id }}">
+                                        <td>{{ item.codigo }}</td>
+                                        <td>{{ item.nombre }}</td>
+                                        <td>{{ item.lote }}</td>
+                                        <td>{{ item.fecha_vencimiento }}</td>
+                                        <td class="text-end">{{ item.cantidad }}</td>
+                                        <td class="text-end">S/ {{ item.precio_unitario|floatformat:2 }}</td>
+                                        <td class="text-end">S/ {{ item.subtotal|floatformat:2 }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger btn-eliminar" data-id="{{ item.id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr id="filaVacia">
+                                        <td colspan="8" class="text-center py-4">
+                                            <p class="text-muted">No hay productos agregados</p>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-secondary">
+                                        <th colspan="6" class="text-end">Subtotal:</th>
+                                        <th class="text-end" id="totalSubtotal">S/ {{ carrito.subtotal|floatformat:2 }}</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr class="table-secondary" id="filaIGV" {% if not carrito.incluye_igv %}style="display:none"{% endif %}>
+                                        <th colspan="6" class="text-end">IGV (18%):</th>
+                                        <th class="text-end" id="totalIGV">S/ {{ carrito.igv|floatformat:2 }}</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr class="table-primary">
+                                        <th colspan="6" class="text-end">TOTAL:</th>
+                                        <th class="text-end" id="totalGeneral">S/ {{ carrito.total|floatformat:2 }}</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- CHECKBOXES: IGV y ESTADO DE FACTURA -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="incluye_igv" 
+                                       {% if carrito.incluye_igv %}checked{% endif %}>
+                                <label class="form-check-label" for="incluye_igv">
+                                    <i class="fas fa-percent me-1"></i> Incluye IGV (18%) en el cálculo
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="factura_pagada" checked>
+                                <label class="form-check-label" for="factura_pagada">
+                                    <i class="fas fa-check-circle text-success me-1"></i> Factura Pagada
+                                </label>
+                                <small class="text-muted d-block">(Si no está pagada, quedará como pendiente)</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- BOTONES -->
+                    <div class="row mt-4">
+                        <div class="col-12 text-end">
+                            <a href="{% url 'farmacia:lista_compras' %}" class="btn btn-secondary">
+                                Cancelar
+                            </a>
+                            <button class="btn btn-primary" id="btnFinalizar" {% if not carrito.items %}disabled{% endif %}>
+                                <i class="fas fa-check"></i> Finalizar y Previsualizar
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ============================================
+    // ELEMENTOS DEL DOM
+    // ============================================
+    const inputBuscarCodigo = document.getElementById('buscar_codigo');
+    const inputBuscarNombre = document.getElementById('buscar_nombre');
+    const btnBuscarCodigo = document.getElementById('btnBuscarCodigo');
+    const btnBuscarNombre = document.getElementById('btnBuscarNombre');
+    const resultadosCodigo = document.getElementById('resultados_codigo');
+    const resultadosNombre = document.getElementById('resultados_nombre');
+    const formProducto = document.getElementById('form_producto');
+    const medicamentoId = document.getElementById('medicamento_id');
+    const medicamentoNombre = document.getElementById('medicamento_nombre');
+    const cantidad = document.getElementById('cantidad');
+    const precioUnitario = document.getElementById('precio_unitario');
+    const subtotal = document.getElementById('subtotal');
+    const lote = document.getElementById('lote');
+    const fechaVencimiento = document.getElementById('fecha_vencimiento');
+    const btnAgregar = document.getElementById('btnAgregar');
+    const tbody = document.getElementById('tbodyProductos');
+    const totalSubtotal = document.getElementById('totalSubtotal');
+    const totalIGV = document.getElementById('totalIGV');
+    const totalGeneral = document.getElementById('totalGeneral');
+    const filaIGV = document.getElementById('filaIGV');
+    const incluyeIgv = document.getElementById('incluye_igv');
+    const facturaPagada = document.getElementById('factura_pagada');
+    const btnFinalizar = document.getElementById('btnFinalizar');
+    const filaVacia = document.getElementById('filaVacia');
+    
+    // ============================================
+    // BÚSQUEDA DE MEDICAMENTOS
+    // ============================================
+    function buscarMedicamentos(query, tipo) {
+        if (tipo === 'codigo' && query.length < 1) {
+            alert('Ingrese un código');
+            return;
+        }
+        if (tipo === 'nombre' && query.length < 2) {
+            alert('Ingrese al menos 2 caracteres');
+            return;
+        }
+        
+        const resultadosDiv = tipo === 'codigo' ? resultadosCodigo : resultadosNombre;
+        resultadosDiv.innerHTML = '<div class="list-group-item">Buscando...</div>';
+        resultadosDiv.style.display = 'block';
+        
+        if (tipo === 'codigo') resultadosNombre.style.display = 'none';
+        else resultadosCodigo.style.display = 'none';
+        
+        fetch(`/farmacia/buscar-medicamentos-ajax/?q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                resultadosDiv.innerHTML = '';
+                if (data.medicamentos && data.medicamentos.length > 0) {
+                    data.medicamentos.forEach(med => {
+                        const item = document.createElement('a');
+                        item.href = '#';
+                        item.className = 'list-group-item list-group-item-action';
+                        item.innerHTML = `
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${med.nombre}</strong>
+                                    <br>
+                                    <small class="text-muted">Código: ${med.codigo} | Stock: ${med.stock}</small>
+                                </div>
+                                <span class="badge bg-primary">S/ ${med.precio}</span>
+                            </div>
+                        `;
+                        item.onclick = (e) => {
+                            e.preventDefault();
+                            seleccionarMedicamento(med);
+                        };
+                        resultadosDiv.appendChild(item);
+                    });
+                } else {
+                    resultadosDiv.innerHTML = '<div class="list-group-item text-danger">No se encontraron resultados</div>';
+                }
+            })
+            .catch(error => {
+                resultadosDiv.innerHTML = '<div class="list-group-item text-danger">Error en la búsqueda</div>';
+                console.error('Error:', error);
+            });
+    }
+
+    // Eventos de búsqueda
+    btnBuscarCodigo.onclick = () => buscarMedicamentos(inputBuscarCodigo.value.trim(), 'codigo');
+    btnBuscarNombre.onclick = () => buscarMedicamentos(inputBuscarNombre.value.trim(), 'nombre');
+
+    inputBuscarCodigo.onkeyup = (e) => {
+        if (e.key === 'Enter') buscarMedicamentos(inputBuscarCodigo.value.trim(), 'codigo');
+    };
+
+    inputBuscarNombre.onkeyup = (e) => {
+        if (e.key === 'Enter') buscarMedicamentos(inputBuscarNombre.value.trim(), 'nombre');
+    };
+    
+    // ============================================
+    // SELECCIONAR MEDICAMENTO
+    // ============================================
+    function seleccionarMedicamento(med) {
+        medicamentoId.value = med.id;
+        medicamentoNombre.value = med.nombre;
+        
+        cantidad.value = '';
+        precioUnitario.value = '';
+        subtotal.value = '';
+        lote.value = '';
+        fechaVencimiento.value = '';
+        
+        formProducto.style.display = 'block';
+        resultadosCodigo.style.display = 'none';
+        resultadosNombre.style.display = 'none';
+        inputBuscarCodigo.value = '';
+        inputBuscarNombre.value = '';
+    }
+    
+    // ============================================
+    // CONTROL DE CAMPOS POR MODO
+    // ============================================
+    document.querySelectorAll('input[name="modoCalculo"]').forEach(r => {
+        r.addEventListener('change', function() {
+            [cantidad, precioUnitario, subtotal].forEach(c => {
+                c.readOnly = false;
+                c.classList.remove('calculated-field');
+            });
+            if (this.value === 'cantidad-precio') {
+                subtotal.readOnly = true;
+                subtotal.classList.add('calculated-field');
+            } else if (this.value === 'cantidad-subtotal') {
+                precioUnitario.readOnly = true;
+                precioUnitario.classList.add('calculated-field');
+            } else if (this.value === 'precio-subtotal') {
+                cantidad.readOnly = true;
+                cantidad.classList.add('calculated-field');
+            }
+            cantidad.value = '';
+            precioUnitario.value = '';
+            subtotal.value = '';
+        });
+    });
+    
+    // ============================================
+    // CÁLCULO AUTOMÁTICO
+    // ============================================
+    function calcular() {
+        const modo = document.querySelector('input[name="modoCalculo"]:checked').value;
+        if (modo === 'manual') return;
+        
+        const cant = parseFloat(cantidad.value) || 0;
+        const pUnit = parseFloat(precioUnitario.value) || 0;
+        const sub = parseFloat(subtotal.value) || 0;
+        
+        if (modo === 'cantidad-precio' && cant > 0 && pUnit > 0) {
+            subtotal.value = (cant * pUnit).toFixed(2);
+        } else if (modo === 'cantidad-subtotal' && cant > 0 && sub > 0) {
+            precioUnitario.value = (sub / cant).toFixed(2);
+        } else if (modo === 'precio-subtotal' && pUnit > 0 && sub > 0) {
+            cantidad.value = Math.round(sub / pUnit);
+        }
+    }
+    
+    cantidad.addEventListener('input', calcular);
+    precioUnitario.addEventListener('input', calcular);
+    subtotal.addEventListener('input', calcular);
+    
+    // ============================================
+    // AGREGAR PRODUCTO
+    // ============================================
+    btnAgregar.addEventListener('click', function() {
+        if (!medicamentoId.value) {
+            alert('Seleccione un medicamento');
+            return;
+        }
+        
+        const modo = document.querySelector('input[name="modoCalculo"]:checked').value;
+        const cant = parseFloat(cantidad.value) || 0;
+        const pUnit = parseFloat(precioUnitario.value) || 0;
+        const sub = parseFloat(subtotal.value) || 0;
+        
+        if (modo === 'manual' && (!cant || !pUnit || !sub)) {
+            alert('Complete cantidad, precio y subtotal');
+            return;
+        }
+        if (modo === 'cantidad-precio' && (!cant || !pUnit)) {
+            alert('Complete cantidad y precio');
+            return;
+        }
+        if (modo === 'cantidad-subtotal' && (!cant || !sub)) {
+            alert('Complete cantidad y subtotal');
+            return;
+        }
+        if (modo === 'precio-subtotal' && (!pUnit || !sub)) {
+            alert('Complete precio y subtotal');
+            return;
+        }
+        
+        if (!lote.value) {
+            alert('Ingrese lote');
+            return;
+        }
+        if (!fechaVencimiento.value) {
+            alert('Ingrese fecha de vencimiento');
+            return;
+        }
+        
+        fetch('/farmacia/compras/manual/agregar-item/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                medicamento_id: medicamentoId.value,
+                cantidad: cantidad.value,
+                precio_unitario: precioUnitario.value,
+                subtotal: subtotal.value,
+                lote: lote.value,
+                fecha_vencimiento: fechaVencimiento.value
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error: ' + data.error);
+            }
+        });
+    });
+    
+    // ============================================
+    // ELIMINAR PRODUCTO
+    // ============================================
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.btn-eliminar')) {
+            const id = e.target.closest('.btn-eliminar').dataset.id;
+            fetch(`/farmacia/compras/manual/eliminar-item/${id}/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) location.reload();
+            });
+        }
+    });
+    
+    // ============================================
+    // IGV - ACTUALIZACIÓN EN TIEMPO REAL
+    // ============================================
+    incluyeIgv.addEventListener('change', function() {
+        const subtotalVal = parseFloat(totalSubtotal.textContent.replace('S/ ', '')) || 0;
+        if (this.checked) {
+            const igv = subtotalVal * 0.18;
+            totalIGV.textContent = 'S/ ' + igv.toFixed(2);
+            totalGeneral.textContent = 'S/ ' + (subtotalVal + igv).toFixed(2);
+            filaIGV.style.display = '';
+        } else {
+            filaIGV.style.display = 'none';
+            totalGeneral.textContent = 'S/ ' + subtotalVal.toFixed(2);
+        }
+    });
+    
+    // ============================================
+    // FINALIZAR - ENVIAR A PREVISUALIZACIÓN
+    // ============================================
+    btnFinalizar.addEventListener('click', function() {
+        // Verificar que hay productos
+        const filasProductos = document.querySelectorAll('#tbodyProductos tr:not(#filaVacia)');
+        if (filasProductos.length === 0) {
+            alert('No hay productos en el carrito');
+            return;
+        }
+        
+        // Crear formulario con los estados
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/farmacia/compras/manual/finalizar/';
+        form.innerHTML = `
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+            <input type="hidden" name="incluye_igv" value="${incluyeIgv.checked ? 'true' : 'false'}">
+            <input type="hidden" name="factura_pagada" value="${facturaPagada.checked ? 'true' : 'false'}">
+        `;
+        document.body.appendChild(form);
+        form.submit();
+    });
+    
+});
+</script>
+{% endblock %}

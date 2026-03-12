@@ -1,0 +1,1048 @@
+{% extends 'base.html' %}
+
+{% block title %}Venta Directa - Policlínico{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Estilos básicos y funcionales */
+#tablaResultados tbody tr.clickeable {
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#tablaResultados tbody tr.clickeable:hover {
+    background-color: #f8f9fa;
+}
+
+#tablaResultados tbody tr.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#tablaResultados tbody tr.disabled:hover {
+    background-color: inherit;
+}
+
+.en-carrito {
+    background-color: rgba(25, 135, 84, 0.05) !important;
+}
+
+.btn-agregar {
+    transition: transform 0.2s;
+}
+
+.btn-agregar:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.cantidad-busqueda {
+    width: 80px;
+    text-align: center;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Badges de stock */
+.badge-stock-alto {
+    background-color: #198754 !important;
+}
+
+.badge-stock-medio {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+.badge-stock-bajo {
+    background-color: #dc3545 !important;
+}
+
+/* Mensajes flotantes */
+#mensajesFlotantes {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    width: 300px;
+}
+
+/* Loading overlay */
+#loadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Loading Overlay -->
+<div id="loadingOverlay">
+    <div class="spinner-container" style="background: white; padding: 30px; border-radius: 10px; text-align: center;">
+        <div class="spinner-border text-primary mb-3" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Procesando...</span>
+        </div>
+        <h5 class="mb-2">Procesando Venta</h5>
+        <p class="text-muted mb-0">Por favor espere...</p>
+    </div>
+</div>
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="mb-4">
+                <i class="fas fa-cash-register text-primary me-2"></i>
+                Venta Directa
+            </h3>
+
+            <!-- Búsqueda -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text"
+                               class="form-control"
+                               id="buscarMedicamento"
+                               placeholder="Buscar medicamento (escribe 2+ letras)..."
+                               autocomplete="off"
+                               autofocus>
+                        <button class="btn btn-outline-secondary" type="button" id="btnLimpiarBusqueda">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <small class="text-muted mt-2 d-block">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Escribe al menos 2 letras para buscar por nombre, código o principio activo
+                    </small>
+                </div>
+            </div>
+
+            <!-- Resultados de búsqueda -->
+            <div class="card mb-4" id="cardResultados" style="display: none;">
+                <div class="card-header">
+                    <h5 class="mb-0">Resultados de Búsqueda</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0" id="tablaResultados">
+                            <thead class="table-light">
+                                <tr>
+                                    <th width="50">Agregar</th>
+                                    <th>Medicamento</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
+                                    <th width="150">Cantidad</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyResultados">
+                                <!-- Se llena con AJAX -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carrito de compras -->
+            <div class="card">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-shopping-cart me-2"></i>
+                        Medicamentos a Vender
+                    </h5>
+                    <div>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="btnSeleccionarTodos">
+                            <i class="fas fa-check-square me-1"></i> Seleccionar Todos
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-danger ms-2" id="btnEliminarSeleccionados">
+                            <i class="fas fa-trash me-1"></i> Eliminar Seleccionados
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-body p-0">
+                    <form id="formVentaSimple" method="post" action="{% url 'farmacia:procesar_venta_directa' %}">
+                        {% csrf_token %}
+
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="tablaCarrito">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th width="50">
+                                            <input type="checkbox" id="selectAll">
+                                        </th>
+                                        <th>Medicamento</th>
+                                        <th>Stock Disp.</th>
+                                        <th>Precio Unit.</th>
+                                        <th width="150">Cantidad</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyCarrito">
+                                    <tr id="estadoVacio">
+                                        <td colspan="6" class="text-center py-5">
+                                            <div class="text-muted">
+                                                <i class="fas fa-shopping-cart fa-3x mb-3"></i>
+                                                <h5>Carrito Vacío</h5>
+                                                <p class="mb-0">Busque medicamentos arriba y agréguelos aquí</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="table-light">
+                                    <tr>
+                                        <td colspan="5" class="text-end"><strong>SUBTOTAL:</strong></td>
+                                        <td class="text-end">
+                                            <h5 class="mb-0 text-success" id="subtotalTotal">S/ 0.00</h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5" class="text-end"><strong>DESCUENTO:</strong></td>
+                                        <td class="text-end">
+                                            <div class="input-group input-group-sm" style="width: 150px; margin-left: auto;">
+                                                <span class="input-group-text">S/</span>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       id="inputDescuento"
+                                                       name="descuento"
+                                                       value="0"
+                                                       min="0"
+                                                       step="0.01">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-primary">
+                                        <td colspan="5" class="text-end"><strong>TOTAL:</strong></td>
+                                        <td class="text-end">
+                                            <h3 class="mb-0 text-primary" id="totalGeneral">S/ 0.00</h3>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                        <!-- Método de pago y observaciones -->
+                        <div class="row mt-4 p-3">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label"><i class="fas fa-credit-card me-2"></i>Método de Pago</label>
+                                    <select class="form-select" name="metodo_pago" id="metodoPago" required>
+                                        <option value="EFECTIVO">Efectivo</option>
+                                        <option value="YAPE">Yape</option>
+                                        <option value="PLIN">Plin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label class="form-label"><i class="fas fa-comment me-2"></i>Observaciones</label>
+                                    <textarea class="form-control"
+                                              name="observaciones"
+                                              id="observaciones"
+                                              rows="2"
+                                              placeholder="Observaciones adicionales..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="row mt-3 p-3">
+                            <div class="col-md-6">
+                                <div class="alert alert-info mb-0 small">
+                                    <h6 class="mb-2"><i class="fas fa-info-circle me-2"></i>Instrucciones:</h6>
+                                    <ul class="mb-0">
+                                        <li><strong>Busque</strong> medicamentos arriba</li>
+                                        <li><strong>Click</strong> en "Agregar" o en la fila</li>
+                                        <li><strong>Ajuste</strong> la cantidad según stock</li>
+                                        <li><strong>Desmarque</strong> para excluir de la venta</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button type="submit" class="btn btn-primary btn-lg px-5" id="btnProcesarVenta" disabled>
+                                    <i class="fas fa-check-circle me-2"></i> Procesar Venta
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-lg ms-2" id="btnCancelarVenta">
+                                    <i class="fas fa-times me-2"></i> Cancelar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Campos ocultos para medicamentos seleccionados -->
+                        <div id="hiddenFields">
+                            <!-- Se llenarán dinámicamente con JavaScript -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumen lateral -->
+        <div class="col-md-4">
+            <div class="card sticky-top" style="top: 20px;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-receipt me-2"></i> Resumen de Venta</h5>
+                </div>
+                <div class="card-body">
+                    <div id="resumenItems">
+                        <p class="text-muted text-center py-3">No hay medicamentos seleccionados</p>
+                    </div>
+                    <hr>
+                    <div class="text-center">
+                        <h4 id="totalResumen">S/ 0.00</h4>
+                        <small class="text-muted"><span id="contadorItems">0</span> medicamento(s)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+// ============================================
+// VARIABLES GLOBALES
+// ============================================
+let carrito = {};
+let timeoutBusqueda;
+
+// ============================================
+// FUNCIÓN PARA SINCRONIZAR CARRITO CON SERVIDOR
+// ============================================
+async function sincronizarCarritoServidor() {
+    try {
+        const response = await fetch('{% url "farmacia:actualizar_carrito" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ 
+                carrito: carrito,
+                accion: 'sincronizar'
+            })
+        });
+        
+        const data = await response.json();
+        if (!data.success) {
+            console.error('Error sincronizando carrito:', data.message);
+        }
+    } catch (error) {
+        console.error('Error en sincronización:', error);
+    }
+}
+
+// ============================================
+// BÚSQUEDA AJAX
+// ============================================
+function buscarMedicamento() {
+    const query = document.getElementById('buscarMedicamento').value.trim();
+    const cardResultados = document.getElementById('cardResultados');
+    const tbodyResultados = document.getElementById('tbodyResultados');
+
+    // Mínimo 2 caracteres
+    if (!query || query.length < 2) {
+        cardResultados.style.display = 'none';
+        tbodyResultados.innerHTML = '';
+        return;
+    }
+
+    // Mostrar loading
+    tbodyResultados.innerHTML = `
+        <tr>
+            <td colspan="5" class="text-center py-4">
+                <i class="fas fa-spinner fa-spin me-2"></i>
+                Buscando medicamentos...
+            </td>
+        </tr>`;
+    cardResultados.style.display = 'block';
+
+    // Petición AJAX
+    fetch(`/farmacia/buscar-medicamentos-ajax/?q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            tbodyResultados.innerHTML = '';
+
+            if (data.medicamentos && data.medicamentos.length > 0) {
+                data.medicamentos.forEach(med => {
+                    const enCarrito = carrito.hasOwnProperty(med.id);
+                    const tieneStock = med.stock > 0;
+
+                    // Clase para la fila
+                    let claseFila = 'clickeable';
+                    if (enCarrito) claseFila += ' en-carrito';
+                    if (!tieneStock) claseFila += ' disabled';
+
+                    // Badge de stock
+                    let badgeClass = 'badge-stock-bajo';
+                    if (med.stock > 10) badgeClass = 'badge-stock-alto';
+                    else if (med.stock > 0) badgeClass = 'badge-stock-medio';
+
+                    // Crear fila
+                    const fila = document.createElement('tr');
+                    fila.className = claseFila;
+
+                    // Escapar comillas
+                    const nombreEscapado = med.nombre.replace(/'/g, "&#39;");
+                    const principioEscapado = (med.principio_activo || '').replace(/'/g, "&#39;");
+
+                    fila.innerHTML = `
+                        <td>
+                            ${tieneStock ?
+                                `<button class="btn btn-sm ${enCarrito ? 'btn-success' : 'btn-outline-primary'} btn-agregar"
+                                        onclick="event.stopPropagation(); agregarAlCarrito('${med.id}', '${nombreEscapado}', ${med.precio}, ${med.stock}, '${principioEscapado}')"
+                                        ${enCarrito ? 'disabled' : ''}>
+                                    <i class="fas ${enCarrito ? 'fa-check' : 'fa-plus'}"></i>
+                                </button>` :
+                                `<button class="btn btn-sm btn-outline-secondary" disabled title="Sin stock">
+                                    <i class="fas fa-times"></i>
+                                </button>`
+                            }
+                        </td>
+                        <td>
+                            <strong>${med.nombre}</strong><br>
+                            <small class="text-muted">${med.principio_activo || ''}</small>
+                        </td>
+                        <td>
+                            <span class="badge ${badgeClass}">
+                                ${med.stock} unidades
+                            </span>
+                        </td>
+                        <td class="${tieneStock ? 'text-primary fw-bold' : 'text-muted'}">
+                            S/ ${med.precio.toFixed(2)}
+                        </td>
+                        <td>
+                            ${tieneStock ?
+                                `<input type="number"
+                                       value="1"
+                                       min="1"
+                                       max="${med.stock}"
+                                       class="form-control form-control-sm cantidad-busqueda"
+                                       data-med-id="${med.id}"
+                                       style="width: 80px;">` :
+                                `<span class="text-muted small">Sin stock</span>`
+                            }
+                        </td>
+                    `;
+
+                    // Click en toda la fila (solo si tiene stock y no está en carrito)
+                    if (tieneStock && !enCarrito) {
+                        fila.addEventListener('click', function() {
+                            const cantidadInput = this.querySelector('.cantidad-busqueda');
+                            const cantidad = cantidadInput ? parseInt(cantidadInput.value) || 1 : 1;
+
+                            agregarAlCarrito(med.id, med.nombre, med.precio, med.stock,
+                                           med.principio_activo || '');
+                        });
+                    }
+
+                    tbodyResultados.appendChild(fila);
+                });
+            } else {
+                tbodyResultados.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">
+                            <i class="fas fa-search fa-2x mb-3"></i>
+                            <p>No se encontraron medicamentos</p>
+                        </td>
+                    </tr>`;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            tbodyResultados.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-danger">
+                        <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                        <p>Error en la búsqueda</p>
+                    </td>
+                </tr>`;
+        });
+}
+
+// ============================================
+// FUNCIONES DEL CARRITO
+// ============================================
+async function agregarAlCarrito(id, nombre, precio, stock, principioActivo) {
+    const cantidadInput = document.querySelector(`.cantidad-busqueda[data-med-id="${id}"]`);
+    const cantidad = cantidadInput ? parseInt(cantidadInput.value) || 1 : 1;
+
+    // Validar cantidad vs stock
+    if (cantidad > stock) {
+        mostrarMensaje('warning', `Stock máximo: ${stock} unidades`);
+        if (cantidadInput) cantidadInput.value = stock;
+        return;
+    }
+
+    // Si ya está en el carrito, sumar la cantidad
+    if (carrito.hasOwnProperty(id)) {
+        const nuevaCantidad = carrito[id].cantidad + cantidad;
+        if (nuevaCantidad > stock) {
+            mostrarMensaje('warning', `Stock máximo: ${stock} unidades. Ya tienes ${carrito[id].cantidad} en el carrito.`);
+            return;
+        }
+        carrito[id].cantidad = nuevaCantidad;
+        carrito[id].subtotal = carrito[id].precio * nuevaCantidad;
+    } else {
+        // Agregar nuevo medicamento al carrito
+        carrito[id] = {
+            id: id,
+            nombre: nombre,
+            precio: parseFloat(precio),
+            stock: parseInt(stock),
+            principio_activo: principioActivo,
+            cantidad: cantidad,
+            subtotal: parseFloat(precio) * cantidad,
+            seleccionado: true
+        };
+    }
+
+    // Actualizar interfaz
+    actualizarTablaCarrito();
+    calcularTotales();
+    actualizarResumen();
+    actualizarCamposOcultos();
+
+    // Sincronizar con servidor
+    await sincronizarCarritoServidor();
+
+    // Limpiar búsqueda después de agregar
+    limpiarBusqueda();
+
+    // Mostrar mensaje de confirmación
+    mostrarMensaje('success', `<i class="fas fa-check-circle me-1"></i> ${nombre} agregado (${cantidad} unidad(es))`);
+}
+
+
+//========= actualizar carrito
+function actualizarTablaCarrito() {
+    const tbody = document.getElementById('tbodyCarrito');
+    const estadoVacio = document.getElementById('estadoVacio');
+
+    if (Object.keys(carrito).length === 0) {
+        if (estadoVacio) estadoVacio.style.display = '';
+        tbody.innerHTML = '<tr id="estadoVacio"><td colspan="7" class="text-center py-5"><div class="text-muted"><i class="fas fa-shopping-cart fa-3x mb-3"></i><h5>Carrito Vacío</h5><p class="mb-0">Busque medicamentos arriba y agréguelos aquí</p></div></td></tr>';
+        return;
+    }
+
+    // Ocultar mensaje de vacío
+    if (estadoVacio) estadoVacio.style.display = 'none';
+
+    // Generar filas del carrito USANDO EL ÍNDICE
+    let html = '';
+    const items = Object.values(carrito);
+    
+    items.forEach((item, index) => {
+        html += `
+            <tr data-index="${index}" data-id="${item.id}" class="${item.seleccionado ? '' : 'table-secondary'}">
+                <td class="text-center">
+                    <input type="checkbox"
+                           class="form-check-input item-seleccionado"
+                           ${item.seleccionado ? 'checked' : ''}
+                           data-id="${item.id}"
+                           onchange="toggleSeleccionado('${item.id}', this.checked)">
+                </td>
+                <td>
+                    <strong>${item.nombre}</strong><br>
+                    <small class="text-muted">${item.principio_activo || ''}</small>
+                </td>
+                <td class="text-center">
+                    <span class="badge ${item.stock > 0 ? 'bg-success' : 'bg-danger'}">
+                        ${item.stock}
+                    </span>
+                </td>
+                <td class="text-center">
+                    <span class="precio-unitario">S/ ${item.precio.toFixed(2)}</span>
+                </td>
+                <td>
+                    <input type="number"
+                           class="form-control form-control-sm cantidad-item"
+                           value="${item.cantidad}"
+                           min="1"
+                           max="${item.stock}"
+                           data-id="${item.id}"
+                           ${!item.seleccionado ? 'disabled' : ''}
+                           style="width: 80px; margin: 0 auto;"
+                           onchange="actualizarCantidadCarrito('${item.id}', this.value)">
+                </td>
+                <td class="text-center">
+                    <span class="subtotal fw-bold ${item.seleccionado ? 'text-success' : 'text-muted'}">
+                        S/ ${item.subtotal.toFixed(2)}
+                    </span>
+                </td>
+            </tr>
+        `;
+    });
+
+    tbody.innerHTML = html;
+}
+
+
+
+// Función para eliminar un item individual
+function eliminarItem(id) {
+    console.log('========== ELIMINAR ITEM ==========');
+    console.log('ID recibido:', id);
+    console.log('Tipo de ID:', typeof id);
+    console.log('Carrito completo:', JSON.stringify(carrito));
+    console.log('Item en carrito con ese ID:', carrito[id]);
+    
+    if (!carrito[id]) {
+        console.log('❌ No se encontró el item en el carrito');
+        
+        // Buscar si existe con otro tipo de ID (número vs string)
+        const idsDisponibles = Object.keys(carrito);
+        console.log('IDs disponibles en carrito:', idsDisponibles);
+        
+        // Intentar encontrar coincidencia
+        const encontrado = idsDisponibles.find(key => String(key) === String(id));
+        if (encontrado) {
+            console.log('✅ Encontrado con key:', encontrado);
+            id = encontrado; // Usar la key correcta
+        } else {
+            mostrarMensaje('danger', 'Error: Item no encontrado');
+            return;
+        }
+    }
+    
+    if (!confirm('¿Eliminar este medicamento del carrito?')) return;
+    
+    console.log('Eliminando item con ID:', id);
+    delete carrito[id];
+    console.log('Carrito después de eliminar:', JSON.stringify(carrito));
+    
+    // Actualizar todas las vistas
+    actualizarTablaCarrito();
+    calcularTotales();
+    actualizarResumen();
+    actualizarCamposOcultos();
+    sincronizarCarritoServidor();
+    
+    mostrarMensaje('success', 'Medicamento eliminado del carrito');
+    console.log('=====================================');
+}
+
+
+async function toggleSeleccionado(id, seleccionado) {
+    if (carrito[id]) {
+        carrito[id].seleccionado = seleccionado;
+        actualizarTablaCarrito();
+        calcularTotales();
+        actualizarResumen();
+        actualizarCamposOcultos();
+        await sincronizarCarritoServidor();
+    }
+}
+
+async function actualizarCantidadCarrito(id, cantidad) {
+    if (carrito[id]) {
+        const stock = carrito[id].stock;
+        const nuevaCantidad = Math.min(Math.max(1, parseInt(cantidad) || 1), stock);
+
+        carrito[id].cantidad = nuevaCantidad;
+        carrito[id].subtotal = carrito[id].precio * nuevaCantidad;
+
+        actualizarTablaCarrito();
+        calcularTotales();
+        actualizarResumen();
+        actualizarCamposOcultos();
+        await sincronizarCarritoServidor();
+    }
+}
+
+async function eliminarDelCarrito(id) {
+    if (carrito[id]) {
+        delete carrito[id];
+        actualizarTablaCarrito();
+        calcularTotales();
+        actualizarResumen();
+        actualizarCamposOcultos();
+        await sincronizarCarritoServidor();
+        mostrarMensaje('info', 'Medicamento eliminado del carrito');
+    }
+}
+
+// ============================================
+// FUNCIONES DE CÁLCULO
+// ============================================
+function calcularTotales() {
+    let subtotal = 0;
+    let itemsSeleccionados = 0;
+
+    Object.values(carrito).forEach(item => {
+        if (item.seleccionado && item.cantidad > 0) {
+            subtotal += item.subtotal;
+            itemsSeleccionados++;
+        }
+    });
+
+    const descuento = parseFloat(document.getElementById('inputDescuento').value) || 0;
+    const total = Math.max(0, subtotal - descuento);
+
+    // Actualizar displays
+    document.getElementById('subtotalTotal').textContent = `S/ ${subtotal.toFixed(2)}`;
+    document.getElementById('totalGeneral').textContent = `S/ ${total.toFixed(2)}`;
+    document.getElementById('totalResumen').textContent = `S/ ${total.toFixed(2)}`;
+    document.getElementById('contadorItems').textContent = itemsSeleccionados;
+
+    // Habilitar/deshabilitar botón procesar
+    document.getElementById('btnProcesarVenta').disabled = (itemsSeleccionados === 0 || total <= 0);
+}
+
+function actualizarResumen() {
+    const resumenDiv = document.getElementById('resumenItems');
+    let html = '';
+    let itemsCount = 0;
+
+    Object.values(carrito).forEach(item => {
+        if (item.seleccionado && item.cantidad > 0) {
+            itemsCount++;
+            html += `
+                <div class="d-flex justify-content-between mb-2">
+                    <div>
+                        <small>${item.nombre}</small><br>
+                        <small class="text-muted">${item.cantidad} x S/ ${item.precio.toFixed(2)}</small>
+                    </div>
+                    <div class="text-end">
+                        <small class="fw-bold">S/ ${item.subtotal.toFixed(2)}</small>
+                    </div>
+                </div>
+            `;
+        }
+    });
+
+    if (itemsCount === 0) {
+        html = '<p class="text-muted text-center py-3">No hay medicamentos seleccionados</p>';
+    }
+
+    resumenDiv.innerHTML = html;
+}
+
+function actualizarCamposOcultos() {
+    const hiddenFields = document.getElementById('hiddenFields');
+    let html = '';
+
+    // Limpiar primero
+    hiddenFields.innerHTML = '';
+
+    // Crear campos ocultos para cada medicamento seleccionado
+    Object.values(carrito).forEach(item => {
+        if (item.seleccionado && item.cantidad > 0) {
+            html += `<input type="hidden" name="medicamento_ids" value="${item.id}">`;
+            html += `<input type="hidden" name="cantidades" value="${item.cantidad}">`;
+        }
+    });
+
+    hiddenFields.innerHTML = html;
+}
+
+// ============================================
+// FUNCIONES DE UTILIDAD
+// ============================================
+function limpiarBusqueda() {
+    document.getElementById('buscarMedicamento').value = '';
+    document.getElementById('cardResultados').style.display = 'none';
+    document.getElementById('buscarMedicamento').focus();
+}
+
+function mostrarMensaje(tipo, mensaje) {
+    let container = document.getElementById('mensajesFlotantes');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'mensajesFlotantes';
+        document.body.appendChild(container);
+    }
+
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${tipo} alert-dismissible fade show shadow-sm`;
+    alertDiv.style.cssText = 'margin-bottom: 10px;';
+
+    let icon = 'fa-info-circle';
+    if (tipo === 'success') icon = 'fa-check-circle';
+    if (tipo === 'warning') icon = 'fa-exclamation-triangle';
+    if (tipo === 'danger') icon = 'fa-times-circle';
+
+    alertDiv.innerHTML = `
+        <div class="d-flex align-items-center">
+            <i class="fas ${icon} fa-lg me-3"></i>
+            <div class="flex-grow-1">${mensaje}</div>
+            <button type="button" class="btn-close btn-close-sm" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+
+    container.appendChild(alertDiv);
+
+    // Auto-eliminar después de 4 segundos
+    setTimeout(() => {
+        if (alertDiv.parentNode) {
+            const bsAlert = new bootstrap.Alert(alertDiv);
+            bsAlert.close();
+        }
+    }, 4000);
+}
+
+function mostrarLoading(mostrar) {
+    const overlay = document.getElementById('loadingOverlay');
+    if (overlay) {
+        overlay.style.display = mostrar ? 'flex' : 'none';
+    }
+}
+
+// ============================================
+// MANEJO DEL FORMULARIO DE VENTA - CORREGIDO
+// ============================================
+async function procesarVenta(event) {
+    event.preventDefault();
+
+    const itemsCount = parseInt(document.getElementById('contadorItems').textContent);
+    const totalText = document.getElementById('totalGeneral').textContent;
+    const total = parseFloat(totalText.replace('S/ ', ''));
+
+    // Validaciones básicas
+    if (itemsCount === 0) {
+        mostrarMensaje('warning', 'Seleccione al menos un medicamento');
+        return false;
+    }
+
+    if (total <= 0) {
+        mostrarMensaje('warning', 'El total debe ser mayor a 0');
+        return false;
+    }
+
+    // Validar stock antes de procesar
+    let stockValid = true;
+    Object.values(carrito).forEach(item => {
+        if (item.seleccionado && item.cantidad > 0) {
+            if (item.cantidad > item.stock) {
+                stockValid = false;
+            }
+        }
+    });
+
+    if (!stockValid) {
+        mostrarMensaje('danger', 'Algunos medicamentos exceden el stock disponible');
+        return false;
+    }
+
+    // Confirmación
+    if (!confirm(`¿Procesar venta por S/ ${total.toFixed(2)}?`)) {
+        return false;
+    }
+
+    // Mostrar loading
+    mostrarLoading(true);
+    const btnProcesar = document.getElementById('btnProcesarVenta');
+    btnProcesar.disabled = true;
+    btnProcesar.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Procesando...';
+
+    try {
+        // Enviar datos al servidor
+        const formData = new FormData(document.getElementById('formVentaSimple'));
+
+        // Agregar los campos de medicamentos seleccionados
+        Object.values(carrito).forEach((item, index) => {
+            if (item.seleccionado && item.cantidad > 0) {
+                formData.append(`carrito[${index}][medicamento_id]`, item.id);
+                formData.append(`carrito[${index}][cantidad]`, item.cantidad);
+                formData.append(`carrito[${index}][precio]`, item.precio);
+                formData.append(`carrito[${index}][nombre]`, item.nombre);
+                formData.append(`carrito[${index}][stock]`, item.stock);
+            }
+        });
+
+        const response = await fetch('{% url "farmacia:procesar_venta_directa" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
+
+        if (response.redirected) {
+            // Django redirige (302) - seguir la redirección
+            window.location.href = response.url;
+            return;
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            mostrarMensaje('success', '¡Venta procesada exitosamente!');
+
+            // Redirigir al ticket de impresión
+            if (data.venta_id) {
+                setTimeout(() => {
+                    // Limpiar carrito y recargar página
+                    carrito = {};
+                    actualizarTablaCarrito();
+                    calcularTotales();
+                    actualizarResumen();
+                    actualizarCamposOcultos();
+
+                    // Redirigir al ticket
+                    window.location.href = `/farmacia/ventas/ticket/${data.venta_id}/`;
+                }, 1000);
+            }
+        } else {
+            throw new Error(data.message || 'Error al procesar la venta');
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarMensaje('danger', `Error: ${error.message}`);
+    } finally {
+        mostrarLoading(false);
+        btnProcesar.disabled = false;
+        btnProcesar.innerHTML = '<i class="fas fa-check-circle me-2"></i> Procesar Venta';
+    }
+}
+
+// ============================================
+// EVENT LISTENERS
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Venta directa inicializada');
+
+    // Cargar carrito inicial desde servidor
+    fetch('{% url "farmacia:obtener_carrito" %}')
+        .then(response => response.json())
+        .then(data => {
+            if (data.carrito && data.carrito.length > 0) {
+                data.carrito.forEach(item => {
+                    carrito[item.medicamento_id] = {
+                        id: item.medicamento_id,
+                        nombre: item.nombre,
+                        precio: parseFloat(item.precio),
+                        stock: parseInt(item.stock),
+                        principio_activo: item.principio_activo || '',
+                        cantidad: parseInt(item.cantidad),
+                        subtotal: parseFloat(item.precio) * parseInt(item.cantidad),
+                        seleccionado: true
+                    };
+                });
+                actualizarTablaCarrito();
+                calcularTotales();
+                actualizarResumen();
+                actualizarCamposOcultos();
+            }
+        })
+        .catch(error => console.error('Error cargando carrito:', error));
+
+    // Búsqueda con debounce
+    const buscarInput = document.getElementById('buscarMedicamento');
+    if (buscarInput) {
+        buscarInput.addEventListener('input', function() {
+            clearTimeout(timeoutBusqueda);
+            timeoutBusqueda = setTimeout(buscarMedicamento, 300);
+        });
+
+        buscarInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                buscarMedicamento();
+            }
+        });
+    }
+
+    // Botón limpiar búsqueda
+    const btnLimpiar = document.getElementById('btnLimpiarBusqueda');
+    if (btnLimpiar) {
+        btnLimpiar.addEventListener('click', limpiarBusqueda);
+    }
+
+    // Input descuento
+    const inputDescuento = document.getElementById('inputDescuento');
+    if (inputDescuento) {
+        inputDescuento.addEventListener('input', calcularTotales);
+    }
+
+    // Botón seleccionar todos
+    const btnSeleccionarTodos = document.getElementById('btnSeleccionarTodos');
+    if (btnSeleccionarTodos) {
+        btnSeleccionarTodos.addEventListener('click', async function() {
+            const todosSeleccionados = Object.values(carrito).every(item => item.seleccionado);
+            Object.values(carrito).forEach(item => {
+                item.seleccionado = !todosSeleccionados;
+            });
+
+            document.getElementById('selectAll').checked = !todosSeleccionados;
+
+            actualizarTablaCarrito();
+            calcularTotales();
+            actualizarResumen();
+            actualizarCamposOcultos();
+            await sincronizarCarritoServidor();
+        });
+    }
+
+    // Botón eliminar seleccionados
+    const btnEliminarSeleccionados = document.getElementById('btnEliminarSeleccionados');
+    if (btnEliminarSeleccionados) {
+        btnEliminarSeleccionados.addEventListener('click', async function() {
+            const seleccionados = Object.values(carrito).filter(item => item.seleccionado);
+            if (seleccionados.length === 0) {
+                mostrarMensaje('warning', 'Seleccione medicamentos para eliminar');
+                return;
+            }
+
+            if (confirm(`¿Eliminar ${seleccionados.length} medicamento(s) seleccionado(s)?`)) {
+                seleccionados.forEach(item => {
+                    delete carrito[item.id];
+                });
+                actualizarTablaCarrito();
+                calcularTotales();
+                actualizarResumen();
+                actualizarCamposOcultos();
+                await sincronizarCarritoServidor();
+                mostrarMensaje('success', `${seleccionados.length} medicamento(s) eliminado(s)`);
+            }
+        });
+    }
+
+    // Botón cancelar venta
+    const btnCancelarVenta = document.getElementById('btnCancelarVenta');
+    if (btnCancelarVenta) {
+        btnCancelarVenta.addEventListener('click', async function() {
+            if (Object.keys(carrito).length > 0) {
+                if (confirm('¿Cancelar venta y vaciar el carrito?')) {
+                    carrito = {};
+                    actualizarTablaCarrito();
+                    calcularTotales();
+                    actualizarResumen();
+                    actualizarCamposOcultos();
+                    await sincronizarCarritoServidor();
+                    mostrarMensaje('info', 'Venta cancelada');
+                }
+            } else {
+                window.location.href = "{% url 'farmacia:venta_directa' %}";
+            }
+        });
+    }
+
+    // Manejo del formulario
+    const formVenta = document.getElementById('formVentaSimple');
+    if (formVenta) {
+        formVenta.addEventListener('submit', procesarVenta);
+    }
+
+    // Enfocar automáticamente en la búsqueda
+    if (buscarInput) {
+        setTimeout(() => {
+            buscarInput.focus();
+        }, 100);
+    }
+});
+</script>
+{% endblock %}

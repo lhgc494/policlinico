@@ -1,0 +1,112 @@
+{% extends 'consultas/laboratorio/formatos/base_formato.html' %}
+
+{% block title %}Serología - {{ orden.examen_especifico }}{% endblock %}
+
+{% block campos_formulario %}
+{% if modo_impresion %}
+    <div style="font-family: Arial, sans-serif;">
+        <div style="display: flex; justify-content: space-between; background-color: #003366; color: white; padding: 4px 8px; margin-bottom: 6px;">
+            <span style="font-weight: bold;">SEROLOGÍA #{{ orden.id }}</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; background-color: #f0f0f0; padding: 4px 8px; margin-bottom: 8px; font-size: 9pt;">
+            <span><strong>Pac:</strong> {{ orden.get_paciente_nombre|truncatechars:30 }}</span>
+            <span><strong>DNI:</strong> {{ orden.get_paciente_dni }}</span>
+            <span><strong>Téc:</strong> {{ orden.tecnico_asignado.get_short_name|default:orden.tecnico_asignado.username }}</span>
+        </div>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+            <thead>
+                <tr style="background-color: #006633; color: white;">
+                    <th style="padding: 3px 5px;">Prueba</th>
+                    <th style="padding: 3px 5px;">Resultado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>VIH 1 y 2</td><td>{{ resultados.vih|default:"-" }}</td></tr>
+                <tr><td>RPR (Sífilis)</td><td>{{ resultados.rpr|default:"-" }}</td></tr>
+                <tr><td>AgsHB</td><td>{{ resultados.agshb|default:"-" }}</td></tr>
+                <tr><td>VHC</td><td>{{ resultados.vhc|default:"-" }}</td></tr>
+                <tr><td>IgM HA</td><td>{{ resultados.igm_ha|default:"-" }}</td></tr>
+                <tr><td>IgM H. pylori</td><td>{{ resultados.igm_hpylori|default:"-" }}</td></tr>
+            </tbody>
+        </table>
+        
+        {% if resultados.observaciones %}
+        <div style="margin: 4px 0; padding: 3px; background-color: #fff3cd; font-size: 8pt;">
+            <strong>Obs:</strong> {{ resultados.observaciones }}
+        </div>
+        {% endif %}
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 7pt; color: #666; border-top: 1px solid #ccc; padding-top: 3px;">
+            <span>Sistema Policlínico</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div class="no-print" style="text-align: center; margin-top: 10px;">
+            <button onclick="window.print()">🖨️ Imprimir</button>
+            <button onclick="window.close()">✖️ Cerrar</button>
+        </div>
+    </div>
+
+{% else %}
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white"><h5 class="mb-0">SEROLOGÍA</h5></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>VIH 1 y 2:</label>
+                    <select name="vih" class="form-select">
+                        <option value="">---</option>
+                        <option value="No reactivo" {% if resultados.vih == 'No reactivo' %}selected{% endif %}>No reactivo</option>
+                        <option value="Reactivo" {% if resultados.vih == 'Reactivo' %}selected{% endif %}>Reactivo</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>RPR (Sífilis):</label>
+                    <select name="rpr" class="form-select">
+                        <option value="">---</option>
+                        <option value="No reactivo" {% if resultados.rpr == 'No reactivo' %}selected{% endif %}>No reactivo</option>
+                        <option value="Reactivo" {% if resultados.rpr == 'Reactivo' %}selected{% endif %}>Reactivo</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>AgsHB:</label>
+                    <select name="agshb" class="form-select">
+                        <option value="">---</option>
+                        <option value="No reactivo" {% if resultados.agshb == 'No reactivo' %}selected{% endif %}>No reactivo</option>
+                        <option value="Reactivo" {% if resultados.agshb == 'Reactivo' %}selected{% endif %}>Reactivo</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>VHC:</label>
+                    <select name="vhc" class="form-select">
+                        <option value="">---</option>
+                        <option value="No reactivo" {% if resultados.vhc == 'No reactivo' %}selected{% endif %}>No reactivo</option>
+                        <option value="Reactivo" {% if resultados.vhc == 'Reactivo' %}selected{% endif %}>Reactivo</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>IgM HA:</label>
+                    <select name="igm_ha" class="form-select">
+                        <option value="">---</option>
+                        <option value="No reactivo" {% if resultados.igm_ha == 'No reactivo' %}selected{% endif %}>No reactivo</option>
+                        <option value="Reactivo" {% if resultados.igm_ha == 'Reactivo' %}selected{% endif %}>Reactivo</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>IgM H. pylori:</label>
+                    <select name="igm_hpylori" class="form-select">
+                        <option value="">---</option>
+                        <option value="No reactivo" {% if resultados.igm_hpylori == 'No reactivo' %}selected{% endif %}>No reactivo</option>
+                        <option value="Reactivo" {% if resultados.igm_hpylori == 'Reactivo' %}selected{% endif %}>Reactivo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row"><div class="col-12"><label>Observaciones:</label><textarea name="observaciones" class="form-control" rows="2">{{ resultados.observaciones|default:'' }}</textarea></div></div>
+        </div>
+    </div>
+{% endif %}
+<style>@media print{.no-print{display:none;}}</style>
+{% endblock %}

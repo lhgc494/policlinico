@@ -1,0 +1,64 @@
+{% extends 'consultas/laboratorio/formatos/base_formato.html' %}
+
+{% block title %}Embarazo - {{ orden.examen_especifico }}{% endblock %}
+
+{% block campos_formulario %}
+{% if modo_impresion %}
+    <div style="font-family: Arial, sans-serif;">
+        <div style="display: flex; justify-content: space-between; background-color: #003366; color: white; padding: 4px 8px; margin-bottom: 6px;">
+            <span style="font-weight: bold;">PRUEBA DE EMBARAZO #{{ orden.id }}</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; background-color: #f0f0f0; padding: 4px 8px; margin-bottom: 8px; font-size: 9pt;">
+            <span><strong>Pac:</strong> {{ orden.get_paciente_nombre|truncatechars:30 }}</span>
+            <span><strong>DNI:</strong> {{ orden.get_paciente_dni }}</span>
+            <span><strong>Téc:</strong> {{ orden.tecnico_asignado.get_short_name|default:orden.tecnico_asignado.username }}</span>
+        </div>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+            <tr><td><strong>Resultado:</strong> {{ resultados.resultado|default:"-" }}</td></tr>
+            <tr><td><strong>BHCG Cuantitativo:</strong> {{ resultados.bhcg|default:"-" }} mUI/mL</td></tr>
+        </table>
+        
+        {% if resultados.observaciones %}
+        <div style="margin: 4px 0; padding: 3px; background-color: #fff3cd; font-size: 8pt;">
+            <strong>Obs:</strong> {{ resultados.observaciones }}
+        </div>
+        {% endif %}
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 7pt; color: #666;">
+            <span>Sistema Policlínico</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div class="no-print" style="text-align: center; margin-top: 10px;">
+            <button onclick="window.print()">🖨️ Imprimir</button>
+            <button onclick="window.close()">✖️ Cerrar</button>
+        </div>
+    </div>
+
+{% else %}
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white"><h5 class="mb-0">{{ orden.examen_especifico }}</h5></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label>Resultado:</label>
+                    <select name="resultado" class="form-select">
+                        <option value="">---</option>
+                        <option value="Positivo" {% if resultados.resultado == 'Positivo' %}selected{% endif %}>Positivo</option>
+                        <option value="Negativo" {% if resultados.resultado == 'Negativo' %}selected{% endif %}>Negativo</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>BHCG Cuantitativo:</label>
+                    <input type="text" name="bhcg" class="form-control" value="{{ resultados.bhcg|default:'' }}" placeholder="mUI/mL">
+                </div>
+            </div>
+            <div class="row"><div class="col-12"><label>Observaciones:</label><textarea name="observaciones" class="form-control" rows="2">{{ resultados.observaciones|default:'' }}</textarea></div></div>
+        </div>
+    </div>
+{% endif %}
+<style>@media print{.no-print{display:none;}}</style>
+{% endblock %}

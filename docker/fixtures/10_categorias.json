@@ -1,0 +1,410 @@
+[
+{
+    "model": "farmacia.categoria",
+    "pk": 1,
+    "fields": {
+        "nombre": "General",
+        "descripcion": null,
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 2,
+    "fields": {
+        "nombre": "Analgésicos",
+        "descripcion": "Medicamentos para analgésicos",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 3,
+    "fields": {
+        "nombre": "Antibióticos",
+        "descripcion": "Medicamentos para antibióticos",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 10
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 4,
+    "fields": {
+        "nombre": "Antiinflamatorios",
+        "descripcion": "Medicamentos para antiinflamatorios",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 20
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 5,
+    "fields": {
+        "nombre": "Antigripales",
+        "descripcion": "Medicamentos para antigripales",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 30
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 6,
+    "fields": {
+        "nombre": "Antialérgicos",
+        "descripcion": "Medicamentos para antialérgicos",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 40
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 7,
+    "fields": {
+        "nombre": "Gastrointestinales",
+        "descripcion": "Medicamentos para gastrointestinales",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 50
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 8,
+    "fields": {
+        "nombre": "Cardiovasculares",
+        "descripcion": "Medicamentos para cardiovasculares",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 60
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 9,
+    "fields": {
+        "nombre": "Antidiabéticos",
+        "descripcion": "Medicamentos para antidiabéticos",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 70
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 10,
+    "fields": {
+        "nombre": "Vitaminas",
+        "descripcion": "Medicamentos para vitaminas",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 80
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 11,
+    "fields": {
+        "nombre": "Dermatológicos",
+        "descripcion": "Medicamentos para dermatológicos",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 90
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 12,
+    "fields": {
+        "nombre": "Antisépticos",
+        "descripcion": "Medicamentos para antisépticos",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 100
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 13,
+    "fields": {
+        "nombre": "Pediátricos",
+        "descripcion": "Medicamentos para pediátricos",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 110
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 14,
+    "fields": {
+        "nombre": "AEROSOL",
+        "descripcion": "Categoría AEROSOL",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 15,
+    "fields": {
+        "nombre": "AMPOLLA",
+        "descripcion": "Categoría AMPOLLA",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 16,
+    "fields": {
+        "nombre": "AMPOLLA BEBIBLE",
+        "descripcion": "Categoría AMPOLLA BEBIBLE",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 17,
+    "fields": {
+        "nombre": "CAPSULA",
+        "descripcion": "Categoría CAPSULA",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 18,
+    "fields": {
+        "nombre": "CREMA",
+        "descripcion": "Categoría CREMA",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 19,
+    "fields": {
+        "nombre": "EMULSION",
+        "descripcion": "Categoría EMULSION",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 20,
+    "fields": {
+        "nombre": "ESPUMA",
+        "descripcion": "Categoría ESPUMA",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 21,
+    "fields": {
+        "nombre": "FRASCO",
+        "descripcion": "Categoría FRASCO",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 22,
+    "fields": {
+        "nombre": "GEL",
+        "descripcion": "Categoría GEL",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 23,
+    "fields": {
+        "nombre": "GOTAS",
+        "descripcion": "Categoría GOTAS",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 24,
+    "fields": {
+        "nombre": "INSTRUMENTO",
+        "descripcion": "Categoría INSTRUMENTO",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 25,
+    "fields": {
+        "nombre": "INTRAVENOSA",
+        "descripcion": "Categoría INTRAVENOSA",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 26,
+    "fields": {
+        "nombre": "JARABE",
+        "descripcion": "Categoría JARABE",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 27,
+    "fields": {
+        "nombre": "OVULO",
+        "descripcion": "Categoría OVULO",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 28,
+    "fields": {
+        "nombre": "POMADA",
+        "descripcion": "Categoría POMADA",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 29,
+    "fields": {
+        "nombre": "PULVERIZADOR",
+        "descripcion": "Categoría PULVERIZADOR",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 30,
+    "fields": {
+        "nombre": "SERVICIOS",
+        "descripcion": "Categoría SERVICIOS",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 31,
+    "fields": {
+        "nombre": "SOBRE",
+        "descripcion": "Categoría SOBRE",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 32,
+    "fields": {
+        "nombre": "SOLUCIÓN ORAL",
+        "descripcion": "Categoría SOLUCIÓN ORAL",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 33,
+    "fields": {
+        "nombre": "Suspencion Oral",
+        "descripcion": "Categoría Suspencion Oral",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+},
+{
+    "model": "farmacia.categoria",
+    "pk": 34,
+    "fields": {
+        "nombre": "TABLETA",
+        "descripcion": "Categoría TABLETA",
+        "color": "#007bff",
+        "icono": "fas fa-pills",
+        "activa": true,
+        "orden": 0
+    }
+}
+]

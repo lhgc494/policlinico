@@ -1,0 +1,477 @@
+{% extends "base.html" %}
+
+{% block title %}Punto de Venta Ambulatorio - Laboratorio{% endblock %}
+
+{% block extra_css %}
+<style>
+.carrito-item {
+    transition: background-color 0.2s;
+}
+.carrito-item:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+.badge-tipo {
+    font-size: 0.7em;
+}
+.examen-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+    border-left: 4px solid #0d6efd;
+}
+.examen-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-left-color: #198754;
+}
+.cantidad-input {
+    width: 70px;
+    text-align: center;
+}
+.badge-ambulatorio {
+    background-color: #6f42c1;
+}
+.empty-state {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sticky-cart {
+    position: sticky;
+    top: 20px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <!-- Columna izquierda: Catálogo de exámenes -->
+        <div class="col-md-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-store me-2"></i>Punto de Venta Ambulatorio
+                        </h4>
+                        <span class="badge bg-warning">
+                            <i class="fas fa-user-clock me-1"></i>Pacientes Externos
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Información -->
+                    <div class="mb-4">
+                        <div class="alert alert-info py-2">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Venta Ambulatoria</strong> - Solo exámenes de laboratorio para pacientes externos
+                        </div>
+                    </div>
+
+                    <!-- Búsqueda -->
+                    <div class="mb-4">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text"
+                                   class="form-control"
+                                   id="buscarExamen"
+                                   placeholder="Buscar examen por nombre...">
+                            <button class="btn btn-outline-secondary" type="button" id="btnLimpiarBusqueda">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <small class="text-muted mt-1">
+                            <i class="fas fa-lightbulb me-1"></i>
+                            Escribe para filtrar exámenes. Haz click en la tarjeta o en "Agregar" para añadir al carrito.
+                        </small>
+                    </div>
+
+                    <!-- Lista de exámenes -->
+                    <div class="row" id="listaExamenes">
+                        {% for examen in examenes %}
+                        <div class="col-md-6 mb-3 examen-item">
+                            <div class="card examen-card h-100" data-id="{{ examen.id }}">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="card-title mb-1">{{ examen.nombre }}</h5>
+                                            <span class="badge bg-info badge-tipo">
+                                                {{ examen.get_tipo_display }}
+                                            </span>
+                                        </div>
+                                        <h4 class="text-primary mb-0">S/ {{ examen.precio }}</h4>
+                                    </div>
+
+                                    {% if examen.descripcion %}
+                                    <p class="card-text text-muted small mt-2">
+                                        <i class="fas fa-file-alt me-1"></i>
+                                        {{ examen.descripcion|truncatechars:100 }}
+                                    </p>
+                                    {% endif %}
+
+                                    {% if examen.tiempo_entrega %}
+                                    <div class="mt-2">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>Entrega: {{ examen.tiempo_entrega }}
+                                        </small>
+                                    </div>
+                                    {% endif %}
+
+                                    <div class="mt-3 d-flex justify-content-between align-items-center">
+                                        <form method="post" action="{% url 'agregar_al_carrito' examen.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-cart-plus me-1"></i> Agregar al Carrito
+                                            </button>
+                                        </form>
+                                        <small class="text-muted">
+                                            <i class="fas fa-tag me-1"></i>Código: {{ examen.id }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-12 empty-state">
+                            <div class="text-center py-5">
+                                <div class="text-muted mb-4">
+                                    <i class="fas fa-flask fa-3x"></i>
+                                </div>
+                                <h4 class="text-muted">No hay exámenes disponibles</h4>
+                                <p class="text-muted">Agrega exámenes desde el panel de administración.</p>
+                                <a href="/admin/consultas/catalogoexamen/" class="btn btn-outline-primary" target="_blank">
+                                    <i class="fas fa-cog me-2"></i>Ir al Panel de Administración
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna derecha: Carrito de compras -->
+        <div class="col-md-4">
+            <div class="card shadow sticky-cart">
+                <div class="card-header bg-success text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-shopping-cart me-2"></i>Carrito de Venta
+                        </h4>
+                        {% if items_carrito > 0 %}
+                        <span class="badge bg-light text-dark fs-6">
+                            {{ items_carrito }} item(s)
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    {% if carrito %}
+                    <!-- Tabla del carrito con altura máxima y scroll -->
+                    <div style="max-height: 400px; overflow-y: auto;" class="mb-3">
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead class="sticky-top bg-light" style="top: 0; z-index: 10;">
+                                    <tr>
+                                        <th>Examen</th>
+                                        <th class="text-center">Cant.</th>
+                                        <th class="text-end">Subtotal</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="listaCarrito">
+                                    {% for item_id, item in carrito.items %}
+                                    <tr class="carrito-item" id="item-{{ item_id }}">
+                                        <td>
+                                            <!-- Badge según tipo -->
+                                            {% if item.tipo == 'INTERNO_POR_COBRAR' %}
+                                            <span class="badge bg-info me-1">
+                                                <i class="fas fa-stethoscope"></i> ORDEN INTERNA
+                                            </span>
+                                            {% else %}
+                                            <span class="badge bg-secondary me-1">
+                                                <i class="fas fa-user-plus"></i> NUEVO EXAMEN
+                                            </span>
+                                            {% endif %}
+
+                                            <small class="fw-bold">{{ item.nombre }}</small><br>
+
+                                            <!-- Info adicional para internos -->
+                                            {% if item.tipo == 'INTERNO_POR_COBRAR' and item.paciente %}
+                                            <small class="text-muted">
+                                                <i class="fas fa-user me-1"></i>{{ item.paciente }}
+                                            </small><br>
+                                            {% endif %}
+
+                                            <small class="text-muted">S/ {{ item.precio }} c/u</small>
+                                        </td>
+
+                                        <td class="text-center">
+                                            {% if item.tipo != 'INTERNO_POR_COBRAR' %}
+                                            <form method="post" action="{% url 'actualizar_cantidad' item.id %}" class="d-inline">
+                                                {% csrf_token %}
+                                                <input type="number"
+                                                       name="cantidad"
+                                                       value="{{ item.cantidad }}"
+                                                       min="1"
+                                                       max="99"
+                                                       class="form-control form-control-sm cantidad-input"
+                                                       onchange="this.form.submit()">
+                                            </form>
+                                            {% else %}
+                                            <span class="badge bg-light text-dark px-3 py-1">{{ item.cantidad }}</span>
+                                            {% endif %}
+                                        </td>
+
+                                        <td class="text-end fw-bold text-success">
+                                            S/ {% widthratio item.precio 1 item.cantidad %}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {% if item.tipo != 'INTERNO_POR_COBRAR' %}
+                                            <form method="post" action="{% url 'eliminar_del_carrito' item.id %}" class="d-inline">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                        title="Eliminar del carrito"
+                                                        onclick="return confirm('¿Eliminar {{ item.nombre }} del carrito?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                            {% else %}
+                                            <form method="post"
+                                                  action="{% url 'eliminar_del_carrito' item_id=item_id %}"
+                                                  class="d-inline">
+                                                {% csrf_token %}
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-outline-danger"
+                                                        title="Eliminar del carrito"
+                                                        onclick="return confirm('¿Eliminar {{ item.nombre }} del carrito?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- SECCIÓN DE DATOS DEL PACIENTE -->
+                    <div class="mb-3">
+                        <h6 class="text-muted border-bottom pb-2">
+                            <i class="fas fa-user me-2"></i>Datos del Paciente (Ambulatorio)
+                        </h6>
+
+                        <form method="post" action="{% url 'procesar_venta_ambulatoria' %}" id="formVenta">
+                            {% csrf_token %}
+                            {% if tiene_examenes_nuevos %}
+                            <div class="mb-3">
+                                <label class="form-label small">DNI del Paciente *</label>
+                                <input type="text"
+                                       class="form-control form-control-sm"
+                                       name="dni"
+                                       id="dniPaciente"
+                                       placeholder="Ej: 12345678"
+                                       required
+                                       pattern="[0-9]{8}"
+                                       title="Debe tener 8 dígitos">
+                                <small class="text-muted">8 dígitos, sin letras ni espacios</small>
+                            </div>
+                            {% else %}
+                            <input type="hidden" name="dni" value="INTERNO">
+                            {% endif %}
+                            
+                            {% if tiene_examenes_nuevos %}
+                            <div class="mb-3">
+                                <label class="form-label small">Nombre Completo *</label>
+                                <input type="text"
+                                       class="form-control form-control-sm"
+                                       name="nombre"
+                                       id="nombrePaciente"
+                                       placeholder="Nombre y apellidos"
+                                       required>
+                                <small class="text-muted">Nombre completo del paciente externo</small>
+                            </div>
+                            {% else %}
+                            <input type="hidden" name="nombre" value="PACIENTE INTERNO">
+                            {% endif %}
+                            
+                            <div class="mb-3">
+                                <label class="form-label small">Observaciones (opcional)</label>
+                                <textarea class="form-control form-control-sm"
+                                          name="observaciones"
+                                          id="observaciones"
+                                          rows="2"
+                                          placeholder="Observaciones adicionales..."></textarea>
+                            </div>
+                            
+                            <!-- Campo de descuento -->
+                            <div class="mb-3">
+                                <label class="form-label small">Descuento (S/)</label>
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text">S/</span>
+                                    <input type="number"
+                                           class="form-control"
+                                           name="descuento"
+                                           id="descuento"
+                                           value="0"
+                                           min="0"
+                                           max="{{ total_carrito|default:'0' }}"
+                                           step="0.01"
+                                           placeholder="0.00">
+                                </div>
+                                <small class="text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Descuento en soles. Se aplica al total de exámenes nuevos.
+                                </small>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- BOTONES DE ACCIÓN - SIEMPRE VISIBLES (STICKY) -->
+                    <div class="sticky-bottom bg-white p-3 border-top" style="position: sticky; bottom: 0; z-index: 100; box-shadow: 0 -5px 10px rgba(0,0,0,0.05); margin: 0 -1rem -1rem -1rem;">
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary btn-lg" id="btnProcesarVenta">
+                                <i class="fas fa-check-circle me-2"></i>Procesar Venta y Generar Ticket
+                            </button>
+
+                            <a href="{% url 'limpiar_carrito' %}" class="btn btn-outline-danger">
+                                <i class="fas fa-trash me-2"></i>Limpiar Carrito
+                            </a>
+                        </div>
+
+                        <!-- Resumen rápido visible siempre -->
+                        <div class="mt-3 d-flex justify-content-between align-items-center">
+                            <span class="text-muted">
+                                <i class="fas fa-shopping-cart me-1"></i>
+                                <span id="itemsCountFooter">{{ items_carrito }}</span> items
+                            </span>
+                            <h5 class="text-success mb-0" id="totalFooter">S/ {{ total_carrito|floatformat:2 }}</h5>
+                        </div>
+                    </div>
+
+                    {% else %}
+                    <!-- Carrito vacío -->
+                    <div class="text-center py-5">
+                        <div class="text-muted mb-4">
+                            <i class="fas fa-shopping-cart fa-3x"></i>
+                        </div>
+                        <h5 class="text-muted">Carrito Vacío</h5>
+                        <p class="text-muted small mb-4">
+                            Agrega exámenes desde el catálogo para comenzar una venta ambulatoria
+                        </p>
+                        <div class="alert alert-info small">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            <strong>Recuerda:</strong> Ventas ambulatorias son para pacientes externos sin consulta médica
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-footer text-muted small">
+                    <div class="row">
+                        <div class="col">
+                            <i class="fas fa-info-circle me-1"></i>
+                            <span class="badge badge-ambulatorio">AMBULATORIO</span>
+                        </div>
+                        <div class="col text-end">
+                            <i class="fas fa-user me-1"></i>
+                            {{ user.get_full_name|default:user.username }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ============================================
+    // FUNCIONALIDAD DE BÚSQUEDA
+    // ============================================
+    const buscarInput = document.getElementById('buscarExamen');
+    const btnLimpiar = document.getElementById('btnLimpiarBusqueda');
+
+    if (buscarInput) {
+        buscarInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            document.querySelectorAll('.examen-item').forEach(item => {
+                const nombre = item.querySelector('.card-title').textContent.toLowerCase();
+                const descripcion = item.querySelector('.card-text')?.textContent.toLowerCase() || '';
+                item.style.display = (nombre.includes(searchTerm) || descripcion.includes(searchTerm)) ? 'block' : 'none';
+            });
+            if (btnLimpiar) btnLimpiar.style.display = searchTerm ? 'block' : 'none';
+        });
+
+        if (btnLimpiar) {
+            btnLimpiar.addEventListener('click', function() {
+                buscarInput.value = '';
+                buscarInput.focus();
+                document.querySelectorAll('.examen-item').forEach(item => item.style.display = 'block');
+                this.style.display = 'none';
+            });
+            btnLimpiar.style.display = 'none';
+        }
+    }
+
+    // ============================================
+    // CLICK EN TARJETA DE EXAMEN
+    // ============================================
+    document.querySelectorAll('.examen-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (!e.target.closest('button') && !e.target.closest('a') && !e.target.closest('input') && !e.target.closest('textarea')) {
+                const examenId = this.getAttribute('data-id');
+                const form = this.querySelector('form');
+                if (form) {
+                    this.classList.add('bg-light');
+                    setTimeout(() => this.classList.remove('bg-light'), 300);
+                    form.submit();
+                }
+            }
+        });
+    });
+
+    // ============================================
+    // BOTÓN PROCESAR VENTA
+    // ============================================
+    const btnProcesar = document.getElementById('btnProcesarVenta');
+    if (btnProcesar) {
+        btnProcesar.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const tieneExamenesNuevos = {{ tiene_examenes_nuevos|yesno:"true,false" }};
+            
+            if (tieneExamenesNuevos) {
+                const dni = document.getElementById('dniPaciente')?.value.trim() || '';
+                const nombre = document.getElementById('nombrePaciente')?.value.trim() || '';
+                
+                if (!dni || !/^\d{8}$/.test(dni)) {
+                    alert('❌ El DNI debe tener 8 dígitos');
+                    document.getElementById('dniPaciente')?.focus();
+                    return;
+                }
+                
+                if (!nombre || nombre.length < 3) {
+                    alert('❌ Ingrese el nombre completo');
+                    document.getElementById('nombrePaciente')?.focus();
+                    return;
+                }
+            }
+            
+            if (confirm('¿Confirmar venta por S/ {{ total_carrito|default:"0.00" }}?')) {
+                document.getElementById('formVenta').submit();
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

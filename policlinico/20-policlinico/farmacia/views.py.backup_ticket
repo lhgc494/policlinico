@@ -1,0 +1,1340 @@
+# farmacia/views.py - VERSIÓN COMPLETA CORREGIDA
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.paginator import Paginator
+from django.db.models import Q, Sum
+from django.views.decorators.cache import never_cache
+from django.http import JsonResponse
+from django.utils import timezone
+from decimal import Decimal
+import json
+from django.db import transaction
+
+# ¡IMPORTANTE! SOLO MODELOS QUE EXISTEN en el NUEVO models.py
+from .models import (
+    Medicamento, 
+    Categoria, 
+    Presentacion, 
+    Proveedor, 
+    MovimientoInventario,
+    Venta,           # ¡MODELO CORRECTO!
+    DetalleVenta     # ¡MODELO CORRECTO!
+)
+
+from .forms import MedicamentoForm, ProveedorForm, CategoriaForm, PresentacionForm
+
+# ==============================================
+# DECORADOR PARA VERIFICAR GRUPO FARMACIA
+# ==============================================
+
+@login_required
+def es_farmacia(user):
+    """Verifica si el usuario pertenece al grupo farmacia"""
+    return user.groups.filter(name='farmacia').exists()
+
+# ==============================================
+# VISTAS PRINCIPALES DE INVENTARIO
+# ==============================================
+###lista medicamento ##########
+@login_required
+@never_cache
+def lista_medicamentos(request):
+    """Lista todos los medicamentos con filtros"""
+    # Obtener parámetros de filtro
+    query = request.GET.get('q', '')
+    categoria_id = request.GET.get('categoria', '')
+    activo = request.GET.get('activo', 'si')  # 'si', 'no', 'todos'
+
+    # Query base
+    medicamentos_qs = Medicamento.objects.all()
+
+    # Aplicar filtros
+    if query:
+        medicamentos_qs = medicamentos_qs.filter(
+            Q(codigo__icontains=query) |
+            Q(nombre_comercial__icontains=query) |
+            Q(principio_activo__icontains=query) |
+            Q(lote__icontains=query)
+        )
+
+    if categoria_id:
+        medicamentos_qs = medicamentos_qs.filter(categoria_id=categoria_id)
+
+    if activo == 'si':
+        medicamentos_qs = medicamentos_qs.filter(activo=True)
+    elif activo == 'no':
+        medicamentos_qs = medicamentos_qs.filter(activo=False)
+    # Si es 'todos', no filtramos
+
+    # Ordenar
+    medicamentos_qs = medicamentos_qs.order_by('nombre_comercial')
+
+    # Paginación
+    paginator = Paginator(medicamentos_qs, 15)
+    page_number = request.GET.get('page')
+    medicamentos = paginator.get_page(page_number)
+
+    # Obtener categorías para el filtro
+    categorias = Categoria.objects.filter(activa=True)
+
+    # Estadísticas - ¡CORREGIDO!
+    total_medicamentos = Medicamento.objects.count()
+    activos_count = Medicamento.objects.filter(activo=True).count()
+    inactivos_count = Medicamento.objects.filter(activo=False).count()
+    
+    # Calcular contadores de propiedades (EN MEMORIA)
+    medicamentos_activos = Medicamento.objects.filter(activo=True)
+    bajo_stock_count = sum(1 for m in medicamentos_activos if m.bajo_stock)
+    proximos_vencer_count = sum(1 for m in medicamentos_activos if m.proximo_vencer)
+
+    context = {
+        'medicamentos': medicamentos,
+        'categorias': categorias,
+        'query': query,
+        'categoria_id': categoria_id,
+        'activo': activo,
+        'titulo': 'Inventario de Medicamentos',
+
+        # Estadísticas
+        'total_medicamentos': total_medicamentos,
+        'activos_count': activos_count,
+        'inactivos_count': inactivos_count,
+        'bajo_stock': bajo_stock_count,           # ¡NOMBRE CORREGIDO!
+        'proximos_vencer': proximos_vencer_count, # ¡NOMBRE CORREGIDO!
+    }
+
+    return render(request, 'farmacia/lista_medicamentos.html', context)
+
+###########################
+@login_required
+@never_cache
+def detalle_medicamento(request, id):
+    """Muestra el detalle de un medicamento"""
+    medicamento = get_object_or_404(Medicamento, id=id)
+
+    # Obtener historial de movimientos
+    movimientos = MovimientoInventario.objects.filter(
+        medicamento=medicamento
+    ).order_by('-fecha')[:10]
+
+    context = {
+        'medicamento': medicamento,
+        'movimientos': movimientos,
+        'titulo': f'Detalle: {medicamento.nombre_comercial}'
+    }
+
+    return render(request, 'farmacia/detalle_medicamento.html', context)
+
+@login_required
+@never_cache
+def crear_medicamento(request):
+    """Crea un nuevo medicamento en el inventario"""
+    if request.method == 'POST':
+        form = MedicamentoForm(request.POST)
+        if form.is_valid():
+            try:
+                medicamento = form.save(commit=False)
+                # Calcular valor de inventario
+                medicamento.valor_inventario = medicamento.stock_actual * medicamento.precio_compra
+                medicamento.save()
+
+                # Registrar movimiento inicial
+                MovimientoInventario.objects.create(
+                    medicamento=medicamento,
+                    tipo='ENTRADA',
+                    cantidad=medicamento.stock_actual,
+                    usuario=request.user,
+                    referencia=f'Creación de medicamento - Stock inicial',
+                    precio_unitario=medicamento.precio_compra
+                )
+
+                messages.success(
+                    request,
+                    f'✅ Medicamento creado exitosamente: {medicamento.nombre_comercial}'
+                )
+                return redirect('farmacia:lista_medicamentos')
+            except Exception as e:
+                messages.error(
+                    request,
+                    f'❌ Error al crear medicamento: {str(e)}'
+                )
+        else:
+            messages.error(
+                request,
+                '❌ Por favor corrige los errores en el formulario'
+            )
+    else:
+        form = MedicamentoForm()
+
+    context = {
+        'form': form,
+        'titulo': 'Registrar Nuevo Medicamento'
+    }
+
+    return render(request, 'farmacia/crear_medicamento.html', context)
+
+@login_required
+@never_cache
+def editar_medicamento(request, id):
+    """Edita un medicamento existente"""
+    medicamento = get_object_or_404(Medicamento, id=id)
+
+    if request.method == 'POST':
+        form = MedicamentoForm(request.POST, instance=medicamento)
+        if form.is_valid():
+            try:
+                # Guardar cambios
+                medicamento = form.save(commit=False)
+
+                # Recalcular valor de inventario si cambió el stock o precio
+                medicamento.valor_inventario = medicamento.stock_actual * medicamento.precio_compra
+                medicamento.save()
+
+                messages.success(
+                    request,
+                    f'✅ Medicamento actualizado: {medicamento.nombre_comercial}'
+                )
+                return redirect('farmacia:detalle_medicamento', id=medicamento.id)
+
+            except Exception as e:
+                messages.error(
+                    request,
+                    f'❌ Error al actualizar medicamento: {str(e)}'
+                )
+        else:
+            messages.error(
+                request,
+                '❌ Por favor corrige los errores en el formulario'
+            )
+    else:
+        form = MedicamentoForm(instance=medicamento)
+
+    context = {
+        'form': form,
+        'medicamento': medicamento,
+        'titulo': f'Editar: {medicamento.nombre_comercial}'
+    }
+
+    return render(request, 'farmacia/editar_medicamento.html', context)
+
+@login_required
+@never_cache
+def eliminar_medicamento(request, id):
+    """Elimina (desactiva) un medicamento"""
+    medicamento = get_object_or_404(Medicamento, id=id)
+
+    if request.method == 'POST':
+        try:
+            # Marcar como inactivo en lugar de eliminar
+            medicamento.activo = False
+            medicamento.save()
+
+            messages.success(
+                request,
+                f'✅ Medicamento desactivado: {medicamento.nombre_comercial}'
+            )
+            return redirect('farmacia:lista_medicamentos')
+
+        except Exception as e:
+            messages.error(
+                request,
+                f'❌ Error al desactivar medicamento: {str(e)}'
+            )
+            return redirect('lista_pacientes')
+
+    context = {
+        'medicamento': medicamento,
+        'titulo': f'Desactivar: {medicamento.nombre_comercial}'
+    }
+
+    return render(request, 'farmacia/confirmar_eliminar.html', context)
+
+# ==============================================
+# VISTAS DE GESTIÓN DE INVENTARIO
+# ==============================================
+
+@login_required
+@never_cache
+def ajustar_inventario(request, id):
+    """Ajusta el stock de un medicamento"""
+    medicamento = get_object_or_404(Medicamento, id=id)
+
+    if request.method == 'POST':
+        tipo = request.POST.get('tipo')  # 'entrada' o 'salida'
+        cantidad = int(request.POST.get('cantidad', 0))
+        motivo = request.POST.get('motivo', '')
+
+        if cantidad <= 0:
+            messages.error(request, '❌ La cantidad debe ser mayor a 0')
+            return redirect('farmacia:detalle_medicamento', id=id)
+
+        try:
+            if tipo == 'entrada':
+                # Entrada de inventario
+                medicamento.stock_actual += cantidad
+                movimiento_tipo = 'ENTRADA'
+                mensaje = f'✅ Entrada registrada: +{cantidad} unidades'
+            else:
+                # Salida de inventario
+                if cantidad > medicamento.stock_actual:
+                    messages.error(
+                        request,
+                        f'❌ Stock insuficiente. Disponible: {medicamento.stock_actual}'
+                    )
+                    return redirect('farmacia:detalle_medicamento', id=id)
+
+                medicamento.stock_actual -= cantidad
+                movimiento_tipo = 'SALIDA'
+                mensaje = f'✅ Salida registrada: -{cantidad} unidades'
+
+            # Guardar cambios en el medicamento
+            medicamento.valor_inventario = medicamento.stock_actual * medicamento.precio_compra
+            medicamento.save()
+
+            # Registrar movimiento
+            MovimientoInventario.objects.create(
+                medicamento=medicamento,
+                tipo=movimiento_tipo,
+                cantidad=cantidad,
+                usuario=request.user,
+                referencia=motivo,
+                precio_unitario=medicamento.precio_compra
+            )
+
+            messages.success(request, mensaje)
+
+        except Exception as e:
+            messages.error(request, f'❌ Error al ajustar inventario: {str(e)}')
+
+        return redirect('farmacia:detalle_medicamento', id=id)
+
+    context = {
+        'medicamento': medicamento,
+        'titulo': f'Ajustar Stock: {medicamento.nombre_comercial}'
+    }
+
+    return render(request, 'farmacia/ajustar_inventario.html', context)
+
+@login_required
+@never_cache
+def historial_movimientos(request):
+    """Muestra el historial de movimientos de inventario"""
+    # Filtros
+    fecha_desde = request.GET.get('fecha_desde', '')
+    fecha_hasta = request.GET.get('fecha_hasta', '')
+    tipo = request.GET.get('tipo', '')
+    medicamento_id = request.GET.get('medicamento', '')
+
+    # Query base
+    movimientos_qs = MovimientoInventario.objects.select_related(
+        'medicamento', 'usuario'
+    ).order_by('-fecha')
+
+    # Aplicar filtros
+    if fecha_desde:
+        movimientos_qs = movimientos_qs.filter(fecha__gte=fecha_desde)
+
+    if fecha_hasta:
+        movimientos_qs = movimientos_qs.filter(fecha__lte=fecha_hasta)
+
+    if tipo:
+        movimientos_qs = movimientos_qs.filter(tipo=tipo)
+
+    if medicamento_id:
+        movimientos_qs = movimientos_qs.filter(medicamento_id=medicamento_id)
+
+    # Paginación
+    paginator = Paginator(movimientos_qs, 20)
+    page_number = request.GET.get('page')
+    movimientos = paginator.get_page(page_number)
+
+    # Datos para filtros
+    medicamentos = Medicamento.objects.filter(activo=True).order_by('nombre_comercial')
+
+    context = {
+        'movimientos': movimientos,
+        'medicamentos': medicamentos,
+        'fecha_desde': fecha_desde,
+        'fecha_hasta': fecha_hasta,
+        'tipo': tipo,
+        'medicamento_id': medicamento_id,
+        'titulo': 'Historial de Movimientos'
+    }
+
+    return render(request, 'farmacia/historial_movimientos.html', context)
+
+# ==============================================
+# VISTAS DE REPORTES
+# ==============================================
+####### reporte stock bajo #########
+@login_required
+@never_cache
+def reporte_stock_bajo(request):
+    """Muestra medicamentos con stock bajo el mínimo"""
+    
+    # Obtener todos los medicamentos activos
+    medicamentos_activos = Medicamento.objects.filter(activo=True)
+    
+    # Filtrar usando propiedades (en memoria) - ¡CORREGIDO!
+    medicamentos_bajo_stock = [
+        m for m in medicamentos_activos 
+        if m.bajo_stock  # Esta es una propiedad, no campo de BD
+    ]
+    
+    # Ordenar por stock actual
+    medicamentos_bajo_stock.sort(key=lambda x: x.stock_actual)
+
+    context = {
+        'medicamentos': medicamentos_bajo_stock,
+        'titulo': 'Medicamentos con Stock Bajo',
+        'total': len(medicamentos_bajo_stock)
+    }
+
+    return render(request, 'farmacia/reportes/stock_bajo.html', context)
+
+####proximo a vencer#################
+@login_required
+@never_cache
+def reporte_proximos_vencer(request):
+    """Muestra medicamentos próximos a vencer"""
+    
+    # Obtener todos los medicamentos activos
+    medicamentos_activos = Medicamento.objects.filter(activo=True)
+    
+    # Filtrar usando propiedades (en memoria) - ¡CORREGIDO!
+    medicamentos_proximos = [
+        m for m in medicamentos_activos 
+        if m.proximo_vencer  # Esta es una propiedad, no campo de BD
+    ]
+    
+    # Ordenar por fecha de vencimiento
+    # Usar date.max para medicamentos sin fecha
+    from datetime import date
+    medicamentos_proximos.sort(key=lambda x: x.fecha_vencimiento or date.max)
+
+    context = {
+        'medicamentos': medicamentos_proximos,
+        'titulo': 'Medicamentos Próximos a Vencer',
+        'total': len(medicamentos_proximos)
+    }
+
+    return render(request, 'farmacia/reportes/proximos_vencer.html', context)
+
+##############
+@login_required
+@never_cache
+def reporte_valor_inventario(request):
+    """Muestra el valor total del inventario por categoría"""
+    # Valor total por categoría
+    categorias_valor = Medicamento.objects.filter(activo=True).values(
+        'categoria__nombre'
+    ).annotate(
+        total_valor=Sum('valor_inventario'),
+        total_unidades=Sum('stock_actual')
+    ).order_by('-total_valor')
+
+    # Valor total general
+    valor_total = Medicamento.objects.filter(activo=True).aggregate(
+        total=Sum('valor_inventario')
+    )['total'] or 0
+
+    # Valor de venta total
+    try:
+        valor_venta_total = sum(
+            m.valor_venta_inventario for m in
+            Medicamento.objects.filter(activo=True)
+        )
+    except:
+        valor_venta_total = 0
+
+    # Datos para gráfico
+    datos_grafico = {
+        'labels': [item['categoria__nombre'] or 'Sin categoría'
+                  for item in categorias_valor],
+        'data': [float(item['total_valor'] or 0)
+                for item in categorias_valor]
+    }
+
+    context = {
+        'categorias_valor': categorias_valor,
+        'valor_total': valor_total,
+        'valor_venta_total': valor_venta_total,
+        'datos_grafico': json.dumps(datos_grafico),
+        'titulo': 'Valor del Inventario'
+    }
+
+    return render(request, 'farmacia/reportes/valor_inventario.html', context)
+
+# ==============================================
+# VISTAS DE GESTIÓN (PROVEEDORES, CATEGORÍAS)
+# ==============================================
+
+@login_required
+@never_cache
+def detalle_proveedor(request, id):
+    """Muestra el detalle completo de un proveedor"""
+    proveedor = get_object_or_404(Proveedor, id=id)
+
+    # Obtener medicamentos suministrados por este proveedor
+    medicamentos = proveedor.medicamentos.filter(activo=True).order_by('nombre_comercial')
+
+    # Estadísticas
+    total_medicamentos = medicamentos.count()
+    total_valor_inventario = sum(m.valor_inventario for m in medicamentos)
+
+    context = {
+        'proveedor': proveedor,
+        'medicamentos': medicamentos,
+        'total_medicamentos': total_medicamentos,
+        'total_valor_inventario': total_valor_inventario,
+        'titulo': f'Proveedor: {proveedor.nombre}'
+    }
+
+    return render(request, 'farmacia/proveedores/detalle.html', context)
+
+@login_required
+@never_cache
+def lista_proveedores(request):
+    """Lista todos los proveedores"""
+    proveedores = Proveedor.objects.all().order_by('nombre')
+
+    context = {
+        'proveedores': proveedores,
+        'titulo': 'Proveedores'
+    }
+    return render(request, 'farmacia/proveedores/lista.html', context)
+
+@login_required
+@never_cache
+def crear_proveedor(request):
+    """Crea un nuevo proveedor"""
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Proveedor creado exitosamente')
+            return redirect('farmacia:lista_proveedores')
+    else:
+        form = ProveedorForm()
+
+    context = {
+        'form': form,
+        'titulo': 'Registrar Nuevo Proveedor'
+    }
+    return render(request, 'farmacia/proveedores/crear.html', context)
+
+@login_required
+@never_cache
+def editar_proveedor(request, id):
+    """Edita un proveedor existente"""
+    proveedor = get_object_or_404(Proveedor, id=id)
+
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST, instance=proveedor)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Proveedor actualizado exitosamente')
+            return redirect('farmacia:lista_proveedores')
+    else:
+        form = ProveedorForm(instance=proveedor)
+
+    context = {
+        'form': form,
+        'proveedor': proveedor,
+        'titulo': f'Editar: {proveedor.nombre}'
+    }
+    return render(request, 'farmacia/proveedores/editar.html', context)
+
+@login_required
+@never_cache
+def eliminar_proveedor(request, id):
+    """Elimina un proveedor"""
+    proveedor = get_object_or_404(Proveedor, id=id)
+
+    if request.method == 'POST':
+        # Verificar si tiene medicamentos asociados
+        if proveedor.medicamentos.exists():
+            messages.error(request, '❌ No se puede eliminar. Hay medicamentos asociados a este proveedor.')
+        else:
+            proveedor.delete()
+            messages.success(request, '✅ Proveedor eliminado exitosamente')
+        return redirect('farmacia:lista_proveedores')
+
+    context = {
+        'proveedor': proveedor,
+        'titulo': f'Eliminar: {proveedor.nombre}'
+    }
+    return render(request, 'farmacia/proveedores/eliminar.html', context)
+
+# ==============================================
+# VISTAS DE RECETAS Y CONSULTAS
+# ==============================================
+
+@login_required
+@never_cache
+def recetas_pendientes(request):
+    """Lista consultas con recetas pendientes"""
+    from consultas.models import Consulta, Receta
+    from doctores.models import Doctor
+    from datetime import timedelta
+
+    # Obtener parámetros de filtro
+    dni = request.GET.get('dni', '')
+    doctor_id = request.GET.get('doctor', '')
+    fecha_filtro = request.GET.get('fecha', '')
+    estado_filtro = request.GET.get('estado', 'pendientes')  # pendientes, todas
+
+    # Obtener consultas que tienen recetas
+    consultas = Consulta.objects.filter(
+        recetas__isnull=False
+    ).distinct().select_related(
+        'paciente', 'doctor'
+    ).prefetch_related('recetas')
+
+    # Aplicar filtros
+    if dni:
+        consultas = consultas.filter(paciente__dni__icontains=dni)
+
+    if doctor_id:
+        consultas = consultas.filter(doctor_id=doctor_id)
+
+    if fecha_filtro:
+        hoy = timezone.now().date()
+        if fecha_filtro == 'hoy':
+            consultas = consultas.filter(fecha__date=hoy)
+        elif fecha_filtro == 'semana':
+            semana_pasada = hoy - timedelta(days=7)
+            consultas = consultas.filter(fecha__date__gte=semana_pasada)
+        elif fecha_filtro == 'mes':
+            mes_pasado = hoy - timedelta(days=30)
+            consultas = consultas.filter(fecha__date__gte=mes_pasado)
+
+    # Filtrar por estado de recetas
+    if estado_filtro == 'pendientes':
+        consultas = consultas.filter(
+            recetas__estado__in=['PENDIENTE', 'PARCIAL']
+        ).distinct()
+
+    # Ordenar
+    consultas = consultas.order_by('-fecha')
+
+    # Obtener médicos para el filtro
+    doctores = Doctor.objects.filter(activo=True).order_by('nombres')
+
+    # Calcular total de recetas por consulta
+    for consulta in consultas:
+        consulta.total_recetas = consulta.recetas.count()
+        consulta.pendientes = consulta.recetas.filter(
+            estado__in=['PENDIENTE', 'PARCIAL']
+        ).count()
+
+    context = {
+        'consultas': consultas,
+        'doctores': doctores,
+        'dni': dni,
+        'doctor_id': doctor_id,
+        'fecha_filtro': fecha_filtro,
+        'estado_filtro': estado_filtro,
+        'titulo': 'Recetas Pendientes por Consulta'
+    }
+    return render(request, 'farmacia/recetas_pendientes.html', context)
+
+@login_required
+@never_cache
+def cancelar_recetas_consulta(request, consulta_id):
+    """Cancela todas las recetas de una consulta"""
+    from consultas.models import Consulta
+
+    if request.method == 'POST':
+        try:
+            consulta = get_object_or_404(Consulta, id=consulta_id)
+            recetas = consulta.recetas.all()
+
+            # Contar recetas canceladas
+            canceladas = 0
+            for receta in recetas:
+                if receta.estado in ['PENDIENTE', 'PARCIAL']:
+                    receta.estado = 'CANCELADA'
+                    receta.usuario_atencion = request.user
+                    receta.fecha_atencion = timezone.now()
+                    receta.observaciones_farmacia = 'Cancelado por farmacia - Paciente no compró'
+                    receta.save()
+                    canceladas += 1
+
+            return JsonResponse({
+                'success': True,
+                'message': f'Se cancelaron {canceladas} receta(s)',
+                'canceladas': canceladas
+            })
+
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'message': f'Error al cancelar recetas: {str(e)}'
+            }, status=500)
+
+    # Si no es POST, devolver error
+    return JsonResponse({
+        'success': False,
+        'message': 'Método no permitido. Use POST.'
+    }, status=405)
+
+@login_required
+@never_cache
+def detalle_recetas_consulta(request, consulta_id):
+    """Muestra detalle de recetas para una consulta específica"""
+    from consultas.models import Consulta
+
+    consulta = get_object_or_404(Consulta, id=consulta_id)
+    recetas = consulta.recetas.all()  # Todas las recetas de esta consulta
+
+    # Verificar stock y precios para cada receta
+    total_general = 0
+    for receta in recetas:
+        try:
+            # Buscar medicamento en inventario
+            medicamento_inv = Medicamento.objects.filter(
+                nombre_comercial__icontains=receta.medicamento.split()[0]
+            ).first()
+
+            if medicamento_inv:
+                receta.stock_disponible = medicamento_inv.stock_actual
+                receta.precio_unitario = medicamento_inv.precio_venta
+                receta.codigo_medicamento = medicamento_inv.codigo
+
+                # Calcular máximo que se puede vender
+                receta.maximo_vender = medicamento_inv.stock_actual
+
+                # Inicializar cantidad a vender (toda la receta o lo disponible)
+                receta.cantidad_vender = min(receta.cantidad, receta.maximo_vender)
+
+                # Calcular subtotal
+                receta.subtotal = receta.cantidad_vender * receta.precio_unitario
+                total_general += receta.subtotal
+
+                # Determinar si hay stock suficiente
+                receta.stock_suficiente = (medicamento_inv.stock_actual >= receta.cantidad)
+            else:
+                receta.stock_disponible = 0
+                receta.precio_unitario = 0
+                receta.codigo_medicamento = "No encontrado"
+                receta.maximo_vender = 0
+                receta.cantidad_vender = 0
+                receta.subtotal = 0
+                receta.stock_suficiente = False
+
+        except Exception as e:
+            receta.stock_disponible = 0
+            receta.precio_unitario = 0
+            receta.codigo_medicamento = "Error"
+            receta.maximo_vender = 0
+            receta.cantidad_vender = 0
+            receta.subtotal = 0
+            receta.stock_suficiente = False
+
+    context = {
+        'consulta': consulta,
+        'recetas': recetas,
+        'total_general': total_general
+    }
+    return render(request, 'farmacia/atencion_recetas.html', context)
+
+# ==============================================
+# VISTAS DE VENTA DIRECTA (ACTUALIZADAS)
+# ==============================================
+
+@login_required
+@never_cache
+def venta_directa(request):
+    """Venta directa con búsqueda AJAX - Vista principal"""
+    context = {
+        'titulo': 'Venta Directa',
+    }
+    return render(request, 'farmacia/venta_directa.html', context)
+
+@login_required
+def procesar_venta_directa(request):
+    """Procesa una venta directa"""
+    if request.method == 'POST':
+        try:
+            with transaction.atomic():
+                # Obtener datos del formulario
+                medicamento_ids = request.POST.getlist('medicamento_ids')
+                cantidades = request.POST.getlist('cantidades')
+                metodo_pago = request.POST.get('metodo_pago', 'EFECTIVO')
+                descuento_str = request.POST.get('descuento', '0')
+                observaciones = request.POST.get('observaciones', '')
+
+                # Validar que hay medicamentos
+                if not medicamento_ids or len(medicamento_ids) == 0:
+                    return JsonResponse({
+                        'success': False,
+                        'message': 'No hay medicamentos seleccionados'
+                    }, status=400)
+
+                # Convertir descuento a Decimal
+                try:
+                    descuento = Decimal(descuento_str)
+                except:
+                    descuento = Decimal('0')
+
+                # Calcular total y validar stock
+                total = Decimal('0')
+                items_venta = []
+
+                for i in range(len(medicamento_ids)):
+                    try:
+                        medicamento_id = int(medicamento_ids[i])
+                        cantidad = int(cantidades[i])
+                    except (ValueError, IndexError):
+                        return JsonResponse({
+                            'success': False,
+                            'message': 'Datos de medicamentos inválidos'
+                        }, status=400)
+
+                    # Obtener medicamento
+                    medicamento = get_object_or_404(Medicamento, id=medicamento_id)
+
+                    # Validar stock
+                    if cantidad > medicamento.stock_actual:
+                        return JsonResponse({
+                            'success': False,
+                            'message': f'Stock insuficiente para {medicamento.nombre_comercial}. Disponible: {medicamento.stock_actual}'
+                        }, status=400)
+
+                    # Calcular subtotal
+                    subtotal = medicamento.precio_venta * cantidad
+                    total += subtotal
+
+                    items_venta.append({
+                        'medicamento': medicamento,
+                        'cantidad': cantidad,
+                        'precio': medicamento.precio_venta,
+                        'subtotal': subtotal
+                    })
+
+                # Aplicar descuento (no puede ser mayor al total)
+                if descuento > total:
+                    descuento = total
+
+                total_final = total - descuento
+                if total_final < 0:
+                    total_final = Decimal('0')
+
+                # Crear la venta
+                venta = Venta.objects.create(
+                    total=total_final,
+                    descuento=descuento,
+                    metodo_pago=metodo_pago,
+                    observaciones=observaciones,
+                    usuario=request.user
+                )
+
+                # Crear detalles y actualizar stock
+                for item in items_venta:
+                    DetalleVenta.objects.create(
+                        venta=venta,
+                        medicamento=item['medicamento'],
+                        cantidad=item['cantidad'],
+                        precio_unitario=item['precio'],
+                        subtotal=item['subtotal']
+                    )
+
+                    # Actualizar stock
+                    item['medicamento'].stock_actual -= item['cantidad']
+                    item['medicamento'].save()
+
+                    # Registrar movimiento de inventario
+                    MovimientoInventario.objects.create(
+                        medicamento=item['medicamento'],
+                        tipo='VENTA',
+                        cantidad=item['cantidad'],
+                        usuario=request.user,
+                        referencia=f'Venta directa #{venta.id}',
+                        precio_unitario=item['precio']
+                    )
+
+                return JsonResponse({
+                    'success': True,
+                    'venta_id': venta.id,
+                    'message': 'Venta procesada exitosamente'
+                })
+
+        except Exception as e:
+            import traceback
+            error_detail = traceback.format_exc()
+            print(f"Error en procesar_venta_directa: {str(e)}")
+            print(f"Detalle: {error_detail}")
+
+            return JsonResponse({
+                'success': False,
+                'message': f'Error al procesar la venta: {str(e)}'
+            }, status=500)
+
+    return JsonResponse({
+        'success': False,
+        'message': 'Método no permitido'
+    }, status=405)
+
+@login_required
+def ticket_venta(request, id):
+    """Muestra el ticket de una venta"""
+    venta = get_object_or_404(Venta, id=id)
+    detalles = DetalleVenta.objects.filter(venta=venta)
+
+    context = {
+        'venta': venta,
+        'detalles': detalles,
+        'titulo': f'Ticket Venta #{venta.id}'
+    }
+
+    return render(request, 'farmacia/ticket_venta.html', context)
+
+# ==============================================
+# VISTAS DE PAGOS
+# ==============================================
+
+@login_required
+@never_cache
+def procesar_pago(request, consulta_id):
+    """Procesa el pago de recetas seleccionadas"""
+    from consultas.models import Consulta
+
+    if request.method == 'POST':
+        try:
+            consulta = get_object_or_404(Consulta, id=consulta_id)
+            total = float(request.POST.get('total', 0))
+
+            # Obtener recetas seleccionadas
+            items = []
+            index = 0
+            while True:
+                receta_id = request.POST.get(f'recetas[{index}][receta_id]')
+                if not receta_id:
+                    break
+
+                cantidad = int(request.POST.get(f'recetas[{index}][cantidad]', 0))
+                precio = float(request.POST.get(f'recetas[{index}][precio]', 0))
+
+                if cantidad > 0:
+                    # Buscar la receta
+                    receta = consulta.recetas.filter(id=receta_id).first()
+                    if receta:
+                        items.append({
+                            'receta': receta,
+                            'cantidad': cantidad,
+                            'precio': precio,
+                            'subtotal': precio * cantidad
+                        })
+
+                index += 1
+
+            if not items:
+                messages.error(request, 'No se seleccionaron medicamentos')
+                return redirect('farmacia:detalle_recetas_consulta', consulta_id=consulta_id)
+
+            context = {
+                'consulta': consulta,
+                'items': items,
+                'subtotal': total,
+                'descuento': 0,
+                'total': total,
+                'titulo': 'Pago de Recetas'
+            }
+
+            return render(request, 'farmacia/pago_recetas.html', context)
+
+        except Exception as e:
+            messages.error(request, f'Error al procesar pago: {str(e)}')
+            return redirect('farmacia:recetas_pendientes')
+
+    # Si no es POST, redirigir
+    return redirect('farmacia:detalle_recetas_consulta', consulta_id=consulta_id)
+
+@login_required
+@never_cache
+def finalizar_pago(request, tipo=None, id=None):
+    """Finaliza el pago para consultas O ventas directas"""
+    
+    # Determinar tipo de pago
+    if tipo == 'consulta':
+        from consultas.models import Consulta
+
+        if request.method == 'POST':
+            try:
+                consulta = get_object_or_404(Consulta, id=id)
+                total_final = float(request.POST.get('total_final', 0))
+                descuento = float(request.POST.get('descuento_aplicado', 0))
+                metodo_pago = request.POST.get('metodo_pago', 'EFECTIVO')
+
+                # Obtener recetas seleccionadas
+                recetas_atendidas = []
+                index = 0
+
+                while True:
+                    receta_id = request.POST.get(f'recetas[{index}][receta_id]')
+                    if not receta_id:
+                        break
+
+                    cantidad = int(request.POST.get(f'recetas[{index}][cantidad]', 0))
+
+                    if cantidad > 0:
+                        # Buscar la receta
+                        receta = consulta.recetas.filter(id=receta_id).first()
+                        if receta:
+                            # Verificar stock
+                            try:
+                                medicamento = Medicamento.objects.filter(
+                                    nombre_comercial__icontains=receta.medicamento.split()[0]
+                                ).first()
+
+                                if medicamento and medicamento.stock_actual >= cantidad:
+                                    # 1. Actualizar receta
+                                    receta.cantidad_atendida = cantidad
+                                    receta.estado = 'ATENDIDA'
+                                    receta.usuario_atencion = request.user
+                                    receta.fecha_atencion = timezone.now()
+                                    receta.observaciones_farmacia = f'Pagado con {metodo_pago} - Descuento: S/ {descuento}'
+                                    receta.save()
+
+                                    # 2. Descontar stock
+                                    medicamento.stock_actual -= cantidad
+                                    medicamento.save()
+
+                                    # 3. Crear venta
+                                    venta = Venta.objects.create(
+                                        total=total_final,
+                                        descuento=descuento,
+                                        metodo_pago=metodo_pago,
+                                        observaciones=f'Venta desde receta - Consulta #{consulta.id}',
+                                        usuario=request.user
+                                    )
+
+                                    # 4. Crear detalle de venta
+                                    DetalleVenta.objects.create(
+                                        venta=venta,
+                                        medicamento=medicamento,
+                                        cantidad=cantidad,
+                                        precio_unitario=medicamento.precio_venta,
+                                        subtotal=medicamento.precio_venta * cantidad
+                                    )
+
+                                    # 5. Registrar movimiento
+                                    MovimientoInventario.objects.create(
+                                        medicamento=medicamento,
+                                        tipo='VENTA',
+                                        cantidad=cantidad,
+                                        usuario=request.user,
+                                        referencia=f'Venta receta #{receta.id} - Consulta #{consulta.id}',
+                                        precio_unitario=medicamento.precio_venta
+                                    )
+
+                                    recetas_atendidas.append({
+                                        'receta': receta,
+                                        'cantidad': cantidad,
+                                        'medicamento': medicamento,
+                                        'venta': venta
+                                    })
+                                else:
+                                    messages.warning(
+                                        request,
+                                        f'Stock insuficiente para {receta.medicamento}'
+                                    )
+                            except Exception as e:
+                                messages.warning(
+                                    request,
+                                    f'Error con {receta.medicamento}: {str(e)}'
+                                )
+
+                    index += 1
+
+                if not recetas_atendidas:
+                    messages.error(request, 'No se pudo procesar ninguna receta')
+                    return redirect('farmacia:procesar_pago', consulta_id=id)
+
+                # Usar el ticket de venta
+                if recetas_atendidas and 'venta' in recetas_atendidas[0]:
+                    return redirect('farmacia:ticket_venta', id=recetas_atendidas[0]['venta'].id)
+
+                messages.success(
+                    request,
+                    f'✅ Pago procesado exitosamente. Total: S/ {total_final:.2f}'
+                )
+                return redirect('farmacia:recetas_pendientes')
+
+            except Exception as e:
+                messages.error(request, f'❌ Error al procesar pago: {str(e)}')
+                return redirect('farmacia:recetas_pendientes')
+
+        # Si no es POST, redirigir
+        return redirect('farmacia:procesar_pago', consulta_id=id)
+
+    elif tipo == 'venta_directa':
+        # Lógica para venta directa - REDIRIGIR al ticket
+        return redirect('farmacia:ticket_venta', id=id)
+
+    else:
+        # Tipo no válido
+        messages.error(request, 'Tipo de pago no válido')
+        return redirect('farmacia:venta_directa')
+# VISTAS DE HISTORIAL Y BÚSQUEDAS
+# ==============================================
+
+@login_required
+@never_cache
+def historial_ventas(request):
+    """Muestra historial de ventas"""
+    # Filtros
+    fecha_desde = request.GET.get('fecha_desde', '')
+    fecha_hasta = request.GET.get('fecha_hasta', '')
+    metodo_pago = request.GET.get('metodo_pago', '')
+    
+    # Query base
+    ventas_qs = Venta.objects.select_related('usuario').order_by('-fecha_hora')
+    
+   # Aplicar filtros
+    if fecha_desde:
+        ventas_qs = ventas_qs.filter(fecha_hora__gte=fecha_desde)
+    
+    if fecha_hasta:
+        ventas_qs = ventas_qs.filter(fecha_hora__lte=fecha_hasta)
+    
+    if metodo_pago:
+        ventas_qs = ventas_qs.filter(metodo_pago=metodo_pago)
+    
+    # Paginación
+    paginator = Paginator(ventas_qs, 20)
+    page_number = request.GET.get('page')
+    ventas = paginator.get_page(page_number)
+    
+    # Estadísticas
+    total_ventas = ventas_qs.count()
+    total_monto = ventas_qs.aggregate(total=Sum('total'))['total'] or 0
+    
+    context = {
+        'ventas': ventas,
+        'fecha_desde': fecha_desde,
+        'fecha_hasta': fecha_hasta,
+        'metodo_pago': metodo_pago,
+        'total_ventas': total_ventas,
+        'total_monto': total_monto,
+        'titulo': 'Historial de Ventas'
+    }
+    
+    return render(request, 'farmacia/historial_ventas.html', context)
+
+@login_required
+@never_cache
+def detalle_venta(request, id):
+    """Muestra detalle de una venta"""
+    venta = get_object_or_404(Venta, id=id)
+    detalles = DetalleVenta.objects.filter(venta=venta).select_related('medicamento')
+    
+    context = {
+        'venta': venta,
+        'detalles': detalles,
+        'titulo': f'Detalle Venta #{venta.id}'
+    }
+    
+    return render(request, 'farmacia/detalle_venta.html', context)
+
+# ==============================================
+# VISTAS DE BÚSQUEDA AJAX
+# ==============================================
+
+@login_required
+def buscar_medicamentos_ajax(request):
+    """úsqueda AJAX para venta directa"""
+    query = request.GET.get('q', '').strip()
+
+    if not query or len(query) < 2:
+        return JsonResponse({'medicamentos': []})
+
+    try:
+        medicamentos = Medicamento.objects.filter(
+            Q(activo=True) & (
+                Q(codigo__icontains=query) |
+                Q(nombre_comercial__icontains=query) |
+                Q(nombre_generico__icontains=query) |
+                Q(principio_activo__icontains=query)
+            )
+        ).order_by('nombre_comer.cial')[:20]
+
+        medicamentos_list = []
+        for med in medicamentos:
+            medicamentos_list.append({
+                'id': med.id,
+                'nombre': med.nombre_comercial,
+                'principio_activo': med.principio_activo or '',
+                'stock': med.stock_actual,
+                'precio': float(med.precio_venta),
+                'presentacion': str(med.presentacion) if med.presentacion else '',
+                'nombre_generico': med.nombre_generico or '',
+                'tiene_stock': med.stock_actual > 0
+            })
+
+        return JsonResponse({'medicamentos': medicamentos_list})
+
+    except Exception as e:
+        return JsonResponse({'medicamentos': [], 'error': str(e)})
+
+########### buscar medicamento
+@login_required
+def buscar_medicamento_venta(request):
+    """Busca medicamentos por código o nombre para venta directa"""
+    query = request.GET.get('q', '').strip()
+
+    if not query or len(query) < 2:
+        return JsonResponse({'medicamentos': []})
+
+    try:
+        # Búsqueda amplia
+        medicamentos = Medicamento.objects.filter(
+            Q(activo=True) & (
+                Q(codigo__icontains=query) |
+                Q(nombre_comercial__icontains=query) |
+                Q(nombre_generico__icontains=query) |
+                Q(principio_activo__icontains=query) |
+                Q(concentracion__icontains=query)
+            )
+        ).order_by('nombre_comercial')[:20]
+
+        medicamentos_list = []
+        for med in medicamentos:
+            medicamentos_list.append({
+                'id': med.id,
+                'codigo': med.codigo,
+                'nombre': med.nombre_comercial,
+                'principio_activo': med.principio_activo or '',
+                'stock': med.stock_actual,
+                'precio': float(med.precio_venta),
+                'presentacion': str(med.presentacion) if med.presentacion else '',
+                'nombre_generico': med.nombre_generico or '',
+                'concentracion': med.concentracion or '',
+                'activo': med.activo,
+                'tiene_stock': med.stock_actual > 0
+            })
+
+        return JsonResponse({'medicamentos': medicamentos_list})
+
+    except Exception as e:
+        print(f"Error en búsqueda: {str(e)}")
+        return JsonResponse({'medicamentos': [], 'error': str(e)})
+
+# ==============================================
+# VISTAS PARA GESTIÓN DE CATEGORÍAS
+# ==============================================
+# ==============================================
+# VISTAS PARA GESTIÓN DE CATEGORÍAS
+# ==============================================
+
+@login_required
+@never_cache
+def lista_categorias(request):
+    """Lista todas las categorías"""
+    categorias = Categoria.objects.all().order_by('nombre')
+
+    context = {
+        'categorias': categorias,
+        'titulo': 'Categorías de Medicamentos'
+    }
+    return render(request, 'farmacia/categorias/lista.html', context)
+
+@login_required
+@never_cache
+def crear_categoria(request):
+    """Crea una nueva categoría"""
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Categoría creada exitosamente')
+            return redirect('farmacia:lista_categorias')
+    else:
+        form = CategoriaForm()
+
+    context = {
+        'form': form,
+        'titulo': 'Registrar Nueva Categoría'
+    }
+    return render(request, 'farmacia/categorias/crear.html', context)
+
+@login_required
+@never_cache
+def editar_categoria(request, id):
+    """Edita una categoría existente"""
+    categoria = get_object_or_404(Categoria, id=id)
+
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST, instance=categoria)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Categoría actualizada exitosamente')
+            return redirect('farmacia:lista_categorias')
+    else:
+        form = CategoriaForm(instance=categoria)
+
+    context = {
+        'form': form,
+        'categoria': categoria,
+        'titulo': f'Editar: {categoria.nombre}'
+    }
+    return render(request, 'farmacia/categorias/editar.html', context)
+
+# ==============================================
+# VISTAS PARA GESTIÓN DE PRESENTACIONES
+# ==============================================
+
+@login_required
+@never_cache
+def lista_presentaciones(request):
+    """Lista todas las presentaciones"""
+    presentaciones = Presentacion.objects.all().order_by('nombre')
+
+    context = {
+        'presentaciones': presentaciones,
+        'titulo': 'Presentaciones de Medicamentos'
+    }
+    return render(request, 'farmacia/presentaciones/lista.html', context)
+
+@login_required
+@never_cache
+def crear_presentacion(request):
+    """Crea una nueva presentación"""
+    if request.method == 'POST':
+        form = PresentacionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Presentación creada exitosamente')
+            return redirect('farmacia:lista_presentaciones')
+    else:
+        form = PresentacionForm()
+
+    context = {
+        'form': form,
+        'titulo': 'Registrar Nueva Presentación'
+    }
+    return render(request, 'farmacia/presentaciones/crear.html', context)
+
+@login_required
+@never_cache
+def editar_presentacion(request, id):
+    """Edita una presentación existente"""
+    presentacion = get_object_or_404(Presentacion, id=id)
+
+    if request.method == 'POST':
+        form = PresentacionForm(request.POST, instance=presentacion)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '✅ Presentación actualizada exitosamente')
+            return redirect('farmacia:lista_presentaciones')
+    else:
+        form = PresentacionForm(instance=presentacion)
+
+    context = {
+        'form': form,
+        'presentacion': presentacion,
+        'titulo': f'Editar: {presentacion.nombre}'
+    }
+    return render(request, 'farmacia/presentaciones/editar.html', context)

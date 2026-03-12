@@ -1,0 +1,79 @@
+{% extends 'consultas/laboratorio/formatos/base_formato.html' %}
+
+{% block title %}Perfil Hepático - {{ orden.examen_especifico }}{% endblock %}
+
+{% block campos_formulario %}
+{% if modo_impresion %}
+    <!-- VERSIÓN IMPRESIÓN -->
+    <div style="font-family: Arial, sans-serif;">
+        <div style="display: flex; justify-content: space-between; background-color: #003366; color: white; padding: 4px 8px; margin-bottom: 6px;">
+            <span style="font-weight: bold;">PERFIL HEPÁTICO #{{ orden.id }}</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; background-color: #f0f0f0; padding: 4px 8px; margin-bottom: 8px; font-size: 9pt;">
+            <span><strong>Pac:</strong> {{ orden.get_paciente_nombre|truncatechars:30 }}</span>
+            <span><strong>DNI:</strong> {{ orden.get_paciente_dni }}</span>
+            <span><strong>Téc:</strong> {{ orden.tecnico_asignado.get_short_name|default:orden.tecnico_asignado.username }}</span>
+        </div>
+        
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+            <thead>
+                <tr style="background-color: #006633; color: white;">
+                    <th style="padding: 3px 5px;">Parámetro</th>
+                    <th style="padding: 3px 5px;">Resultado</th>
+                    <th style="padding: 3px 5px;">Ref</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>TGO</td><td>{{ resultados.tgo|default:"-" }} U/L</td><td>10-40</td></tr>
+                <tr><td>TGP</td><td>{{ resultados.tgp|default:"-" }} U/L</td><td>7-56</td></tr>
+                <tr><td>Fosfatasa Alcalina</td><td>{{ resultados.fosfatasa|default:"-" }} U/L</td><td>40-130</td></tr>
+                <tr><td>GGTP</td><td>{{ resultados.ggtp|default:"-" }} U/L</td><td>8-61</td></tr>
+                <tr><td>Bilirrubina Total</td><td>{{ resultados.bilirrubina_total|default:"-" }} mg/dL</td><td>0.3-1.2</td></tr>
+                <tr><td>Bilirrubina Directa</td><td>{{ resultados.bilirrubina_directa|default:"-" }} mg/dL</td><td>0.1-0.4</td></tr>
+                <tr><td>Proteínas Totales</td><td>{{ resultados.proteinas|default:"-" }} g/dL</td><td>6.4-8.3</td></tr>
+                <tr><td>LDH</td><td>{{ resultados.ldh|default:"-" }} U/L</td><td>140-280</td></tr>
+            </tbody>
+        </table>
+        
+        {% if resultados.observaciones %}
+        <div style="margin: 4px 0; padding: 3px; background-color: #fff3cd; font-size: 8pt;">
+            <strong>Obs:</strong> {{ resultados.observaciones }}
+        </div>
+        {% endif %}
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 7pt; color: #666; border-top: 1px solid #ccc; padding-top: 3px;">
+            <span>Sistema Policlínico</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div class="no-print" style="text-align: center; margin-top: 10px;">
+            <button onclick="window.print()" style="padding: 5px 15px;">🖨️ Imprimir</button>
+            <button onclick="window.close()" style="padding: 5px 15px;">✖️ Cerrar</button>
+        </div>
+    </div>
+
+{% else %}
+    <!-- VERSIÓN EDICIÓN -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">PERFIL HEPÁTICO</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-3"><label>TGO (U/L):</label><input type="text" name="tgo" class="form-control" value="{{ resultados.tgo|default:'' }}"><small>VR: 10-40</small></div>
+                <div class="col-md-4 mb-3"><label>TGP (U/L):</label><input type="text" name="tgp" class="form-control" value="{{ resultados.tgp|default:'' }}"><small>VR: 7-56</small></div>
+                <div class="col-md-4 mb-3"><label>Fosfatasa Alcalina:</label><input type="text" name="fosfatasa" class="form-control" value="{{ resultados.fosfatasa|default:'' }}"><small>VR: 40-130</small></div>
+                <div class="col-md-4 mb-3"><label>GGTP (U/L):</label><input type="text" name="ggtp" class="form-control" value="{{ resultados.ggtp|default:'' }}"><small>VR: 8-61</small></div>
+                <div class="col-md-4 mb-3"><label>Bilirrubina Total:</label><input type="text" name="bilirrubina_total" class="form-control" value="{{ resultados.bilirrubina_total|default:'' }}"><small>VR: 0.3-1.2</small></div>
+                <div class="col-md-4 mb-3"><label>Bilirrubina Directa:</label><input type="text" name="bilirrubina_directa" class="form-control" value="{{ resultados.bilirrubina_directa|default:'' }}"><small>VR: 0.1-0.4</small></div>
+                <div class="col-md-4 mb-3"><label>Proteínas Totales:</label><input type="text" name="proteinas" class="form-control" value="{{ resultados.proteinas|default:'' }}"><small>VR: 6.4-8.3</small></div>
+                <div class="col-md-4 mb-3"><label>LDH (U/L):</label><input type="text" name="ldh" class="form-control" value="{{ resultados.ldh|default:'' }}"><small>VR: 140-280</small></div>
+            </div>
+            <div class="row"><div class="col-12"><label>Observaciones:</label><textarea name="observaciones" class="form-control" rows="2">{{ resultados.observaciones|default:'' }}</textarea></div></div>
+        </div>
+    </div>
+{% endif %}
+<style>@media print{.no-print{display:none;}}</style>
+{% endblock %}

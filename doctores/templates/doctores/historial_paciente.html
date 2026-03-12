@@ -1,0 +1,605 @@
+{% extends 'base.html' %}
+
+{% block title %}Historial Médico - {{ paciente.nombres }} {{ paciente.apellidos }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- ENCABEZADO CON DATOS DEL PACIENTE -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0"><i class="fas fa-user-chart"></i> Historial Médico Completo</h3>
+            <span class="badge bg-light text-dark fs-6">{{ consultas|length }} consulta(s)</span>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 border-end">
+                    <h5 class="text-primary"><i class="fas fa-user"></i> Datos Personales</h5>
+                    <p class="mb-2"><strong>Paciente:</strong> {{ paciente.nombres }} {{ paciente.apellidos }}</p>
+                    <p class="mb-2"><strong>DNI:</strong> {{ paciente.dni }}</p>
+                    <p class="mb-2"><strong>Edad:</strong> {{ paciente.edad }} años</p>
+                    <p class="mb-2"><strong>Fecha Nac.:</strong> {{ paciente.fecha_nacimiento|date:"d/m/Y" }}</p>
+                </div>
+                <div class="col-md-4 border-end">
+                    <h5 class="text-primary"><i class="fas fa-address-card"></i> Contacto</h5>
+                    <p class="mb-2"><strong>Teléfono:</strong> {{ paciente.telefono|default:"No registrado" }}</p>
+                    <p class="mb-2"><strong>Dirección:</strong> {{ paciente.direccion|default:"No registrada" }}</p>
+                    <p class="mb-2"><strong>Estado:</strong>
+                        <span class="badge {% if paciente.activo %}bg-success{% else %}bg-danger{% endif %}">
+                            {{ paciente.activo|yesno:"Activo,Inactivo" }}
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-primary"><i class="fas fa-chart-bar"></i> Estadísticas</h5>
+                    <p class="mb-2"><strong>Total Consultas:</strong> {{ consultas|length }}</p>
+                    <p class="mb-2"><strong>Total Recetas:</strong> {{ recetas|length }}</p>
+                    <p class="mb-2"><strong>Total Exámenes:</strong> {{ examenes_laboratorio.count|add:examenes_ecografias.count }}</p>
+                    <p class="mb-0"><strong>Última Consulta:</strong>
+                        {% if consultas.first %}
+                            {{ consultas.first.fecha|date:"d/m/Y" }}
+                        {% else %}
+                            Sin consultas
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESUMEN RÁPIDO -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-white-50">Consultas</h6>
+                            <h3 class="mb-0">{{ consultas|length }}</h3>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-stethoscope fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-white-50">Recetas</h6>
+                            <h3 class="mb-0">{{ recetas|length }}</h3>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-pills fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-white-50">Laboratorio</h6>
+                            <h3 class="mb-0">{{ examenes_laboratorio|length }}</h3>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-flask fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-white-50">Ecografías</h6>
+                            <h3 class="mb-0">{{ examenes_ecografias|length }}</h3>
+                        </div>
+                        <div class="align-self-center">
+                            <i class="fas fa-procedures fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABS PARA DIFERENTES SECCIONES -->
+    <ul class="nav nav-tabs mb-4" id="historialTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="consultas-tab" data-bs-toggle="tab" data-bs-target="#consultas" type="button">
+                <i class="fas fa-stethoscope"></i> Consultas
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="recetas-tab" data-bs-toggle="tab" data-bs-target="#recetas" type="button">
+                <i class="fas fa-pills"></i> Recetas ({{ recetas|length }})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="laboratorio-tab" data-bs-toggle="tab" data-bs-target="#laboratorio" type="button">
+                <i class="fas fa-flask"></i> Laboratorio ({{ examenes_laboratorio|length }})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="ecografias-tab" data-bs-toggle="tab" data-bs-target="#ecografias" type="button">
+                <i class="fas fa-procedures"></i> Ecografías ({{ examenes_ecografias|length }})
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="triajes-tab" data-bs-toggle="tab" data-bs-target="#triajes" type="button">
+                <i class="fas fa-heartbeat"></i> Triajes ({{ triajes|length }})
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="historialTabsContent">
+        <!-- TAB 1: CONSULTAS -->
+        <div class="tab-pane fade show active" id="consultas">
+            {% if consultas %}
+                <div class="accordion" id="consultasAccordion">
+                    {% for consulta in consultas %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ consulta.id }}">
+                            <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{ consulta.id }}"
+                                    aria-expanded="false"
+                                    aria-controls="collapse{{ consulta.id }}">
+                                <div class="d-flex justify-content-between w-100 me-3 align-items-center">
+                                    <div>
+                                        <span class="fw-bold">Consulta #{{ consulta.id }}</span>
+                                        <span class="text-muted ms-3">{{ consulta.fecha|date:"d/m/Y H:i" }}</span>
+                                    </div>
+                                    <div>
+                                        <span class="badge
+                                            {% if consulta.estado == 'ATENDIDA' %}bg-success
+                                            {% elif consulta.estado == 'PAGADA' %}bg-info
+                                            {% else %}bg-warning{% endif %} me-2">
+                                            {{ consulta.get_estado_display }}
+                                        </span>
+                                        <span class="badge bg-primary">
+                                            S/ {{ consulta.precio }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse{{ consulta.id }}"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="heading{{ consulta.id }}"
+                             data-bs-parent="#consultasAccordion">
+                            <div class="accordion-body">
+                                <!-- Información básica -->
+                                <div class="row mb-4">
+                                    <!-- Columna 1: Médico -->
+                                    <div class="col-md-3">
+                                        <h6><i class="fas fa-user-md"></i> Médico</h6>
+                                        <p class="mb-2">
+                                            {% if consulta.doctor %}
+                                                <strong>Dr. {{ consulta.doctor.nombres }} {{ consulta.doctor.apellidos }}</strong>
+                                            {% else %}
+                                                <span class="text-muted">No asignado</span>
+                                            {% endif %}
+                                        </p>
+                                        <p class="mb-2"><strong>Especialidad:</strong> {{ consulta.especialidad }}</p>
+                                        <p class="mb-0"><strong>Tipo:</strong> {{ consulta.tipo_consulta }}</p>
+                                    </div>
+
+                                    <!-- Columna 2: Motivo + Examen Físico -->
+                                    <div class="col-md-4">
+                                        <h6><i class="fas fa-question-circle text-info"></i> Motivo de consulta</h6>
+                                        <p class="mb-2">{{ consulta.motivo_consulta|default:"No registrado" }}</p>
+
+                                        <h6 class="mt-2"><i class="fas fa-stethoscope text-success"></i> Examen físico</h6>
+                                        <p class="mb-0">{{ consulta.examen_fisico|default:"No registrado" }}</p>
+                                    </div>
+
+                                    <!-- Columna 3: Diagnóstico + Tratamiento -->
+                                    <div class="col-md-5">
+                                        <h6><i class="fas fa-file-medical text-primary"></i> Diagnóstico</h6>
+                                        <p class="mb-2">{{ consulta.diagnostico|default:"No registrado" }}</p>
+
+                                        <h6 class="mt-2"><i class="fas fa-capsules text-warning"></i> Tratamiento</h6>
+                                        <p class="mb-0">{{ consulta.tratamiento|default:"No registrado" }}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Recetas de esta consulta -->
+                                {% with consulta.recetas.all as recetas_consulta %}
+                                {% if recetas_consulta %}
+                                <div class="card mb-3">
+                                    <div class="card-header bg-success text-white py-2">
+                                        <h6 class="mb-0"><i class="fas fa-pills"></i> Recetas ({{ recetas_consulta|length }})</h6>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <table class="table table-sm mb-0">
+                                            <thead class="table-success">
+                                                <tr>
+                                                    <th width="30%">Medicamento</th>
+                                                    <th width="15%">Dosis</th>
+                                                    <th width="20%">Frecuencia</th>
+                                                    <th width="15%">Duración</th>
+                                                    <th width="20%">Indicaciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for receta in recetas_consulta %}
+                                                <tr>
+                                                    <td>{{ receta.medicamento }}</td>
+                                                    <td>{{ receta.dosis|default:"-" }}</td>
+                                                    <td>{{ receta.frecuencia|default:"-" }}</td>
+                                                    <td>{{ receta.duracion|default:"-" }}</td>
+                                                    <td>{{ receta.indicaciones|default:"-"|truncatechars:30 }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endwith %}
+
+                                <!-- Exámenes de esta consulta (CON BOTÓN VER RESULTADOS) -->
+                                {% with consulta.ordenes_examen.all as examenes_consulta %}
+                                {% if examenes_consulta %}
+                                <div class="card">
+                                    <div class="card-header bg-info text-white py-2">
+                                        <h6 class="mb-0"><i class="fas fa-flask"></i> Exámenes Solicitados ({{ examenes_consulta|length }})</h6>
+                                    </div>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm mb-0">
+                                                <thead class="table-info">
+                                                    <tr>
+                                                        <th>Tipo</th>
+                                                        <th>Examen</th>
+                                                        <th>Indicaciones</th>
+                                                        <th>Estado</th>
+                                                        <th>Acciones</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for examen in examenes_consulta %}
+                                                    <tr>
+                                                        <td>
+                                                            <span class="badge
+                                                                {% if examen.tipo_examen == 'LABORATORIO' %}bg-danger
+                                                                {% elif examen.tipo_examen == 'ECOGRAFIA' %}bg-warning
+                                                                {% else %}bg-secondary{% endif %}">
+                                                                {{ examen.get_tipo_examen_display }}
+                                                            </span>
+                                                        </td>
+                                                        <td>{{ examen.examen_especifico }}</td>
+                                                        <td>{{ examen.indicaciones|default:"-"|truncatechars:30 }}</td>
+                                                        <td>
+                                                            <span class="badge
+                                                                {% if examen.estado == 'ENTREGADO' %}bg-success
+                                                                {% elif examen.estado == 'COMPLETADO' %}bg-info
+                                                                {% elif examen.estado == 'EN_PROCESO' %}bg-warning
+                                                                {% else %}bg-secondary{% endif %}">
+                                                                {{ examen.get_estado_display }}
+                                                            </span>
+                                                        </td>
+                                                        
+								<td>
+    {% if examen.estado == 'COMPLETADO' or examen.estado == 'ENTREGADO' %}
+        {% if examen.resultado_json or examen.resultado %}
+            <!-- 🔥 BOTÓN VER RESULTADOS (si tiene datos en cualquier campo) -->
+            <a href="{% url 'ver_resultado_examen' examen.id %}"
+               class="btn btn-sm btn-success"
+               target="_blank"
+               title="Ver resultados del examen">
+                <i class="fas fa-file-medical"></i> Ver
+            </a>
+        {% else %}
+            <span class="badge bg-warning text-dark">Sin resultados</span>
+        {% endif %}
+    {% else %}
+        <span class="text-muted">—</span>
+    {% endif %}
+</td>
+
+							<td>
+                                                            {% if examen.fecha_realizacion %}
+                                                                {{ examen.fecha_realizacion|date:"d/m/Y" }}
+                                                            {% else %}
+                                                                <span class="text-muted">Pendiente</span>
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> El paciente no tiene consultas registradas.
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- TAB 2: RECETAS (se mantiene igual) -->
+        <div class="tab-pane fade" id="recetas">
+            {% if recetas %}
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-pills"></i> Todas las Recetas ({{ recetas|length }})</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-success">
+                                <tr>
+                                    <th width="15%">Fecha</th>
+                                    <th width="25%">Medicamento</th>
+                                    <th width="15%">Dosis</th>
+                                    <th width="15%">Frecuencia</th>
+                                    <th width="15%">Duración</th>
+                                    <th width="15%">Consulta #</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for receta in recetas %}
+                                <tr>
+                                    <td>{{ receta.fecha_creacion|date:"d/m/Y" }}</td>
+                                    <td>{{ receta.medicamento }}</td>
+                                    <td>{{ receta.dosis|default:"-" }}</td>
+                                    <td>{{ receta.frecuencia|default:"-" }}</td>
+                                    <td>{{ receta.duracion|default:"-" }}</td>
+                                    <td>
+                                        <a href="#collapse{{ receta.consulta.id }}"
+                                           data-bs-toggle="collapse"
+                                           class="badge bg-primary text-decoration-none">
+                                           #{{ receta.consulta.id }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> No hay recetas registradas.
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- TAB 3: LABORATORIO (opcional, puedes eliminarlo si no lo usas) -->
+        <div class="tab-pane fade" id="laboratorio">
+            {% if examenes_laboratorio %}
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0"><i class="fas fa-flask"></i> Exámenes de Laboratorio ({{ examenes_laboratorio|length }})</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-danger">
+                                <tr>
+                                    <th width="15%">Fecha</th>
+                                    <th width="25%">Examen</th>
+                                    <th width="20%">Indicaciones</th>
+                                    <th width="15%">Estado</th>
+                                    <th width="25%">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for examen in examenes_laboratorio %}
+                                <tr>
+                                    <td>{{ examen.fecha_solicitud|date:"d/m/Y" }}</td>
+                                    <td>{{ examen.examen_especifico }}</td>
+                                    <td>{{ examen.indicaciones|default:"-"|truncatechars:30 }}</td>
+                                    <td>
+                                        <span class="badge
+                                            {% if examen.estado == 'ENTREGADO' %}bg-success
+                                            {% elif examen.estado == 'COMPLETADO' %}bg-info
+                                            {% elif examen.estado == 'EN_PROCESO' %}bg-warning
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ examen.get_estado_display }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if examen.estado == 'COMPLETADO' or examen.estado == 'ENTREGADO' %}
+                                            {% if examen.resultado_json %}
+                                                <a href="{% url 'ver_resultado_examen' examen.id %}"
+                                                   class="btn btn-sm btn-success"
+                                                   target="_blank">
+                                                    <i class="fas fa-file-medical"></i> Ver Resultados
+                                                </a>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Sin resultados</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="text-muted">Pendiente</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> No hay exámenes de laboratorio registrados.
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- TAB 4: ECOGRAFÍAS (se mantiene igual) -->
+        <div class="tab-pane fade" id="ecografias">
+            {% if examenes_ecografias %}
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-procedures"></i> Ecografías ({{ examenes_ecografias|length }})</h5>
+             </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-warning">
+                                <tr>
+                                    <th width="20%">Fecha</th>
+                                    <th width="30%">Ecografía</th>
+                                    <th width="25%">Indicaciones</th>
+                                    <th width="15%"Estado</th>
+                                    <th width="10%">Consulta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for examen in examenes_ecografias %}
+                                <tr>
+                                    <td>{{ examen.fecha_solicitud|date:"d/m/Y" }}</td>
+                                    <td>{{ examen.examen_especifico }}</td>
+                                    <td>{{ examen.indicaciones|default:"-"|truncatechars:30 }}</td>
+                                    <td>
+                                        <span class="badge
+                                            {% if examen.estado == 'ENTREGADO' %}bg-success
+                                            {% elif examen.estado == 'COMPLETADO' %}bg-info
+                                            {% else %}bg-warning{% endif %}">
+                                            {{ examen.get_estado_display }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="#collapse{{ examen.consulta.id }}"
+                                           data-bs-toggle="collapse"
+                                           class="badge bg-primary text-decoration-none">
+                                           #{{ examen.consulta.id }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> No hay ecografías registradas.
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- TAB 5: TRIAJES (se mantiene igual) -->
+        <div class="tab-pane fade" id"triajes">
+            {% if triajes %}
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-heartbeat"></i> Triajes ({{ triajes|length }})</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-info">
+                                <tr>
+                                    <th width="15%">Fecha</th>
+                                    <th width="10%">Peso (kg)</th>
+                                    <th width="10%">Talla (cm)</th>
+                                    <th width="10%">Temp (°C)</th>
+                                    <th width="15%">Presión</th>
+                                    <th width="15%">FC (lpm)</th>
+                                    <th width="10%">Sat O₂ (%)</th>
+                                    <th width%">Consulta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for triaje in triajes %}
+                                <tr>
+                                    <td>{{ triaje.fecha|date:"d/m/Y H:i" }}</td>
+                                    <td>{{ triaje.peso|default:"-" }}</td>
+                                    <td>{{ triaje.talla|default:"-" }}</td>
+                                    <td>{{ triaje.temperatura|default:"-" }}</td>
+                                    <td>{{ triaje.presion|default:"-" }}</td>
+                                    <td>{{ triaje.frecuencia_cardiaca|default:"-" }}</td>
+                                    <td>{{ triaje.saturacion|default:"-" }}</td>
+                                    <td>
+                                        <a href="#collapse{{ triaje.consulta.id }}"
+                                           data-bs-toggle="collapse"
+                                           class="badge bg-primary text-decoration-none">
+                                           #{{ triaje.consulta.id }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> No hay triajes registrados.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- BOTONES DE ACCIÓN -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <div class="btn-group" role="group">
+                        <a href="{% url 'buscar_historial' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-lft"></i> Volver a Búsqueda
+                        </a>
+                        <a href="{% url 'doctor_consultas' %}" class="btn btn-primary">
+                            <i class="fas fa-list"></i> Mis Consultas
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JavaScript adicional -->
+<script>
+    // Activar popovers de resultados
+    document.addEventListener('DOMContentLoaded', function() {
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl);
+        });
+
+        // Navegar a la consulta cuando se hace clic en un badge
+        document.querySelectorAll('a[data-bs-toggle="collapse"]').forEach(function(link) {
+            link.addEventListener('click', function() {
+                // Cambiar al tab de consultas
+                var consultasTab = document.getElementById('consultas-tab');
+                if (consultasTab) {
+                    var bsTab = new bootstrap.Tab(consultasTab);
+                    bsTab.show();
+                }
+            });
+        });
+    });
+
+// Función para imprimir resultados
+function imprimirResultado(examenId) {
+    // Abrir una nueva ventana con la vista de impresión
+    const url = `/consultas/laboratorio/imprimir-resultado/${examenId}/`;
+    window.open(url, '_blank', 'width=800,height=600');
+}
+</script>
+{% endblock %}

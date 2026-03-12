@@ -1,0 +1,144 @@
+{% extends 'consultas/laboratorio/formatos/base_formato.html' %}
+
+{% block title %}Examen de Orina - {{ orden.examen_especifico }}{% endblock %}
+
+{% block campos_formulario %}
+{% if modo_impresion %}
+    <div style="font-family: Arial, sans-serif;">
+        <div style="display: flex; justify-content: space-between; background-color: #003366; color: white; padding: 4px 8px; margin-bottom: 6px;">
+            <span style="font-weight: bold;">EXAMEN DE ORINA #{{ orden.id }}</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; background-color: #f0f0f0; padding: 4px 8px; margin-bottom: 8px; font-size: 9pt;">
+            <span><strong>Pac:</strong> {{ orden.get_paciente_nombre|truncatechars:30 }}</span>
+            <span><strong>DNI:</strong> {{ orden.get_paciente_dni }}</span>
+            <span><strong>Téc:</strong> {{ orden.tecnico_asignado.get_short_name|default:orden.tecnico_asignado.username }}</span>
+        </div>
+        
+        <h6 style="margin: 5px 0; font-size: 9pt;">CARACTERÍSTICAS FÍSICAS</h6>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 8px;">
+            <tr><td><strong>Color:</strong> {{ resultados.color|default:"-" }}</td><td><strong>Aspecto:</strong> {{ resultados.aspecto|default:"-" }}</td></tr>
+            <tr><td><strong>Densidad:</strong> {{ resultados.densidad|default:"-" }}</td><td><strong>pH:</strong> {{ resultados.ph|default:"-" }}</td></tr>
+        </table>
+        
+        <h6 style="margin: 5px 0; font-size: 9pt;">EXAMEN QUÍMICO</h6>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 8px;">
+            <tr><td>Proteínas: {{ resultados.proteinas|default:"-" }}</td><td>Glucosa: {{ resultados.glucosa|default:"-" }}</td><td>Cetonas: {{ resultados.cetonas|default:"-" }}</td></tr>
+            <tr><td>Sangre: {{ resultados.sangre|default:"-" }}</td><td>Nitritos: {{ resultados.nitritos|default:"-" }}</td><td>Leucocitos: {{ resultados.leucocitos_estearasa|default:"-" }}</td></tr>
+        </table>
+        
+        <h6 style="margin: 5px 0; font-size: 9pt;">SEDIMENTO</h6>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt;">
+            <tr><td>Células: {{ resultados.celulas|default:"-" }}</td><td>Leucocitos: {{ resultados.leucocitos_sedimento|default:"-" }}</td><td>Hematíes: {{ resultados.hematies|default:"-" }}</td></tr>
+            <tr><td>Cristales: {{ resultados.cristales|default:"-" }}</td><td>Cilindros: {{ resultados.cilindros|default:"-" }}</td><td>Bacterias: {{ resultados.bacterias|default:"-" }}</td></tr>
+        </table>
+        
+        {% if resultados.observaciones %}
+        <div style="margin: 4px 0; padding: 3px; background-color: #fff3cd; font-size: 8pt;">
+            <strong>Obs:</strong> {{ resultados.observaciones }}
+        </div>
+        {% endif %}
+        
+        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 7pt; color: #666; border-top: 1px solid #ccc; padding-top: 3px;">
+            <span>Sistema Policlínico</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <div class="no-print" style="text-align: center; margin-top: 10px;">
+            <button onclick="window.print()" style="padding: 5px 15px;">🖨️ Imprimir</button>
+            <button onclick="window.close()" style="padding: 5px 15px;">✖️ Cerrar</button>
+        </div>
+    </div>
+
+{% else %}
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white"><h5 class="mb-0">EXAMEN DE ORINA</h5></div>
+        <div class="card-body">
+            <h6 class="text-primary">CARACTERÍSTICAS FÍSICAS</h6>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>Color:</label>
+                    <select name="color" class="form-select">
+                        <option value="">---</option>
+                        <option value="Amarillo claro" {% if resultados.color == 'Amarillo claro' %}selected{% endif %}>Amarillo claro</option>
+                        <option value="Amarillo ámbar" {% if resultados.color == 'Amarillo ámbar' %}selected{% endif %}>Amarillo ámbar</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Aspecto:</label>
+                    <select name="aspecto" class="form-select">
+                        <option value="">---</option>
+                        <option value="Limpio" {% if resultados.aspecto == 'Limpio' %}selected{% endif %}>Limpio</option>
+                        <option value="Turbio" {% if resultados.aspecto == 'Turbio' %}selected{% endif %}>Turbio</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3"><label>Densidad:</label><input type="text" name="densidad" class="form-control" value="{{ resultados.densidad|default:'' }}"></div>
+                <div class="col-md-4 mb-3"><label>pH:</label><input type="text" name="ph" class="form-control" value="{{ resultados.ph|default:'' }}"></div>
+            </div>
+            
+            <h6 class="text-primary mt-3">EXAMEN QUÍMICO</h6>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label>Proteínas:</label>
+                    <select name="proteinas" class="form-select">
+                        <option value="">---</option>
+                        <option value="Negativo" {% if resultados.proteinas == 'Negativo' %}selected{% endif %}>Negativo</option>
+                        <option value="+" {% if resultados.proteinas == '+' %}selected{% endif %}>+</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Glucosa:</label>
+                    <select name="glucosa" class="form-select">
+                        <option value="">---</option>
+                        <option value="Negativo" {% if resultados.glucosa == 'Negativo' %}selected{% endif %}>Negativo</option>
+                        <option value="+" {% if resultados.glucosa == '+' %}selected{% endif %}>+</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Cetonas:</label>
+                    <select name="cetonas" class="form-select">
+                        <option value="">---</option>
+                        <option value="Negativo" {% if resultados.cetonas == 'Negativo' %}selected{% endif %}>Negativo</option>
+                        <option value="+" {% if resultados.cetonas == '+' %}selected{% endif %}>+</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Sangre:</label>
+                    <select name="sangre" class="form-select">
+                        <option value="">---</option>
+                        <option value="Negativo" {% if resultados.sangre == 'Negativo' %}selected{% endif %}>Negativo</option>
+                        <option value="+" {% if resultados.sangre == '+' %}selected{% endif %}>+</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label>Nitritos:</label>
+                    <select name="nitritos" class="form-select">
+                        <option value="">---</option>
+                        <option value="Negativo" {% if resultados.nitritos == 'Negativo' %}selected{% endif %}>Negativo</option>
+                        <option value="Positivo" {% if resultados.nitritos == 'Positivo' %}selected{% endif %}>Positivo</option>
+                    </select>
+                </div>
+            </div>
+            
+            <h6 class="text-primary mt-3">SEDIMENTO</h6>
+            <div class="row">
+                <div class="col-md-4 mb-3"><label>Células:</label><input type="text" name="celulas" class="form-control" value="{{ resultados.celulas|default:'' }}"></div>
+                <div class="col-md-4 mb-3"><label>Leucocitos:</label><input type="text" name="leucocitos_sedimento" class="form-control" value="{{ resultados.leucocitos_sedimento|default:'' }}"></div>
+                <div class="col-md-4 mb-3"><label>Hematíes:</label><input type="text" name="hematies" class="form-control" value="{{ resultados.hematies|default:'' }}"></div>
+                <div class="col-md-4 mb-3"><label>Cristales:</label><input type="text" name="cristales" class="form-control" value="{{ resultados.cristales|default:'' }}"></div>
+                <div class="col-md-4 mb-3"><label>Cilindros:</label><input type="text" name="cilindros" class="form-control" value="{{ resultados.cilindros|default:'' }}"></div>
+                <div class="col-md-4 mb-3"><label>Bacterias:</label><input type="text" name="bacterias" class="form-control" value="{{ resultados.bacterias|default:'' }}"></div>
+            </div>
+            
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>Observaciones:</label>
+                    <textarea name="observaciones" class="form-control" rows="2">{{ resultados.observaciones|default:'' }}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+<style>@media print{.no-print{display:none;}}</style>
+{% endblock %}

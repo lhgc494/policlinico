@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}Reportes de Gestión{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Encabezado -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-chart-line text-primary me-2"></i>Reportes de Gestión</h2>
+        <div>
+            <span class="badge bg-primary">{{ user.get_full_name|default:user.username }}</span>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Tipo de Reporte:</label>
+                    <select name="tipo" class="form-select">
+                        {% for reporte in reportes %}
+                        <option value="{{ reporte.value }}" {% if tipo_reporte == reporte.value %}selected{% endif %}>
+                            {{ reporte.label }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Desde:</label>
+                    <input type="date" name="desde" class="form-control" value="{{ fecha_desde }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Hasta:</label>
+                    <input type="date" name="hasta" class="form-control" value="{{ fecha_hasta }}">
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-1"></i>Ver Reporte
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                {% for reporte in reportes %}
+                    {% if tipo_reporte == reporte.value %}{{ reporte.label }}{% endif %}
+                {% endfor %}
+            </h5>
+            <div>
+                <button class="btn btn-sm btn-success me-2" onclick="exportarExcel()">
+                    <i class="fas fa-file-excel me-1"></i>Excel
+                </button>
+                <button class="btn btn-sm btn-info" onclick="window.print()">
+                    <i class="fas fa-print me-1"></i>Imprimir
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if tipo_reporte == 'consultas_periodo' %}
+                <!-- Resumen -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h6>Total Consultas</h6>
+                                <h3>{{ data.total_consultas }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h6>Atendidas</h6>
+                                <h3>{{ data.atendidas }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h6>Total Ingresos</h6>
+                                <h3>S/ {{ data.total_ingresos|floatformat:2 }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Métodos de pago -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">Ingresos por Método de Pago</h6>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th>Efectivo:</th>
+                                        <td>S/ {{ data.efectivo|floatformat:2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Yape:</th>
+                                        <td>S/ {{ data.yape|floatformat:2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Plin:</th>
+                                        <td>S/ {{ data.plin|floatformat:2 }}</td>
+                                    </tr>
+                                    <tr class="table-active">
+                                        <th>TOTAL:</th>
+                                        <th>S/ {{ data.total_ingresos|floatformat:2 }}</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listado detallado -->
+                <h6 class="mb-3">Listado de Consultas (últimas 20)</h6>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Paciente</th>
+                                <th>Doctor</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in data.detalle %}
+                            <tr>
+                                <td>{{ item.fecha }}</td>
+                                <td>{{ item.hora }}</td>
+                                <td>{{ item.paciente }}</td>
+                                <td>{{ item.doctor }}</td>
+                                <td>{{ item.tipo }}</td>
+                                <td>
+                                    <span class="badge {% if item.estado == 'ATENDIDA' %}bg-success{% else %}bg-warning{% endif %}">
+                                        {{ item.estado }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No hay datos en el período seleccionado</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-muted small">Mostrando {{ data.detalle|length }} de {{ data.total_registros }} registros</p>
+
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Reporte "{{ tipo_reporte }}" en desarrollo. Próximamente disponible.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function exportarExcel() {
+    // Función para exportar a Excel - implementaremos después
+    alert('Función de exportación a Excel - en desarrollo');
+}
+</script>
+
+<style media="print">
+    .btn, .no-print { display: none; }
+    .card { border: none; }
+</style>
+{% endblock %}

@@ -1,0 +1,387 @@
+{% extends 'base.html' %}
+
+{% block title %}Tópico - Procedimientos y Combos{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <!-- Cabecera -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-cubes text-primary"></i> Tópico - Procedimientos y Combos</h2>
+        <div>
+            <span class="badge bg-primary me-2">{{ combos|length }} combos | {{ topicos|length }} procedimientos</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- COLUMNA IZQUIERDA: Selector y Combos (8 columnas) -->
+        <div class="col-md-8">
+            <!-- ===== SECCIÓN 1: MANO DE OBRA - TÓPICO ===== -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-tools me-2"></i>Agregar Procedimiento</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3 align-items-end">
+                        <!-- SELECTOR DE PROCEDIMIENTO -->
+                        <div class="col-md-7">
+                            <label class="form-label fw-bold">Seleccionar procedimiento:</label>
+                            <select class="form-select" id="selectTopico" onchange="cargarPrecioTopico()">
+                                <option value="">--- Seleccione ---</option>
+                                {% for topico in topicos %}
+                                <option value="{{ topico.id }}" 
+                                        data-precio="{{ topico.precio }}"
+                                        data-nombre="{{ topico.nombre }}">
+                                    {{ topico.nombre }} - S/ {{ topico.precio }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <!-- PRECIO (EDITABLE) -->
+                        <div class="col-md-3">
+                            <label class="form-label fw-bold">Precio (S/):</label>
+                            <input type="number" class="form-control" id="precioTopico" value="0.00" step="0.01" min="0">
+                            <small class="text-muted">Base: <span id="precioBaseTopico">0.00</span></small>
+                        </div>
+                        
+                        <!-- BOTÓN AGREGAR -->
+                        <div class="col-md-2">
+                            <button class="btn btn-warning w-100" onclick="agregarTopico()" id="btnAgregarTopico" disabled>
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== SECCIÓN 2: COMBOS ===== -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-cubes me-2"></i>Combos de Medicamentos</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Combo</th>
+                                    <th>Medicamentos</th>
+                                    <th>Precio</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for combo in combos %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>
+                                        <strong>{{ combo.nombre }}</strong>
+                                        {% if combo.descripcion %}
+                                        <br><small>{{ combo.descripcion|truncatechars:30 }}</small>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% for med in combo.medicamentos %}
+                                            <span class="badge bg-info me-1">{{ med.nombre }} x{{ med.cantidad }}</span>
+                                        {% endfor %}
+                                    </td>
+                                    <td><strong>S/ {{ combo.precio_total|floatformat:2 }}</strong></td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" onclick="agregarCombo({{ combo.id }})">
+                                            <i class="fas fa-cart-plus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: Carrito (4 columnas) -->
+        <div class="col-md-4">
+            <div class="card shadow-sm sticky-top" style="top: 20px;">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-shopping-cart me-2"></i>Carrito
+                        <span class="badge bg-light text-dark ms-2" id="carrito-contador">0</span>
+                    </h5>
+                </div>
+                <div class="card-body" style="max-height: 500px; overflow-y: auto;">
+                    <div id="carrito-items">
+                        <!-- Los items se cargarán vía JavaScript -->
+                        <div class="text-center text-muted py-4" id="carrito-vacio">
+                            <i class="fas fa-box-open fa-3x mb-2"></i>
+                            <p>Carrito vacío</p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <!-- Totales -->
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Total:</span>
+                        <span class="text-success" id="carrito-total">S/ 0.00</span>
+                    </div>
+                    
+                    <!-- Botón Procesar -->
+                	<!-- Botón Procesar -->
+<button class="btn btn-success w-100 mt-3" onclick="procesarVentaDirecta()">
+    <i class="fas fa-check-circle"></i> Procesar Venta
+</button>
+		</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ============================================
+// FUNCIONES PARA EL CARRITO LATERAL
+// ============================================
+
+// Cargar carrito al iniciar
+document.addEventListener('DOMContentLoaded', function() {
+    actualizarCarritoLateral();
+});
+
+// Función para actualizar el carrito lateral
+function actualizarCarritoLateral() {
+    fetch('/farmacia/obtener-carrito-topico/')
+        .then(response => response.json())
+        .then(data => {
+            const carrito = data.carrito;
+            const contenedor = document.getElementById('carrito-items');
+            const contador = document.getElementById('carrito-contador');
+            const totalSpan = document.getElementById('carrito-total');
+            
+            if (carrito.items && carrito.items.length > 0) {
+                // Ocultar mensaje vacío
+                document.getElementById('carrito-vacio').style.display = 'none';
+                
+                // Construir HTML de items
+                let html = '';
+                carrito.items.forEach(item => {
+                    html += `
+                        <div class="card mb-2" id="item-${item.item_id}">
+                            <div class="card-body p-2">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <strong>${item.nombre}</strong>
+                                        <span class="badge ${item.tipo === 'topico' ? 'bg-warning' : 'bg-primary'} ms-1">
+                                            ${item.tipo === 'topico' ? 'Tópico' : 'Combo'}
+                                        </span>
+                                        <div class="small">S/ ${item.subtotal.toFixed(2)}</div>
+                                    </div>
+                                    <button class="btn btn-sm btn-danger" onclick="eliminarItem('${item.item_id}')">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                contenedor.innerHTML = html;
+                
+                // Actualizar contador y total
+                contador.textContent = carrito.items.length;
+                totalSpan.textContent = `S/ ${carrito.total.toFixed(2)}`;
+            } else {
+                document.getElementById('carrito-vacio').style.display = 'block';
+                contenedor.innerHTML = '<div id="carrito-vacio" class="text-center text-muted py-4"><i class="fas fa-box-open fa-3x mb-2"></i><p>Carrito vacío</p></div>';
+                contador.textContent = '0';
+                totalSpan.textContent = 'S/ 0.00';
+            }
+        });
+}
+
+// ============================================
+// FUNCIONES PARA TÓPICO
+// ============================================
+
+function cargarPrecioTopico() {
+    const select = document.getElementById('selectTopico');
+    const precioBaseSpan = document.getElementById('precioBaseTopico');
+    const precioInput = document.getElementById('precioTopico');
+    const btnAgregar = document.getElementById('btnAgregarTopico');
+    
+    if (select.value) {
+        const precioBase = parseFloat(select.options[select.selectedIndex].dataset.precio);
+        precioBaseSpan.textContent = precioBase.toFixed(2);
+        precioInput.value = precioBase.toFixed(2);
+        btnAgregar.disabled = false;
+    } else {
+        precioBaseSpan.textContent = '0.00';
+        precioInput.value = '0.00';
+        btnAgregar.disabled = true;
+    }
+}
+
+function agregarTopico() {
+    const select = document.getElementById('selectTopico');
+    if (!select.value) {
+        alert('Seleccione un procedimiento');
+        return;
+    }
+    
+    const data = {
+        topico_id: select.value,
+        nombre: select.options[select.selectedIndex].dataset.nombre,
+        precio: parseFloat(document.getElementById('precioTopico').value)
+    };
+    
+    fetch('/farmacia/agregar-topico-carrito/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            actualizarCarritoLateral();
+            select.value = '';
+            cargarPrecioTopico();
+        } else {
+            alert('Error: ' + data.error);
+        }
+    });
+}
+
+// ============================================
+// FUNCIONES PARA COMBOS
+// ============================================
+function agregarCombo(comboId) {
+    fetch(`/farmacia/agregar-combo/${comboId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Respuesta:', data);
+        if (data.success) {
+            actualizarCarritoLateral();
+        } else {
+            alert('Error: ' + data.error);
+        }
+    });
+}
+
+		// ============================================
+// FUNCIÓN PARA ELIMINAR
+// ============================================
+function eliminarItem(itemId) {
+    console.log('Eliminando item:', itemId);
+    
+    fetch(`/farmacia/eliminar-item/${itemId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Eliminar respuesta:', data);
+        if (data.success) {
+            actualizarCarritoLateral();
+        }
+    });
+}
+
+// Función para actualizar el carrito lateral
+function actualizarCarritoLateral() {
+    fetch('/farmacia/obtener-carrito-topico/')
+        .then(response => response.json())
+        .then(data => {
+            const carrito = data.carrito;
+            const contenedor = document.getElementById('carrito-items');
+            const contador = document.getElementById('carrito-contador');
+            const totalSpan = document.getElementById('carrito-total');
+            const vacioElement = document.getElementById('carrito-vacio');
+            
+            if (!contenedor) {
+                console.error('Elemento carrito-items no encontrado');
+                return;
+            }
+            
+            if (carrito.items && carrito.items.length > 0) {
+                // Ocultar mensaje vacío si existe
+                if (vacioElement) {
+                    vacioElement.style.display = 'none';
+                }
+                
+                // Construir HTML de items
+                let html = '';
+                carrito.items.forEach(item => {
+                    html += `
+                        <div class="card mb-2" id="item-${item.item_id}">
+                            <div class="card-body p-2">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <strong>${item.nombre}</strong>
+                                        <span class="badge ${item.tipo === 'topico' ? 'bg-warning' : 'bg-primary'} ms-1">
+                                            ${item.tipo === 'topico' ? 'Tópico' : 'Combo'}
+                                        </span>
+                                        <div class="small">S/ ${item.subtotal.toFixed(2)}</div>
+                                    </div>
+                                    <button class="btn btn-sm btn-danger" onclick="eliminarItem('${item.item_id}')">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                contenedor.innerHTML = html;
+                
+                // Actualizar contador y total
+                if (contador) contador.textContent = carrito.items.length;
+                if (totalSpan) totalSpan.textContent = `S/ ${carrito.total.toFixed(2)}`;
+            } else {
+                // Mostrar carrito vacío
+                if (vacioElement) {
+                    vacioElement.style.display = 'block';
+                }
+                contenedor.innerHTML = '<div id="carrito-vacio" class="text-center text-muted py-4"><i class="fas fa-box-open fa-3x mb-2"></i><p>Carrito vacío</p></div>';
+                if (contador) contador.textContent = '0';
+                if (totalSpan) totalSpan.textContent = 'S/ 0.00';
+            }
+        })
+        .catch(error => {
+            console.error('Error al actualizar carrito:', error);
+        });
+}
+//=========
+function procesarVentaDirecta() {
+    if (!confirm('¿Confirmar venta? Esta acción no se puede deshacer.')) {
+        return;
+    }
+    
+    fetch('/farmacia/procesar-venta-topico/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = `/farmacia/ticket-topico/${data.venta_id}/`;
+        } else {
+            alert('Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error de conexión');
+    });
+}
+</script>
+{% endblock %}

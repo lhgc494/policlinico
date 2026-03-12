@@ -1,0 +1,38 @@
+[
+{
+    "model": "farmacia.proveedor",
+    "pk": 1,
+    "fields": {
+        "nombre": "Proveedor Test",
+        "ruc": "20123456780",
+        "tipo_proveedor": "DISTRIBUIDOR",
+        "telefono": "123456789",
+        "telefono_alternativo": null,
+        "email": null,
+        "direccion": null,
+        "contacto": null,
+        "sitio_web": null,
+        "notas": null,
+        "activo": true,
+        "fecha_registro": "2026-01-21T17:06:22.969Z"
+    }
+},
+{
+    "model": "farmacia.proveedor",
+    "pk": 2,
+    "fields": {
+        "nombre": "maso.sac",
+        "ruc": "11111111111",
+        "tipo_proveedor": "NACIONAL",
+        "telefono": "777777777777777",
+        "telefono_alternativo": "666666666666666",
+        "email": "alarcon@gmail.com",
+        "direccion": "Calle misti 234 arequipa",
+        "contacto": "Juan Alarcon",
+        "sitio_web": "http://www.masa.com",
+        "notas": "proveedor local economico",
+        "activo": true,
+        "fecha_registro": "2026-01-21T21:03:54.011Z"
+    }
+}
+]

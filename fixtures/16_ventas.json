@@ -1,0 +1,794 @@
+[
+{
+    "model": "farmacia.venta",
+    "pk": 1,
+    "fields": {
+        "fecha_hora": "2026-01-26T21:18:12.146Z",
+        "total": "3.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta desde receta - Consulta #63",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 2,
+    "fields": {
+        "fecha_hora": "2026-01-26T21:24:07.754Z",
+        "total": "3.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta desde receta - Consulta #63",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 3,
+    "fields": {
+        "fecha_hora": "2026-01-26T21:26:16.438Z",
+        "total": "3.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta desde receta - Consulta #63",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 4,
+    "fields": {
+        "fecha_hora": "2026-01-26T21:55:16.853Z",
+        "total": "8.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 5,
+    "fields": {
+        "fecha_hora": "2026-01-26T21:56:42.419Z",
+        "total": "8.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 6,
+    "fields": {
+        "fecha_hora": "2026-01-26T22:42:15.448Z",
+        "total": "4.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 7,
+    "fields": {
+        "fecha_hora": "2026-01-26T22:44:21.146Z",
+        "total": "8.00",
+        "descuento": "10.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "por amistad",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 8,
+    "fields": {
+        "fecha_hora": "2026-01-27T15:24:01.099Z",
+        "total": "3.00",
+        "descuento": "2.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 9,
+    "fields": {
+        "fecha_hora": "2026-01-28T22:46:39.247Z",
+        "total": "25.00",
+        "descuento": "5.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 10,
+    "fields": {
+        "fecha_hora": "2026-01-29T17:21:20.718Z",
+        "total": "240.00",
+        "descuento": "12.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta desde receta - Consulta #70",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 11,
+    "fields": {
+        "fecha_hora": "2026-02-03T15:53:50.558Z",
+        "total": "10.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta desde receta - Consulta #78",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 12,
+    "fields": {
+        "fecha_hora": "2026-02-03T16:04:31.855Z",
+        "total": "0.00",
+        "descuento": "2.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta desde receta - Consulta #81",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 13,
+    "fields": {
+        "fecha_hora": "2026-02-03T16:53:08.117Z",
+        "total": "2.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 14,
+    "fields": {
+        "fecha_hora": "2026-02-03T16:53:50.421Z",
+        "total": "2.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 15,
+    "fields": {
+        "fecha_hora": "2026-02-03T16:57:30.098Z",
+        "total": "55.00",
+        "descuento": "5.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 16,
+    "fields": {
+        "fecha_hora": "2026-02-16T22:25:34.071Z",
+        "total": "0.00",
+        "descuento": "0.50",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta desde receta - Consulta #150",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 17,
+    "fields": {
+        "fecha_hora": "2026-02-17T20:10:08.395Z",
+        "total": "8.00",
+        "descuento": "2.00",
+        "metodo_pago": "YAPE",
+        "observaciones": "Cliente habitual ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 18,
+    "fields": {
+        "fecha_hora": "2026-02-17T20:26:42.702Z",
+        "total": "18.00",
+        "descuento": "2.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 19,
+    "fields": {
+        "fecha_hora": "2026-02-17T20:27:16.856Z",
+        "total": "2.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 20,
+    "fields": {
+        "fecha_hora": "2026-02-23T19:48:29.852Z",
+        "total": "1.00",
+        "descuento": "1.00",
+        "metodo_pago": "YAPE",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 21,
+    "fields": {
+        "fecha_hora": "2026-02-24T16:02:07.789Z",
+        "total": "2.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 22,
+    "fields": {
+        "fecha_hora": "2026-02-24T16:04:21.484Z",
+        "total": "16.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 23,
+    "fields": {
+        "fecha_hora": "2026-02-24T16:06:10.037Z",
+        "total": "76.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 24,
+    "fields": {
+        "fecha_hora": "2026-02-24T16:07:52.682Z",
+        "total": "6.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 25,
+    "fields": {
+        "fecha_hora": "2026-02-24T16:08:22.415Z",
+        "total": "30.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 26,
+    "fields": {
+        "fecha_hora": "2026-02-24T16:10:02.604Z",
+        "total": "30.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 27,
+    "fields": {
+        "fecha_hora": "2026-02-24T16:34:51.002Z",
+        "total": "2.00",
+        "descuento": "0.00",
+        "metodo_pago": "YAPE",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 28,
+    "fields": {
+        "fecha_hora": "2026-02-25T13:34:27.407Z",
+        "total": "30.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 29,
+    "fields": {
+        "fecha_hora": "2026-02-25T13:35:09.514Z",
+        "total": "35.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 30,
+    "fields": {
+        "fecha_hora": "2026-02-25T13:37:05.726Z",
+        "total": "8.00",
+        "descuento": "2.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 31,
+    "fields": {
+        "fecha_hora": "2026-02-25T14:34:02.904Z",
+        "total": "30.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 32,
+    "fields": {
+        "fecha_hora": "2026-02-25T14:57:53.686Z",
+        "total": "6.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 33,
+    "fields": {
+        "fecha_hora": "2026-02-25T15:04:00.827Z",
+        "total": "2.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 34,
+    "fields": {
+        "fecha_hora": "2026-02-25T16:30:26.797Z",
+        "total": "5.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 35,
+    "fields": {
+        "fecha_hora": "2026-02-25T20:06:52.635Z",
+        "total": "1.50",
+        "descuento": "0.50",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 36,
+    "fields": {
+        "fecha_hora": "2026-02-25T20:07:14.840Z",
+        "total": "30.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "Venta de tópico",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 37,
+    "fields": {
+        "fecha_hora": "2026-02-26T17:09:34.097Z",
+        "total": "8.00",
+        "descuento": "0.00",
+        "metodo_pago": "PLIN",
+        "observaciones": "",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 38,
+    "fields": {
+        "fecha_hora": "2026-02-28T14:58:30.898Z",
+        "total": "40.00",
+        "descuento": "0.00",
+        "metodo_pago": "PLIN",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 39,
+    "fields": {
+        "fecha_hora": "2026-02-28T14:59:45.142Z",
+        "total": "15.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA INTERNA - Receta #47 - Consulta #114",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 40,
+    "fields": {
+        "fecha_hora": "2026-02-28T15:05:27.803Z",
+        "total": "15.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA INTERNA - Tópico",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 41,
+    "fields": {
+        "fecha_hora": "2026-03-03T13:52:24.743Z",
+        "total": "77.50",
+        "descuento": "0.00",
+        "metodo_pago": "PLIN",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 42,
+    "fields": {
+        "fecha_hora": "2026-03-03T15:09:55.491Z",
+        "total": "3500.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 43,
+    "fields": {
+        "fecha_hora": "2026-03-04T20:59:46.093Z",
+        "total": "350.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 44,
+    "fields": {
+        "fecha_hora": "2026-03-04T21:00:31.847Z",
+        "total": "1050.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 45,
+    "fields": {
+        "fecha_hora": "2026-03-05T17:47:34.446Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 3
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 46,
+    "fields": {
+        "fecha_hora": "2026-03-05T19:17:23.724Z",
+        "total": "25.00",
+        "descuento": "0.00",
+        "metodo_pago": "YAPE",
+        "observaciones": "VENTA INTERNA - Receta #48 - Consulta #113",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 47,
+    "fields": {
+        "fecha_hora": "2026-03-05T19:21:06.559Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 48,
+    "fields": {
+        "fecha_hora": "2026-03-05T19:28:43.419Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "PLIN",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 49,
+    "fields": {
+        "fecha_hora": "2026-03-05T19:34:09.872Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 50,
+    "fields": {
+        "fecha_hora": "2026-03-05T19:36:57.666Z",
+        "total": "120.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 51,
+    "fields": {
+        "fecha_hora": "2026-03-05T19:50:20.510Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 52,
+    "fields": {
+        "fecha_hora": "2026-03-05T19:59:11.234Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 53,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:14:38.697Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 54,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:23:38.874Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 55,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:28:30.800Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 56,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:29:51.695Z",
+        "total": "60.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 57,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:36:11.520Z",
+        "total": "2.50",
+        "descuento": "0.00",
+        "metodo_pago": "PLIN",
+        "observaciones": "VENTA INTERNA - Receta #50 - Consulta #172",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 58,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:36:11.589Z",
+        "total": "3.50",
+        "descuento": "0.00",
+        "metodo_pago": "PLIN",
+        "observaciones": "VENTA INTERNA - Receta #51 - Consulta #172",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 59,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:45:18.346Z",
+        "total": "2.50",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA INTERNA - Receta #52 - Consulta #152",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 60,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:45:18.398Z",
+        "total": "3.50",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA INTERNA - Receta #53 - Consulta #152",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 61,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:48:17.912Z",
+        "total": "2.50",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 62,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:51:57.441Z",
+        "total": "17.50",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA INTERNA - Receta #54 - Consulta #189",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 63,
+    "fields": {
+        "fecha_hora": "2026-03-05T20:51:57.517Z",
+        "total": "3.50",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA INTERNA - Receta #55 - Consulta #189",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 64,
+    "fields": {
+        "fecha_hora": "2026-03-05T21:03:42.432Z",
+        "total": "16.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA INTERNA - Recetas de Consulta #147",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 65,
+    "fields": {
+        "fecha_hora": "2026-03-05T21:06:39.306Z",
+        "total": "20.00",
+        "descuento": "1.00",
+        "metodo_pago": "YAPE",
+        "observaciones": "VENTA EXTERNA - clinete hibitual",
+        "usuario": 11
+    }
+},
+{
+    "model": "farmacia.venta",
+    "pk": 66,
+    "fields": {
+        "fecha_hora": "2026-03-05T21:19:54.530Z",
+        "total": "120.00",
+        "descuento": "0.00",
+        "metodo_pago": "EFECTIVO",
+        "observaciones": "VENTA EXTERNA - ",
+        "usuario": 11
+    }
+}
+]

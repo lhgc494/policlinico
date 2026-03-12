@@ -1,0 +1,283 @@
+[
+{
+  "model": "consultas.receta",
+  "pk": 1,
+  "fields": {
+    "consulta": 47,
+    "medicamento": "deflazacor",
+    "dosis": "15 ml",
+    "frecuencia": "cada 8 horas",
+    "duracion": "2 semanas",
+    "indicaciones": "en ayuno por la noche  42 pastillas",
+    "cantidad": 1,
+    "cantidad_atendida": 0,
+    "estado": "PENDIENTE",
+    "fecha_creacion": "2026-01-19T22:40:34.116Z",
+    "fecha_atencion": null,
+    "usuario_atencion": null,
+    "observaciones_farmacia": ""
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 2,
+  "fields": {
+    "consulta": 47,
+    "medicamento": "metotrexto",
+    "dosis": "2.5",
+    "frecuencia": "2 veces por seman",
+    "duracion": "indereminado",
+    "indicaciones": "solo domingo y miercoles de",
+    "cantidad": 1,
+    "cantidad_atendida": 0,
+    "estado": "PENDIENTE",
+    "fecha_creacion": "2026-01-19T22:42:07.000Z",
+    "fecha_atencion": null,
+    "usuario_atencion": null,
+    "observaciones_farmacia": ""
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 3,
+  "fields": {
+    "consulta": 39,
+    "medicamento": "Paracetamol 500 mg",
+    "dosis": "2 tabletas",
+    "frecuencia": "cada 8 horas",
+    "duracion": "5 dias",
+    "indicaciones": "despues del almuerzo",
+    "cantidad": 1,
+    "cantidad_atendida": 0,
+    "estado": "CANCELADA",
+    "fecha_creacion": "2026-01-20T16:40:41.168Z",
+    "fecha_atencion": "2026-01-22T22:09:16.067Z",
+    "usuario_atencion": 11,
+    "observaciones_farmacia": "Cancelado por farmacia - Paciente no compró"
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 4,
+  "fields": {
+    "consulta": 48,
+    "medicamento": "deflazacor  30 mg",
+    "dosis": "2 tabletas diarias",
+    "frecuencia": "cada 12 horas",
+    "duracion": "30 dias",
+    "indicaciones": "despues del desayuno y cena",
+    "cantidad": 1,
+    "cantidad_atendida": 0,
+    "estado": "PENDIENTE",
+    "fecha_creacion": "2026-01-20T16:47:11.681Z",
+    "fecha_atencion": null,
+    "usuario_atencion": null,
+    "observaciones_farmacia": ""
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 5,
+  "fields": {
+    "consulta": 48,
+    "medicamento": "omeprasol 30 mg",
+    "dosis": "2 tabletas",
+    "frecuencia": "cada 24 horas",
+    "duracion": "30 dias",
+    "indicaciones": "despues del desayuno",
+    "cantidad": 1,
+    "cantidad_atendida": 0,
+    "estado": "PENDIENTE",
+    "fecha_creacion": "2026-01-20T16:48:04.174Z",
+    "fecha_atencion": null,
+    "usuario_atencion": null,
+    "observaciones_farmacia": ""
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 7,
+  "fields": {
+    "consulta": 42,
+    "medicamento": "deflazacor",
+    "dosis": "2 tabletas",
+    "frecuencia": "2 veces por seman",
+    "duracion": "2 semanas",
+    "indicaciones": "despues del desayuno",
+    "cantidad": 1,
+    "cantidad_atendida": 0,
+    "estado": "CANCELADA",
+    "fecha_creacion": "2026-01-20T17:25:27.050Z",
+    "fecha_atencion": "2026-01-22T22:17:45.960Z",
+    "usuario_atencion": 11,
+    "observaciones_farmacia": "Cancelado por farmacia - Paciente no compró"
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 8,
+  "fields": {
+    "consulta": 50,
+    "medicamento": "naproxeno  30 mg",
+    "dosis": "2 tabletas",
+    "frecuencia": "cada 8 horas",
+    "duracion": "1 semana",
+    "indicaciones": "despues de desayunar",
+    "cantidad": 1,
+    "cantidad_atendida": 2,
+    "estado": "ATENDIDA",
+    "fecha_creacion": "2026-01-22T22:29:45.549Z",
+    "fecha_atencion": "2026-01-23T17:09:45.216Z",
+    "usuario_atencion": 11,
+    "observaciones_farmacia": "Pagado con YAPE - Descuento: S/ 0.0"
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 9,
+  "fields": {
+    "consulta": 57,
+    "medicamento": "aspirina",
+    "dosis": "2 tabletas",
+    "frecuencia": "cada 24 horas",
+    "duracion": "dos semanas",
+    "indicaciones": "despues de cenar",
+    "cantidad": 1,
+    "cantidad_atendida": 2,
+    "estado": "ATENDIDA",
+    "fecha_creacion": "2026-01-22T22:54:36.645Z",
+    "fecha_atencion": "2026-01-23T16:54:48.183Z",
+    "usuario_atencion": 11,
+    "observaciones_farmacia": "Pagado con EFECTIVO - Descuento: S/ 2.0"
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 10,
+  "fields": {
+    "consulta": 58,
+    "medicamento": "naproxeno  30 mg",
+    "dosis": "5 tabletas",
+    "frecuencia": "cada 8 horas",
+    "duracion": "2 semanas",
+    "indicaciones": "despues de comidas desayuno almuerzo cena",
+    "cantidad": 1,
+    "cantidad_atendida": 36,
+    "estado": "ATENDIDA",
+    "fecha_creacion": "2026-01-23T17:16:47.591Z",
+    "fecha_atencion": "2026-01-23T17:18:59.947Z",
+    "usuario_atencion": 11,
+    "observaciones_farmacia": "Pagado con EFECTIVO - Descuento: S/ 0.0"
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 11,
+  "fields": {
+    "consulta": 59,
+    "medicamento": "aspirina",
+    "dosis": "4 tabletas",
+    "frecuencia": "cada 12 horas",
+    "duracion": "2 semanas",
+    "indicaciones": "despues de alimentos",
+    "cantidad": 1,
+    "cantidad_atendida": 10,
+    "estado": "ATENDIDA",
+    "fecha_creacion": "2026-01-23T21:09:56.772Z",
+    "fecha_atencion": "2026-01-23T21:14:31.207Z",
+    "usuario_atencion": 11,
+    "observaciones_farmacia": "Pagado con EFECTIVO - Descuento: S/ 0.0"
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 12,
+  "fields": {
+    "consulta": 60,
+    "medicamento": "aspirina",
+    "dosis": "1 tableta",
+    "frecuencia": "cada 12 horas",
+    "duracion": "2 semana",
+    "indicaciones": "despues de comidas",
+    "cantidad": 1,
+    "cantidad_atendida": 12,
+    "estado": "ATENDIDA",
+    "fecha_creacion": "2026-01-26T19:13:25.438Z",
+    "fecha_atencion": "2026-01-26T19:57:37.830Z",
+    "usuario_atencion": 11,
+    "observaciones_farmacia": "Pagado con EFECTIVO - Descuento: S/ 3.0"
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 13,
+  "fields": {
+    "consulta": 62,
+    "medicamento": "aspirina",
+    "dosis": "2 tabletas",
+    "frecuencia": "cada 12 horas",
+    "duracion": "7 dias",
+    "indicaciones": "despues de comindas",
+    "cantidad": 1,
+    "cantidad_atendida": 1,
+    "estado": "ATENDIDA",
+    "fecha_creacion": "2026-01-26T20:24:52.918Z",
+    "fecha_atencion": "2026-01-26T20:38:33.103Z",
+    "usuario_atencion": 11,
+    "observaciones_farmacia": "Pagado con EFECTIVO - Descuento: S/ 0.0"
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 14,
+  "fields": {
+    "consulta": 63,
+    "medicamento": "aspirina",
+    "dosis": "1 tableta",
+    "frecuencia": "cada 8 horas",
+    "duracion": "7 dias",
+    "indicaciones": "despues de comidas",
+    "cantidad": 1,
+    "cantidad_atendida": 1,
+    "estado": "ATENDIDA",
+    "fecha_creacion": "2026-01-26T20:49:24.839Z",
+    "fecha_atencion": "2026-01-26T21:26:16.417Z",
+    "usuario_atencion": 11,
+    "observaciones_farmacia": "Pagado con EFECTIVO - Descuento: S/ 0.0"
+  }
+},
+{
+  "model": "consultas.receta",
+  "pk": 15,
+  "fields": {
+    "consulta": 64,
+    "medicamento": "diasepan",
+    "dosis": "2 tabletas",
+    "frecuencia": "cada 8 horas",
+    "duracion": "2 semanas",
+    "indicaciones": "despues del desayuno",
+    "cantidad": 1,
+    "cantidad_atendida": 0,
+    "estado": "PENDIENTE",
+    "fecha_creacion": "2026-01-27T21:03:02.734Z",
+    "fecha_atencion": null,
+    "usuario_atencion": null,
+    "observaciones_farmacia": ""
+  }
+},
+{
+  "model": "consultas.ordenexamen",
+  "pk": 1,
+  "fields": {
+    "consulta": 49,
+    "tipo_examen": "RAYOS_X",
+    "examen_especifico": "cadera frontad",
+    "indicaciones": "ropa apropiada",
+    "urgente": false,
+    "fecha_solicitud": "2026-01-20T19:14:53.099Z",
+    "fecha_realizacion": null,
+    "resultado": "",
+    "estado": "SOLICITADO"
+  }
+}
+]

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-balance-scale me-2"></i>{{ titulo }}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    
+                    <!-- Información del medicamento -->
+                    <div class="alert alert-info">
+                        <strong>{{ medicamento.nombre_comercial }}</strong>
+                        <br>
+                        Código: {{ medicamento.codigo }}
+                        <br>
+                        Stock actual: <span class="badge bg-primary">{{ medicamento.stock_actual }}</span>
+                    </div>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Tipo de ajuste -->
+                        <div class="mb-3">
+                            <label class="form-label">Tipo de ajuste:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tipo" id="entrada" value="entrada" checked>
+                                <label class="form-check-label" for="entrada">
+                                    <i class="fas fa-plus-circle text-success me-1"></i> Entrada (aumentar stock)
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="tipo" id="salida" value="salida">
+                                <label class="form-check-label" for="salida">
+                                    <i class="fas fa-minus-circle text-danger me-1"></i> Salida (disminuir stock)
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Cantidad -->
+                        <div class="mb-3">
+                            <label for="cantidad" class="form-label">Cantidad:</label>
+                            <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" required>
+                            <div class="form-text">Ingresa la cantidad a ajustar (solo números positivos)</div>
+                        </div>
+                        
+                        <!-- Motivo -->
+                        <div class="mb-3">
+                            <label for="motivo" class="form-label">Motivo del ajuste:</label>
+                            <input type="text" class="form-control" id="motivo" name="motivo" 
+                                   placeholder="Ej: Ajuste por inventario físico, merma, etc." required>
+                        </div>
+                        
+                        <!-- Advertencia para salida -->
+                        <div class="alert alert-warning" id="advertenciaSalida" style="display: none;">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Verifica que la cantidad no sea mayor al stock actual.
+                        </div>
+                        
+                        <!-- Botones -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'farmacia:detalle_medicamento' medicamento.id %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-1"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save me-1"></i> Realizar Ajuste
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const entradaRadio = document.getElementById('entrada');
+    const salidaRadio = document.getElementById('salida');
+    const advertencia = document.getElementById('advertenciaSalida');
+    
+    function mostrarAdvertencia() {
+        if (salidaRadio.checked) {
+            advertencia.style.display = 'block';
+        } else {
+            advertencia.style.display = 'none';
+        }
+    }
+    
+    entradaRadio.addEventListener('change', mostrarAdvertencia);
+    salidaRadio.addEventListener('change', mostrarAdvertencia);
+    
+    // Validar que la cantidad sea positiva
+    const cantidadInput = document.getElementById('cantidad');
+    cantidadInput.addEventListener('input', function() {
+        if (this.value < 0) this.value = 0;
+    });
+});
+</script>
+{% endblock %}

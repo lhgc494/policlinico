@@ -1,0 +1,280 @@
+<!-- /home/luis/policlinico/pagos/templates/pagos/ticket_termico.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Ticket Térmico #{{ orden.id }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ======================================== */
+    /* 🖨️ ESTILOS PARA IMPRESIÓN */
+    /* ======================================== */
+    @media print {
+        body {
+            background: white;
+            margin: 0;
+            padding: 2mm;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .no-print, .btn-print, .btn-back, .preview-header {
+            display: none !important;
+        }
+        
+        .ticket-print {
+            display: block !important;
+            width: 80mm;
+            margin: 0 auto;
+        }
+    }
+    
+    /* ======================================== */
+    /* 🖥️ ESTILOS PARA PANTALLA */
+    /* ======================================== */
+    body {
+        background: #f0f0f0;
+        padding: 20px;
+    }
+    
+    .screen-container {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .ticket-print {
+        display: none; /* Oculto en pantalla */
+    }
+    
+    .info-box {
+        background: #e7f5ff;
+        border: 2px solid #0dcaf0;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        font-family: monospace;
+    }
+    
+    .preview-box {
+        background: white;
+        border: 2px solid #28a745;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .preview-header {
+        text-align: center;
+        border-bottom: 2px solid #28a745;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .preview-header h3 {
+        color: #28a745;
+        margin: 0;
+    }
+    
+    .btn-print {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 10px;
+        transition: background 0.3s;
+    }
+    
+    .btn-print:hover {
+        background: #218838;
+    }
+    
+    .btn-back {
+        background: #6c757d;
+        color: white;
+        border: none;
+        padding: 15px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    
+    .btn-back:hover {
+        background: #5a6268;
+        text-decoration: none;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ======================================== -->
+<!-- 🖨️ TICKET PARA IMPRESIÓN (SOLO VISIBLE AL IMPRIMIR) -->
+<!-- ======================================== -->
+<div class="ticket-print">
+    <div style="text-align: center; margin-bottom: 5px;">
+        <h2 style="font-size: 16pt; margin:0;">🏥 POLICLÍNICO</h2>
+        <p style="font-size: 9pt; margin:2px;">RUC: 12345678901</p>
+        <p style="font-size: 9pt; margin:2px;">Av. Principal 123 - Lima</p>
+        <p style="font-size: 9pt; margin:2px;">Tel: (01) 123-4567</p>
+    </div>
+
+    <div style="border-top: 1px dashed black; margin: 5px 0;"></div>
+
+    <table style="width:100%; font-size: 9pt;">
+        <tr><td>FECHA:</td><td style="text-align:right;">{{ fecha|date:"d/m/Y H:i" }}</td></tr>
+        <tr><td>ORDEN N°:</td><td style="text-align:right;">{{ orden.id }}</td></tr>
+        <tr><td>PACIENTE:</td><td style="text-align:right;">{{ paciente.nombres }} {{ paciente.apellidos }}</td></tr>
+        <tr><td>DNI:</td><td style="text-align:right;">{{ paciente.dni }}</td></tr>
+    </table>
+
+    <div style="border-top: 1px dashed black; margin: 5px 0;"></div>
+
+    <div style="text-align: center; font-weight: bold; font-size: 11pt; margin: 5px 0;">
+        {% if consulta.tipo_consulta == 'TOPICO' %}
+            🩹 {{ consulta.topico_catalogo.nombre|default:"TÓPICO" }}
+        {% elif consulta.tipo_consulta == 'ECOGRAFIA' %}
+            📷 {{ consulta.ecografia_catalogo.nombre|default:"ECOGRAFÍA" }}
+        {% elif consulta.tipo_consulta == 'LECTURA_RESULTADOS' %}
+            📋 LECTURA DE RESULTADOS
+        {% else %}
+            👨‍⚕️ {{ consulta.get_tipo_consulta_display }}
+        {% endif %}
+    </div>
+
+    {% if consulta.descripcion_servicio %}
+    <div style="text-align: center; font-size: 8pt;">
+        {{ consulta.descripcion_servicio }}
+    </div>
+    {% endif %}
+
+    <div style="border-top: 1px solid black; border-bottom: 1px solid black; padding: 3px 0; margin: 5px 0; font-weight: bold;">
+        <table style="width:100%;">
+            <tr>
+                <td>TOTAL:</td>
+                <td style="text-align:right; font-size: 12pt;">S/ {{ orden.monto|floatformat:2 }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="text-align: center; font-size: 9pt; margin: 3px 0;">
+        PAGO: {{ orden.get_metodo_pago_display }}
+    </div>
+
+    <div style="text-align: center; background: black; color: white; padding: 3px; margin: 5px 0; font-weight: bold;">
+        ✓ CANCELADO ✓
+    </div>
+
+    <div style="text-align: center; font-size: 8pt; margin-top: 5px;">
+        <p>¡Gracias por su preferencia!</p>
+        <p>Atendido por: {{ user.get_full_name|default:user.username }}</p>
+        <p>{{ fecha|date:"d/m/Y H:i:s" }}</p>
+    </div>
+</div>
+
+<!-- ======================================== -->
+<!-- 🖥️ VISTA EN PANTALLA -->
+<!-- ======================================== -->
+<div class="screen-container">
+    <!-- Info de depuración -->
+    <div class="info-box">
+        <h4>🔍 DATOS DEL TICKET</h4>
+        <p><strong>Orden:</strong> {{ orden.id }}</p>
+        <p><strong>Paciente:</strong> {{ paciente.nombres }} {{ paciente.apellidos }}</p>
+        <p><strong>Tipo:</strong> {{ consulta.tipo_consulta }}</p>
+        <p><strong>Monto:</strong> S/ {{ orden.monto }}</p>
+        <p><strong>Método:</strong> {{ orden.get_metodo_pago_display }}</p>
+    </div>
+
+    <!-- Vista previa del ticket -->
+    <div class="preview-box">
+        <div class="preview-header">
+            <h3>🏥 POLICLÍNICO</h3>
+            <p>Vista previa del ticket</p>
+        </div>
+        
+        <p><strong>Paciente:</strong> {{ paciente.nombres }} {{ paciente.apellidos }}</p>
+        <p><strong>Servicio:</strong> 
+            {% if consulta.tipo_consulta == 'TOPICO' %}
+                {{ consulta.topico_catalogo.nombre|default:"Tópico" }}
+            {% elif consulta.tipo_consulta == 'ECOGRAFIA' %}
+                {{ consulta.ecografia_catalogo.nombre|default:"Ecografía" }}
+            {% else %}
+                {{ consulta.get_tipo_consulta_display }}
+            {% endif %}
+        </p>
+        <p><strong>Monto:</strong> S/ {{ orden.monto }}</p>
+        <p><strong>Método de pago:</strong> {{ orden.get_metodo_pago_display }}</p>
+        <p><strong>Fecha:</strong> {{ fecha|date:"d/m/Y H:i" }}</p>
+    </div>
+
+    <!-- Botón de impresión directa -->
+    <button onclick="imprimirDirecto()" class="btn-print">
+        🖨️ IMPRIMIR TICKET
+    </button>
+    
+    <a href="{% url 'detalle_orden_pago' orden.id %}" class="btn-back">
+        ← VOLVER A LA ORDEN
+    </a>
+</div>
+
+<script>
+function imprimirDirecto() {
+    // Crear un iframe oculto para imprimir
+    var iframe = document.createElement('iframe');
+    iframe.style.position = 'absolute';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = 'none';
+    iframe.style.visibility = 'hidden';
+    
+    document.body.appendChild(iframe);
+    
+    // Obtener el contenido del ticket
+    var ticketContent = document.querySelector('.ticket-print').innerHTML;
+    
+    // Escribir el contenido en el iframe
+    iframe.contentDocument.write(`
+        <html>
+        <head>
+            <title>Ticket #{{ orden.id }}</title>
+            <style>
+                @page { size: 80mm auto; margin: 0; }
+                body { 
+                    font-family: 'Courier New', monospace; 
+                    margin: 0; 
+                    padding: 2mm; 
+                    width: 80mm;
+                    background: white;
+                }
+            </style>
+        </head>
+        <body>
+            ${ticketContent}
+        </body>
+        </html>
+    `);
+    
+    iframe.contentDocument.close();
+    
+    // Esperar a que cargue y luego imprimir
+    iframe.contentWindow.onload = function() {
+        iframe.contentWindow.print();
+        
+        // Eliminar el iframe después de imprimir
+        setTimeout(function() {
+            document.body.removeChild(iframe);
+        }, 1000);
+    };
+}
+</script>
+{% endblock %}

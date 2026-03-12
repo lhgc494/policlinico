@@ -1,0 +1,406 @@
+{% extends "base.html" %}
+
+{% block title %}Generar Consulta{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-calendar-plus me-2"></i>Generar consulta
+            </div>
+
+            <div class="card-body">
+                <!-- Información del paciente -->
+                <div class="alert alert-info mb-4">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <i class="bi bi-person-circle fs-2"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">{{ paciente.nombres }} {{ paciente.apellidos }}</h5>
+                            <div class="row small">
+                                <div class="col-md-6">
+                                    <strong>DNI:</strong> {{ paciente.dni }}
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Teléfono:</strong> {{ paciente.telefono|default:"No registrado" }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🔔 MENSAJE DE ERROR -->
+                {% if error %}
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle me-1"></i>
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <form method="post" id="consultaForm">
+                    {% csrf_token %}
+
+                    <!-- ========================================= -->
+                    <!-- CAMPO TARIFA - CORREGIDO CON DATA-ATTR   -->
+                    <!-- ========================================= -->
+                    <div class="mb-3">
+                        <label class="form-label" for="id_tarifa">Tarifa / Especialidad</label>
+                        <select name="tarifa" id="id_tarifa" class="form-control" required>
+                            <option value="">---------</option>
+                            {% for tarifa in tarifas %}
+                                <option value="{{ tarifa.id }}" 
+                                        data-tipo="{{ tarifa.tipo_consulta }}"
+                                        data-especialidad="{{ tarifa.especialidad|default:'' }}"
+                                        {% if form.tarifa.value|stringformat:"s" == tarifa.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ tarifa.get_tipo_consulta_display }} - S/{{ tarifa.precio }}
+                                    {% if tarifa.especialidad %} ({{ tarifa.get_especialidad_display }}){% endif %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.tarifa.errors %}
+                        <div class="alert alert-danger mt-1">
+                            {{ form.tarifa.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- ========================================= -->
+                    <!-- CAMPO ECOGRAFÍA                          -->
+                    <!-- ========================================= -->
+                    <div class="mb-3" id="div_ecografia" style="display: none;">
+                        <label class="form-label" for="id_ecografia">Tipo de Ecografía</label>
+                        <select name="ecografia" id="id_ecografia" class="form-control">
+                            <option value="">---------</option>
+                            {% for eco in ecografias %}
+                            <option value="{{ eco.id }}" data-precio="{{ eco.precio }}">
+                                {{ eco.nombre }} - S/{{ eco.precio }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <small class="form-text text-muted">Seleccione el tipo de ecografía</small>
+                    </div>
+
+                    <!-- ========================================= -->
+                    <!-- CAMPO TÓPICO                             -->
+                    <!-- ========================================= -->
+                    <div class="mb-3" id="div_topico" style="display: none;">
+                        <label class="form-label" for="id_topico">Procedimiento / Tópico</label>
+                        <select name="topico" id="id_topico" class="form-control">
+                            <option value="">---------</option>
+                            {% for top in topicos %}
+                            <option value="{{ top.id }}" data-precio="{{ top.precio }}">
+                                {{ top.nombre }} - S/{{ top.precio }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <small class="form-text text-muted">Seleccione el procedimiento a realizar</small>
+                    </div>
+
+                    <!-- ========================================= -->
+                    <!-- CAMPO PRECIO                             -->
+                    <!-- ========================================= -->
+                    
+			<!-- ========================================= -->
+<div class="mb-3">
+    <label class="form-label" for="id_precio">Precio (S/)</label>
+    
+    <!-- SOLO UN INPUT con name="precio" -->
+    <input type="text" name="precio" id="id_precio" 
+           class="form-control" value="0.00"
+           style="background-color: #f8f9fa;" readonly>
+    
+    <small class="form-text text-muted">
+        <span id="precio_help_text">El precio se calcula automáticamente</span>
+        <span id="precio_help_editable" style="display: none; color: #0d6efd;">
+            ✅ Puede modificar el precio
+        </span>
+    </small>
+</div>
+		    <!-- ========================================= -->
+                    <!-- CAMPO DOCTOR - VERSIÓN MANUAL           -->
+                    <!-- ========================================= -->
+                    <div class="mb-3">
+                        <label class="form-label" for="id_doctor">Médico Asignado</label>
+                        <select name="doctor" id="id_doctor" class="form-control">
+                            <option value="">---------</option>
+                        </select>
+                        <small class="form-text text-muted">
+                            Seleccione el médico que atenderá la consulta (opcional)
+                        </small>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="{% url 'lista_pacientes' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle me-1"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle me-1"></i>Confirmar consulta
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Elementos del DOM
+    const tarifaSelect = document.getElementById('id_tarifa');
+    const doctorSelect = document.getElementById('id_doctor');
+    const divEcografia = document.getElementById('div_ecografia');
+    const divTopico = document.getElementById('div_topico');
+    const ecografiaSelect = document.getElementById('id_ecografia');
+    const topicoSelect = document.getElementById('id_topico');
+    const precioInput = document.getElementById('id_precio');
+
+    if (!tarifaSelect) {
+        console.error('❌ No se encontró el campo tarifa');
+        return;
+    }
+
+    // ========================================
+    // FUNCIÓN: Mostrar/ocultar campos usando data-tipo
+    // ========================================
+// En /home/luis/policlinico/consultas/templates/consultas/crear_consulta.html
+// Actualizar la función mostrarCamposPorTipo()
+
+function mostrarCamposPorTipo() {
+    const selectedOption = tarifaSelect.options[tarifaSelect.selectedIndex];
+    const tipo = selectedOption ? selectedOption.dataset.tipo : '';
+    
+    // Mostrar/ocultar campos de ecografía y tópico
+    if (divEcografia) divEcografia.style.display = tipo === 'ECOGRAFIA' ? 'block' : 'none';
+    if (divTopico) divTopico.style.display = tipo === 'TOPICO' ? 'block' : 'none';
+    
+    // ✅ NUEVO: Si es TÓPICO, ocultar el campo doctor
+    const doctorField = document.querySelector('.field-doctor'); // Ajusta según tu HTML
+    if (doctorField) {
+        doctorField.style.display = tipo === 'TOPICO' ? 'none' : 'block';
+    }
+    
+    // También puedes deshabilitar la selección de doctor
+    if (doctorSelect) {
+        doctorSelect.disabled = tipo === 'TOPICO';
+        if (tipo === 'TOPICO') {
+            doctorSelect.value = ''; // Limpiar selección
+        }
+    }
+    
+    actualizarPrecio();
+}
+    // ========================================
+    // FUNCIÓN: Actualizar precio
+    // ========================================
+// ========================================
+// FUNCIÓN: Actualizar precio (ahora con modo editable)
+// ========================================
+// ========================================
+// FUNCIÓN: Actualizar precio - CORREGIDA
+// ========================================
+function actualizarPrecio() {
+    const selectedOption = tarifaSelect.options[tarifaSelect.selectedIndex];
+    const tipo = selectedOption ? selectedOption.dataset.tipo : '';
+    
+    const precioInput = document.getElementById('id_precio');
+    const helpText = document.getElementById('precio_help_text');
+    const helpEditable = document.getElementById('precio_help_editable');
+    
+    let precio = 0;
+    
+    if (tipo === 'ECOGRAFIA' && ecografiaSelect?.value) {
+        const option = ecografiaSelect.options[ecografiaSelect.selectedIndex];
+        precio = option.dataset.precio || 50.00;
+        
+        // Modo solo lectura
+        precioInput.readOnly = true;
+        precioInput.style.backgroundColor = '#f8f9fa';
+        helpText.style.display = 'inline';
+        helpEditable.style.display = 'none';
+        
+    } else if (tipo === 'TOPICO' && topicoSelect?.value) {
+        const option = topicoSelect.options[topicoSelect.selectedIndex];
+        precio = option.dataset.precio || 20.00;
+        
+        // ✅ MODO EDITABLE - SOLO PARA TÓPICO
+        precioInput.readOnly = false;
+        precioInput.style.backgroundColor = '#ffffff';
+        precioInput.style.border = '2px solid #0d6efd';
+        helpText.style.display = 'none';
+        helpEditable.style.display = 'inline';
+        
+    } else if (tipo === 'GENERAL' || tipo === 'ESPECIALIDAD' || tipo === 'LECTURA_RESULTADOS') {
+        // ✅ PRECIO DESDE LA TARIFA
+        const precioTexto = selectedOption.text.match(/S\/\s*([\d.]+)/);
+        precio = precioTexto ? parseFloat(precioTexto[1]) : 0;
+        
+        // Modo solo lectura
+        precioInput.readOnly = true;
+        precioInput.style.backgroundColor = '#f8f9fa';
+        helpText.style.display = 'inline';
+        helpEditable.style.display = 'none';
+    }
+    
+    if (precioInput) {
+        precioInput.value = parseFloat(precio).toFixed(2);
+    }
+}
+
+// ========================================
+    // FUNCIÓN: Cargar doctores
+    // ========================================
+// ========================================
+// FUNCIÓN: Cargar doctores según especialidad - VERSIÓN CORREGIDA
+// ========================================
+function cargarDoctores(tarifaId, tipoConsulta, especialidad) {
+    if (!doctorSelect || !tarifaId) return;
+
+    console.log('🔍 Cargando doctores para:', {tipoConsulta, especialidad});
+    
+    doctorSelect.innerHTML = '<option value="">---------</option>';
+
+    let url = '';
+    if (tipoConsulta === 'LECTURA_RESULTADOS') {
+        url = '/consultas/api/doctores/?todos=true';  // ✅ CORREGIDO
+    } else if (tipoConsulta === 'GENERAL') {
+        url = '/consultas/api/doctores/?especialidad=GENERAL';
+    } else if (tipoConsulta === 'ECOGRAFIA') {
+        url = '/consultas/api/doctores/?especialidad=ECOGRAFIA';
+    } else if (tipoConsulta === 'ESPECIALIDAD' && especialidad) {
+        url = `/consultas/api/doctores/?especialidad=${especialidad}`;
+    }
+
+    if (url) {
+        console.log('📡 Fetching URL:', url);
+        
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(doctores => {
+                console.log('✅ Doctores recibidos:', doctores);
+                
+                if (doctores && doctores.length > 0) {
+                    doctores.forEach(doctor => {
+                        const option = document.createElement('option');
+                        option.value = doctor.id;
+                        
+                        // ✅ Usar especialidades si existe, si no, usar especialidad
+                        if (doctor.especialidades) {
+                            option.textContent = `${doctor.nombre_completo} (${doctor.especialidades})`;
+                        } else if (doctor.especialidad) {
+                            option.textContent = `${doctor.nombre_completo} (${doctor.especialidad})`;
+                        } else {
+                            option.textContent = doctor.nombre_completo;
+                        }
+                        
+                        doctorSelect.appendChild(option);
+                    });
+                    
+                    // Seleccionar automáticamente si solo hay uno
+                    if (doctores.length === 1) {
+                        doctorSelect.value = doctores[0].id;
+                        console.log('✅ Doctor seleccionado automáticamente');
+                    }
+                } else {
+                    console.log('⚠️ No hay doctores disponibles');
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'No hay médicos disponibles';
+                    option.disabled = true;
+                    doctorSelect.appendChild(option);
+                }
+            })
+            .catch(error => {
+                console.error('❌ Error cargando doctores:', error);
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Error al cargar médicos';
+                option.disabled = true;
+                doctorSelect.appendChild(option);
+            });
+    } else {
+        console.log('⚠️ No se generó URL para cargar doctores');
+    }
+}
+
+// ========================================
+    // EVENT LISTENERS
+    // ========================================
+    
+    tarifaSelect.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const tipo = selectedOption ? selectedOption.dataset.tipo : '';
+        const especialidad = selectedOption ? selectedOption.dataset.especialidad : '';
+        
+        mostrarCamposPorTipo();
+        cargarDoctores(this.value, tipo, especialidad);
+        actualizarPrecio();
+    });
+
+    if (ecografiaSelect) {
+        ecografiaSelect.addEventListener('change', function() {
+            console.log('Ecografía seleccionada:', this.value);
+            actualizarPrecio();
+        });
+    }
+    
+    if (topicoSelect) {
+        topicoSelect.addEventListener('change', function() {
+            console.log('Tópico seleccionado:', this.value);
+            actualizarPrecio();
+        });
+    }
+
+    // Ejecutar al inicio
+    mostrarCamposPorTipo();
+    if (tarifaSelect.value) {
+        const selectedOption = tarifaSelect.options[tarifaSelect.selectedIndex];
+        const tipo = selectedOption ? selectedOption.dataset.tipo : '';
+        const especialidad = selectedOption ? selectedOption.dataset.especialidad : '';
+        cargarDoctores(tarifaSelect.value, tipo, especialidad);
+        actualizarPrecio();
+    }
+});
+</script>
+
+<!-- DEBUG VISUAL -->
+<div style="background: #f0f0f0; padding: 15px; margin-top: 20px; border: 2px solid blue; border-radius: 5px;">
+    <h6 style="color: blue;">🔍 DEBUG - Estado del Sistema</h6>
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td><strong>Tarifas activas:</strong></td>
+            <td>{{ tarifas|length }}</td>
+            <td style="color: {% if tarifas %}green{% else %}red{% endif %};">
+                {% if tarifas %}✅{% else %}❌{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Ecografías:</strong></td>
+            <td>{{ ecografias|length }}</td>
+            <td style="color: {% if ecografias %}green{% else %}red{% endif %};">
+                {% if ecografias %}✅{% else %}❌{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Tópicos:</strong></td>
+            <td>{{ topicos|length }}</td>
+            <td style="color: {% if topicos %}green{% else %}red{% endif %};">
+                {% if topicos %}✅{% else %}❌{% endif %}
+            </td>
+        </tr>
+    </table>
+    <p style="margin-top: 10px; font-size: 12px; color: #666;">
+        ⚡ Si ves esto pero no los combos, revisa la consola (F12)
+    </p>
+</div>
+
+{% endblock %}

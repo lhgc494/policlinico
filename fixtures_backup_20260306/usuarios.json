@@ -1,0 +1,338 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$PIc0WS2FUgQPonnMB3HNLp$RFiHTc4gM/BuPkjwBLWxXgH+eV4TJhvwZ9B2TQyGgow=",
+        "last_login": "2026-03-06T13:25:35.143Z",
+        "is_superuser": true,
+        "username": "luis",
+        "first_name": "",
+        "last_name": "",
+        "email": "lhgc494@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-01-14T22:33:30.107Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$XZquL8C4y8UcFfuzXxFwKs$nnmjLQ4Q6d7G/WwXkxzsqDi3A69LtER9QmTHSFcLELg=",
+        "last_login": "2026-03-03T13:54:57.846Z",
+        "is_superuser": false,
+        "username": "recepcion001",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-15T20:34:35Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$MrLcaGxc3J68R9Q4M5uePs$4J+twy2TsjhloQcONKmx1HRhluSNkqt+ZOonQe59rMg=",
+        "last_login": "2026-03-05T13:40:37.414Z",
+        "is_superuser": false,
+        "username": "administrador001",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-16T20:08:25Z",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$sUwTK5BYhtaIwHJyEEUScB$+D4ZD6oK2G6ZizrdhmHM5a7X9Am2NzgzFLPv47Aqnu4=",
+        "last_login": "2026-03-05T13:40:26.785Z",
+        "is_superuser": false,
+        "username": "doctor001",
+        "first_name": "Diego",
+        "last_name": "Alfaro",
+        "email": "alfaro@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-19T15:53:32Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$gwgKZk9bniHoTKC67wGV6i$9VskjP9vmUPvJs1zoDBv/N5pQard5hTabQrDm4MRbeo=",
+        "last_login": "2026-03-05T20:59:03.208Z",
+        "is_superuser": false,
+        "username": "doctor002",
+        "first_name": "Estefani",
+        "last_name": "Alcaraz",
+        "email": "alacaraz@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-19T20:12:45Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$VLGXcMXgrZzmmpyn9szZPc$mdHcBqJjBwNG3GPR1AEk2NKHQ/6jT3gqYO6obCJ5fzs=",
+        "last_login": "2026-02-17T20:28:08.665Z",
+        "is_superuser": false,
+        "username": "doctor003",
+        "first_name": "Pedro",
+        "last_name": "Bustamante",
+        "email": "bustamante@gmial.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-19T20:13:56Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$La0npJoyQ0EcPQ0sNg2Nir$41YUM86i7tHw+vD3tyM/BVRrL8+aclJ9j/+BOCQRaDk=",
+        "last_login": "2026-02-25T15:50:49.596Z",
+        "is_superuser": false,
+        "username": "doctor004",
+        "first_name": "Ricardo",
+        "last_name": "Medina",
+        "email": "medina@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-19T20:17:01Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$EwKsVocBAx2tqW950o09Re$6+aXrOPWJaOlxEMQSWiRNyZMPPHe0AlehNwUVBOfLTo=",
+        "last_login": "2026-02-17T19:49:35.884Z",
+        "is_superuser": false,
+        "username": "doctor005",
+        "first_name": "Lucia",
+        "last_name": "Mendez",
+        "email": "mendez@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-19T20:18:03Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$QhEBV3p3Gs9loJtC5EKPYK$z9HcQLq+n2ZFmUYBgSrgGWQenh/orGNiP4JCXD9cS2I=",
+        "last_login": "2026-02-13T22:04:43.877Z",
+        "is_superuser": false,
+        "username": "doctor006",
+        "first_name": "Masha",
+        "last_name": "Ramirez",
+        "email": "ramirez@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-19T20:18:51Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$LzDRplN3xnDYlP9qfvLc0N$yQPFAQ4UqXpdHhi9Ioe4fqhbz8KtXqTaNrllDncHm+4=",
+        "last_login": "2026-03-05T21:01:05.810Z",
+        "is_superuser": false,
+        "username": "farmacia001",
+        "first_name": "Cleotilde",
+        "last_name": "Flores",
+        "email": "flores@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-20T21:06:51Z",
+        "groups": [
+            5
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 12,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$EVtDx3unYMAFRgH2oedNV7$uSKU3bPz7CinGlJxmDka4oBkrKwU6OEltxOa/wZEn/U=",
+        "last_login": "2026-02-27T22:48:26.842Z",
+        "is_superuser": false,
+        "username": "laboratorio001",
+        "first_name": "Rosa",
+        "last_name": "Garcia",
+        "email": "garcia@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-01-28T15:15:27Z",
+        "groups": [
+            4
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 13,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$mBfEBTKI7QJJxqUvdCE5Lt$mz7WI//5AD+2sLtwnxvH/NrDVLyn4D5rupHqryIQMLs=",
+        "last_login": "2026-02-27T22:47:12.550Z",
+        "is_superuser": false,
+        "username": "laboratorio002",
+        "first_name": "Noemi",
+        "last_name": "Garcia",
+        "email": "noemi@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-02-03T17:04:58Z",
+        "groups": [
+            4
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 14,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$7WfEzs64b0LeSKj3AvnUsD$8ZSTjC8g8q3Dd4sZj80dDvQBe5uYocu7LBABWHHoJU4=",
+        "last_login": "2026-02-13T22:04:52.079Z",
+        "is_superuser": false,
+        "username": "doctor007",
+        "first_name": "Walther",
+        "last_name": "Puma Aquino",
+        "email": "aquino@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-02-13T17:32:21Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 15,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$zDeZl1AmtcQdb9TiPOLY6Q$Wt+QfFo3tmhrIw6OY2PC65w3zGSShDYyea0w3pHqYt8=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "doctor008",
+        "first_name": "Elvia Rosario",
+        "last_name": "Vargas Olivera",
+        "email": "Olivera@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-02-13T17:34:50Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 16,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$EDPJz2WrIdBbc3Iqn73VOk$reEnv3K1gw4ufbpdsgd7wiLrKwYrhfZ1W0k+/NjCGS8=",
+        "last_login": "2026-02-13T22:33:08.847Z",
+        "is_superuser": false,
+        "username": "doctor009",
+        "first_name": "Zeydi",
+        "last_name": "Benavides Gama",
+        "email": "Benavides@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-02-13T17:36:43Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 17,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$OQhOpTomajR7fVCUPhaeEV$YkmcWtbCfzZzhS6w/AEdG0l7kXFDNALKD1sOAT5v9N0=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "doctor010",
+        "first_name": "Alfredo",
+        "last_name": "Casanova",
+        "email": "Casanova@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-02-13T17:37:48Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 18,
+    "fields": {
+        "password": "",
+        "last_login": null,
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@localhost",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-02-27T19:54:47.812Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
