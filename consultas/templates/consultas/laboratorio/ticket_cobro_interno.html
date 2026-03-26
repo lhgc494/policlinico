@@ -101,11 +101,12 @@
     <div class="ticket border shadow-sm">
         <!-- Encabezado -->
         <div class="ticket-header">
-            <h5 class="mb-1">COMPROBANTE DE COBRO</h5>
-            <p class="mb-1"><strong>#{{ venta.id }}</strong></p>
-            <p class="mb-1">POLICLÍNICO LABORATORIO</p>
+            <h5 class="mb-1">SALUD INTEGRAL</h5>
+            <p class="mb-1">LABORATORIO BERNAL</p>
             <p class="mb-1">{{ fecha|date:"d/m/Y H:i" }}</p>
             <p class="mb-0">Cajero: {{ usuario.get_full_name|default:usuario.username }}</p>
+            <p class="mb-1"><strong>#{{ venta.id }}</strong></p>
+            
         </div>
 
         <!-- Información del cobro -->

@@ -1,0 +1,318 @@
+{% extends 'consultas/laboratorio/formatos/base_formato.html' %}
+
+{% block title %}BHCG Cuantitativo - {{ orden.examen_especifico }}{% endblock %}
+
+{% block campos_formulario %}
+{% if modo_impresion %}
+    <!-- ==================== MODO IMPRESIÓN ==================== -->
+    <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto;">
+        <!-- ENCABEZADO -->
+        <div style="display: flex; justify-content: space-between; background-color: #003366; color: white; padding: 6px 12px; margin-bottom: 10px;">
+            <span style="font-weight: bold;">BHCG CUANTITATIVO #{{ orden.id }}</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <!-- DATOS DEL PACIENTE -->
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; background-color: #f0f0f0; padding: 8px 12px; margin-bottom: 15px;">
+            <span><strong>NOMBRES:</strong> {{ orden.get_paciente_nombre|default:"-" }}</span>
+            <span><strong>EDAD:</strong> {{ orden.get_paciente_edad|default:"-" }} AÑOS</span>
+            <span><strong>DNI:</strong> {{ orden.get_paciente_dni|default:"-" }}</span>
+            <span><strong>TÉCNICO:</strong> {{ orden.tecnico_asignado.get_short_name|default:orden.tecnico_asignado.username }}</span>
+        </div>
+        
+        <!-- TÍTULO ANÁLISIS -->
+        <div style="background-color: #e0e0e0; padding: 5px 10px; margin-bottom: 15px; text-align: center;">
+            <strong style="font-size: 14pt;">ANÁLISIS HORMONAL</strong>
+        </div>
+        
+        <!-- RESULTADO PRINCIPAL (SUB UNIDAD BETA HCG) -->
+        {% if imprimir_bhcg %}
+        <div style="margin-bottom: 20px; border-left: 4px solid #003366; padding-left: 12px;">
+            <div style="margin-bottom: 5px;">
+                <strong>RESULTADO</strong>
+            </div>
+            <div style="display: flex;">
+                <span style="width: 200px;"><strong>SUB UNIDAD BETA HCG</strong></span>
+                <span>: <strong style="font-size: 14pt;">{{ valor_bhcg|default:"< 5.0" }}</strong> UI/L</span>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- RANGOS DE REFERENCIA -->
+        {% if mostrar_rangos %}
+        <div style="margin-top: 20px;">
+            <div style="background-color: #e0e0e0; padding: 4px 8px; margin-bottom: 10px;">
+                <strong>RANGOS DE REFERENCIA</strong>
+            </div>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tbody>
+                    {% if imprimir_no_embarazo %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>NO EMBARAZO</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ no_embarazo_min|default:"0" }} - {{ no_embarazo_max|default:"5" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                    {% if imprimir_temprano %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>EMBARAZO TEMPRANO</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ temprano_min|default:"5" }} - {{ temprano_max|default:"10" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                    {% if imprimir_3_4_semanas %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>3 - 4 SEMANAS</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ r_3_4_min|default:"9" }} - {{ r_3_4_max|default:"130" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                    {% if imprimir_4_5_semanas %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>4 - 5 SEMANAS</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ r_4_5_min|default:"75" }} - {{ r_4_5_max|default:"2,600" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                    {% if imprimir_5_6_semanas %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>5 - 6 SEMANAS</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ r_5_6_min|default:"850" }} - {{ r_5_6_max|default:"20,800" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                    {% if imprimir_6_7_semanas %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>6 - 7 SEMANAS</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ r_6_7_min|default:"4,000" }} - {{ r_6_7_max|default:"100,200" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                    {% if imprimir_7_12_semanas %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>7 - 12 SEMANAS</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ r_7_12_min|default:"115,000" }} - {{ r_7_12_max|default:"289,000" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                    {% if imprimir_12_16_semanas %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>12 - 16 SEMANAS</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ r_12_16_min|default:"183,000" }} - {{ r_12_16_max|default:"137,000" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                    {% if imprimir_16_19_semanas %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>16 - 19 SEMANAS</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ r_16_19_min|default:"1,400" }} - {{ r_16_19_max|default:"53,000" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                    {% if imprimir_19_41_semanas %}
+                    <tr>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;"><strong>19 - 41 SEMANAS</strong></td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">{{ r_19_41_min|default:"940" }} - {{ r_19_41_max|default:"60,000" }}</td>
+                        <td style="padding: 4px; border-bottom: 1px solid #eee;">UI/L</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+        
+        <!-- OBSERVACIONES -->
+        {% if imprimir_observaciones and observaciones %}
+        <div style="margin-top: 20px; padding: 8px; background-color: #fff3cd;">
+            <strong>📌 OBSERVACIONES:</strong><br>
+            {{ observaciones }}
+        </div>
+        {% endif %}
+        
+        <!-- PIE -->
+        <div style="display: flex; justify-content: space-between; margin-top: 25px; font-size: 8pt; color: #666; border-top: 1px solid #ccc; padding-top: 8px;">
+            <span>Sistema Policlínico</span>
+            <span>{{ orden.fecha_realizacion|date:"d/m/Y H:i" }}</span>
+        </div>
+        
+        <!-- BOTONES IMPRESIÓN -->
+        <div class="no-print" style="text-align: center; margin-top: 20px;">
+            <button onclick="window.print()" style="padding: 8px 20px;">🖨️ Imprimir</button>
+            <button onclick="window.close()" style="padding: 8px 20px;">✖️ Cerrar</button>
+        </div>
+    </div>
+
+{% else %}
+    <!-- ==================== MODO EDICIÓN ==================== -->
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">BHCG CUANTITATIVO</h5>
+                <div>
+                    <button type="button" id="select-all" class="btn btn-sm btn-light">✅ Seleccionar todos</button>
+                    <button type="button" id="unselect-all" class="btn btn-sm btn-light">⬜ Deseleccionar todos</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            
+            <!-- DATOS PACIENTE (solo lectura) -->
+            <div class="alert alert-info py-2 mb-3">
+                <div class="row">
+                    <div class="col-md-4"><strong>Paciente:</strong> {{ orden.get_paciente_nombre }}</div>
+                    <div class="col-md-3"><strong>DNI:</strong> {{ orden.get_paciente_dni }}</div>
+                    <div class="col-md-3"><strong>Edad:</strong> {{ orden.get_paciente_edad }} años</div>
+                    <div class="col-md-2"><strong>Técnico:</strong> {{ orden.tecnico_asignado.get_short_name }}</div>
+                </div>
+            </div>
+            
+            <!-- SUB UNIDAD BETA HCG (con checkbox) -->
+            <div class="card mb-3">
+                <div class="card-header bg-light">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="check_bhcg" name="imprimir_bhcg" value="1" checked>
+                        <label class="form-check-label fw-bold" for="check_bhcg">
+                            RESULTADO
+                        </label>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">SUB UNIDAD BETA HCG (UI/L)</label>
+                            <input type="text" class="form-control" name="valor_bhcg" value="{{ resultados_previos.valor_bhcg|default:'< 5.0' }}">
+                            <div class="form-text">Valor normal no embarazo: &lt; 5.0 UI/L</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RANGOS DE REFERENCIA -->
+            <div class="card mb-3">
+                <div class="card-header bg-light">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="check_rangos" name="mostrar_rangos" value="1" checked>
+                        <label class="form-check-label fw-bold" for="check_rangos">
+                            RANGOS DE REFERENCIA
+                        </label>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr><th>Incluir</th><th>Etapa</th><th>Rango (UI/L)</th><th>Unidad</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_no_embarazo" value="1" checked></td>
+                                    <td><strong>NO EMBARAZO</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="no_embarazo_min" value="0" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="no_embarazo_max" value="5" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_temprano" value="1" checked></td>
+                                    <td><strong>EMBARAZO TEMPRANO</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="temprano_min" value="5" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="temprano_max" value="10" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_3_4_semanas" value="1" checked></td>
+                                    <td><strong>3 - 4 SEMANAS</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="r_3_4_min" value="9" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="r_3_4_max" value="130" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_4_5_semanas" value="1" checked></td>
+                                    <td><strong>4 - 5 SEMANAS</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="r_4_5_min" value="75" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="r_4_5_max" value="2600" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_5_6_semanas" value="1" checked></td>
+                                    <td><strong>5 - 6 SEMANAS</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="r_5_6_min" value="850" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="r_5_6_max" value="20800" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_6_7_semanas" value="1" checked></td>
+                                    <td><strong>6 - 7 SEMANAS</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="r_6_7_min" value="4000" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="r_6_7_max" value="100200" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_7_12_semanas" value="1" checked></td>
+                                    <td><strong>7 - 12 SEMANAS</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="r_7_12_min" value="115000" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="r_7_12_max" value="289000" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_12_16_semanas" value="1" checked></td>
+                                    <td><strong>12 - 16 SEMANAS</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="r_12_16_min" value="183000" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="r_12_16_max" value="137000" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_16_19_semanas" value="1" checked></td>
+                                    <td><strong>16 - 19 SEMANAS</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="r_16_19_min" value="1400" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="r_16_19_max" value="53000" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="imprimir_19_41_semanas" value="1" checked></td>
+                                    <td><strong>19 - 41 SEMANAS</strong></td>
+                                    <td><input type="text" class="form-control form-control-sm" name="r_19_41_min" value="940" style="width:70px;display:inline;"> - <input type="text" class="form-control form-control-sm" name="r_19_41_max" value="60000" style="width:70px;display:inline;"></td>
+                                    <td>UI/L</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- OBSERVACIONES -->
+            <div class="card">
+                <div class="card-header bg-light">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="check_observaciones" name="imprimir_observaciones" value="1" checked>
+                        <label class="form-check-label fw-bold" for="check_observaciones">OBSERVACIONES</label>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <textarea name="observaciones" class="form-control" rows="2">{{ resultados_previos.observaciones|default:'' }}</textarea>
+                </div>
+            </div>
+            
+            <!-- BOTONES -->
+            <div class="mt-4 d-flex justify-content-between">
+                <a href="{% url 'mis_ordenes_en_proceso' %}" class="btn btn-secondary">Cancelar</a>
+                <div>
+                    <button type="submit" name="btn_guardar" class="btn btn-primary">Guardar Resultados</button>
+                    <button type="submit" name="btn_guardar_imprimir" class="btn btn-success">Guardar e Imprimir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Seleccionar todos los checkboxes de rangos
+        const selectAll = document.getElementById('select-all');
+        const unselectAll = document.getElementById('unselect-all');
+        const allChecks = document.querySelectorAll('input[type="checkbox"][name^="imprimir_"]');
+        
+        if (selectAll) {
+            selectAll.addEventListener('click', function() {
+                allChecks.forEach(cb => cb.checked = true);
+            });
+        }
+        
+        if (unselectAll) {
+            unselectAll.addEventListener('click', function() {
+                allChecks.forEach(cb => cb.checked = false);
+            });
+        }
+    });
+    </script>
+{% endif %}
+{% endblock %}

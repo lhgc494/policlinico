@@ -1797,7 +1797,7 @@ def doctores_por_especialidad(request):
 # ============================================
 FORMATOS_EXAMENES = {
     # ===== FORMATO 1: HEMOGRAMA =====
-    'HEMOGRAMA COMPLETO': 'consultas/laboratorio/formatos/hemograma.html',
+    'HEMOGRAMA COMPLETO': 'consultas/laboratorio/formatos/BHCG-Cuantitativo-new.html',
     'HEMOGLOBINA': 'consultas/laboratorio/formatos/hemograma.html',
     'RECUENTO DE PLAQUETAS': 'consultas/laboratorio/formatos/hemograma.html',
     'RECUENTO DE GLÓBULOS ROJOS': 'consultas/laboratorio/formatos/hemograma.html',
@@ -1956,7 +1956,7 @@ def ingresar_resultados(request, examen_id):
 @grupo_requerido('doctores', 'laboratorio', 'administrador', 'recepcion')
 def imprimir_resultado(request, examen_id):
     """
-    Vista para imprimir resultado de examen usando plantilla genérica
+    Vista para imprimir resultado de examen
     """
     examen = get_object_or_404(OrdenExamen, id=examen_id)
 
@@ -1965,12 +1965,54 @@ def imprimir_resultado(request, examen_id):
         if examen.consulta and examen.consulta.doctor != request.user.doctor:
             return HttpResponseForbidden("No tiene permiso para ver este resultado")
 
-    # Usar plantilla genérica de impresión
-    template_name = 'consultas/laboratorio/formatos/imprimir_generico.html'
+    # ============================================
+    # 1. DETERMINAR QUÉ TEMPLATE DE IMPRESIÓN USAR
+    # ============================================
+    nombre_examen = examen.examen_especifico.upper().strip()
+    
+    if 'BHCG' in nombre_examen or 'BETA HCG' in nombre_examen:
+        template_name = 'consultas/laboratorio/formatos/imprimir_bhcg.html'
+    else:
+        template_name = 'consultas/laboratorio/formatos/imprimir_generico.html'
 
+    # ============================================
+    # 2. OBTENER DATOS DEL PACIENTE (INCLUYENDO EDAD)
+    # ============================================
+    from datetime import date
+    
+    paciente_nombre = examen.get_paciente_nombre()
+    paciente_dni = examen.get_paciente_dni()
+    paciente_edad = "-"
+    
+    # Obtener paciente según el tipo de orden
+    if examen.consulta:
+        paciente = examen.consulta.paciente
+    else:
+        paciente = None
+    
+    # Calcular edad si existe fecha de nacimiento
+    if paciente and hasattr(paciente, 'fecha_nacimiento') and paciente.fecha_nacimiento:
+        hoy = date.today()
+        edad = hoy.year - paciente.fecha_nacimiento.year
+        if hoy.month < paciente.fecha_nacimiento.month or (hoy.month == paciente.fecha_nacimiento.month and hoy.day < paciente.fecha_nacimiento.day):
+            edad -= 1
+        paciente_edad = edad
+    
+    # ============================================
+    # 3. PREPARAR RESULTADOS
+    # ============================================
+    resultados = examen.get_resultados_formateados()
+    
+    # ============================================
+    # 4. CONTEXTO PARA EL TEMPLATE
+    # ============================================
     context = {
         'orden': examen,
-        'resultados': examen.get_resultados_formateados(),
+        'resultados': resultados,
+        'paciente_nombre': paciente_nombre,
+        'paciente_dni': paciente_dni,
+        'paciente_edad': paciente_edad,
+        'tecnico_nombre': examen.tecnico_asignado.get_full_name() if examen.tecnico_asignado else "-",
     }
 
     return render(request, template_name, context)

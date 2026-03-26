@@ -30,19 +30,18 @@ services:
              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ../:/app
-      - ../fixtures:/app/fixtures
+      - ../fixtures:/app/fixtures  # 👈 MONTAR DIRECTORIO DE FIXTURES
       - static_volume:/app/staticfiles
       - media_volume:/app/media
-      - ../entrypoint.sh:/entrypoint.sh
+      - ../entrypoint.sh:/entrypoint.sh  # 👈 MONTAR ENTRYPOINT
     ports:
       - "8000:8000"
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       DJANGO_SETTINGS_MODULE: config.settings_production
-      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
+      DJANGO_SECRET_KEY: policlinico2026
       DB_NAME: policlinico_db
       DB_USER: policlinico_user
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PASSWORD: tu_password_seguro
       DB_HOST: db
       DB_PORT: 5432
       DJANGO_SUPERUSER_PASSWORD: admin123
@@ -50,7 +49,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    entrypoint: ["/entrypoint.sh"]
+    entrypoint: ["/entrypoint.sh"]  # 👈 USA EL ENTRYPOINT CREADO
 
 volumes:
   postgres_data:
