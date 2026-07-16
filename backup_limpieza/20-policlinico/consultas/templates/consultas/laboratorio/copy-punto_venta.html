@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}Punto de Venta - Laboratorio{% endblock %}
+
+{% block extra_css %}
+<style>
+.carrito-item {
+    transition: background-color 0.2s;
+}
+.carrito-item:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+.badge-tipo {
+    font-size: 0.7em;
+}
+.examen-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+}
+.examen-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.cantidad-input {
+    width: 70px;
+    text-align: center;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <!-- Columna izquierda: Catálogo de exámenes -->
+        <div class="col-md-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-store me-2"></i>Catálogo de Exámenes
+                        </h4>
+                        <div class="input-group" style="width: 300px;">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="buscarExamen" 
+                                   placeholder="Buscar examen...">
+                            <button class="btn btn-light" type="button" id="btnBuscar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Filtros por tipo -->
+                    <div class="mb-4">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary filtro-tipo" data-tipo="LABORATORIO">
+                                Laboratorio
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Lista de exámenes -->
+                    <div class="row" id="listaExamenes">
+                        {% for examen in examenes %}
+                        <div class="col-md-6 mb-3 examen-item" data-tipo="{{ examen.tipo }}">
+                            <div class="card examen-card h-100" data-id="{{ examen.id }}">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="card-title mb-1">{{ examen.nombre }}</h5>
+                                            <span class="badge {% if examen.tipo == 'LABORATORIO' %}bg-info{% elif examen.tipo == 'ECOGRAFIA' %}bg-success{% else %}bg-secondary{% endif %} badge-tipo">
+                                                {{ examen.get_tipo_display }}
+                                            </span>
+                                        </div>
+                                        <h4 class="text-primary mb-0">S/ {{ examen.precio }}</h4>
+                                    </div>
+                                    
+                                    {% if examen.descripcion %}
+                                    <p class="card-text text-muted small mt-2">{{ examen.descripcion|truncatechars:100 }}</p>
+                                    {% endif %}
+                                    
+                                    {% if examen.tiempo_entrega %}
+                                    <div class="mt-2">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>Entrega: {{ examen.tiempo_entrega }}
+                                        </small>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    <div class="mt-3">
+                                        <form method="post" action="{% url 'agregar_al_carrito' examen.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-cart-plus me-1"></i> Agregar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="col-12 text-center py-5">
+                            <div class="text-muted mb-4">
+                                <i class="fas fa-flask fa-3x"></i>
+                            </div>
+                            <h4 class="text-muted">No hay exámenes disponibles</h4>
+                            <p class="text-muted">Agrega exámenes desde el panel de administración.</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna derecha: Carrito de compras -->
+        <div class="col-md-4">
+            <div class="card shadow sticky-top" style="top: 20px;">
+                <div class="card-header bg-success text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">
+                            <i class="fas fa-shopping-cart me-2"></i>Carrito
+                        </h4>
+                        {% if items_carrito > 0 %}
+                        <span class="badge bg-light text-dark fs-6">{{ items_carrito }} item(s)</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="card-body">
+                    {% if carrito %}
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Examen</th>
+                                    <th class="text-center">Cant.</th>
+                                    <th class="text-end">Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="listaCarrito">
+                                {% for item_id, item in carrito.items %}
+                                <tr class="carrito-item" id="item-{{ item_id }}">
+                                    <td>
+                                        <small class="fw-bold">{{ item.nombre }}</small><br>
+                                        <small class="text-muted">S/ {{ item.precio }} c/u</small>
+                                    </td>
+                                    <td class="text-center">
+                                        <form method="post" action="{% url 'actualizar_cantidad' item.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <input type="number" 
+                                                   name="cantidad" 
+                                                   value="{{ item.cantidad }}" 
+                                                   min="1" 
+                                                   class="form-control form-control-sm cantidad-input"
+                                                   onchange="this.form.submit()">
+                                        </form>
+                                    </td>
+                                    <td class="text-end fw-bold">
+                                        S/ {% widthratio item.precio 1 item.cantidad %}
+                                    </td>
+                                    <td class="text-center">
+                                        <form method="post" action="{% url 'eliminar_del_carrito' item.id %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot class="table-light">
+                                <tr>
+                                    <td colspan="2" class="text-end"><strong>TOTAL:</strong></td>
+                                    <td colspan="2" class="text-end">
+                                        <h4 class="text-success mb-0" id="totalCarrito">S/ {{ total_carrito|floatformat:2 }}</h4>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Información del paciente (para ventas ambulatorias) -->
+                    <div class="mb-4">
+                        <h6 class="text-muted border-bottom pb-2">
+                            <i class="fas fa-user me-2"></i>Datos del Paciente
+                        </h6>
+                        <div class="mb-3">
+                            <label class="form-label small">DNI del Paciente</label>
+                            <input type="text" 
+                                   class="form-control form-control-sm" 
+                                   id="dniPaciente" 
+                                   placeholder="Ej: 12345678">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small">Nombre Completo</label>
+                            <input type="text" 
+                                   class="form-control form-control-sm" 
+                                   id="nombrePaciente" 
+                                   placeholder="Nombre y apellidos">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small">Observaciones</label>
+                            <textarea class="form-control form-control-sm" 
+                                      id="observaciones" 
+                                      rows="2" 
+                                      placeholder="Observaciones adicionales..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-primary btn-lg" id="btnProcesarVenta">
+                            <i class="fas fa-check-circle me-2"></i>Procesar Venta
+                        </button>
+                        <a href="{% url 'limpiar_carrito' %}" class="btn btn-outline-danger">
+                            <i class="fas fa-trash me-2"></i>Limpiar Carrito
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <div class="text-muted mb-4">
+                            <i class="fas fa-shopping-cart fa-3x"></i>
+                        </div>
+                        <h5 class="text-muted">Carrito Vacío</h5>
+                        <p class="text-muted small">Agrega exámenes desde el catálogo</p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="card-footer text-muted small">
+                    <div class="row">
+                        <div class="col">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Ventas ambulatorias
+                        </div>
+                        <div class="col text-end">
+                            Total: S/ {{ total_carrito|floatformat:2 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Filtrar exámenes por tipo
+    document.querySelectorAll('.filtro-tipo').forEach(button => {
+        button.addEventListener('click', function() {
+            const tipo = this.getAttribute('data-tipo');
+            
+            // Actualizar botones activos
+            document.querySelectorAll('.filtro-tipo').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.classList.add('active');
+            
+            // Filtrar exámenes
+            document.querySelectorAll('.examen-item').forEach(item => {
+                if (tipo === 'todos' || item.getAttribute('data-tipo') === tipo) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // Búsqueda de exámenes
+    const buscarInput = document.getElementById('buscarExamen');
+    if (buscarInput) {
+        buscarInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            document.querySelectorAll('.examen-item').forEach(item => {
+                const nombre = item.querySelector('.card-title').textContent.toLowerCase();
+                const descripcion = item.querySelector('.card-text')?.textContent.toLowerCase() || '';
+                
+                if (nombre.includes(searchTerm) || descripcion.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+    
+    // Click en tarjeta de examen para agregar
+    document.querySelectorAll('.examen-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Solo si no se hizo click en un botón o enlace
+            if (!e.target.closest('button') && !e.target.closest('a')) {
+                const examenId = this.getAttribute('data-id');
+                const form = this.querySelector('form');
+                if (form) {
+                    form.submit();
+                }
+            }
+        });
+    });
+    
+    // Procesar venta
+    const btnProcesar = document.getElementById('btnProcesarVenta');
+    if (btnProcesar) {
+        btnProcesar.addEventListener('click', function() {
+            const dni = document.getElementById('dniPaciente').value.trim();
+            const nombre = document.getElementById('nombrePaciente').value.trim();
+            
+            if (!dni || !nombre) {
+                alert('Por favor, complete los datos del paciente');
+                return;
+            }
+            
+            if (confirm('¿Confirmar venta de los exámenes en el carrito?')) {
+                // Aquí iría la lógica para procesar la venta
+                // Por ahora solo mostramos un mensaje
+                alert('Venta procesada exitosamente (simulación)');
+                // window.location.href = "{% url 'limpiar_carrito' %}";
+            }
+        });
+    }
+    
+    // Auto-focus en búsqueda
+    setTimeout(() => {
+        if (buscarInput) buscarInput.focus();
+    }, 100);
+});
+</script>
+{% endblock %}

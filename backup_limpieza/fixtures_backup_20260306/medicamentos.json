@@ -1,0 +1,6 @@
+/usr/local/lib/python3.10/site-packages/django/db/models/base.py:368: RuntimeWarning: Model 'farmacia.compra' was already registered. Reloading models is not advised as it can lead to inconsistencies, most notably with related models.
+  new_class._meta.apps.register_model(new_class._meta.app_label, new_class)
+/usr/local/lib/python3.10/site-packages/django/db/models/base.py:368: RuntimeWarning: Model 'farmacia.detallecompra' was already registered. Reloading models is not advised as it can lead to inconsistencies, most notably with related models.
+  new_class._meta.apps.register_model(new_class._meta.app_label, new_class)
+[[31;1mCommandError: Unable to serialize database: cursor "_django_curs_136652903840640_sync_1" does not exist
+[0m

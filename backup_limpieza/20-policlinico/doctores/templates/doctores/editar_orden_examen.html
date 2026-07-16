@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Orden de Examen - {{ paciente.nombres }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-warning">
+            <h3>Editar Orden de Examen</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Paciente:</strong> {{ paciente.nombres }} {{ paciente.apellidos }}</p>
+            <p><strong>Consulta:</strong> #{{ consulta.id }}</p>
+            <p><strong>Orden ID:</strong> {{ orden.id }}</p>
+            
+            <hr>
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">Tipo de Examen</label>
+                        {{ form.tipo_examen }}
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">Examen Específico</label>
+                        {{ form.examen_especifico }}
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">Indicaciones / Preparación</label>
+                        {{ form.indicaciones }}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="form-check mt-4">
+                            {{ form.urgente }}
+                            <label class="form-check-label">
+                                <strong>¿Es urgente?</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'atender_consulta' consulta.id %}" class="btn btn-secondary">
+                        Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

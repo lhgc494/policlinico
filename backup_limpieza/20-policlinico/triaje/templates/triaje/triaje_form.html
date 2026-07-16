@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% load form_tags %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h3 class="mb-4">
+        Triaje - Paciente: {{ consulta.paciente }}
+    </h3>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        
+        <!-- 
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Corrige los siguientes errores:</strong>
+                <ul class="mb-0">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>
+                                <strong>{{ field.label }}:</strong> {{ error }}
+                            </li>
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        -->
+
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label for="id_peso" class="form-label">Peso (kg)</label>
+                {{ form.peso|add_class:"form-control" }}
+                {% if form.peso.errors %}
+                    <div class="text-danger small">
+                        {{ form.peso.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-3">
+                <label for="id_talla" class="form-label">Talla (cm)</label>
+                {{ form.talla|add_class:"form-control" }}
+                {% if form.talla.errors %}
+                    <div class="text-danger small">
+                        {{ form.talla.errors.0 }}
+                    </div>
+                {% endif %}
+                <div class="form-text">
+                    Ejemplo: 180 (equivale a 1.80 m)
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label for="id_temperatura" class="form-label">Temperatura (°C)</label>
+                {{ form.temperatura|add_class:"form-control" }}
+                {% if form.temperatura.errors %}
+                    <div class="text-danger small">
+                        {{ form.temperatura.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-3">
+                <label for="id_presion" class="form-label">Presión arterial</label>
+                {{ form.presion|add_class:"form-control" }}
+                {% if form.presion.errors %}
+                    <div class="text-danger small">
+                        {{ form.presion.errors.0 }}
+                    </div>
+                {% endif %}
+                <div class="form-text">
+                    Formato: 120/80
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label for="id_frecuencia_cardiaca" class="form-label">
+                    Frecuencia Cardíaca (lpm)
+                </label>
+                {{ form.frecuencia_cardiaca|add_class:"form-control" }}
+                {% if form.frecuencia_cardiaca.errors %}
+                    <div class="text-danger small">
+                        {{ form.frecuencia_cardiaca.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-3">
+                <label for="id_saturacion" class="form-label">
+                    Saturación de oxígeno (%)
+                </label>
+                {{ form.saturacion|add_class:"form-control" }}
+                {% if form.saturacion.errors %}
+                    <div class="text-danger small">
+                        {{ form.saturacion.errors.0 }}
+                    </div>
+                {% endif %}
+                <div class="form-text">
+                    Valor entre 0 y 100
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">
+                Guardar Triaje
+            </button>
+            <a href="{% url 'lista_triaje_pendiente' %}" class="btn btn-secondary">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+// Agregar clase is-invalid a campos con errores
+document.addEventListener('DOMContentLoaded', function() {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+        if (input.parentElement.querySelector('.text-danger')) {
+            input.classList.add('is-invalid');
+        }
+    });
+});
+</script>
+{% endblock %}

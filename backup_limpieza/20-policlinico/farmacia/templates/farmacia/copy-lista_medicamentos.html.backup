@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Encabezado con estadísticas -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow border-0">
+                <div class="card-header text-white bg-primary">
+                    <h4 class="mb-0">
+                        <i class="fas fa-pills me-2"></i>Inventario de Medicamentos
+                        <span class="badge bg-light text-primary ms-2">{{ total_medicamentos }}</span>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 mb-3">
+                            <div class="card bg-success text-white h-100">
+                                <div class="card-body">
+                                    <h6 class="card-title">Activos</h6>
+                                    <h2 class="mb-0">{{ activos_count }}</h2>
+                                    <small>{{ inactivos_count }} inactivos</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-3">
+                            <div class="card bg-warning text-dark h-100">
+                                <div class="card-body">
+                                    <h6 class="card-title">Bajo Stock</h6>
+                                    <h2 class="mb-0">{{ bajo_stock }}</h2>
+                                    <small>Stock mínimo</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-3">
+                            <div class="card bg-danger text-white h-100">
+                                <div class="card-body">
+                                    <h6 class="card-title">Próximos a Vencer</h6>
+                                    <h2 class="mb-0">{{ proximos_vencer }}</h2>
+                                    <small>≤ 30 días</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6 mb-3">
+                            <div class="card bg-info text-white h-100">
+                                <div class="card-body text-center">
+                                    <a href="{% url 'crear_medicamento' %}" 
+                                       class="text-white text-decoration-none">
+                                        <i class="fas fa-plus-circle fa-3x mb-2"></i>
+                                        <h5 class="mb-0">Nuevo Medicamento</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de búsqueda y filtros -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input type="text" class="form-control" name="q"
+                                       placeholder="Buscar por código, nombre o principio activo..."
+                                       value="{{ query }}">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <select class="form-select" name="categoria">
+                                <option value="">Todas las categorías</option>
+                                {% for cat in categorias %}
+                                <option value="{{ cat.id }}" 
+                                    {% if categoria_id == cat.id|stringformat:"s" %}selected{% endif %}>
+                                    {{ cat.nombre }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-3">
+                            <select class="form-select" name="activo">
+                                <option value="todos">Todos los estados</option>
+                                <option value="si" {% if activo == 'si' %}selected{% endif %}>Solo activos</option>
+                                <option value="no" {% if activo == 'no' %}selected{% endif %}>Solo inactivos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-filter me-1"></i> Filtrar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de medicamentos -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    {% if medicamentos %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Medicamento</th>
+                                    <th>Principio Activo</th>
+                                    <th class="text-center">Stock</th>
+                                    <th class="text-center">Precio</th>
+                                    <th class="text-center">Vencimiento</th>
+                                    <th class="text-center">Estado</th>
+                                    <th class="text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for medicamento in medicamentos %}
+                                <tr class="{% if medicamento.stock_actual <= 0 %}table-danger{% elif medicamento.stock_actual < medicamento.stock_minimo %}table-warning{% endif %}">
+                                    <td>
+                                        <strong>{{ medicamento.codigo }}</strong>
+                                        {% if not medicamento.activo %}
+                                        <span class="badge bg-secondary ms-1">Inactivo</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="fw-bold">{{ medicamento.nombre_comercial }}</div>
+                                        <small class="text-muted">
+                                            {{ medicamento.concentracion }}
+                                            {% if medicamento.forma_farmaceutica %}
+                                            • {{ medicamento.get_forma_farmaceutica_display }}
+                                            {% endif %}
+                                        </small>
+                                    </td>
+                                    <td>{{ medicamento.principio_activo|default:"-" }}</td>
+                                    <td class="text-center">
+                                        <span class="badge 
+                                            {% if medicamento.stock_actual <= 0 %}bg-danger
+                                            {% elif medicamento.stock_actual < medicamento.stock_minimo %}bg-warning
+                                            {% else %}bg-success{% endif %} p-2">
+                                            {{ medicamento.stock_actual }}
+                                        </span>
+                                        <br>
+                                        <small class="text-muted">
+                                            Min: {{ medicamento.stock_minimo }}
+                                        </small>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="fw-bold text-success">
+                                            S/ {{ medicamento.precio_venta|default:"0.00" }}
+                                        </div>
+                                        <small class="text-muted">
+                                            Costo: S/ {{ medicamento.precio_compra|default:"0.00" }}
+                                        </small>
+                                    </td>
+                                    <td class="text-center">
+                                        {% if medicamento.fecha_vencimiento %}
+                                            <div>{{ medicamento.fecha_vencimiento|date:"d/m/Y" }}</div>
+                                            {% now "Y-m-d" as hoy %}
+                                            {% if medicamento.fecha_vencimiento|date:"Y-m-d" <= hoy %}
+                                            <span class="badge bg-danger">VENCIDO</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="text-muted">No asignada</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if medicamento.activo %}
+                                        <span class="badge bg-success">Activo</span>
+                                        {% else %}
+                                        <span class="badge bg-secondary">Inactivo</span>
+                                        {% endif %}
+                                        
+                                        {% if medicamento.requiere_receta %}
+                                        <div class="mt-1">
+                                            <i class="fas fa-file-prescription text-primary" 
+                                               title="Requiere receta médica"></i>
+                                        </div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a href="{% url 'detalle_medicamento' medicamento.id %}"
+                                               class="btn btn-info" title="Ver detalle">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{% url 'editar_medicamento' medicamento.id %}"
+                                               class="btn btn-warning" title="Editar">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            {% if medicamento.activo %}
+                                            <a href="{% url 'eliminar_medicamento' medicamento.id %}"
+                                               class="btn btn-danger" title="Desactivar">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Paginación -->
+                    {% if medicamentos.has_other_pages %}
+                    <nav aria-label="Paginación">
+                        <ul class="pagination justify-content-center">
+                            {% if medicamentos.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1{% if query %}&q={{ query }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if activo %}&activo={{ activo }}{% endif %}">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ medicamentos.previous_page_number }}{% if query %}&q={{ query }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if activo %}&activo={{ activo }}{% endif %}">
+                                    <i class="fas fa-angle-left"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% for num in medicamentos.paginator.page_range %}
+                                {% if medicamentos.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                                {% elif num > medicamentos.number|add:'-3' and num < medicamentos.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if activo %}&activo={{ activo }}{% endif %}">{{ num }}</a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if medicamentos.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ medicamentos.next_page_number }}{% if query %}&q={{ query }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if activo %}&activo={{ activo }}{% endif %}">
+                                    <i class="fas fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ medicamentos.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}{% if categoria_id %}&categoria={{ categoria_id }}{% endif %}{% if activo %}&activo={{ activo }}{% endif %}">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+
+                    {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-pills fa-4x text-muted mb-3"></i>
+                        <h4 class="text-muted">No se encontraron medicamentos</h4>
+                        <p class="text-muted">
+                            {% if query or categoria_id or activo == 'no' %}
+                                Intenta con otros términos de búsqueda o
+                                <a href="?">ver todos los medicamentos</a>
+                            {% else %}
+                                <a href="{% url 'crear_medicamento' %}" class="btn btn-primary">
+                                    <i class="fas fa-plus me-1"></i> Agregar primer medicamento
+                                </a>
+                            {% endif %}
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

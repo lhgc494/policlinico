@@ -1,0 +1,635 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-section {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        border-left: 4px solid #0d6efd;
+    }
+    .form-section h5 {
+        color: #0d6efd;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    .required label:after {
+        content: " *";
+        color: #dc3545;
+    }
+    .invalid-feedback {
+        display: block !important;
+    }
+    .price-calculator {
+        background: #e8f5e8;
+        border-radius: 5px;
+        padding: 15px;
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="mb-0">
+                                <i class="fas fa-plus-circle me-2"></i>{{ titulo }}
+                            </h4>
+                            <small class="opacity-75">
+                                Complete todos los campos requeridos (*) para registrar un nuevo medicamento
+                            </small>
+                        </div>
+                        <a href="{% url 'lista_medicamentos' %}" class="btn btn-light btn-sm">
+                            <i class="fas fa-arrow-left me-1"></i> Volver al Inventario
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    {% if messages %}
+                    <div class="mb-4">
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post" novalidate id="medicamentoForm">
+                        {% csrf_token %}
+                        
+                        <!-- Mostrar errores generales del formulario -->
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong> Por favor corrige los errores a continuación.
+                            <ul class="mb-0 mt-2">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li><strong>{{ field|title }}:</strong> {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Sección 1: Información Básica -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-info-circle me-2"></i>Información Básica</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3 required">
+                                    <label for="{{ form.codigo.id_for_label }}" class="form-label">
+                                        {{ form.codigo.label }}
+                                    </label>
+                                    {{ form.codigo }}
+                                    {% if form.codigo.help_text %}
+                                    <div class="form-text">{{ form.codigo.help_text }}</div>
+                                    {% endif %}
+                                    {% if form.codigo.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.codigo.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.codigo_barras.id_for_label }}" class="form-label">
+                                        {{ form.codigo_barras.label }}
+                                    </label>
+                                    {{ form.codigo_barras }}
+                                    {% if form.codigo_barras.help_text %}
+                                    <div class="form-text">{{ form.codigo_barras.help_text }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-8 mb-3 required">
+                                    <label for="{{ form.nombre_comercial.id_for_label }}" class="form-label">
+                                        {{ form.nombre_comercial.label }}
+                                    </label>
+                                    {{ form.nombre_comercial }}
+                                    {% if form.nombre_comercial.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.nombre_comercial.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="{{ form.nombre_generico.id_for_label }}" class="form-label">
+                                        {{ form.nombre_generico.label }}
+                                    </label>
+                                    {{ form.nombre_generico }}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3 required">
+                                    <label for="{{ form.principio_activo.id_for_label }}" class="form-label">
+                                        {{ form.principio_activo.label }}
+                                    </label>
+                                    {{ form.principio_activo }}
+                                    {% if form.principio_activo.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.principio_activo.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3 required">
+                                    <label for="{{ form.concentracion.id_for_label }}" class="form-label">
+                                        {{ form.concentracion.label }}
+                                    </label>
+                                    {{ form.concentracion }}
+                                    {% if form.concentracion.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.concentracion.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.forma_farmaceutica.id_for_label }}" class="form-label">
+                                        {{ form.forma_farmaceutica.label }}
+                                    </label>
+                                    {{ form.forma_farmaceutica }}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.condiciones_almacenamiento.id_for_label }}" class="form-label">
+                                        {{ form.condiciones_almacenamiento.label }}
+                                    </label>
+                                    {{ form.condiciones_almacenamiento }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección 2: Clasificación -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-tags me-2"></i>Clasificación</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.categoria.id_for_label }}" class="form-label">
+                                        {{ form.categoria.label }}
+                                    </label>
+                                    {{ form.categoria }}
+                                    {% if form.categoria.help_text %}
+                                    <div class="form-text">{{ form.categoria.help_text }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.presentacion.id_for_label }}" class="form-label">
+                                        {{ form.presentacion.label }}
+                                    </label>
+                                    {{ form.presentacion }}
+                                    {% if form.presentacion.help_text %}
+                                    <div class="form-text">{{ form.presentacion.help_text }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.proveedor.id_for_label }}" class="form-label">
+                                        {{ form.proveedor.label }}
+                                    </label>
+                                    {{ form.proveedor }}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.fabricante.id_for_label }}" class="form-label">
+                                        {{ form.fabricante.label }}
+                                    </label>
+                                    {{ form.fabricante }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección 3: Stock y Precios -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-boxes me-2"></i>Stock y Precios</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3 required">
+                                    <label for="{{ form.stock_actual.id_for_label }}" class="form-label">
+                                        {{ form.stock_actual.label }}
+                                    </label>
+                                    {{ form.stock_actual }}
+                                    {% if form.stock_actual.help_text %}
+                                    <div class="form-text">{{ form.stock_actual.help_text }}</div>
+                                    {% endif %}
+                                    {% if form.stock_actual.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.stock_actual.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3 required">
+                                    <label for="{{ form.stock_minimo.id_for_label }}" class="form-label">
+                                        {{ form.stock_minimo.label }}
+                                    </label>
+                                    {{ form.stock_minimo }}
+                                    {% if form.stock_minimo.help_text %}
+                                    <div class="form-text">{{ form.stock_minimo.help_text }}</div>
+                                    {% endif %}
+                                    {% if form.stock_minimo.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.stock_minimo.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3 required">
+                                    <label for="{{ form.stock_maximo.id_for_label }}" class="form-label">
+                                        {{ form.stock_maximo.label }}
+                                    </label>
+                                    {{ form.stock_maximo }}
+                                    {% if form.stock_maximo.help_text %}
+                                    <div class="form-text">{{ form.stock_maximo.help_text }}</div>
+                                    {% endif %}
+                                    {% if form.stock_maximo.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.stock_maximo.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4 mb-3 required">
+                                    <label for="{{ form.precio_compra.id_for_label }}" class="form-label">
+                                        {{ form.precio_compra.label }}
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">S/</span>
+                                        {{ form.precio_compra }}
+                                    </div>
+                                    {% if form.precio_compra.help_text %}
+                                    <div class="form-text">{{ form.precio_compra.help_text }}</div>
+                                    {% endif %}
+                                    {% if form.precio_compra.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.precio_compra.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3 required">
+                                    <label for="{{ form.precio_venta.id_for_label }}" class="form-label">
+                                        {{ form.precio_venta.label }}
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">S/</span>
+                                        {{ form.precio_venta }}
+                                    </div>
+                                    {% if form.precio_venta.help_text %}
+                                    <div class="form-text">{{ form.precio_venta.help_text }}</div>
+                                    {% endif %}
+                                    {% if form.precio_venta.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.precio_venta.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-4 mb-3">
+                                    <label for="{{ form.precio_venta_mayorista.id_for_label }}" class="form-label">
+                                        {{ form.precio_venta_mayorista.label }}
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">S/</span>
+                                        {{ form.precio_venta_mayorista }}
+                                    </div>
+                                    {% if form.precio_venta_mayorista.help_text %}
+                                    <div class="form-text">{{ form.precio_venta_mayorista.help_text }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <!-- Calculadora de margen -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="price-calculator">
+                                        <h6 class="mb-2"><i class="fas fa-calculator me-2"></i>Calculadora de Margen</h6>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="mb-2">
+                                                    <small class="text-muted">Margen de Ganancia:</small>
+                                                    <div class="h5 text-success" id="margenCalculado">0%</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-2">
+                                                    <small class="text-muted">Valor en Inventario:</small>
+                                                    <div class="h5 text-primary" id="valorInventario">S/ 0.00</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="mb-2">
+                                                    <small class="text-muted">Valor de Venta:</small>
+                                                    <div class="h5 text-info" id="valorVentaInventario">S/ 0.00</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección 4: Información de Lote -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-barcode me-2"></i>Información de Lote</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.lote.id_for_label }}" class="form-label">
+                                        {{ form.lote.label }}
+                                    </label>
+                                    {{ form.lote }}
+                                    {% if form.lote.help_text %}
+                                    <div class="form-text">{{ form.lote.help_text }}</div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.registro_sanitario.id_for_label }}" class="form-label">
+                                        {{ form.registro_sanitario.label }}
+                                    </label>
+                                    {{ form.registro_sanitario }}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.fecha_vencimiento.id_for_label }}" class="form-label">
+                                        {{ form.fecha_vencimiento.label }}
+                                    </label>
+                                    {{ form.fecha_vencimiento }}
+                                    {% if form.fecha_vencimiento.help_text %}
+                                    <div class="form-text">{{ form.fecha_vencimiento.help_text }}</div>
+                                    {% endif %}
+                                    {% if form.fecha_vencimiento.errors %}
+                                    <div class="invalid-feedback d-block">
+                                        {{ form.fecha_vencimiento.errors }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label d-block">Estado del Lote</label>
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        El estado (vencido/próximo a vencer) se calculará automáticamente
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección 5: Información Adicional -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-file-alt me-2"></i>Información Adicional</h5>
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="{{ form.descripcion.id_for_label }}" class="form-label">
+                                        {{ form.descripcion.label }}
+                                    </label>
+                                    {{ form.descripcion }}
+                                    {% if form.descripcion.help_text %}
+                                    <div class="form-text">{{ form.descripcion.help_text }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.indicaciones.id_for_label }}" class="form-label">
+                                        {{ form.indicaciones.label }}
+                                    </label>
+                                    {{ form.indicaciones }}
+                                </div>
+                                
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.contraindicaciones.id_for_label }}" class="form-label">
+                                        {{ form.contraindicaciones.label }}
+                                    </label>
+                                    {{ form.contraindicaciones }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección 6: Control y Estado -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-cogs me-2"></i>Control y Estado</h5>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check form-switch">
+                                        {{ form.requiere_receta }}
+                                        <label class="form-check-label" for="{{ form.requiere_receta.id_for_label }}">
+                                            {{ form.requiere_receta.label }}
+                                        </label>
+                                        {% if form.requiere_receta.help_text %}
+                                        <div class="form-text">{{ form.requiere_receta.help_text }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check form-switch">
+                                        {{ form.controlado }}
+                                        <label class="form-check-label" for="{{ form.controlado.id_for_label }}">
+                                            {{ form.controlado.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check form-switch">
+                                        {{ form.refrigerado }}
+                                        <label class="form-check-label" for="{{ form.refrigerado.id_for_label }}">
+                                            {{ form.refrigerado.label }}
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-3 mb-3">
+                                    <div class="form-check form-switch">
+                                        {{ form.activo }}
+                                        <label class="form-check-label" for="{{ form.activo.id_for_label }}">
+                                            {{ form.activo.label }}
+                                        </label>
+                                        {% if form.activo.help_text %}
+                                        <div class="form-text">{{ form.activo.help_text }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Botones -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <a href="{% url 'lista_medicamentos' %}" class="btn btn-secondary">
+                                            <i class="fas fa-times me-1"></i> Cancelar
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-save me-1"></i> Guardar Medicamento
+                                        </button>
+                                        <button type="submit" name="guardar_y_crear" class="btn btn-primary">
+                                            <i class="fas fa-save me-1"></i> Guardar y Crear Otro
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtener elementos del formulario
+    const precioCompra = document.getElementById('{{ form.precio_compra.id_for_label }}');
+    const precioVenta = document.getElementById('{{ form.precio_venta.id_for_label }}');
+    const stockActual = document.getElementById('{{ form.stock_actual.id_for_label }}');
+    
+    // Elementos de visualización
+    const margenCalculado = document.getElementById('margenCalculado');
+    const valorInventario = document.getElementById('valorInventario');
+    const valorVentaInventario = document.getElementById('valorVentaInventario');
+    
+    // Función para calcular y actualizar valores
+    function calcularValores() {
+        const compra = parseFloat(precioCompra.value) || 0;
+        const venta = parseFloat(precioVenta.value) || 0;
+        const stock = parseInt(stockActual.value) || 0;
+        
+        // Calcular margen
+        let margen = 0;
+        if (compra > 0 && venta > 0) {
+            margen = ((venta - compra) / compra) * 100;
+        }
+        
+        // Calcular valores
+        const valorInv = compra * stock;
+        const valorVentaInv = venta * stock;
+        
+        // Actualizar displays
+        margenCalculado.textContent = margen.toFixed(2) + '%';
+        valorInventario.textContent = 'S/ ' + valorInv.toFixed(2);
+        valorVentaInventario.textContent = 'S/ ' + valorVentaInv.toFixed(2);
+        
+        // Color del margen
+        if (margen > 50) {
+            margenCalculado.className = 'h5 text-success';
+        } else if (margen > 20) {
+            margenCalculado.className = 'h5 text-warning';
+        } else {
+            margenCalculado.className = 'h5 text-danger';
+        }
+        
+        // Validar que precio de venta no sea menor que compra
+        if (venta < compra) {
+            precioVenta.classList.add('is-invalid');
+            const feedback = precioVenta.nextElementSibling || document.createElement('div');
+            if (!feedback.classList.contains('invalid-feedback')) {
+                feedback.className = 'invalid-feedback d-block';
+                feedback.textContent = 'El precio de venta no puede ser menor al precio de compra';
+                precioVenta.parentNode.appendChild(feedback);
+            }
+        } else {
+            precioVenta.classList.remove('is-invalid');
+            const feedback = precioVenta.parentNode.querySelector('.invalid-feedback');
+            if (feedback) {
+                feedback.remove();
+            }
+        }
+    }
+    
+    // Escuchar cambios en los campos relevantes
+    [precioCompra, precioVenta, stockActual].forEach(field => {
+        if (field) {
+            field.addEventListener('input', calcularValores);
+            field.addEventListener('change', calcularValores);
+        }
+    });
+    
+    // Calcular valores iniciales
+    calcularValores();
+    
+    // Formatear precios al perder foco
+    if (precioCompra) {
+        precioCompra.addEventListener('blur', function(e) {
+            let value = parseFloat(e.target.value);
+            if (!isNaN(value)) {
+                e.target.value = value.toFixed(2);
+                calcularValores();
+            }
+        });
+    }
+    
+    if (precioVenta) {
+        precioVenta.addEventListener('blur', function(e) {
+            let value = parseFloat(e.target.value);
+            if (!isNaN(value)) {
+                e.target.value = value.toFixed(2);
+                calcularValores();
+            }
+        });
+    }
+    
+    // Validar stock máximo vs mínimo
+    const stocinimo = document.getElementById('{{ form.stock_minimo.id_for_label }}');
+    const stockMaximo = document.getElementById('{{ form.stock_maximo.id_for_label }}');
+    
+    function validarStock() {
+        const minimo = parseInt(stockMinimo.value) || 0;
+        const maximo = parseInt(stockMaximo.value) || 0;
+        
+        if (maximo > 0 && minimo > maximo) {
+            stockMinimo.classList.add('is-invalid');
+            const feedback = stockMinimo.nextElementSibling || document.createElement('div');
+            if (!feedback.classList.contains('invalid-feedback')) {
+                feedback.className = 'invalid-feedback d-block';
+                feedback.textContent = 'El stock mínimo no puede ser mayor al stock máximo';
+                stockMinimo.parentNode.appendChild(feedback);
+            }
+        } else {
+            stockMinimo.classList.remove('is-invalid');
+            const feedback = stockMinimo.parentNode.querySelector('.invalid-feedback');
+            if (feedback) {
+                feeack.remove();
+            }
+        }
+    }
+    
+    if (stockMinimo && stockMaximo) {
+        stockMinimo.addEventListener('change', validarStock);
+        stockMaximo.addEventListener('change', validarStock);
+        validarStock();
+    }
+});
+</script>
+{% endblock %}

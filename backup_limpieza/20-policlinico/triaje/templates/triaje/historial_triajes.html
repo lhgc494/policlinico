@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3 class="mb-4">Historial de Triajes</h3>
+
+    <!-- Indicador de permisos -->
+    {% if not perms.triaje.change_triaje %}
+    <div class="alert alert-info mb-4">
+        <i class="bi bi-eye me-2"></i><strong>Vista de solo lectura</strong> - Solo el administrador puede editar triajes
+    </div>
+    {% endif %}
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Fecha</th>
+                <th>Paciente</th>
+                <th>Consulta #</th>
+                <th>Peso (kg)</th>
+                <th>Talla (cm)</th>
+                <th>Temp. (°C)</th>
+                <th>Presión</th>
+                <th>FC (lpm)</th>
+                <th>Sat. (%)</th>
+                {% if perms.triaje.change_triaje %}
+                <th>Acciones</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for triaje in page_obj %}
+            <tr>
+                <td>{{ triaje.fecha|date:"d/m/Y H:i" }}</td>
+                <td>
+                    {{ triaje.consulta.paciente.nombres }} {{ triaje.consulta.paciente.apellidos }}<br>
+                    <small class="text-muted">DNI: {{ triaje.consulta.paciente.dni }}</small>
+                </td>
+                <td>#{{ triaje.consulta.id }}</td>
+                <td>{{ triaje.peso|default:"-" }}</td>
+                <td>{{ triaje.talla|default:"-" }}</td>
+                <td>{{ triaje.temperatura|default:"-" }}</td>
+                <td>{{ triaje.presion|default:"-" }}</td>
+                <td>{{ triaje.frecuencia_cardiaca|default:"-" }}</td>
+                <td>{{ triaje.saturacion|default:"-" }}</td>
+                {% if perms.triaje.change_triaje %}
+                <td>
+                    <a href="{% url 'editar_triaje' triaje.id %}"
+                       class="btn btn-sm btn-warning">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                </td>
+                {% endif %}
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="{% if perms.triaje.change_triaje %}10{% else %}9{% endif %}" class="text-center">
+                    No hay triajes registrados en el historial
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <nav>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                </li>
+            {% endif %}
+
+            <li class="page-item disabled">
+                <span class="page-link">
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+</div>
+{% endblock %}
