@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio - {{ paciente.nombres }} {{ paciente.apellidos }}</title>
+    <style>
+        @page {
+            size: 58mm auto;
+            margin: 0;
+        }
+        
+        body {
+            font-family: 'Courier New', monospace;
+            font-size: 9px;
+            line-height: 1.2;
+            width: 58mm;
+            margin: 0;
+            padding: 2mm;
+            word-wrap: break-word;
+        }
+        
+        .center { text-align: center; }
+        .bold { font-weight: bold; }
+        .separator { border-top: 1px dashed #000; margin: 3mm 0; }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8px;
+        }
+        
+        td { padding: 1mm 0; vertical-align: top; }
+        .small { font-size: 7px; }
+        .cut-line { text-align: center; margin: 5mm 0; font-size: 8px; }
+    </style>
+</head>
+<body>
+    <!-- ENCABEZADO -->
+    <div class="center">
+        <div class="bold">POLICLÍNICO MÉDICO</div>
+        <div class="small">Laboratorio Clínico</div>
+        <div class="separator"></div>
+    </div>
+    
+    <!-- DATOS PACIENTE -->
+    <div class="bold">ORDEN DE LABORATORIO</div>
+    <div class="separator"></div>
+    
+    <table>
+        <tr>
+            <td><strong>Paciente:</strong></td>
+            <td>{{ paciente.nombres }} {{ paciente.apellidos|truncatechars:15 }}</td>
+        </tr>
+        <tr>
+            <td><strong>DNI:</strong></td>
+            <td>{{ paciente.dni }}</td>
+        </tr>
+        <tr>
+            <td><strong>Edad:</strong></td>
+            <td>{{ paciente.edad }} años</td>
+        </tr>
+        <tr>
+            <td><strong>Fecha:</strong></td>
+            <td>{{ fecha_actual|date:"d/m/Y" }}</td>
+        </tr>
+        <tr>
+            <td><strong>Médico:</strong></td>
+            <td>Dr. {{ consulta.doctor.nombres }}</td>
+        </tr>
+    </table>
+    
+    <div class="separator"></div>
+    
+    <!-- EXÁMENES -->
+    <div class="bold center">EXÁMENES SOLICITADOS</div>
+    <div class="separator"></div>
+    
+    {% for examen in examenes %}
+    <div class="bold">{{ forloop.counter }}. {{ examen.examen|truncatechars:30 }}</div>
+    {% if examen.indicaciones %}
+    <div class="small">Ind: {{ examen.indicaciones|truncatechars:25 }}</div>
+    {% endif %}
+    <div style="height: 1mm;"></div>
+    {% empty %}
+    <div class="center">No hay exámenes</div>
+    {% endfor %}
+    
+    <div class="separator"></div>
+    
+    <!-- FIRMA -->
+    <div class="center">
+        <div>_________________________</div>
+        <div class="small">Firma del médico</div>
+        <div class="bold">Dr. {{ consulta.doctor.apellidos }}</div>
+    </div>
+    
+    <div class="separator"></div>
+    
+    <!-- PIE -->
+    <div class="center small">
+        <div>Válido por 15 días</div>
+        <div>Orden #: {{ consulta.id }}-LAB</div>
+    </div>
+    
+    <!-- LÍNEA DE CORTE -->
+    <div class="cut-line">✄ - - - - - - - - - - - - - - - ✄</div>
+    
+    <script>
+        window.onload = function() {
+            window.print();
+            setTimeout(function() {
+                window.close();
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+# farmacia/urls.py - VERSIÓN CORREGIDA CON app_name
+from django.urls import path
+from . import views
+
+app_name = 'farmacia'  # ¡ESTO ES CLAVE!
+
+urlpatterns = [
+    # ============ INVENTARIO ============
+    path('medicamentos/', views.lista_medicamentos, name='lista_medicamentos'),
+    path('medicamentos/crear/', views.crear_medicamento, name='crear_medicamento'),
+    path('medicamentos/editar/<int:id>/', views.editar_medicamento, name='editar_medicamento'),
+    path('medicamentos/eliminar/<int:id>/', views.eliminar_medicamento, name='eliminar_medicamento'),
+    path('medicamentos/detalle/<int:id>/', views.detalle_medicamento, name='detalle_medicamento'),
+    path('medicamentos/ajustar/<int:id>/', views.ajustar_inventario, name='ajustar_inventario'),
+    path('medicamentos/historial/', views.historial_movimientos, name='historial_movimientos'),
+    
+    # ============ BÚSQUEDAS AJAX ============
+    path('buscar-medicamentos-ajax/', views.buscar_medicamentos_ajax, name='buscar_medicamentos_ajax'),
+    path('buscar-medicamento-venta/', views.buscar_medicamento_venta, name='buscar_medicamento_venta'),
+
+    # ============ REPORTES ============
+    path('reportes/stock-bajo/', views.reporte_stock_bajo, name='reporte_stock_bajo'),
+    path('reportes/proximos-vencer/', views.reporte_proximos_vencer, name='reporte_proximos_vencer'),
+    path('reportes/valor-inventario/', views.reporte_valor_inventario, name='reporte_valor_inventario'),
+
+    # ============ PROVEEDORES ============
+    path('proveedores/', views.lista_proveedores, name='lista_proveedores'),
+    path('proveedores/crear/', views.crear_proveedor, name='crear_proveedor'),
+    path('proveedores/editar/<int:id>/', views.editar_proveedor, name='editar_proveedor'),
+    path('proveedores/eliminar/<int:id>/', views.eliminar_proveedor, name='eliminar_proveedor'),
+    path('proveedores/detalle/<int:id>/', views.detalle_proveedor, name='detalle_proveedor'),
+
+    # ============ CATEGORÍAS Y PRESENTACIONES ============
+    path('categorias/', views.lista_categorias, name='lista_categorias'),
+    path('categorias/crear/', views.crear_categoria, name='crear_categoria'),
+    path('categorias/editar/<int:id>/', views.editar_categoria, name='editar_categoria'),
+
+    path('presentaciones/', views.lista_presentaciones, name='lista_presentaciones'),
+    path('presentaciones/crear/', views.crear_presentacion, name='crear_presentacion'),
+    path('presentaciones/editar/<int:id>/', views.editar_presentacion, name='editar_presentacion'),
+
+    # ============ RECETAS ============
+    path('recetas-pendientes/', views.recetas_pendientes, name='recetas_pendientes'),
+    path('detalle-recetas/<int:consulta_id>/', views.detalle_recetas_consulta, name='detalle_recetas_consulta'),
+    path('cancelar-recetas/<int:consulta_id>/', views.cancelar_recetas_consulta, name='cancelar_recetas_consulta'),
+
+    # ============ PAGOS ============
+    path('procesar-pago/<int:consulta_id>/', views.procesar_pago, name='procesar_pago'),
+    path('finalizar-pago/consulta/<int:id>/', views.finalizar_pago, {'tipo': 'consulta'}, name='finalizar_pago_consulta'),
+    path('finalizar-pago/venta/<int:id>/', views.finalizar_pago, {'tipo': 'venta_directa'}, name='finalizar_pago_venta'),
+
+    # ============ VENTAS DIRECTAS ============
+    path('ventas/', views.venta_directa, name='venta_directa'),
+    path('ventas/historial/', views.historial_ventas, name='historial_ventas'),
+    path('ventas/<int:id>/', views.detalle_venta, name='detalle_venta'),
+    path('ventas/procesar/', views.procesar_venta_directa, name='procesar_venta_directa'),
+    path('ventas/actualizar-carrito/', views.actualizar_carrito, name='actualizar_carrito'),
+    path('ventas/ticket/<int:id>/', views.ticket_venta, name='ticket_venta'),
+    path('buscar-medicamentos-ajax/', views.buscar_medicamentos_ajax, name='buscar_medicamentos_ajax'),
+    path('ventas/obtener-carrito/', views.obtener_carrito, name='obtener_carrito'),
+]
