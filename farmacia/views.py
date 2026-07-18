@@ -1049,8 +1049,8 @@ def procesar_venta_directa(request):
                     print(f"      Stock antes: {medicamento.stock_actual}")
                     
                     # Actualizar stock
-                    medicamento.stock_actual -= cantidad
-                    medicamento.save()
+                    # medicamento.stock_actual -= cantidad
+                    # medicamento.save()
                     
                     detalle = DetalleVenta.objects.create(
                         venta=venta,
