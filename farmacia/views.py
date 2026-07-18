@@ -3013,6 +3013,12 @@ def confirmar_compra_individual(request):
                     referencia=f'Compra #{compra.id} - {numero_factura}',
                     precio_unitario=Decimal(str(item['precio_unitario']))
                 )
+
+                # ✅ ACTUALIZAR CAMPOS DEL MEDICAMENTO
+                medicamento.precio_compra = Decimal(str(item['precio_unitario']))
+                medicamento.lote = item.get('lote', '')
+                medicamento.fecha_vencimiento = item.get('fecha_vencimiento', None)
+                medicamento.save()
             
             del request.session['carrito_compra_individual']
             
