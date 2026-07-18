@@ -1,74 +1,61 @@
+cat > ~/policlinico/scripts/merge.sh << 'EOF'
 #!/bin/bash
 # =============================================
 # NOMBRE:      merge
-# DESCRIPCIÓN: Fusiona una rama a main de forma segura
-# CUÁNDO USAR: Al terminar una funcionalidad y querer incorporarla al proyecto principal
+# DESCRIPCIÓN: Fusiona una rama a otra (por defecto main)
+# CUÁNDO USAR: Al terminar una funcionalidad y querer incorporarla
 # CATEGORÍA:   Fusionar
 #
 # EJEMPLOS DE USO:
 #   merge feature/historia-clinica
-#   merge feature/modulo-pagos
+#   merge feature/historia-clinica develop
 # =============================================
 
-# 1. VALIDAR QUE HAY UNA RAMA PARA FUSIONAR
 if [ -z "$1" ]; then
-echo "❌ Debes indicar qué rama quieres fusionar"
-echo ""
-echo "Uso: merge <nombre-rama>"
-echo ""
-echo "Ejemplos:"
-echo "  merge feature/historia-clinica"
-echo "  merge feature/modulo-farmacia"
-echo ""
-echo "📋 Ramas disponibles:"
-git branch
-exit 1
+  echo "❌ Debes indicar qué rama quieres fusionar"
+  echo ""
+  echo "Uso: merge <origen> [destino]"
+  echo ""
+  echo "Ejemplos:"
+  echo "  merge feature/historia-clinica           → fusiona a main"
+  echo "  merge feature/historia-clinica develop   → fusiona a develop"
+  exit 1
 fi
 
 origen="$1"
-destino="main"
+destino="${2:-main}"
 
 echo "🔄 FUSIONANDO RAMA"
 echo "=================="
 echo "📍 Origen:  $origen"
 echo "📍 Destino: $destino"
 
-# 2. VERIFICAR QUE LA RAMA ORIGEN EXISTE
+# Verificar que la rama origen existe
 if ! git branch | grep -q "$origen"; then
-echo ""
-echo "❌ La rama '$origen' no existe"
-exit 1
+  echo "❌ La rama '$origen' no existe"
+  exit 1
 fi
 
-# 3. VERIFICAR QUE NO ESTAMOS EN LA MISMA RAMA
+# Verificar que no estamos en la misma rama
 rama_actual=$(git branch --show-current)
 if [ "$rama_actual" = "$origen" ]; then
-echo ""
-echo "⚠️  Estás en la rama '$origen'"
-echo "    No puedes fusionar una rama consigo misma"
-echo ""
-read -p "¿Quieres cambiar a main y fusionar desde allí? (s/n): " cambiar
-if [ "$cambiar" != "s" ]; then
-exit 0
-fi
+  echo "⚠️  Estás en la rama '$origen'. Cambiando a $destino..."
+  git checkout "$destino"
 fi
 
-# 4. VERIFICAR CAMBIOS SIN GUARDAR
+# Verificar cambios sin guardar
 if ! git diff --quiet || ! git diff --cached --quiet; then
-echo ""
-echo "⚠️  Tienes cambios sin guardar"
-read -p "¿Quieres guardarlos antes de fusionar? (s/n): " guardar
-if [ "$guardar" = "s" ]; then
-read -p "Mensaje del commit: " mensaje
-git add .
-git commit -m "$mensaje"
-echo "✅ Cambios guardados"
-else
-echo "⚠️  Los cambios se mantendrán sin guardar"
-fi
+  echo "⚠️  Tienes cambios sin guardar"
+  read -p "¿Guardarlos antes de fusionar? (s/n): " guardar </dev/tty
+  if [ "$guardar" = "s" ]; then
+    read -p "Mensaje del commit: " mensaje </dev/tty
+    git add .
+    git commit -m "$mensaje"
+    echo "✅ Cambios guardados"
+  fi
 fi
 
-# 5. IR A MAIN Y ACTUALIZAR
+# Ir a destino y actualizar
 echo ""
 echo "📂 Cambiando a $destino..."
 git checkout "$destino"
@@ -76,43 +63,42 @@ echo "✅ Estás en $destino"
 
 echo ""
 echo "⬇️  Actualizando $destino desde GitHub..."
-git pull origin "$destino"
+git pull origin "$destino" 2>/dev/null || echo "⚠️  No se pudo actualizar desde GitHub"
 echo "✅ $destino actualizado"
 
-# 6. FUSIONAR
+# Fusionar
 echo ""
 echo "🔄 Fusionando $origen en $destino..."
-git merge "$origen" --no-ff -m "merge: incorporar $origen"
+git merge "$origen" --no-ff -m "merge: incorporar $origen en $destino"
 
-# 7. VERIFICAR SI HUBO CONFLICTOS
 if [ $? -ne 0 ]; then
-echo ""
-echo "⚠️  ¡CONFLICTOS DETECTADOS!"
-echo ""
-echo "📋 Archivos en conflicto:"
-git diff --name-only --diff-filter=U
-echo ""
-echo "🛠️  Opciones:"
-echo "   1. Resuelve los conflictos manualmente"
-echo "   2. Luego ejecuta: save \"merge: resolver conflictos\""
-echo "   3. O cancela todo con: abort"
-exit 1
+  echo ""
+  echo "⚠️  ¡CONFLICTOS DETECTADOS!"
+  echo "📋 Archivos en conflicto:"
+  git diff --name-only --diff-filter=U
+  echo "  Opciones:"
+  echo "    1. Resuelve los conflictos manualmente"
+  echo "    2. Ejecuta: save \"merge: resolver conflictos\""
+  echo "    3. Cancela: abort"
+  exit 1
 fi
 
-# 8. SUBIR A GITHUB
+# Subir a GitHub
 echo ""
 echo "📤 Subiendo cambios a GitHub..."
 git push origin "$destino"
 echo "✅ Cambios subidos"
 
-# 9. RESUMEN
+# Resumen
 echo ""
 echo "=================================="
 echo "✅ FUSIÓN COMPLETADA"
 echo "=================================="
-echo ""
 echo "📍 $origen fusionado en $destino"
 echo "🌐 Cambios subidos a GitHub"
 echo ""
 echo "💡 ¿Quieres borrar la rama '$origen'?"
 echo "   Ejecuta: cleanup"
+EOF
+
+chmod +x ~/policlinico/scripts/merge.sh
