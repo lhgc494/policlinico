@@ -34,13 +34,15 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6 mb-3">
-                            <div class="card bg-danger text-white h-100">
-                                <div class="card-body">
-                                    <h6 class="card-title">Próximos a Vencer</h6>
-                                    <h2 class="mb-0">{{ proximos_vencer }}</h2>
-                                    <small>≤ 30 días</small>
+                            <a href="/reportes/?tipo=inventario" class="text-decoration-none">
+                                <div class="card bg-danger text-white h-100">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Próximos a Vencer</h6>
+                                        <h2 class="mb-0">{{ proximos_vencer }}</h2>
+                                        <small>≤ 120 días</small>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <div class="col-md-3 col-sm-6 mb-3">
                             <div class="card bg-info text-white h-100">
