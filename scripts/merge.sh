@@ -1,4 +1,3 @@
-cat > ~/policlinico/scripts/merge.sh << 'EOF'
 #!/bin/bash
 # =============================================
 # NOMBRE:      merge
@@ -99,6 +98,3 @@ echo "🌐 Cambios subidos a GitHub"
 echo ""
 echo "💡 ¿Quieres borrar la rama '$origen'?"
 echo "   Ejecuta: cleanup"
-EOF
-
-chmod +x ~/policlinico/scripts/merge.sh
