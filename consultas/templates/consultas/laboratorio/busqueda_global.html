@@ -91,12 +91,12 @@
                                             
                                             <!-- 🔥 NUEVO: Botón IMPRIMIR para estados COMPLETADO y ENTREGADO -->
                                             {% if orden.estado == 'COMPLETADO' or orden.estado == 'ENTREGADO' %}
-                                            <a href="{% url 'imprimir_resultado' orden.id %}" 
+                                           <!-- <a href="{% url 'imprimir_resultado' orden.id %}" 
                                                class="btn btn-outline-success" 
                                                target="_blank"
                                                title="Imprimir resultado">
                                                 <i class="fas fa-print"></i> Imprimir
-                                            </a>
+                                            </a> -->
                                             {% endif %}
                                         </div>
                                     </td>
