@@ -434,23 +434,34 @@ def detalle_orden_examen(request, orden_id):
 
     es_ambulatoria = orden.consulta is None and orden.venta_ambulatoria is not None
 
-    # ✅ NUEVO: Verificar si la orden se puede asignar
-    puede_asignarse = (
-        orden.estado == 'SOLICITADO' and 
-        not orden.pagado and  # ← ¡IMPORTANTE! Verificar que NO esté pagada
-        not orden.tecnico_asignado
-    )
-    
-    # ✅ NUEVO: Motivo por el que no se puede asignar
-    motivo_no_asignable = ""
-    if orden.pagado:
-        motivo_no_asignable = "Por pagar - Complete el pago primero"
-    elif orden.tecnico_asignado:
-        motivo_no_asignable = f"Ya asignada a {orden.tecnico_asignado.get_full_name()}"
-    elif orden.estado != 'SOLICITADO':
-        motivo_no_asignable = f"Estado actual: {orden.get_estado_display()}"
+    # Verificar si la orden se puede asignar
+    if es_ambulatoria:
+        # Ambulatorio: siempre pagado, se puede asignar si está SOLICITADO y sin técnico
+        puede_asignarse = (
+            orden.estado == 'SOLICITADO' and 
+            not orden.tecnico_asignado
+        )
+        motivo_no_asignable = ""
+        if orden.tecnico_asignado:
+            motivo_no_asignable = f"Ya asignada a {orden.tecnico_asignado.get_full_name()}"
+        elif orden.estado != 'SOLICITADO':
+            motivo_no_asignable = f"Estado actual: {orden.get_estado_display()}"
+    else:
+        # Interno: debe estar pagado para asignarse
+        puede_asignarse = (
+            orden.estado == 'SOLICITADO' and 
+            orden.pagado and
+            not orden.tecnico_asignado
+        )
+        motivo_no_asignable = ""
+        if not orden.pagado:
+            motivo_no_asignable = "Por pagar - Complete el pago primero"
+        elif orden.tecnico_asignado:
+            motivo_no_asignable = f"Ya asignada a {orden.tecnico_asignado.get_full_name()}"
+        elif orden.estado != 'SOLICITADO':
+            motivo_no_asignable = f"Estado actual: {orden.get_estado_display()}"
 
-    # PREPARAR DATOS DEL PACIENTE (código existente sin cambios)
+    # PREPARAR DATOS DEL PACIENTE
     paciente_data = {}
     if es_ambulatoria:
         venta = orden.venta_ambulatoria
@@ -509,7 +520,6 @@ def detalle_orden_examen(request, orden_id):
                 'es_ambulatorio': False,
             }
 
-    # MANEJO DE PETICIONES POST (código existente sin cambios)
     if request.method == 'POST':
         accion = request.POST.get('accion')
 
@@ -535,8 +545,8 @@ def detalle_orden_examen(request, orden_id):
         'consulta': orden.consulta,
         'es_ambulatoria': es_ambulatoria,
         'es_laboratorio': True,
-        'puede_asignarse': puede_asignarse,  # ← NUEVO
-        'motivo_no_asignable': motivo_no_asignable,  # ← NUEVO
+        'puede_asignarse': puede_asignarse,
+        'motivo_no_asignable': motivo_no_asignable,
     }
 
     return render(request, 'consultas/laboratorio/detalle_orden.html', context)
