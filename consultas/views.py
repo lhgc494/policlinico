@@ -436,7 +436,6 @@ def detalle_orden_examen(request, orden_id):
 
     # Verificar si la orden se puede asignar
     if es_ambulatoria:
-        # Ambulatorio: siempre pagado, se puede asignar si está SOLICITADO y sin técnico
         puede_asignarse = (
             orden.estado == 'SOLICITADO' and 
             not orden.tecnico_asignado
@@ -447,7 +446,6 @@ def detalle_orden_examen(request, orden_id):
         elif orden.estado != 'SOLICITADO':
             motivo_no_asignable = f"Estado actual: {orden.get_estado_display()}"
     else:
-        # Interno: debe estar pagado para asignarse
         puede_asignarse = (
             orden.estado == 'SOLICITADO' and 
             orden.pagado and
@@ -523,7 +521,17 @@ def detalle_orden_examen(request, orden_id):
     if request.method == 'POST':
         accion = request.POST.get('accion')
 
-        if accion == 'completar':
+        if accion == 'subir_pdf':
+            archivo = request.FILES.get('archivo_resultado')
+            if archivo:
+                orden.archivo_resultado = archivo
+                orden.save()
+                messages.success(request, f'✅ PDF subido correctamente para orden #{orden.id}')
+            else:
+                messages.error(request, '❌ No se seleccionó ningún archivo')
+            return redirect('detalle_orden_examen', orden_id=orden.id)
+
+        elif accion == 'completar':
             orden.estado = 'COMPLETADO'
             orden.fecha_realizacion = timezone.now()
             orden.save()

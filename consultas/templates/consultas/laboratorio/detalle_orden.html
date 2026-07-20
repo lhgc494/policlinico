@@ -14,7 +14,6 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <!-- Información del paciente (sin cambios) -->
                     <div class="mb-4">
                         <h5 class="text-primary">
                             <i class="fas fa-user me-2"></i>Paciente
@@ -34,7 +33,6 @@
                         </div>
                     </div>
 
-                    <!-- Información de la orden -->
                     <div class="mb-4">
                         <h5 class="text-primary">
                             <i class="fas fa-flask me-2"></i>Examen Solicitado
@@ -44,7 +42,6 @@
                         </p>
                         <p><strong>Examen:</strong> <span class="fw-bold">{{ orden.examen_especifico }}</span></p>
                         
-                        <!-- ✅ NUEVO: Mostrar estado de pago -->
                         <p><strong>Estado de pago:</strong>
                             {% if orden.pagado %}
                             <span class="badge bg-success">Pagado</span>
@@ -61,7 +58,6 @@
                         {% endif %}
                     </div>
 
-                    <!-- Estados y fechas (sin cambios) -->
                     <div class="mb-4">
                         <h5 class="text-primary">
                             <i class="fas fa-history me-2"></i>Estado y Fechas
@@ -102,7 +98,6 @@
                         {% endif %}
                     </div>
 
-                    <!-- Información de la consulta (sin cambios) -->
                     {% if consulta and consulta.doctor %}
                     <div class="mb-4">
                         <h5 class="text-primary">
@@ -129,7 +124,6 @@
 
                     {% if orden.estado == 'SOLICITADO' %}
                     
-                    <!-- ✅ MODIFICADO: Solo mostrar botón de asignar si se puede -->
                     {% if puede_asignarse %}
                     <div class="alert alert-warning">
                         <h5><i class="fas fa-clock me-2"></i>Orden Pendiente</h5>
@@ -142,7 +136,6 @@
                         </form>
                     </div>
                     {% else %}
-                    <!-- Orden solicitada pero NO asignable -->
                     <div class="alert alert-danger">
                         <h5><i class="fas fa-ban me-2"></i>Orden No Asignable</h5>
                         <p class="mb-3">{{ motivo_no_asignable|default:"No se puede asignar esta orden" }}</p>
@@ -152,51 +145,69 @@
                     </div>
                     {% endif %}
 
+                    {% elif orden.estado == 'EN_PROCESO' and orden.tecnico_asignado == request.user %}
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-user-check me-2"></i>Orden Asignada</h5>
+                        <p class="mb-3">Esta orden está asignada a usted.</p>
 
+                        {% if not orden.archivo_resultado %}
+                        <button onclick="document.getElementById('form-pdf').style.display='block'; this.style.display='none'"
+                                class="btn btn-primary btn-lg w-100 mb-3">
+                            <i class="fas fa-edit me-2"></i>Subir Resultados (PDF)
+                            <small class="d-block mt-1 fs-6">Formato: {{ orden.examen_especifico }}</small>
+                        </button>
 
+                        <div id="form-pdf" style="display:none;">
+                            <form method="post" enctype="multipart/form-data" class="mt-2">
+                                {% csrf_token %}
+                                <input type="hidden" name="accion" value="subir_pdf">
+                                <div class="input-group">
+                                    <input type="file" name="archivo_resultado" class="form-control" accept=".pdf" required>
+                                    <button type="submit" class="btn btn-outline-primary">
+                                        <i class="fas fa-upload me-1"></i> Subir PDF
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        {% endif %}
 
+                        {% if orden.archivo_resultado %}
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>PDF subido correctamente
+                            <a href="{{ orden.archivo_resultado.url }}" target="_blank" class="btn btn-sm btn-outline-light ms-2">
+                                <i class="fas fa-file-pdf me-1"></i> Ver PDF
+                            </a>
+                        </div>
 
-{% elif orden.estado == 'EN_PROCESO' and orden.tecnico_asignado == request.user %}
-<!-- Orden asignada al usuario actual - CON BOTÓN PARA INGRESAR RESULTADOS -->
-<div class="alert alert-info">
-    <h5><i class="fas fa-user-check me-2"></i>Orden Asignada</h5>
-    <p class="mb-3">Esta orden está asignada a usted.</p>
+                        <form method="post" class="mt-2">
+                            {% csrf_token %}
+                            <input type="hidden" name="accion" value="completar">
+                            <button type="submit" class="btn btn-outline-success btn-lg w-100">
+                                <i class="fas fa-check-circle me-2"></i>Marcar como Completada
+                            </button>
+                        </form>
+                        {% endif %}
 
-    <!-- 🔥 BOTÓN PRINCIPAL: Ingresar resultados con formato específico -->
-    <a href="{% url 'ingresar_resultados' orden.id %}" 
-       class="btn btn-primary btn-lg w-100 mb-3">
-        <i class="fas fa-edit me-2"></i>Ingresar Resultados
-        <small class="d-block mt-1 fs-6">Formato: {{ orden.examen_especifico }}</small>
-    </a>
-
-    <!-- Botón secundario: Marcar como COMPLETADA (solo después de ingresar resultados) -->
-    <form method="post" class="mt-2">
-        {% csrf_token %}
-        <input type="hidden" name="accion" value="completar">
-        <button type="submit" class="btn btn-outline-success btn-lg w-100">
-            <i class="fas fa-check-circle me-2"></i>Marcar como Completada
-        </button>
-    </form>
-
-    <div class="text-center text-muted mt-3">
-        <small>
-            <i class="fas fa-info-circle me-1"></i>
-            1. Ingrese resultados usando el formato específico<br>
-            2. Luego marque como completada
-        </small>
-    </div>
-</div>
-
-
-
+                        <div class="text-center text-muted mt-3">
+                            <small>
+                                <i class="fas fa-info-circle me-1"></i>
+                                1. Suba el PDF con los resultados<br>
+                                2. Luego marque como completada
+                            </small>
+                        </div>
+                    </div>
 
                     {% elif orden.estado == 'COMPLETADO' %}
-                    <!-- Orden completada, lista para entregar (sin cambios) -->
                     <div class="alert alert-success">
                         <h5><i class="fas fa-check-circle me-2"></i>Examen Completado</h5>
                         <p class="mb-3">El examen ha sido procesado y está listo para entregar.</p>
 
-                        <!-- Botón para marcar como ENTREGADA -->
+                        {% if orden.archivo_resultado %}
+                        <a href="{{ orden.archivo_resultado.url }}" target="_blank" class="btn btn-info btn-lg w-100 mb-3">
+                            <i class="fas fa-file-pdf me-2"></i>Ver Resultados PDF
+                        </a>
+                        {% endif %}
+
                         <form method="post">
                             {% csrf_token %}
                             <input type="hidden" name="accion" value="entregar">
@@ -207,17 +218,20 @@
                     </div>
 
                     {% elif orden.estado == 'ENTREGADO' %}
-                    <!-- Orden entregada (sin cambios) -->
                     <div class="alert alert-primary">
                         <h5><i class="fas fa-box-check me-2"></i>Examen Entregado</h5>
                         <p class="mb-3">Los resultados han sido entregados al paciente.</p>
                         {% if orden.fecha_entrega %}
                         <p><strong>Fecha de entrega:</strong> {{ orden.fecha_entrega|date:"d/m/Y H:i" }}</p>
                         {% endif %}
+                        {% if orden.archivo_resultado %}
+                        <a href="{{ orden.archivo_resultado.url }}" target="_blank" class="btn btn-info btn-lg w-100">
+                            <i class="fas fa-file-pdf me-2"></i>Ver Resultados PDF
+                        </a>
+                        {% endif %}
                     </div>
 
                     {% else %}
-                    <!-- Orden en proceso pero asignada a otro técnico (sin cambios) -->
                     <div class="alert alert-warning">
                         <h5><i class="fas fa-user-clock me-2"></i>Orden en Proceso</h5>
                         <p class="mb-3">Esta orden está siendo procesada por otro técnico.</p>
@@ -226,7 +240,6 @@
                     </div>
                     {% endif %}
 
-                    <!-- Botones de navegación (sin cambios) -->
                     <div class="mt-4">
                         <a href="{% url 'lista_ordenes_pendientes' %}" class="btn btn-outline-secondary me-2">
                             <i class="fas fa-arrow-left me-1"></i>Volver a Pendientes
@@ -236,7 +249,6 @@
                         </a>
                     </div>
 
-                    <!-- Información rápida (sin cambios) -->
                     <div class="mt-4 pt-3 border-top">
                         <h6 class="text-muted">
                             <i class="fas fa-info-circle me-2"></i>Información rápida
