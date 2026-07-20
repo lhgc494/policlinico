@@ -1,4 +1,5 @@
 # farmacia/views.py - VERSIÓN COMPLETA CORREGIDA
+from datetime import date
 from decimal import Decimal
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -2243,11 +2244,115 @@ def lista_compras(request):
 @grupo_requerido('farmacia', 'administrador')
 def registrar_compra(request):
     """Página principal para registrar compras (Excel o manual)"""
+    preview_items = request.session.get('preview_items', None)
+    errores = request.session.get('errores_carga', [])
+    
     context = {
         'proveedores': Proveedor.objects.filter(activo=True).order_by('nombre'),
-        'titulo': 'Registrar Compra a Proveedor'
+        'titulo': 'Registrar Compra a Proveedor',
+        'preview_items': preview_items,
+        'errores': errores,
+        'today': date.today(),
     }
     return render(request, 'farmacia/registrar_compra.html', context)
+
+
+@login_required
+@grupo_requerido('farmacia', 'administrador')
+def finalizar_compra_excel(request):
+    """Finaliza la compra masiva desde Excel con datos de factura"""
+    from decimal import Decimal
+    from datetime import datetime
+    from django.db import transaction
+    
+    if request.method != 'POST':
+        return redirect('farmacia:registrar_compra')
+    
+    proveedor_id = request.POST.get('proveedor_id')
+    numero_factura = request.POST.get('numero_factura')
+    fecha_factura = request.POST.get('fecha_factura')
+    incluye_igv = request.POST.get('incluye_igv') == 'on'
+    factura_pagada = request.POST.get('factura_pagada') == 'on'
+    
+    if not proveedor_id or not numero_factura or not fecha_factura:
+        messages.error(request, 'Complete todos los datos de la factura')
+        return redirect('farmacia:registrar_compra')
+    
+    items = request.session.get('preview_items', [])
+    if not items:
+        items = request.session.get('previsualizacion_compra', {}).get('items', [])
+    
+    if not items:
+        messages.error(request, 'No hay productos cargados. Suba el Excel primero.')
+        return redirect('farmacia:registrar_compra')
+    
+    try:
+        with transaction.atomic():
+            proveedor = get_object_or_404(Proveedor, id=proveedor_id)
+            
+            subtotal = Decimal(str(sum(item['subtotal'] for item in items)))
+            
+            if incluye_igv:
+                igv = subtotal * Decimal('0.18')
+                total = subtotal + igv
+            else:
+                igv = Decimal('0')
+                total = subtotal
+            
+            observaciones = ''
+            if factura_pagada:
+                observaciones += ' [FACTURA PAGADA]'
+            else:
+                observaciones += ' [FACTURA PENDIENTE]'
+            
+            compra = Compra.objects.create(
+                proveedor=proveedor,
+                numero_factura=numero_factura,
+                fecha_factura=fecha_factura,
+                subtotal=subtotal,
+                igv=igv,
+                total=total,
+                observaciones=observaciones,
+                usuario=request.user
+            )
+            
+            for item in items:
+                medicamento = get_object_or_404(Medicamento, id=item['medicamento_id'])
+                
+                DetalleCompra.objects.create(
+                    compra=compra,
+                    medicamento=medicamento,
+                    cantidad=item['cantidad'],
+                    precio_unitario=Decimal(str(item['precio_unitario'])),
+                    lote=item['lote'],
+                    fecha_vencimiento=datetime.strptime(item['fecha_vencimiento'], '%d/%m/%Y').date(),
+                    subtotal=Decimal(str(item['subtotal']))
+                )
+                
+                medicamento.precio_compra = Decimal(str(item['precio_unitario']))
+                medicamento.lote = item['lote']
+                medicamento.fecha_vencimiento = datetime.strptime(item['fecha_vencimiento'], '%d/%m/%Y').date()
+                medicamento.save()
+                
+                MovimientoInventario.objects.create(
+                    medicamento=medicamento,
+                    tipo='COMPRA',
+                    cantidad=item['cantidad'],
+                    usuario=request.user,
+                    referencia=f'Compra #{compra.id} - {numero_factura}',
+                    precio_unitario=Decimal(str(item['precio_unitario']))
+                )
+            
+            request.session.pop('preview_items', None)
+            request.session.pop('previsualizacion_compra', None)
+            
+            messages.success(request, f'✅ Compra #{compra.id} registrada con {len(items)} productos.')
+            return redirect('farmacia:detalle_compra', compra_id=compra.id)
+            
+    except Exception as e:
+        messages.error(request, f'Error al finalizar compra: {str(e)}')
+        return redirect('farmacia:registrar_compra')
+
 
 
 @login_required
@@ -2257,46 +2362,41 @@ def descargar_plantilla_compra(request):
     import pandas as pd
     from io import BytesIO
     from django.http import HttpResponse
-    
-    # Crear datos de ejemplo
+
+    # Crear DataFrame vacío solo con encabezados
     data = {
-        'codigo': ['MED001', 'MED002', 'MED003'],
-        'cantidad': [100, 50, 30],
-        'lote': ['L2301A', 'L2302B', 'L2303C'],
-        'fecha_vencimiento': ['31/12/2025', '30/06/2025', '31/03/2026'],
-        'precio_unitario': [5.50, 3.20, 8.75],
+        'Código': [],
+        'Cantidad': [],
+        'Lote': [],
+        'Vencimiento': [],
+        'Precio Unit.': [],
     }
-    
+
     df = pd.DataFrame(data)
-    
-    # Crear archivo Excel en memoria
+
     output = BytesIO()
     with pd.ExcelWriter(output, engine='openpyxl') as writer:
         df.to_excel(writer, sheet_name='Compra', index=False)
-        
-        # Ajustar ancho de columnas
         worksheet = writer.sheets['Compra']
         for column in df:
-            column_width = max(df[column].astype(str).map(len).max(), len(column))
             col_idx = df.columns.get_loc(column)
-            worksheet.column_dimensions[chr(65 + col_idx)].width = column_width + 2
-    
+            worksheet.column_dimensions[chr(65 + col_idx)].width = 18
+
     output.seek(0)
-    
-    # Crear respuesta HTTP
+
     response = HttpResponse(
         output.read(),
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
     response['Content-Disposition'] = 'attachment; filename="plantilla_compra.xlsx"'
-    
+
     return response
 
 #########################################
 @login_required
 @grupo_requerido('farmacia', 'administrador')
 def cargar_compra_excel(request):
-    """Carga Excel con compras - SOLO 6 CAMPOS OBLIGATORIOS, el resto opcionales"""
+    """Carga Excel con compras - Versión simplificada con formulario de factura"""
     import pandas as pd
     from datetime import datetime
     from decimal import Decimal
@@ -2305,33 +2405,14 @@ def cargar_compra_excel(request):
         archivo = request.FILES['archivo_excel']
         
         try:
-            # Leer Excel
             df = pd.read_excel(archivo)
             
-            # Columnas obligatorias SIEMPRE
             columnas_obligatorias = ['Código', 'Cantidad', 'Lote', 'Vencimiento', 'Precio Unit.']
             for col in columnas_obligatorias:
                 if col not in df.columns:
                     messages.error(request, f'La columna obligatoria "{col}" no está en el Excel')
                     return redirect('farmacia:registrar_compra')
             
-            # Mapeo de campos opcionales (incluye categoría y proveedor)
-            campos_opcionales = [
-                ('Código de Barras', 'codigo_barras', 'str'),
-                ('Nombre Comercial', 'nombre_comercial', 'str'),
-                ('Principio Activo', 'principio_activo', 'str'),
-                ('Forma Farmacéutica', 'forma_farmaceutica', 'str'),
-                ('Fabricante/Laboratorio', 'fabricante', 'str'),
-                ('Categoría/Grupo', 'categoria', 'categoria'),
-                ('Proveedor', 'proveedor', 'proveedor'),
-                ('Stock Mínimo', 'stock_minimo', 'int'),
-                ('Cantidad por Caja', 'cantidad_por_caja', 'int'),
-                ('Precio de Venta', 'precio_venta', 'decimal'),
-                ('Precio por Caja', 'precio_por_caja', 'decimal'),
-                ('Registro Sanitario', 'registro_sanitario', 'str'),
-            ]
-            
-            # Procesar cada fila
             items_preview = []
             errores = []
             
@@ -2339,70 +2420,18 @@ def cargar_compra_excel(request):
                 try:
                     codigo = str(row['Código']).strip()
                     
-                    # Buscar medicamento por código
                     try:
-                        medicamento = Medicamento.objects.get(codigo=codigo)
+                        medicamento = Medicamento.objects.get(codigo=codigo, activo=True)
+                        nombre = medicamento.nombre_comercial
+                        medicamento_id = medicamento.id
                         es_nuevo = False
                     except Medicamento.DoesNotExist:
-                        es_nuevo = True
-                        # Si es nuevo, necesita nombre comercial
-                        if 'Nombre Comercial' not in df.columns or pd.isna(row.get('Nombre Comercial')):
-                            errores.append(f"Fila {idx+2}: Código '{codigo}' no existe y falta 'Nombre Comercial' para crearlo")
-                            continue
-                        
-                        # Crear instancia temporal (aún no se guarda)
-                        medicamento = Medicamento(codigo=codigo)
+                        errores.append(f"Fila {idx+2}: Código '{codigo}' no encontrado")
+                        continue
                     
-                    # Procesar campos opcionales
-                    datos_actualizados = {}
-                    
-                    for campo_excel, campo_bd, tipo in campos_opcionales:
-                        if campo_excel in df.columns and not pd.isna(row.get(campo_excel)):
-                            valor = row[campo_excel]
-                            
-                            # Conversión según tipo
-                            if tipo == 'int':
-                                try:
-                                    valor = int(float(valor))
-                                except:
-                                    errores.append(f"Fila {idx+2}: {campo_excel} debe ser un número entero")
-                                    continue
-                            elif tipo == 'decimal':
-                                try:
-                                    valor = Decimal(str(valor))
-                                except:
-                                    errores.append(f"Fila {idx+2}: {campo_excel} debe ser un número decimal")
-                                    continue
-                            elif tipo == 'str':
-                                valor = str(valor).strip()
-                            elif tipo == 'categoria':
-                                # Buscar categoría por nombre (insensible a mayúsculas)
-                                nombre_categoria = str(valor).strip()
-                                try:
-                                    categoria = Categoria.objects.get(nombre__iexact=nombre_categoria)
-                                    valor = categoria
-                                except Categoria.DoesNotExist:
-                                    errores.append(f"Fila {idx+2}: Categoría '{nombre_categoria}' no encontrada")
-                                    continue
-                            elif tipo == 'proveedor':
-                                # Buscar proveedor por nombre (insensible a mayúsculas)
-                                nombre_proveedor = str(valor).strip()
-                                try:
-                                    proveedor = Proveedor.objects.get(nombre__iexact=nombre_proveedor)
-                                    valor = proveedor
-                                except Proveedor.DoesNotExist:
-                                    errores.append(f"Fila {idx+2}: Proveedor '{nombre_proveedor}' no encontrado")
-                                    continue
-                            
-                            # Asignar valor al medicamento y guardar en datos_actualizados
-                            setattr(medicamento, campo_bd, valor)
-                            datos_actualizados[campo_bd] = valor
-                    
-                    # Procesar cantidad, lote, vencimiento, precio compra
                     cantidad = int(row['Cantidad'])
                     lote = str(row['Lote']).strip()
                     
-                    # Fecha de vencimiento
                     try:
                         if isinstance(row['Vencimiento'], datetime):
                             fecha_venc = row['Vencimiento'].date()
@@ -2412,68 +2441,33 @@ def cargar_compra_excel(request):
                         errores.append(f"Fila {idx+2}: Fecha de vencimiento inválida")
                         continue
                     
-                    precio_compra = Decimal(str(row['Precio Unit.']))
+                    precio_compra = float(row['Precio Unit.'])
                     
                     items_preview.append({
-                        'fila': idx + 2,
                         'codigo': codigo,
-                        'medicamento': medicamento,
-                        'nombre': medicamento.nombre_comercial if hasattr(medicamento, 'nombre_comercial') else codigo,
+                        'nombre': nombre,
+                        'medicamento_id': medicamento_id,
                         'cantidad': cantidad,
                         'lote': lote,
-                        'fecha_vencimiento': fecha_venc,
-                        'precio_unitario': float(precio_compra),  # ✅ Convertir a float
-                        'subtotal': float(cantidad * float(precio_compra)),  # ✅ Convertir a float
-                        'es_nuevo': es_nuevo,
-                        'datos_actualizados': datos_actualizados,
-                        'valido': True
+                        'fecha_vencimiento': fecha_venc.strftime('%d/%m/%Y'),
+                        'precio_unitario': precio_compra,
+                        'subtotal': round(cantidad * precio_compra, 2),
+                        'es_nuevo': False,
                     })
                     
                 except Exception as e:
-                    errores.append(f"Fila {idx+2}: Error inesperado - {str(e)}")
+                    errores.append(f"Fila {idx+2}: {str(e)}")
             
             if not items_preview:
                 messages.error(request, 'No se encontraron items válidos')
                 return redirect('farmacia:registrar_compra')
             
-            # Calcular totales
-            subtotal = sum(item['subtotal'] for item in items_preview)
-            igv = subtotal * 0.18
-            total = subtotal + igv
+            # Guardar en sesión
+            request.session['preview_items'] = items_preview
+            request.session['errores_carga'] = errores
             
-            # Guardar en sesión (TODO convertido a float para serialización JSON)
-            request.session['previsualizacion_compra'] = {
-                'items': [
-                    {
-                        'codigo': item['codigo'],
-                        'es_nuevo': item['es_nuevo'],
-                        'datos_actualizados': {
-                            k: (v.id if hasattr(v, 'id') else float(v) if isinstance(v, Decimal) else v)
-                            for k, v in item['datos_actualizados'].items()
-                        },
-                        'cantidad': item['cantidad'],
-                        'lote': item['lote'],
-                        'fecha_vencimiento': item['fecha_vencimiento'].strftime('%Y-%m-%d'),
-                        'precio_unitario': float(item['precio_unitario']),  # ✅ Convertido
-                        'subtotal': float(item['subtotal'])                  # ✅ Convertido
-                    } for item in items_preview
-                ],
-                'subtotal': float(subtotal),   # ✅ Convertido
-                'igv': float(igv),             # ✅ Convertido
-                'total': float(total),         # ✅ Convertido
-            }
-            
-            context = {
-                'items': items_preview,
-                'errores': errores,
-                'subtotal': subtotal,
-                'igv': igv,
-                'total': total,
-                'proveedores': Proveedor.objects.filter(activo=True).order_by('nombre'),
-                'titulo': 'Previsualizar Compra'
-            }
-            
-            return render(request, 'farmacia/compra_previsualizar.html', context)
+            messages.success(request, f'✅ {len(items_preview)} productos cargados. Complete los datos de la factura.')
+            return redirect('farmacia:registrar_compra')
             
         except Exception as e:
             messages.error(request, f'Error al leer archivo: {str(e)}')
