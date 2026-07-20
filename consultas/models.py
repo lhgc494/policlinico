@@ -410,6 +410,14 @@ class OrdenExamen(models.Model):
         help_text='Almacena los resultados en formato JSON para exámenes con múltiples campos'
     )
 
+    archivo_resultado = models.FileField(
+        upload_to='resultados_laboratorio/',
+        null=True,
+        blank=True,
+        verbose_name='Archivo PDF de resultados',
+        help_text='PDF con los resultados del examen'
+    )
+
     estado = models.CharField(
         max_length=20,
         choices=ESTADOS,
