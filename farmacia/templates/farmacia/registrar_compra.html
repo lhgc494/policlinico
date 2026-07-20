@@ -14,42 +14,107 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    
+
+                    <!-- Paso 1: Subir Excel -->
                     <div class="alert alert-info">
                         <i class="fas fa-info-circle me-2"></i>
-                        Puedes cargar múltiples productos usando un archivo Excel.
+                        <strong>Paso 1:</strong> Carga el archivo Excel con los medicamentos.
                         <a href="{% url 'farmacia:descargar_plantilla_compra' %}" class="alert-link">
                             Descargar plantilla
                         </a>
                     </div>
-                    
+
                     <form method="post" enctype="multipart/form-data" action="{% url 'farmacia:cargar_compra_excel' %}">
                         {% csrf_token %}
-                        
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Archivo Excel:</label>
                                 <input type="file" name="archivo_excel" class="form-control" accept=".xlsx,.xls" required>
                                 <small class="text-muted">
-                                    Formato: código, cantidad, lote, fecha_vencimiento, precio_unitario
+                                    Formato: Código, Cantidad, Lote, Vencimiento, Precio Unit.
                                 </small>
                             </div>
                         </div>
-                        
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-upload me-1"></i> Cargar y Previsualizar
                         </button>
-                        <a href="{% url 'farmacia:lista_compras' %}" class="btn btn-secondary">
-                            <i class="fas fa-times me-1"></i> Cancelar
-                        </a>
                     </form>
-                    
+
+                    {% if preview_items %}
                     <hr class="my-4">
-                    
-                    <div class="text-center text-muted">
-                        <i class="fas fa-database fa-2x mb-3"></i>
-                        <p>¿Tienes muchos productos? Usa el Excel para cargarlos todos de una vez.</p>
+
+                    <!-- Paso 2: Revisar medicamentos cargados -->
+                    <h5 class="mb-3">📋 Medicamentos cargados ({{ preview_items|length }} items)</h5>
+                    <div class="table-responsive mb-4">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Medicamento</th>
+                                    <th>Lote</th>
+                                    <th>Vencimiento</th>
+                                    <th class="text-end">Cantidad</th>
+                                    <th class="text-end">P. Unit.</th>
+                                    <th class="text-end">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in preview_items %}
+                                <tr>
+                                    <td>{{ item.codigo }}</td>
+                                    <td>{{ item.nombre }}</td>
+                                    <td>{{ item.lote }}</td>
+                                    <td>{{ item.fecha_vencimiento }}</td>
+                                    <td class="text-end">{{ item.cantidad }}</td>
+                                    <td class="text-end">S/ {{ item.precio_unitario }}</td>
+                                    <td class="text-end">S/ {{ item.subtotal }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
+
+                    <!-- Paso 3: Datos de la factura -->
+                    <h5 class="mb-3">🧾 Datos de la Factura</h5>
+                    <form method="post" action="{% url 'farmacia:finalizar_compra_excel' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Proveedor:</label>
+                                <select name="proveedor_id" class="form-select" required>
+                                    <option value="">Seleccione proveedor</option>
+                                    {% for p in proveedores %}
+                                    <option value="{{ p.id }}">{{ p.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">N° Factura:</label>
+                                <input type="text" name="numero_factura" class="form-control" placeholder="Ej: F001-00000123" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Fecha Factura:</label>
+                                <input type="date" name="fecha_factura" class="form-control" required value="{{ today|date:'Y-m-d' }}">
+                            </div>
+                            <div class="col-md-4 mb-3 d-flex align-items-end">
+                                <div class="form-check">
+                                    <input type="checkbox" name="incluye_igv" class="form-check-input" id="incluye_igv">
+                                    <label class="form-check-label" for="incluye_igv">Incluye IGV (18%)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3 d-flex align-items-end">
+                                <div class="form-check">
+                                    <input type="checkbox" name="factura_pagada" class="form-check-input" id="factura_pagada">
+                                    <label class="form-check-label" for="factura_pagada">✓ Factura Pagada</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-check-circle me-1"></i> Finalizar Compra
+                        </button>
+                    </form>
+                    {% endif %}
+
                 </div>
             </div>
         </div>

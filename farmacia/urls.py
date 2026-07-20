@@ -73,6 +73,7 @@ urlpatterns = [
     path('compras/registrar/', views.registrar_compra, name='registrar_compra'),
     path('compras/plantilla/', views.descargar_plantilla_compra, name='descargar_plantilla_compra'),
     path('compras/cargar-excel/', views.cargar_compra_excel, name='cargar_compra_excel'),
+    path('compras/finalizar-excel/', views.finalizar_compra_excel, name='finalizar_compra_excel'),
     path('compras/confirmar/', views.confirmar_compra, name='confirmar_compra'),
     path('compras/<int:compra_id>/', views.detalle_compra, name='detalle_compra'),
     # ============ COMPRAS MANUALES ============
