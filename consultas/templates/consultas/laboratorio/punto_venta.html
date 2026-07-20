@@ -136,23 +136,22 @@
                     <div class="row row-cols-1 row-cols-md-2 g-1" id="listaExamenes">
                         {% for examen in examenes %}
                         <div class="col examen-item">
-                            <div class="card examen-card h-100" data-id="{{ examen.id }}" style="border-left-width: 3px;">
+                            <div class="card examen-card h-100" data-id="{{ examen.id }}"
+                                 onclick="this.querySelector('form').submit()"
+                                 style="cursor: pointer; border-left-width: 3px; transition: background-color 0.2s;"
+                                 onmouseover="this.style.backgroundColor='#e8f4fd'"
+                                 onmouseout="this.style.backgroundColor=''">
                                 <div class="card-body p-1">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div>
-                                            <span class="fw-bold small">{{ examen.nombre|truncatechars:25 }}</span>
+                                            <span class="fw-bold small card-title">{{ examen.nombre|truncatechars:25 }}</span>
                                             <small class="text-muted d-block">{{ examen.get_tipo_display }}</small>
                                         </div>
                                         <span class="fw-bold text-primary small">S/ {{ examen.precio }}</span>
                                     </div>
-                                    <div class="mt-1 text-end">
-                                        <form method="post" action="{% url 'agregar_al_carrito' examen.id %}" class="d-inline">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-sm btn-outline-primary py-0 px-1" style="font-size: 0.7rem;">
-                                                <i class="fas fa-cart-plus"></i> Agregar
-                                            </button>
-                                        </form>
-                                    </div>
+                                    <form method="post" action="{% url 'agregar_al_carrito' examen.id %}" class="d-none">
+                                        {% csrf_token %}
+                                    </form>
                                 </div>
                             </div>
                         </div>
