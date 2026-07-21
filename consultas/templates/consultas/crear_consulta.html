@@ -373,34 +373,6 @@ function cargarDoctores(tarifaId, tipoConsulta, especialidad) {
 </script>
 
 <!-- DEBUG VISUAL -->
-<div style="background: #f0f0f0; padding: 15px; margin-top: 20px; border: 2px solid blue; border-radius: 5px;">
-    <h6 style="color: blue;">🔍 DEBUG - Estado del Sistema</h6>
-    <table style="width: 100%; border-collapse: collapse;">
-        <tr>
-            <td><strong>Tarifas activas:</strong></td>
-            <td>{{ tarifas|length }}</td>
-            <td style="color: {% if tarifas %}green{% else %}red{% endif %};">
-                {% if tarifas %}✅{% else %}❌{% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td><strong>Ecografías:</strong></td>
-            <td>{{ ecografias|length }}</td>
-            <td style="color: {% if ecografias %}green{% else %}red{% endif %};">
-                {% if ecografias %}✅{% else %}❌{% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td><strong>Tópicos:</strong></td>
-            <td>{{ topicos|length }}</td>
-            <td style="color: {% if topicos %}green{% else %}red{% endif %};">
-                {% if topicos %}✅{% else %}❌{% endif %}
-            </td>
-        </tr>
-    </table>
-    <p style="margin-top: 10px; font-size: 12px; color: #666;">
-        ⚡ Si ves esto pero no los combos, revisa la consola (F12)
-    </p>
-</div>
+
 
 {% endblock %}
