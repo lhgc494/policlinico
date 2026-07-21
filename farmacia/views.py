@@ -1768,10 +1768,12 @@ def agregar_combo_carrito(request, combo_id):
             'item_id': item_id,
             'tipo': 'combo',
             'combo_id': combo.id,
-            'nombre': combo.nombre,
+            'nombre': combo.nombre if combo.nombre and combo.nombre != '-' else ', '.join([cm.medicamento.nombre_comercial for cm in combo.medicamentos.all()[:3]]),
             'medicamentos': medicamentos_detalle,
             'subtotal': total_combo,
         })
+
+        print(f"DEBUG combo agregado: {item_id} - nombre: {combo.nombre}")
         
         # Recalcular total
         carrito['total'] = sum(item['subtotal'] for item in carrito['items'])
