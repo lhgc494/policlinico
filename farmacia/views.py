@@ -53,6 +53,8 @@ def es_farmacia(user):
 @grupo_requerido('administrador')
 def lista_medicamentos(request):
     """Lista todos los medicamentos con filtros"""
+    from datetime import date
+    
     query = request.GET.get('q', '')
     categoria_id = request.GET.get('categoria', '')
     activo = request.GET.get('activo', 'si')
@@ -70,7 +72,12 @@ def lista_medicamentos(request):
     if categoria_id:
         medicamentos_qs = medicamentos_qs.filter(categoria_id=categoria_id)
 
-    if activo == 'si':
+    if activo == 'vencidos':
+        medicamentos_qs = medicamentos_qs.filter(
+            activo=True,
+            fecha_vencimiento__lt=date.today()
+        )
+    elif activo == 'si':
         medicamentos_qs = medicamentos_qs.filter(activo=True)
     elif activo == 'no':
         medicamentos_qs = medicamentos_qs.filter(activo=False)
@@ -90,11 +97,6 @@ def lista_medicamentos(request):
     medicamentos_activos = Medicamento.objects.filter(activo=True)
     bajo_stock_count = sum(1 for m in medicamentos_activos if m.bajo_stock)
     proximos_vencer_count = sum(1 for m in medicamentos_activos if m.proximo_vencer)
-    
-    # DEBUG
-    for m in medicamentos_activos:
-        if m.proximo_vencer:
-            print(f"PRÓXIMO: {m.nombre_comercial} - dias: {m.dias_vencimiento} - fecha: {m.fecha_vencimiento}")
 
     context = {
         'medicamentos': medicamentos,
