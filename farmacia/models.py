@@ -453,8 +453,10 @@ class Medicamento(models.Model):
     @property
     def proximo_vencer(self):
         """¿Próximo a vencer (4 meses = 120 días)?"""
-        if self.fecha_vencimiento and self.dias_vencimiento is not None:
-            return 0 < self.dias_vencimiento <= 120
+        if self.fecha_vencimiento:
+            hoy = date.today()
+            dias = (self.fecha_vencimiento - hoy).days
+            return 0 <= dias <= 120
         return False
 
     @property
