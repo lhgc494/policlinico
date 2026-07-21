@@ -53,15 +53,12 @@ def es_farmacia(user):
 @grupo_requerido('administrador')
 def lista_medicamentos(request):
     """Lista todos los medicamentos con filtros"""
-    # Obtener parámetros de filtro
     query = request.GET.get('q', '')
     categoria_id = request.GET.get('categoria', '')
-    activo = request.GET.get('activo', 'si')  # 'si', 'no', 'todos'
+    activo = request.GET.get('activo', 'si')
 
-    # Query base
     medicamentos_qs = Medicamento.objects.all()
 
-    # Aplicar filtros
     if query:
         medicamentos_qs = medicamentos_qs.filter(
             Q(codigo__icontains=query) |
@@ -77,28 +74,27 @@ def lista_medicamentos(request):
         medicamentos_qs = medicamentos_qs.filter(activo=True)
     elif activo == 'no':
         medicamentos_qs = medicamentos_qs.filter(activo=False)
-    # Si es 'todos', no filtramos
 
-    # Ordenar
     medicamentos_qs = medicamentos_qs.order_by('nombre_comercial')
 
-    # Paginación
     paginator = Paginator(medicamentos_qs, 15)
     page_number = request.GET.get('page')
     medicamentos = paginator.get_page(page_number)
 
-    # Obtener categorías para el filtro
     categorias = Categoria.objects.filter(activa=True)
 
-    # Estadísticas - ¡CORREGIDO!
     total_medicamentos = Medicamento.objects.count()
     activos_count = Medicamento.objects.filter(activo=True).count()
     inactivos_count = Medicamento.objects.filter(activo=False).count()
     
-    # Calcular contadores de propiedades (EN MEMORIA)
     medicamentos_activos = Medicamento.objects.filter(activo=True)
     bajo_stock_count = sum(1 for m in medicamentos_activos if m.bajo_stock)
     proximos_vencer_count = sum(1 for m in medicamentos_activos if m.proximo_vencer)
+    
+    # DEBUG
+    for m in medicamentos_activos:
+        if m.proximo_vencer:
+            print(f"PRÓXIMO: {m.nombre_comercial} - dias: {m.dias_vencimiento} - fecha: {m.fecha_vencimiento}")
 
     context = {
         'medicamentos': medicamentos,
@@ -107,13 +103,11 @@ def lista_medicamentos(request):
         'categoria_id': categoria_id,
         'activo': activo,
         'titulo': 'Inventario de Medicamentos',
-
-        # Estadísticas
         'total_medicamentos': total_medicamentos,
         'activos_count': activos_count,
         'inactivos_count': inactivos_count,
-        'bajo_stock': bajo_stock_count,           # ¡NOMBRE CORREGIDO!
-        'proximos_vencer': proximos_vencer_count, # ¡NOMBRE CORREGIDO!
+        'bajo_stock': bajo_stock_count,
+        'proximos_vencer': proximos_vencer_count,
     }
 
     return render(request, 'farmacia/lista_medicamentos.html', context)
