@@ -6,7 +6,7 @@ from decimal import Decimal
 from datetime import date
 
 # Configurar Django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings_production')
 django.setup()
 
 from farmacia.models import Medicamento, Categoria, Proveedor
@@ -109,7 +109,7 @@ def importar_medicamentos(excel_path):
                 categorias_creadas += 1
 
             # Procesar precios (manejar #DIV/0!)
-            precio_raw = row.get('precio')
+            precio_raw = row.get('Precio')
             try:
                 if pd.isna(precio_raw) or str(precio_raw) == '#DIV/0!':
                     precio_venta = Decimal('0')
@@ -169,9 +169,9 @@ def importar_medicamentos(excel_path):
                 'codigo': str(codigo_raw).strip(),
                 'codigo_barras': codigo_barras,  # ✅ Ahora es None si está vacío
                 'categoria': categoria,
-                'nombre_comercial': str(row.get('comercial', '')).strip()[:200] or f"Producto {codigo_raw}",
-                'principio_activo': str(row.get('compuesto', '')).strip()[:200] or None,
-                'forma_farmaceutica': str(row.get('presentacion', '')).strip()[:100] or None,
+                'nombre_comercial': str(row.get('Comercial', '')).strip()[:200] or f"Producto {codigo_raw}",
+                'principio_activo': str(row.get('Compuesto', '')).strip()[:200] or None,
+                'forma_farmaceutica': str(row.get('Presentacion', '')).strip()[:100] or None,
                 'registro_sanitario': str(row.get('REGISTRO SANITARIO', '')).strip()[:50] or None,
                 'cantidad_por_caja': cantidad_por_caja,
                 'lote': str(row.get('Lote', '')).strip()[:50] or None,
@@ -227,7 +227,6 @@ def importar_medicamentos(excel_path):
     print("="*60)
 
 if __name__ == "__main__":
-    # Ruta correcta al archivo Excel en Windows (WSL)
-    excel_path = "/mnt/c/Users/soporte.aqp4/Documents/bd-policlinico.xlsx"
-    
+    import sys
+    excel_path = sys.argv[1] if len(sys.argv) > 1 else "medicamentos_reales.xlsx"
     importar_medicamentos(excel_path)
